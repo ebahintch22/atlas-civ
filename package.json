@@ -1,10 +1,20 @@
 {
   "name": "atlas-rass-2017",
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Prototype d'un Atlas des indicateurs sanitaires deployé sur le cloud",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
   },
+  "keywords": [
+    "sig-moca",
+    "heroku",
+    "gis specialist",
+    "Bahintchie",
+    "Eric Renaud"
+  ],
+  "author": "Eric Bahintchie",
+  "license": "MIT",
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
@@ -12,5 +22,9 @@
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "morgan": "~1.9.1"
+  },
+  "engines": {
+    "node": "12.4.x",
+    "npm": "6.9.0"
   }
 }
