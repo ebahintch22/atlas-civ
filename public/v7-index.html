@@ -17,10 +17,12 @@
 
     		
     		const http_server_exe_mode = true; 
-    		var script_array = [
+    		var script_array_offline = [
     			{ name : "data_geo" , src: "./data-offline/geodatabase.js"},
     			{ name : "data_attr", src: "./data-offline/attrdatabase.js"}
     		]
+    
+
 			// Opera 8.0+
 			var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
 			    // Firefox 1.0+
@@ -376,8 +378,8 @@
 
 		<script src="./v7-loader.js" charset="utf-8"></script>
 
-		<script src="./data-offline/geodatabase.js" charset="utf-8"></script>
-		<script src="./data-offline/attrdatabase.js" charset="utf-8"></script>
+		<!--script src="./data-offline/geodatabase.js" charset="utf-8"></script>
+		<script src="./data-offline/attrdatabase.js" charset="utf-8"></script-->
 
 		<script src="./v7-chart-d3v3.js"></script>
 		<script src="./v7-map.js"></script>
