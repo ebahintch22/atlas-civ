@@ -8,7 +8,7 @@ var metaDataBase = {
 	geo_dataset :{
 		name : "district_sante",
 		label: "Découpage national en districts sanitaire",
-		path : "./data/geojson/civ_district_sante.geojson"
+		path : "./data/geojson/civ_district_sante-light.geojson"
 	},
 	tables : [
 		"demographic",
