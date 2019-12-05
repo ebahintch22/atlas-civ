@@ -1,10 +1,10 @@
 {
   "name": "atlas-rass-2017",
   "version": "1.0.0",
-  "description": "Prototype d'un Atlas des indicateurs sanitaires deployé sur le cloud",
+  "description": "Prototype d'un Atlas des indicateurs sanitaires déployé sur le cloud",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "nodemon ./bin/www"
   },
   "keywords": [
     "sig-moca",

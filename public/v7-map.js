@@ -122,13 +122,12 @@ var g = legendSvg.append('g')
 	 .attr("y", -6);
 
 
-ui_render_selectTable_Components(metaDataBase);
+ui_render_ThematicSelectList_Component(metaDataBase);
 ui_render_colorPaletteSelect(metaDataBase)
 create_histogram_object();
-Activated_dataFrame("demographic");	//activate the default dataframe 
+Activate_thematic_section("demographic");	//activate the default dataframe 
 before_app_initialization = false ;
 set_routes();
-
 
 
 
@@ -137,14 +136,13 @@ function create_histogram_object(){
 	histogram.initChart();
 	//sysecho("dataKeyVal", dataKeyVal);
 	//histogram.setData(dataKeyVal);
-	
 }
 
-function Activated_dataFrame(frame_name){
+function Activate_thematic_section(frame_name){
 	load_dataframe(frame_name, 
 		function(data){	// Here note that the @data param  is the active dataframe section in metaDataBase
-			//sysecho("data for Table select template", data);
-			ui_render_selectKey_component(data);	// update key selectlist control
+			//look_at("data", data)
+			ui_render_keySelectList_component(data);	// update key selectlist control
 			currentKey = "FLD1";					// get (refactoring: allow to be read from metabase section and ...
 			currentMetaTable = data ;	
 
@@ -165,22 +163,40 @@ function Activated_dataFrame(frame_name){
 
 		function(errorDesc){
 			alert(errorDesc);
-		})
+		}
+	)
 }
+/*Vérifie l'existence dans l'objet "data" des propriétés figurant dans
+"propertyList". Retourne un array des propriétés manquantes (ie propriété de 
+"chl_fld_arr" manquante dans "data")
+*/
+function  get_missing_fields (in_data, searchFields){
+	var base_fields = Object.keys(in_data)
+	var missing_fields = searchFields.reduce(function( accum, fld_name ){
+		if ( base_fields.indexOf(fld_name)==-1) {
+			accum.push(fld_name)
+		} 
+		return accum;
+	}, []);
 
+	return missing_fields;
+		
+}
 
 function load_dataframe(frame_name, callBack,  errCallBack){
 
 	var newframe = metaDataBase.table_details.find(function(frame){ return frame.name === frame_name});
     //currentMetaTable = (!newframe)? currentMetaTable : newframe;
+    //look_at("newframe", newframe)
     if (!newframe) { 
     	errCallBack( "invalid dataframe " + frame_name + " encoutered. Check metaDataBase"); 
     	return null;
     }
+
     //Two case may exist :
     // 1- load from file and 
     // 2- read from memory
-    //sysecho("(load_dataframe)newframe", newframe);
+    sysecho("(load_dataframe)newframe", newframe);
 
     get_statsData( newframe.name, newframe.path, function(data) {
     	//sysecho("DATA from get_statsData", data);
@@ -224,25 +240,6 @@ function load_dataframe(frame_name, callBack,  errCallBack){
     			callBack(null, features);
     	}
     }
-	/*d3.csv( newframe.path, function(data) {
-		sysecho("JSON_TABLE for " + newframe.path , data);
-		stats_table_set = generate_statistic_tables (data)
-		dataById = stats_table_set["district"];
-		dataKeyVal = stats_table_set["district_raw"];
-		mapData = data;
-		if (!geo_dataset_is_load) {
-
-			d3.json(metaDataBase.geo_dataset.path, function( error, features){
-				geo_dataset_is_load = true;
-				preload_geoDataSet(features)	
-				//sysecho("newframe ", newframe);
-				callBack(newframe);
-			});
-
-		} else {
-			callBack(newframe);
-		}
-	});	*/
 }
 
 
@@ -317,7 +314,7 @@ function getValueOfData(d) {
 function generate_statistic_tables(data){
 
 	var tmp_data = d3.nest().key(function(d) { return d.LEVEL; }).rollup(function(d) { return d; }).map(data);
-	//sysecho("tmp_data extracted from d3.nest", tmp_data);
+	sysecho("tmp_data extracted from d3.nest", tmp_data);
 	
 	var data_keyVal_region = tmp_data.REGION;
 	var data_keyVal_district = tmp_data.DISTRICT;
@@ -340,7 +337,7 @@ function sysecho(the_title, the_value){
 	if (typeof  the_value === "object" ){
 			the_value = JSON.stringify(the_value);
 	} 
-	//console.log (the_title + ":" + the_value);
+	console.log (the_title + ":" + the_value);
 }
 
 function doZoom() {
@@ -409,7 +406,7 @@ function getIdOfFeature(f) {
 
 	 // We update the legend caption. To do this, we take the text of the
 	 // currently selected dropdown option. 
-	 // var keyDropdown    = d3.select('#select-key').node(); //TODO : BE SIMPLIFYED We just need to 
+	 // var keyDropdown  = d3.select('#select-key').node(); //TODO : BE SIMPLIFYED We just need to 
 	 // var selectedOption = keyDropdown.options[keyDropdown.selectedIndex]; // take the current short_name value of KEY
 	 // g.selectAll('text.caption').text(selectedOption.text);
 
@@ -423,20 +420,7 @@ function updateGraphic(){
 	var graph_infos = get_graphic_infos();
 	histogram.draw( graph_infos);
 }
-// function get_graphic_infos(){
 
-// 	return {
-// 		x: currentKey,
-// 		y: "ADM_NAME",
-// 		title : currentMetaTable.label + " : " + currentMetaField.short_name ,
-// 		y_unit  : "District",
-// 		x_unit  : currentMetaField.unit,
-// 		deco_infos_1 : "Ce graphique dépeint le nombre de cas " + currentMetaField.long_name + " par district en 2017",
-// 		deco_infos_2 : "Le département de TOUBA enregistre le plus de cas enregistrés",
-// 		deco_infos_3 : "Le département de TOUBA enregistre le moins de cas enregistrés",
-// 		deco_source : " Généré par Atlas Santé - Source de données " + currentMetaTable.source
-// 	}
-// } 
 
 function get_graphic_infos() {
     return {
@@ -522,6 +506,7 @@ function ui_render_details(tmplt_data){
 
 	d3.select('#details').html(detailsHtml);
 	 // Hide the initial container.
+
 	d3.select('#initial').classed("hidden", true);	
 	d3.select('#sysinfos').classed("hidden", true);	
 	d3.select('#details').classed("hidden", false);
@@ -529,7 +514,7 @@ function ui_render_details(tmplt_data){
 	dyn_height = svg.style("height");
 }
 
-function ui_render_selectTable_Components(data){
+function ui_render_ThematicSelectList_Component(data){
 	//sysecho("data for Table select template", data);
 
 	var componentHtml = Mustache.render(tmplt_table_select, data);
@@ -537,21 +522,22 @@ function ui_render_selectTable_Components(data){
 	d3.select('#select-table').on('change', function(a) {
 		// Change to the current option triggers call to the function load metaTable.
 		 var tmpTable = d3.select(this).property('value');
-		 after_dataFrame_Changed(tmpTable);
+		 after_thematic_section_Changed(tmpTable);
 	});		
 }
+
 function ui_render_colorPaletteSelect(data){
 	var componentHtml = Mustache.render( tmplt_palette_select  , data);
 	d3.select('#palette_selector-wrapper').html(componentHtml);
 }
 
-function ui_render_selectKey_component(data){
+function ui_render_keySelectList_component(data){
 	//console.log("data for select template", data);
 	var componentHtml = Mustache.render(tmplt_key_select, data);
 	d3.select('#var_selector-wrapper').html(componentHtml);
 
 	d3.select('#select-key').on('change', function(a) { 	// Change to the current key triggers call
-		var tmpKey  = d3.select(this).property('value');		// to the function to update the colors.
+		var tmpKey = d3.select(this).property('value');    // to the function to update the colors.
 		after_selectKey_Changed(tmpKey)
 	 });
 	//console.log("Html rendererd for select key :", componentHtml);
@@ -638,8 +624,9 @@ function showDetails(f) {
  	 updateLegend(true);
  	 updateGraphic();
  }
- function after_dataFrame_Changed(frame_name){
- 	Activated_dataFrame(frame_name)
+ function after_thematic_section_Changed(frame_name){
+ 	//alert("user asked dataFrame " + frame_name)
+ 	Activate_thematic_section(frame_name)
  }
 
 function after_colorPalette_selected(palette_name){
@@ -681,4 +668,8 @@ function histogram_draw(){
 	console.log("Histogram reload asked");
 	histogram.draw();
 	navigate("home");
+}
+
+function look_at(varName, varValue ){
+	alert (varName + ":" + varValue)
 }
