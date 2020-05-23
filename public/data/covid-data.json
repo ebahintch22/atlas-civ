@@ -946,5 +946,18 @@
 		"nb_sample": 1164,
 		"incidence": 0.034,
 		"sum_sample": 22233
+	},
+	{
+		"date": "23/05/2020",
+		"new_case": 25,
+		"new_healed": 42,
+		"new_deceased": 1,
+		"sum_case": 2366,
+		"sum_healed": 1188,
+		"sum_deceased": 30,
+		"active_case": 1148,
+		"nb_sample": 727,
+		"incidence": 0.034,
+		"sum_sample": 22960
 	}
 ]
