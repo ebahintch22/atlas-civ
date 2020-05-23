@@ -1,0 +1,417 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title> Version 1.0.7- Atlas Sanitaire - Côte d'Ivoire  - RASS 2017 </title>
+		<!--link href="../vendors/skeleton/2.0.4/skeleton.css" rel="stylesheet"-->
+  		<link href="./vendors/font-awesome/4.7/css/font-awesome.min.css" rel="stylesheet">
+		<link href="v7-style.css" rel="stylesheet" type="text/css">
+		<link href="v7-style-tooltips.css" rel="stylesheet" type="text/css">
+    	<!--link href="./favicon-16x16.png" rel="icon"-->	
+    	<link href="./health-atlas-16x16.png" rel="icon">	
+
+    	<script type="text/javascript">
+    		/*
+				false => excution en mode offline sans serveur WEB
+				true  => exécution avec un serveur web (local ou distant)
+    		*/
+
+    		var App = {};
+    		App.tooltip_delay = 2000;
+    		App.tooltip_delay_on = false;
+    		
+    		const http_server_exe_mode = true; 
+    		var script_array_offline = [
+    			{ name : "data_geo" , src: "./data-offline/geodatabase.js"},
+    			{ name : "data_attr", src: "./data-offline/attrdatabase.js"}
+    		]
+    
+
+			// Opera 8.0+
+			var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+			    // Firefox 1.0+
+			var isFirefox = typeof InstallTrigger !== 'undefined';
+			    // At least Safari 3+: "[object HTMLElementConstructor]"
+			var isSafari = Object.prototype.toString.call(window.HTMLElement).indexOf('Constructor') > 0;
+			    // Internet Explorer 6-11
+			var isIE = /*@cc_on!@*/false || !!document.documentMode;
+			    // Edge 20+
+			var isEdge = !isIE && !!window.StyleMedia;
+			    // Chrome 1+
+			var isChrome = !!window.chrome && !!window.chrome.webstore;
+			    // Blink engine detection
+			var isBlink = (isChrome || isOpera) && !!window.CSS;
+
+    	</script>
+	    <style>
+	    	.container {
+				position: fixed;
+				top: 0px;
+				left:0px;
+			}
+			td > .op-group-wrapper{
+				position:relative; 
+				width:100%; 
+				height:100%;
+				padding:0px;
+			}
+			 .op-single-wrapper{
+			 	position:absolute; 
+			 	background-color: #ddd;
+			 	left: 0px; 
+			 	right: 0px;
+			 	padding-left: 0px;
+			 	text-align: left; 
+			 	margin:0px; 
+			 	font-size: 0.75rem;
+			 }
+			 .op-tab-left{
+			 	padding-left: 10px;
+			 }
+			 .op-textpad-in{
+			 	padding: 10px;
+			 }
+
+			select { 
+				font-size: 0.8rem; 
+				float:left; 
+				left:20px;
+				font-weight: bold;
+			}
+			
+			label {
+				font-size: 0.8rem; 
+				left:20px;
+				font-weight: bold;			 	
+			 }
+			ul, li {
+				text-align:left;
+			}
+
+		    table {
+				background-color: #fff;
+				border: none;
+				border-collapse: collapse;
+				font-size: 0.8em; /* currently ems cause chrome bug misinterpreting rems on body element */
+				line-height: 1.6;
+				font-weight: 400;
+				font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+				color: #222;
+		    }
+		    .detail-table {
+		    	position:relative; 
+		    	/*position: absolute; */
+		    	top:0px; 
+		    	left:0px;
+		    	width: 100%; 
+		    	font-color:blue; 
+		    	font-size:12px; 
+		    	margin-left:0px;
+		    }
+
+			.detail-table th,
+			.detail-table td {
+				font-size: 0.75rem;
+				padding: 0.1rem 0px 0.2rem 0px;
+				text-align: left;
+				border-bottom: 1px solid #E1E1E1;
+				background-color: #fff;
+			 }
+			.detail-table th:first-child,
+			.detail-table td:first-child {
+				padding-left: 5; }
+			.detail-table th:last-child,
+			.detail-table td:last-child {
+				padding-right: 5; 
+			}
+			.detail-header {
+				display: flex; 
+				flex-direction: column; 
+				justify-content: center;
+				height:40px;
+				line-height: 10px;
+				width: 100%;
+				background-color: #555;
+			}
+			.pane-header {
+				display: flex; 
+				flex-direction: column; 
+				justify-content: center;
+				top:0px;
+				height:40px;
+				line-height: 10px;
+				width: 100%;
+				background-color: #555;
+			}
+			.pane-header span:first-child{
+				font-size: 1rem; float: left;
+				color:#ddd;
+				left:0px;	margin-left:0.5rem;
+				text-align: left/*			
+				position :absolute;  
+				 */
+			}
+
+			.detail-header span:first-child{
+				font-size: 1rem; float: left;
+				color:#ddd;
+				left:0px;	margin-left:0.5rem;
+				text-align: left/*			
+				position :absolute;  
+				 */
+			}		
+			.detail-header a{
+				position :absolute; 
+				top: 0px; 
+				right:0px; 
+				margin: 5px 10px; 
+				font-size:20px;
+			}	
+			.enveloppe {
+				position:absolute; 
+				width:100%;
+				background-color:#c9d6c0 ;
+				top:40px; 
+				bottom:0px; 
+				overflow-y: auto;
+			}
+			.close-bttn, #close-details {
+				color: #FA5858;
+				text-decoration: none;
+				font-size: 2rem;
+				text-align: right;
+				line-height: 1.5rem;
+				position: absolute; 
+				top: 0px; 
+				right:0px; 
+				margin: 5px 10px; 
+				font-size:1.5rem;
+		 }
+		 /*span.cmd-bttn {
+			float: right; 
+			margin-right: 20px; 
+			border: #fff 1px solid; 
+			padding: 1px 5px;"
+		 }*/
+
+
+	    </style>
+
+
+
+	</head>
+	<body>
+
+		<table  class="container" style="height:100%; width:100%;">
+			<tr class="op-header" style="height:40px;">
+				<td colspan="3" style="  background-color: #555; color: #ddd;">						
+					<span  style = "position:absolute; top:0px;left:0px; margin-left: 20px; font-size: 22px" > Atlas Sanitaire - Côte d'Ivoire  - RASS 2017 version 1.1  </span>
+
+					<span id="bttn-setting" class="bttn rnd-4" > <a href="#/noaction/app-settings" onclick="showSettings()" > <i class="fa fa-cog fa-1x" aria-hidden="true"></i> Paramétrage </a></span>
+
+					<span id="bttn-sysinfos" class="bttn rnd-4" > <a href="#/action/app-settings" onclick="showSysInfos()" > <i class="fa fa-cog fa-1x" aria-hidden="true"></i> Infos Sys </a></span>
+									
+				</td>
+			</tr>
+			<tr class="op-content" style="background-color: cyan; height:calc(100%-80px);">
+
+				<td style="background-color: #ddd; width: 25%;">
+					<div id="details-wrapper" class="op-group-wrapper">
+
+						<span id="table_selector-wrapper" class="op-single-wrapper op-tab-left" style="top:8px;"> 
+						 <!-- La liste déroulante des indicateurs --> </span>
+
+						<div id="var_selector-wrapper" class="op-single-wrapper op-tab-left" style="top:60px;"> 
+							    <!--COMMAND PANEL--></div>
+						
+						<div id="details" class="hidden op-single-wrapper" style="top:120px; bottom:0px;">
+								<!--DETAILS PANEL--> </div>	
+
+						<div id="sysinfos" class="hidden op-single-wrapper" style="top:120px;bottom:0px;">
+								<!--INFO SYSTEM--> </div>	
+
+						<div id="initial" class="op-single-wrapper op-textpad-in" style="top:120px;">
+							<hr>
+						 	<h3> A propos de l'outil :</h3>
+							 <ul>
+								 <li> La présente maquette vise à montrer la faisabilité d'un outil de Dataviz destiné à la consultation interactive des statistiques sanitaires à plusieurs niveaux d'aggrégation (ici, le district et la région sanitaires) </li>
+							 </ul>
+							 <hr>
+						 	<h3> Instructions d'utilisation :</h3>
+							 <ul>
+								 <li> Changer le groupe d'indicateurs de santé en sélectionnant une nouvelle table.</li>
+								 <li> Changer la variable à cartographier via la liste déroulante.</li>
+								 <li> Cliquer un district sanitaire sur la carte pour afficher les détails.</li>
+								 <li> Zoomer/dézoomer à l'aide de la molette de la souris pour modifier l'échelle d'affichage.</li>
+							 </ul>						 
+						</div>
+					</div>
+				</td>
+
+				<td style="background-color: #fafafa; width: 40%;">
+					<div id="map-container"  class="op-group-wrapper"  > 
+						<div id="map">    <!--Map container--> </div>
+						<div id="legend" style="font-size: 11px;" > <!--Legend container--> </div>	
+					</div>				
+				</td>
+
+				<td id="extra-pane" style="background-color: #ccc;">
+				  <div class="op-group-wrapper">
+			
+						<!--div id="tool_bar-wrapper" style="position: absolute; top:0px; left: 10px; margin: 5px 15px 5px 0px; width: 100%; height: 30px; 
+						background-color: #ddd;"> 
+						    <a href="#/action/test-debug/reload_chart" style="float: left; margin-left: 10px;"> reload data <i class="fa fa-check" aria-hidden="true"></i></a>
+						</div-->	
+
+						<div id="barchart-wrapper" style="position: absolute; top:0px; left: 0px; margin: 0px; width: 100%; bottom: 0px; background-color: #ddd;"> 
+						</div>
+
+
+						<div id="setting-wrapper" class="hidden" style="position:absolute; width:100%; height:100%;">
+							
+							 <div class="pane-header">  
+							 	<span >
+							 		<strong> Panneau de configuration </strong> 
+							 	</span>
+							 	<a href="#" id="close-settings" class="close-bttn" onclick="hideSettings(); return false;"> 
+							 		<i class="fa fa-window-close fa-1x"></i>  
+							 	</a>
+							 </div>
+							 <div class="enveloppe" style="/*top:30px;*/">
+							 	<div id="start-server-socket" style="position: absolute; top:100px; left: 20px; margin: 5px 15px 5px 0px"> 
+							 		<div><a href="#/action/start-server"> Démarrer le Serveur...</a></div> 
+							 		<div><a href="#/action/stop-server"> Arrêter le Serveur...</a></div> 
+							 		<hr>
+							 		<div><a href="#/action/connect-client"> Connect Client...</a></div> 
+							 		<textarea id="socket-report" rows="8" cols="50"></textarea>
+								</div>							 	
+							 	<div id="palette_selector-wrapper"  style="position: absolute; bottom:10px; left: 20px; margin: 5px 15px 5px 0px"> 
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</td>				
+			</tr>
+
+			<tr  class="op-footer" style="height:40px;">
+				<td colspan="3" style="background-color: #eee; font-size: 11px;color:#aaa; border-top: solid 1px #555;">
+					<center><strong>Sources de données </strong>: Rapport Annuel sur la Situation Sanitaire (RASS) 2017 - pour les <strong>données statistiques</strong> et <strong>géographiques</strong> -  DIIS/MSHP (Côte d'Ivoire) --- Pour nous contacter : +225 01 05 49 54 - ebahintch@gmail.com</center>
+				</td>				
+			</tr>
+		</table>
+
+
+		 <!-- Mustache template, rendered later to show the details of a feature -->
+		 <script id="template-key_selector" type="x-tmpl-mustache">
+			<label for="var_selector"> Choisir l'indicateur à cartographier : </label><br/>
+			<select id="select-key" name="var_selector" >
+				{{#data_fields}}
+				 	<option value = "{{fld_name}}"" {{field_selected}}> {{short_name}}  </option>
+				{{/data_fields}}
+			</select>
+		</script>
+
+		<script id="template-table_selector" type="x-tmpl-mustache">
+			<label for="table_selector"> Choisir une thématique : </label><br/>
+			<select id="select-table" name="table_selector" >
+				{{#table_details}}
+				     {{#valid}}<option value = "{{name}}"" {{table_selected}}> {{label}} </option>{{/valid}}
+				{{/table_details}}
+			</select>
+		</script>
+
+
+		<script id="template-details" type="x-tmpl-mustache">
+			 <div class="pane-header">
+			 	<span>
+			 		<strong> {{ ADM_NAME }} </strong> 
+			 	</span>
+			 	<a href="#" id="close-details"  onclick="hideDetails(); return false;">    
+			 		<i class="fa fa-window-close fa-1x"></i>  
+			 	</a>
+			 </div>
+			 <div class="enveloppe">
+				 <table class="detail-table">
+				 	{{{ HTML_TABLE_ROWS}}}
+				 </table>
+			</div>
+		</script>	
+
+		<script id="template-palette_selector" type="x-tmpl-mustache">
+			<nav id="main_nav">
+			  <ul>
+			    <li>
+					<a> Modifier la palette </a>
+				  <ul>
+					{{#color_palettes}}
+						<li class="x{{name}}"><a href="#/action/select-palette/{{name}}">{{name}}<br>
+					 		<span class="color-cll  q0-9"> </span>
+					 		<span class="color-cll  q1-9"> </span>
+					 		<span class="color-cll  q2-9"> </span>
+					 		<span class="color-cll  q3-9"> </span> 
+					 		<span class="color-cll  q4-9"> </span> 
+					 		<span class="color-cll  q5-9"> </span> 
+					 		<span class="color-cll  q6-9"> </span> 
+					 		<span class="color-cll  q7-9"> </span> 
+					 		<span class="color-cll  q8-9"> </span> </a>
+				  		</li> <br>
+					{{/color_palettes}}
+				  </ul>
+			    </li>
+			  </ul>
+			</nav>	
+		</script>
+		<script id="template-sysinfos_pane" type="x-tmpl-mustache">
+			 <div class="pane-header">
+			 	<span>
+			 		<strong> SYS INFOS </strong> 
+			 	</span>
+			 	<a href="#" class="close-bttn"  onclick="hideSysInfos(); return false;">    
+			 		<i class="fa fa-window-close fa-1x"></i>  
+			 	</a>
+			 </div>
+			 <div class="enveloppe">
+				<table class="detail-table">
+
+					<tr><th colspan="2"> View settings </th> </tr>
+					<tr><th> svg size : </th> <td> W: {{ svg_width }}; H: {{svg_height}} </td>	</tr>
+					<tr><th> Range : </th> <td>  {{range}} </td></tr>
+					<tr><th> Domain values : </th> <td> {{domain}} </td></tr>	
+
+					<tr><th colspan="2"> Current Table properties </th> </tr>	
+					<tr><th> Table name :  </th> <td>{{table.name}}   </td></tr>	 		
+					<tr><th> Table number :</th> <td>{{table.table_num }}   </td></tr>	 		
+					<tr><th> Title :       </th> <td>{{table.label}}   </td></tr>	 		
+					<tr><th> File path :   </th> <td>{{table.path}} </td></tr>	 		
+					<tr><th> Data source : </th> <td>{{table.source}} </td></tr>	 		
+
+					<tr><th colspan="2"> Current field properties </th> </tr>	 		
+					<tr><th> key name : </th>    <td>    {{field.fld_name}}   </td></tr>	 		
+					<tr><th> Short name : </th> <td>    {{field.short_name}} </td></tr>	 		
+					<tr><th> Long name : </th> <td>    {{field.long_name}} </td></tr>	 		
+					<tr><th> Unit : </th> <td>    {{field.unit}} </td></tr>	 		
+				</table>
+			</div>
+
+		</script>
+
+
+    	<script src="./vendors/jquery/3.3.1/jquery-3.3.1.js" type="text/javascript"></script>
+     	<script src="./vendors/director/1.2.6/director.min.js" type="text/javascript"></script>
+		<script src="./vendors/d3/v3/d3.v3.min.js" charset="utf-8"></script>
+		<script src="./vendors/mustache/2.2.1/mustache.min.js" charset="utf-8"></script>
+		<script src="./v7-manifest.js" charset="utf-8"></script>
+
+		<script src="./v7-loader.js" charset="utf-8"></script>
+		<script src="./v7-utility.js" charset="utf-8"></script>
+
+		<!--script src="./data-offline/geodatabase.js" charset="utf-8"></script>
+		<script src="./data-offline/attrdatabase.js" charset="utf-8"></script-->
+
+		<script src="./v7-chart-d3v3.js"></script>
+		<script src="./v7-map.js"></script>
+	 </body>
+</html>
+
+
+	

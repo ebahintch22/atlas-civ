@@ -1,0 +1,137 @@
+	.chart-container {
+	  position: relative;
+	  margin: auto;
+	  height: 35vh;
+	  width: 50vw;
+	}
+
+	.svg-container {
+	    display: inline-block;
+	    position: relative;
+	    width: 100%;
+	    padding-bottom: 0.5%;
+	    vertical-align: top;
+	    overflow: visible;
+	    border: 1px solid #888;
+	    background-color: #fcfcfc; /*#333*/
+	}
+
+	.text-container {
+	    display: inline-block;
+	    position: relative;
+	    color: #aaa;
+	    width: 23%;
+	    padding-bottom: 0.5%;
+	    left-padding : 77%;
+	    vertical-align: top;
+	    overflow: visible;
+	    border: 1px solid #888;
+	    background-color: #686a6b;
+	    
+	}
+	.text-container-left {
+	    display: inline-block;
+	    position: relative;
+	    color: #aaa;
+	    width: 45%;
+	    padding-bottom: 0.5%;
+	    vertical-align: top;
+	    overflow: visible;
+	    border: 1px solid #888;
+	    background-color: #686a6b;
+	    
+	}
+
+	table {
+		font-family:  "arial";
+		font-size: 0.7em;
+		color : #333;
+	}
+
+	.svg-content {
+	    display: inline-block;
+	    position: absolute;
+	    top:  0;
+	    left: 0;
+	}
+
+	svg {
+	  font: 10px sans-serif; 
+	  overflow: hidden;
+	}
+
+	.bar-green {
+		stroke: #70A800;
+		stroke-width: 1px;
+		fill: seagreen;
+		fill-opacity: 0.35;
+		clip-path: url(#clip);
+
+	}
+	.bar-blue {
+		stroke: royalblue;
+		fill: royalblue;
+		fill-opacity: 0.25;
+		clip-path: url(#clip);
+	}
+
+	.bar-red {
+		stroke: orangered;
+		fill: orangered; 
+		fill-opacity: 0.35;
+		clip-path: url(#clip);
+	}
+
+	.bar-Tomato {
+		stroke: tomato;
+		fill: tomato; 
+		fill-opacity: 0.35;
+		clip-path: url(#clip);
+	}
+
+	.bar-yellow{
+		stroke: yellow;
+		fill: yellow; 
+		fill-opacity: 0.35;
+		clip-path: url(#clip);
+	}
+
+	.text-label{
+		fill: #aaa;
+	}
+
+	.subBar { 
+	  fill: #777;
+	  opacity: 0.5;
+	}
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #aaa;
+	  shape-rendering: crispEdges;
+	}
+
+
+	.y.axis line, 
+	.y.axis path {
+	  stroke: #aaa;
+	}
+
+	.y.axis text{
+	  fill: #aaa;
+	}  
+
+	.brush .extent {
+	  stroke: #fff;
+	  fill: steelblue;
+	  fill-opacity: .25;
+	  shape-rendering: crispEdges;
+	}
+
+    rect.mover {
+        stroke: red;
+        stroke-opacity: .1;
+        fill: lightSteelBlue;
+        fill-opacity: .15;
+    }
