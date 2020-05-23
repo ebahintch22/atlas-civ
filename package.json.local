@@ -4,7 +4,7 @@
   "description": "Prototype d'un Atlas des indicateurs sanitaires déployé sur le cloud",
   "private": true,
   "scripts": {
-        "start": "node ./bin/www"
+        "start": "nodemon ./bin/www"
       },
   "keywords": [
     "sig-moca",
