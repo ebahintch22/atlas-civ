@@ -4,7 +4,9 @@ var before_app_initialization = true;
 var COVIDATA;
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 //window.onresize = after_window_resized ;
-
+function isMobileDevice() {
+    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+};
 
 var badge_template = `<div class="card text-center {{color_class}}">
 	    <div class="card-body" style="padding: 0.5em;">
@@ -72,16 +74,6 @@ var badge_template = `<div class="card text-center {{color_class}}">
 		}
 	);	
 
-/*
-	function after_window_resized(){
-		//Exit if initialization is on course
-	 	if (before_app_initialization)  return;
-	 	if (winResizeTimerID) { clearTimeout(winResizeTimerID);}
-	 		
-	 	winResizeTimerID = setTimeout( 
-	 		function(){
-				USER_INTERFACE_update_layout()
-				winResizeTimerID = 0;
-	 	} ,	1500)
-	}	
-*/
+function notify_initialization_abort(){
+	$("#start-up-failure-msgbox").html("Cette version d'Atlas Santé Côte d'Ivoire n'est pas adaptée pour une consultation sur un terminal Mobile...")
+}

@@ -140,8 +140,16 @@ function bind_layout_reset_to_windowResize(){
 
 function notify_application_readiness(){
 	setTimeout( function(){
-		before_app_initialization = false;
-		$("#curtain").addClass("hidden")
+		if (isMobileDevice() == false ){
+
+			before_app_initialization = false;
+			$("#curtain").addClass("hidden")
+
+		} else {
+			notify_initialization_abort()
+
+		}
+
 	}, 3000)
 
 }
