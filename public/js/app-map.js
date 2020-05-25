@@ -140,7 +140,7 @@ function bind_layout_reset_to_windowResize(){
 
 function notify_application_readiness(){
 	setTimeout( function(){
-		if (isMobileDevice() == false ){
+		if (isMobileDevice() == false && force_mobile() == false ){
 
 			before_app_initialization = false;
 			$("#curtain").addClass("hidden")
@@ -150,7 +150,7 @@ function notify_application_readiness(){
 
 		}
 
-	}, 3000)
+	}, 2000)
 
 }
 
@@ -801,20 +801,6 @@ function ui_pre_render_format(obj){
  }
 
 
-/*
-function after_window_resized(){
-	//Exit if initialization is on course
- 	if (before_app_initialization)  return;
- 	opera_console.log()
- 	if (winResizeTimerID) { clearTimeout(winResizeTimerID);}
- 		
- 	winResizeTimerID = setTimeout( 
- 		function(){
-			updateLegend(null, true);
-			histogram.draw(get_graphic_infos());
-			winResizeTimerID = 0;
- 	} ,	1500)
-}*/
 
 function set_routes(){
 	var routes = {

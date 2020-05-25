@@ -149,7 +149,7 @@ var fake_table = `<div id="opera-rass-table" style= "position: relative; height:
 var fake_monography = `<div id="opera-rass-monography" style= "position: relative; height:80vh;"> 
   	 ${ upcoming_function({
   	 	  fa_icon :        "fa-bar-chart",
-  	 	  messageTitle :   "Génération autmatique de monographie",
+  	 	  messageTitle :   "Génération de monographies",
   	 	  messageContent : "Cette section contiendra les monographies générées<br> à la volée sur les circonscriptions sanitaires actives"
   	 }) }
   </div> `

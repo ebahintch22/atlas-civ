@@ -1,5 +1,6 @@
 	
 var winResizeTimerID = 0;
+var behave_as_mobile_device_on_start_up = true;
 var before_app_initialization = true;
 var COVIDATA;
 // We add a listener to the browser window, calling updateLegend when the window is resized.
@@ -8,6 +9,9 @@ function isMobileDevice() {
     return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 };
 
+function force_mobile(){
+	return (behave_as_mobile_device_on_start_up == true)
+}
 var badge_template = `<div class="card text-center {{color_class}}">
 	    <div class="card-body" style="padding: 0.5em;">
 	     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
@@ -75,5 +79,7 @@ var badge_template = `<div class="card text-center {{color_class}}">
 	);	
 
 function notify_initialization_abort(){
-	$("#start-up-failure-msgbox").html("Cette version d'Atlas Santé Côte d'Ivoire n'est pas adaptée pour une consultation sur un terminal Mobile...")
+	$("#start-up-failure-msgbox").html(  `Désolé, cette version d'Atlas Santé Côte d'Ivoire est destinée aux terminaux Desktop!`)
+	$("#spinner").html( ``)
+	$("#spinner-message").html( ``)
 }
