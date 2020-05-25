@@ -1,6 +1,6 @@
 	
 var winResizeTimerID = 0;
-var behave_as_mobile_device_on_start_up = true;
+var behave_as_mobile_device_on_start_up = false;
 var before_app_initialization = true;
 var COVIDATA;
 // We add a listener to the browser window, calling updateLegend when the window is resized.
