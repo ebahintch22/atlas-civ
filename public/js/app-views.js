@@ -231,7 +231,7 @@ var navtabController_RASS = ui_render_navtabs(
 				name: "sys_info" , 
 				label : "outils d'administration", 
 				html_content : get_opera_console_template_TODO() ,
-				enabled : false
+				enabled : true
 			}
 		]
     },

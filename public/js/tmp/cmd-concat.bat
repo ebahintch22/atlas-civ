@@ -1,1 +1,0 @@
-COPY /A utility.js+app-manifest.js+app-templates.js+app-controller-navtabs.js+app-controller-dropdown.js+app-controller-legend.js+app-controller-charts.js+app-views.js+app-chart-covid.js+app-chart-rass.js+app-map.js+app.js+app-ajax.js  concat-component.js

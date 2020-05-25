@@ -1,0 +1,86 @@
+
+
+/* ------ Global styles -------*/
+    body{margin: 0px;}
+    .outer-div
+    {
+        background-color: #d4d6d6;
+        padding : 25% 10%; 
+        z-index: 1200;
+        width: 100%;
+        height:100%;
+        position:fixed;
+        margin:0px;
+    }
+
+    .inner-div {
+        font-family: "arial black";
+        color : #2a263c;
+        margin: auto;
+        width:70%; height:40%;
+        border:1px none rgb(255,255,255);
+        text-align: center;
+    }
+
+    .loader {
+        display: inline-block;
+        position: relative;
+        margin: auto;
+        width: 5em; 
+        height: 5em;  
+    }
+
+    .sig-title { 
+        font-family: "arial black", "time new roman" ; 
+        font-weight: 500;
+        font-size: 5em;  
+        -webkit-text-stroke-width: 0.01em; 
+        -webkit-text-stroke-color: white; 
+    }
+
+    .sig-subtitle { 
+        font-family: "arial" ; 
+        font-size: 15px;  font-weight: 550; color: #fff;
+        margin-top: 1em;
+    }
+
+    .loader span:nth-child(1n)
+    {
+        background: #FFF;
+        -webkit-animation: load1 1.4s infinite ease-in-out;
+        animation: load1 1.4s infinite ease-in-out;
+        position: absolute;
+        width: 10px;
+        height: 5px;
+        content: '';
+    }
+
+    .loader span:nth-child(1) {  left: 4em; top: 3em;   -webkit-animation-delay: -0.16s;  animation-delay: -0.16s; }
+    .loader span:nth-child(2) {  left: 3em; top: 3em;   -webkit-animation-delay: -0.32s;  animation-delay: -0.32s; }
+    .loader span:nth-child(3) {  left: 2em; top: 3em;   -webkit-animation-delay: -0.48s;  animation-delay: -0.48s; }
+    .loader span:nth-child(4) {  left: 1em; top: 3em;   -webkit-animation-delay: -0.64s;  animation-delay: -0.64s; }
+    .loader span:nth-child(5) {  left: 0em; top: 3em;   -webkit-animation-delay: -0.80s;  animation-delay: -0.80s; }
+
+
+    @-webkit-keyframes load1 {
+        0%   { box-shadow: 0 -1em #bcd1e2; height: 2em;  background-color: #bcd1e2;}
+        40%  { box-shadow: 0  0em #bcd1e2; height: 1em;  background-color: #bcd1e2;}
+        95%  { box-shadow: 0 -1em #bcd1e2; height: 2em;  background-color: #bcd1e2;} 
+        100% { box-shadow: 0 -1em #bcd1e2; height: 2em;  background-color: #bcd1e2;}  
+    }
+
+    @keyframes load1 {
+         0%  { box-shadow: 0 -0.5em #bcd1e2; height: 2em;  background-color: #bcd1e2;}
+        40%  { box-shadow: 0  0em   #bcd1e2; height: 1.5em;  background-color: #bcd1e2;}
+        95%  { box-shadow: 0 -0.5em #bcd1e2; height: 2em;  background-color: #bcd1e2;} 
+        100% { box-shadow: 0 -0.5em #bcd1e2; height: 2em;  background-color: #bcd1e2;}             
+    } 
+
+
+    .rideau {
+        background: linear-gradient( 45deg, #9bc9e8, #0b596d );
+        background-size: 100% 100%;
+    }
+
+
+

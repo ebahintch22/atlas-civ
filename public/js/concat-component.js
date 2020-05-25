@@ -2047,7 +2047,7 @@ var navtabController_RASS = ui_render_navtabs(
 				name: "sys_info" , 
 				label : "outils d'administration", 
 				html_content : get_opera_console_template_TODO() ,
-				enabled : false
+				enabled : true
 			}
 		]
     },
@@ -2723,10 +2723,10 @@ theme_controller = ui_render_ThematicSelectList_Component_ex( metaDataBase.table
 theme_controller.update_view(initialTable)
 Activate_thematic_section(initialTable);	//activate the default dataframe 
 
-before_app_initialization = false ;
 set_routes();
 bind_Scale_Selector()
 bind_layout_reset_to_windowResize();
+//before_app_initialization = false ;
 
 
 function bind_layout_reset_to_windowResize(){
@@ -2746,6 +2746,14 @@ function bind_layout_reset_to_windowResize(){
 				winResizeTimerID = 0;
 	 	} ,	450)
 	}
+}
+
+function notify_application_readiness(){
+	setTimeout( function(){
+		before_app_initialization = false;
+		$("#curtain").addClass("hidden")
+	}, 3000)
+
 }
 
 function Activate_thematic_section(frame_name){
@@ -2776,7 +2784,7 @@ function Activate_thematic_section(frame_name){
 			after_selectLayer_Changed( metaData.layerList[0] ); //TO DO: transform this code to more parametrizable version 
 
 			key_controller.update_view("FLD1");//after_selectKey_Changed("FLD1");//TO DO: transform this code to more parametrizable version
-
+			notify_application_readiness()
 
 		}, 
 
