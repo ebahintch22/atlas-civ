@@ -106,4 +106,4 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public.my_visitors
-    OWNER to postgres;
+    OWNER to qpmsllscptmnak;;
