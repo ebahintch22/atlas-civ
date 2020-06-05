@@ -1,8 +1,6 @@
 
 
     function create_Chart( in_data , elt_id, Cfg ){
-    	//var CHART_CONFIG = JSON.stringify(Cfg)
-		//console.log("HIGHLEVEL CONFIG ::---------------------------->>> " +CHART_CONFIG)
     	
 
 		var dateFormat = d3.time.format("%d-%m-%Y");

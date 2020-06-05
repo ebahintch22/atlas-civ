@@ -1,128 +1,46 @@
-//const http_server_exe_mode = false;
-var navigate = function (path) {
-	  	var current = window.location.href;
-	    window.location.href = current.replace(/#(.*)$/, '') + '#' + path;
-	}
 
 
-var winResizeTimerID = 0;
-var before_app_initialization = true
-var geo_dataset_is_load = false;
+function app_start_up(){
 
-// We add a listener to the browser window, calling updateLegend when the window is resized.
-window.onresize //= after_window_resized ;
+	opera_console.addLog( toJSON(user_agent ) );
 
-var initialTable = "tech_platform" ;//   "covid-19" //" "covid-19"; //demographic" ;//;"demographic"
-var initialKey = "FLD1";
+	var zoom = d3.behavior.zoom().scaleExtent([1, 15])
 
-var currentTable;
-var currentMetaTable ;
-var currentKey ;
-var currentMetaField ;
-var currentGeoDataset;
-
-	 
-var currentDetailTemplate;
-
-var stats_table_set
-var dataById = d3.map();
-var dataKeyVal ;
-var mapData;
-
-var DARKROUGE = "#550000" , 
-	VERT = "#63d617", 
-	JAUNE = "#ffff00",   
-	ORANGE = "#ffae00" , 
-	ROUGE = "#ef2710",
-	DARKGREEN = "#005500"
-
-//this is a meta template (ie: a template of template) that is processed in two steps :
-//  step 1: At dataframe load to generate the details template reflecting the strcture of the thematic table
-//  step 2: At User click on mapFeature to generate details informations
-var tmplt_details_virtual = ` 
-		{{#data_fields}}  
-		    <tr>
-		 	    <th style='text-align: left; color: #000; font-weight: normal;'>
-		 	        <i class='fa fa-info-circle fa-2x css-tooltip'  aria-hidden='true'> 
-		 	           <span class='css-tooltiptext'> {{ long_name }} </span>  
-		 	        </i> {{ short_name }} 
-		 	        {{#show_unit}} 	<em>({{unit}})</em>: {{/show_unit}}
-				</th>
-				<td  style='text-align: right; color: #1b66a7;font-weight: bold;'> 
-		 	    	{{ tag_open }} {{ fld_name }} {{ tag_close }}
-		 	    </td> 
-		 	</tr> 	
-		{{/data_fields}}
-	`;
-
-    Mustache.parse(tmplt_details_virtual);
-
-
-var tmplt_rowDescription;
-
-
-
-var width = 400, height = 400;
-var dyn_width = width ,  dyn_height = height;
-
-var svg = d3.select('#map').append('svg')
-	.attr("preserveAspectRatio", "xMidYMid")
-	.attr("viewBox", "0 0 " + width + " " + height)
-	.attr("width", "100%")
-	.attr("height", "100%");
-
-var mapFeatures = svg.append('g').attr('class', 'features YlGnBu');
-var projection = d3.geo.mercator().scale(1);
-var zoom = d3.behavior.zoom().scaleExtent([1, 15])
 				.on('zoom', doZoom);
-	svg.call(zoom);
-
-var tooltip = d3.select("#map")
-			.append("div")
-			.attr("class", "tooltip hidden");
+				svg.call(zoom);
 
 
-var quantize = d3.scale.quantize().range(d3.range(9).map(function(i) { return 'q' + i + '-9'; }));			
-var path = d3.geo.path()
-    .projection(projection);
+	mapBackground.on("click", function(){ MAP_overlay_draw([]) })
 
+	opera_console.addLog("Démarrage d'Atlas Santé Côte d'Ivoire.." , "success")
+	legendController = new generate_legend( "#legend", {
+			"title"  : "Legend Controller....",
+			"width"  : 400,
+			"domain"  : [ 1,  4,  15, 100, 800] ,
+			"tickSize": 15,
+			"offset"  : {	"x": 15,  "y": 23 } ,
+			"cell" : { 	"height": 12, "width" : 45} ,
+			"colorscale" : [ DARKROUGE, ROUGE, ORANGE, JAUNE, VERT, DARKGREEN ] ,
+			"custom_label" : [ "Poor" , "labour", "Middle class", "High class" , "Rich", "billionnaire" ] 
+		}
+	)
 
-var formatNumber = d3.format('.2f'); // We prepare a number format which will always return 2 decimal places.
-var legendX = d3.scale.linear();     // For the legend, we prepare a very simple linear scale. 
- // Domain and range will be set later as they depend on the data currently shown.
+	
+	theme_controller = ui_render_ThematicSelectList_Component_ex( metaDataBase.table_details , "#opera-theme-selector-1");
+	theme_controller.update_view(initialTable)
+	Activate_thematic_section(initialTable);	//activate the default dataframe 
 
+	set_routes();
+	bind_Scale_Selector()
+	bind_layout_reset_to_windowResize();
+    //before_app_initialization = false ;
+}
 
-
-
-
-var chartController_rass
-var legendController = new generate_legend( "#legend", {
-		"title"  : "Legend Controller....",
-		"width"  : 400,
-		"domain"  : [ 1,  4,  15, 100, 800] ,
-		"tickSize": 15,
-		"offset"  : {	"x": 15,  "y": 23 } ,
-		"cell" : { 	"height": 12, "width" : 45} ,
-		"colorscale" : [ DARKROUGE, ROUGE, ORANGE, JAUNE, VERT, DARKGREEN ] ,
-		"custom_label" : [ "Poor" , "labour", "Middle class", "High class" , "Rich", "billionnaire" ] 
-	}
-)
-
-
-theme_controller = ui_render_ThematicSelectList_Component_ex( metaDataBase.table_details , "#opera-theme-selector-1");
-theme_controller.update_view(initialTable)
-Activate_thematic_section(initialTable);	//activate the default dataframe 
-
-set_routes();
-bind_Scale_Selector()
-bind_layout_reset_to_windowResize();
-//before_app_initialization = false ;
 
 
 function bind_layout_reset_to_windowResize(){
 	window.onresize = function(){
 
-		//opera_console.addLog("Windows resized detected")
 
 	 	if (before_app_initialization)  return;
 	 	if (winResizeTimerID) { clearTimeout(winResizeTimerID);}
@@ -146,11 +64,10 @@ function notify_application_readiness(){
 			$("#curtain").addClass("hidden")
 
 		} else {
-			notify_initialization_abort()
-
+			notify_initialization_abort(` Désolé, cette version d'Atlas Santé Côte d'Ivoire est destinée aux terminaux Desktop!`)
 		}
 
-	}, 2000)
+	}, 3000)
 
 }
 
@@ -160,6 +77,8 @@ function Activate_thematic_section(frame_name){
 			//look_at("metaData", metaData)
 			
 			toogle_layout(metaData)
+
+         
 			layer_arr = extractLayerObjects( metaDataBase.geo_datasets, metaData.layerList, "name")
 			layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" )
 
@@ -169,6 +88,8 @@ function Activate_thematic_section(frame_name){
 
 			//set the current color palette to that of the metaTable
 			update_color_palette(metaData.color_palette);
+
+			update_dataTableView(metaData)
 
 			//update the property window html template to the new table columnset					
 			tmplt_rowDescription = ui_updateTemplate_details({
@@ -210,7 +131,9 @@ function toogle_layout(metadata){
  	 currentMetaField = currentMetaTable.data_fields.find( function(f){ return (f.fld_name === inKEY) });
  	 updateMapColors();
  	 updateGraphic();
-
+ 	 if (currentMetaTable.layout != "COVID"){
+ 	    navtabController_RASS.show_tab(rass_active_panel)
+ 	 }
  }
 
 function after_selectLayer_Changed(inLayerKeY){
@@ -226,8 +149,9 @@ function after_selectLayer_Changed(inLayerKeY){
 		geo_dataset_is_load = true;
 
 		currentKey = currentKey? currentKey : "FLD1"
-		currentGeoDataset = geo_dataset;
+		currentMetaGeo = geo_dataset;
 		
+		update_dataTableView(currentMetaTable);
 		preload_geoDataSet(features);
 
 		after_selectKey_Changed(currentKey);
@@ -379,6 +303,7 @@ function preload_geoDataSet(features){
 	path = d3.geo.path()
 	    .projection(projection);
 
+	currentGeodataset = features
 
 	var scaleCenter = calculateScaleCenter(features);
 	projection.scale(scaleCenter.scale)
@@ -394,9 +319,44 @@ function preload_geoDataSet(features){
 		.enter().append('path')
 			.attr('class', "ogis-nocolor")
 			.attr('d', path)
-            .on('mousemove', showTooltip)// When the mouse moves over a feature, show the tooltip.
-			.on('mouseout', hideTooltip) // When the mouse moves out of a feature, hide the tooltip.
-			.on('click', showDetails);	// When a feature is clicked, show the details of it.
+            .on( 'mousemove'   , showTooltip )// When the mouse moves over a feature, show the tooltip.
+			.on( 'mouseout'    , hideTooltip ) // When the mouse moves out of a feature, hide the tooltip.
+			.on( 'click'       , after_feature_clicked );	// When a feature is clicked, show the details of it.
+}
+
+function after_feature_clicked(d){
+	MAP_overlay_draw([d])
+	clicked(d)
+}
+
+function MAP_zoom_on_feature(feat_code , action_code){
+	
+     opera_console.addLog(` The metaGeo objet is : ${toJSON(currentMetaGeo) }  <br>
+     	Searching Feature found on criteria =====>> " +
+        d.properties[ ${currentMetaGeo.idfield} ] == ${feat_code} "`
+     )
+	var f = currentGeodataset.features.find( function(d){
+		return( d.properties[currentMetaGeo.idfield] == feat_code )
+	})
+	if (f){
+		after_feature_clicked(f)
+		//MAP_overlay_draw([f])
+		//clicked(f)
+	} 
+}
+
+function MAP_overlay_draw( feature_arr ){
+
+
+	mapFeaturesOverlay.selectAll('path')
+	   .remove();
+
+    mapFeaturesOverlay.selectAll('path')
+        .data( feature_arr )
+        .enter().append('path')
+        	//.attr('class', 'selected-feature-centered')
+        	.attr('pointer-events', 'none')
+        	.attr('d' , function(d) {return path(d)})
 }
 
 function updateMapColors(){
@@ -412,9 +372,10 @@ function updateMapColors(){
 	if (r.source == "auto") {
 
 		renderer = get_renderer( r.count, [ (1 + vmin ) , vmax ] , r.color_range )
+		metaData.renderer_interpolated = renderer;
 
 	} else {
-	// le moteur de rendu "manual" doit pas atre modifié, par définition
+	// Par principe, le moteur de rendu "manual" doit pas être modifié;
 		renderer = r
 	}
 
@@ -427,7 +388,7 @@ function updateMapColors(){
 		.style('fill', function(d){
 		  var attr_line = dataById[getIdOfFeature(d)]; 
 		  var attr_value = !attr_line ? 0: getValueOfData(attr_line) ;
-		  //return quantize( attr_value );
+
 		  return color_mapper( attr_value );
 	})
 
@@ -436,6 +397,79 @@ function updateMapColors(){
     updateLegend( renderer , true);
  }
 
+//Si le Layout est approprié, la mise à jour du tableau de données est enclenchée
+function update_dataTableView( metadata ){
+
+	if ( metadata.layout !=  "COVID" ) {
+		//Generate IF NOT EXISTS the datatable column definition for the metadata
+		metadata.dt = metadata.dt || {}
+		metadata.dt.colArray = metadata.dt.colArray || generate_colArray(metadata)	
+
+		dataTableController = dataTableController || 
+		new ui_render_dataTable( "#dttable_container", 
+			{
+				id : "dttable_object",
+				colMapArray : metadata.dt.colArray,
+				height : "80vh"
+			}, 
+			mapData,
+			after_row_selected,
+			after_row_unselected
+		)
+
+		if (  dataTableController.reloadNeeded()  ){
+			dataTableController.reloadData( metadata.dt.colArray , mapData )
+		}
+	}
+   //--------------------------------------------------------------
+	function after_row_selected(row){
+		var feature_code = row["CODE"];
+		MAP_zoom_on_feature(  feature_code, 0  )
+	};
+
+	function after_row_unselected(row){
+		var feature_code = row["CODE"];
+		MAP_zoom_on_feature(  feature_code , -1  )
+	}
+}
+
+
+
+function clicked(d) {
+
+	  opera_console.addLog( " Objet paramètre d'exécution de la function dans clicked : " + JSON.stringify(d))
+	  var x, y, k;
+	  var g = mapFeatures;
+	  var g0 = mapFeaturesOverlay;
+
+	  if (d && centered !== d) {
+		    var centroid = path.centroid(d),  x = centroid[0]; y = centroid[1];  k = 4;
+		    centered = d;
+		    g0.selectAll("path").attr("class", "selected-feature-centered")
+
+	  } else {
+		    x = width / 2;
+		    y = height / 2;
+		    k = 1;
+		    centered = null;
+		    g0.selectAll("path").attr("class", "selected-feature")
+	  }
+
+	  g.selectAll("path")
+	      .classed("active", centered && function(d) { return d === centered; });
+
+
+	  g.transition()
+	      .duration(750)
+	      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+	      .style("stroke-width", 0.5 / k + "px");
+  
+  	  g0.transition()
+	      .duration(750)
+	      .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")scale(" + k + ")translate(" + -x + "," + -y + ")")
+	      .style("stroke-width", 0.25 / k + "px");
+}
+
 
 
 
@@ -443,7 +477,7 @@ function updateMapColors(){
  function updateLegend( _renderer , forceUpdate = false) {
  	var renderer = (_renderer ) ? 
  				   _renderer : 
- 				   currentMetaTable.renderer
+ 				   currentMetaTable.renderer_interpolated
 
  	opera_console.addLog("_renderer is equal to" + JSON.stringify(renderer))
  	opera_console.addLog("currentMetaTable.renderer is " + JSON.stringify(currentMetaTable.renderer))
@@ -453,6 +487,7 @@ function updateMapColors(){
  	//Exit if initialization is on course
  	if (before_app_initialization && !forceUpdate)  return;
 
+ 	//Capture legend container size (WIDTH)
 	var legendWidth = d3.select('#map').node().getBoundingClientRect().width - 30;
 	var title = renderer.legendtitle ? renderer.legendtitle : field.short_name
 
@@ -500,16 +535,18 @@ function getValueOfData(d) {
 
 
 function doZoom() {
+	if (ZOOM_IS_DISABLE) return
  	mapFeatures.attr("transform",
  	  "translate(" + d3.event.translate + ") scale(" + d3.event.scale + ")")
-// Keep the stroke width proportional. The initial stroke width
-// (0.5) must match the one set in the CSS.
+		// Keep the stroke width proportional. The initial stroke width
+		// (0.5) must match the one set in the CSS.
 	.style("stroke-width", 0.5 / d3.event.scale + "px");
+	//opera_console.addLog(  "ZOOM PARAMS : translate(" + d3.event.translate + ") scale(" + d3.event.scale + ")"  )
 }
 
 function getIdOfFeature(f) {
 	//console.log(f.properties.code);
-	var  idfield = currentGeoDataset.idfield
+	var  idfield = currentMetaGeo.idfield
 	return f.properties[idfield];
 }
 
@@ -527,7 +564,7 @@ function showTooltip(f) {
 	//delay_console(d);
 
 	var tooltips_text = `
-		<span>${currentGeoDataset.names.value}</span><br>
+		<span>${currentMetaGeo.names.value}</span><br>
 		<span style="font-size:11px; color: #111;">
 			 ${d.ADM_NAME} 
 		</span><hr style="height: 1px; margin: 1px">
@@ -549,6 +586,9 @@ function showTooltip(f) {
 	 var left =mouse[0] + 5 // Math.min(width - 4 * place_name.length, mouse[0] + 5);
 	 var top = mouse[1] + 15;
 
+      //capture_random( left, top)
+
+
 	 // Show the tooltip (unhide it) and set the name of the data entry.
 	 // Set the position as calculated before.
 	 tooltip.classed('hidden', false)
@@ -567,6 +607,12 @@ function showTooltip(f) {
 
 
  }
+
+ function capture_random(n,m){
+ 	if (test_capture_serie.length > 500) return
+ 	test_capture_serie.push({ alive: n, iddle: Math.round(0.05*m)})
+ 	if (test_capture_serie.length == 500) opera_console.addLog( "SERIE PSEUDO ALEATOIRE =>> " + JSON.stringify(test_capture_serie))
+ }
  
 function hideTooltip() {
  	tooltip.classed('hidden', true);
@@ -579,27 +625,6 @@ function showDetails(f) {
 	 // ...and use the ID to get the data entry.
 	 var d = dataById[id];
 
-	 // 
-	 // The details HTML output is just the name
-	 var tmplt_data = d? d :  {
-		 	 ADM_NAME: "Région Sanitaire Abidjan", 
-			 FLD1: "n/a", 
-			 FLD2: "n/a",
-			 FLD3: "n/a",
-			 FLD4: "n/a",
-			 FLD5: "n/a",
-			 FLD6: "n/a",
-			 FLD7: "n/a",
-			 FLD8: "n/a",
-			 FLD9: "n/a",
-			 FLD10:"n/a",
-			 FLD11:"n/a",
-			 FLD12:"n/a"
-		};
-
-	// Render the Mustache template with the data object and put the resulting
-	// sysecho("details template DATA structure", tmplt_data);
-
 	var tmplt_data = ui_pre_render_format(tmplt_data)
 	ui_render_details(tmplt_data)//  HTML output in the details container.
 }
@@ -607,6 +632,9 @@ function showDetails(f) {
 
 function generate_statistic_tables_ex(data , parser){
 	// TODO:: To be generalized for an arbitrairement number of geographique level
+	// So far we do support  only 2 levels; code maybe broken if the number of level grow
+	// as expected with Atlas REEA.
+
 	var LEVEL   = parser.class_field, 
 	    CODE    = parser.id_field,
 
@@ -638,7 +666,7 @@ function generate_statistic_tables_ex(data , parser){
 function updateGraphic(){
 	var metadata = currentMetaTable
 	var metafield = currentMetaField
-	var metageo = currentGeoDataset
+	var metageo = currentMetaGeo
 
 	if (metadata.layout !=  "COVID" ) { //RASS Chart Layout contain dynamic charts
 
@@ -659,7 +687,7 @@ function updateGraphic(){
 
 function handle_mapMouseover_actions(d){
 
-	if (metadata.layout ==  "COVID" || !chartController_rass) return
+	if (  metadata.layout ==  "COVID" || !chartController_rass ) return
 	chartController_rass
 
 }

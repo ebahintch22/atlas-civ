@@ -244,3 +244,21 @@ g.features path:hover {
   stroke: #000;
   shape-rendering: crispEdges;
 }
+path.selected-feature-centered  {
+	fill : yellow;
+	stroke: red;
+	stroke-width: 1px;
+	opacity: 0.9;
+}
+
+path.selected-feature  {
+	fill : none;
+	stroke: red;
+	stroke-width: 1px;
+	opacity: 1;
+}
+
+rect.rect-background{ 
+	fill: #ddd;
+	stroke:none;
+ }

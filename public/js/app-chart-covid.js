@@ -5,9 +5,9 @@
 		var mvData = data.map(function(d){return d}) 
 
 
-		create_Chart(data, "myChart_1", {
+		create_Chart( data, "covid-canvas-up-1", {
 
-			title : "EVOLUTION CHRONOLOGIQUE DES INDICATEURS EPIDEMIOLODIQUE DU COVID-19",
+			title : "EVOLUTION CHRONOLOGIQUE DES INDICATEURS EPIDEMIOLODIQUES DU COVID-19",
 			label_field : "date_raw",
 			"x-axis-style" : "COVID",
 			"y-axis-1" : {
@@ -52,7 +52,7 @@
 		})
 
 
-		create_Chart(data, "myChart_2", {
+		create_Chart(data, "covid-canvas-up-2", {
 
 			title : "EVOLUTION CHRONOLOGIQUE DES INDICATEURS JOURNALIERS DU COVID-19",
 			label_field : "date_raw",
@@ -106,7 +106,7 @@
 
 
 
-		create_Chart(data, "myChart_3", {
+		create_Chart(data, "covid-canvas-up-3", {
 
 			title : "SUIVI DES CAS CONFIRMES",
 			label_field : "date_raw",			
@@ -134,7 +134,7 @@
 
 
 
-		create_Chart(data, "myChart_21", {
+		create_Chart(data, "covid-canvas-bottom-1", {
 
 			title : "SUIVI DE L'INCIDENCE JOURNALIERE",
 			label_field : "date_raw",
@@ -179,7 +179,7 @@
 			 ]
 		});
 
-		create_Chart(data, "myChart_22", {
+		/*create_Chart(data, "covid-canvas-bottom-2", {
 
 			title : "SUIVI DES CAS CONFIRMES",
 			label_field : "date_raw",
@@ -203,8 +203,8 @@
 					yAxisID : 'y-axis-1' 
 			   }
 			 ]
-		});
-		create_Chart(data, "myChart_23", {
+		});*/
+		create_Chart(data, "covid-canvas-bottom-3", {
 
 			title : "DÉPISTAGES REALISÉS",
 			label_field : "date_raw",
@@ -232,7 +232,8 @@
 
 
 
-
+/*
 	function get_color( named_color , alpha){
 		return color_helper( chartColors[named_color]).alpha(alpha).rgbString()
 	}
+*/

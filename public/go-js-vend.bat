@@ -1,0 +1,2 @@
+COPY /A .\vendors\ua-parser\ua-parser-min.js+.\js\app-admin-tools.js+.\vendors\jquery\3.3.1\jquery-3.3.1.js+.\vendors\director\1.2.6\director.min.js+.\vendors\d3\v3\d3.v3.min.js+.\vendors\mustache\2.2.1\mustache.min.js+.\vendors\object-path\object-path.js+.\vendors\datatable\1.10.18-cdn\datatable.min.js+.\vendors\datatable\1.10.18-cdn\datatable.scroller.min.js+.\vendors\bootstrap\4.4.1\js\bootstrap.js+.\vendors\momentJs\moment.js+.\vendors\chartjs\js\2.9.3\chart.js  js\deploy\js-vendors-fusion.js
+

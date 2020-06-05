@@ -70,7 +70,20 @@
     .loader span:nth-child(4) {  left: 1em; top: 3em;   -webkit-animation-delay: -0.64s;  animation-delay: -0.64s; }
     .loader span:nth-child(5) {  left: 0em; top: 3em;   -webkit-animation-delay: -0.80s;  animation-delay: -0.80s; }
 
+    @-webkit-keyframes load1 {
+        0%   { box-shadow: 0 -1em #fca002; height: 2em;  background-color: #fca002;}
+        40%  { box-shadow: 0  0em #bcd1e2; height: 1em;  background-color: #bcd1e2;}
+        95%  { box-shadow: 0 -1em #bcd1e2; height: 2em;  background-color: #bcd1e2;} 
+        100% { box-shadow: 0 -1em #64ad16; height: 2em;  background-color: #64ad16;}  
+    }
 
+    @keyframes load1 {
+         0%  { box-shadow: 0 -0.5em #64ad16; height: 2em;    background-color: #64ad16;}
+        40%  { box-shadow: 0    0em #bcd1e2; height: 1.5em;  background-color: #bcd1e2;}
+        95%  { box-shadow: 0 -0.5em #fca002; height: 2em;    background-color: #fca002;} 
+        100% { box-shadow: 0 -0.5em #bcd1e2; height: 2em;    background-color: #bcd1e2;}             
+    } 
+/* fca002: orange            #64ad16 vert
     @-webkit-keyframes load1 {
         0%   { box-shadow: 0 -1em #bcd1e2; height: 2em;  background-color: #bcd1e2;}
         40%  { box-shadow: 0  0em #bcd1e2; height: 1em;  background-color: #bcd1e2;}
@@ -84,7 +97,7 @@
         95%  { box-shadow: 0 -0.5em #bcd1e2; height: 2em;  background-color: #bcd1e2;} 
         100% { box-shadow: 0 -0.5em #bcd1e2; height: 2em;  background-color: #bcd1e2;}             
     } 
-
+*/
 
     .rideau {
         background: linear-gradient( 45deg, #9bc9e8, #0b596d );
