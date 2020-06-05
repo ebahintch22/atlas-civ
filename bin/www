@@ -5,9 +5,25 @@
  */
 
 var app = require('../app');
+var Watchdog = require('../server/watchdog');
 var debug = require('debug')('atlas-rass-2017:server');
 var http = require('http');
 
+global.OPERA_DATA_BUS = [];
+global.OPERA = {
+   USER_BUFFER : [],
+   ATTENDANCE_BUFFER : [],
+   Delays : {
+      notifyClient : 150000,
+      adminClient  : 200000,
+      sessionIdle  : 300000,
+      bufferCheck  : 60000
+   },
+   buffer_check_timer : null,
+   buffer_check_function : null
+}
+
+OPERA.buffer_check_timer =  setInterval(Watchdog.check_buffer_func, OPERA.Delays.bufferCheck)
 /**
  * Get port from environment and store in Express.
  */
