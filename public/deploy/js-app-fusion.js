@@ -4936,7 +4936,7 @@ function notify_application_readiness(){
 			notify_initialization_abort(` Désolé, cette version d'Atlas Santé Côte d'Ivoire est destinée aux terminaux Desktop!`)
 		}
 
-	}, 3000)
+	}, 5000)
 
 }
 
@@ -6051,17 +6051,12 @@ var badge_template = `<div class="card text-center {{color_class}}">
 	    <div class="card-body" style="padding: 0.5em;">
 	     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
 	     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
-	     <span style="display: block; 
-	           font-weight: 750; 
-	           font-size: 1.5em; 
-	           padding-bottom: 0.3em;
-	           line-height: 1;"> {{value}}
-	             <span style="font-weight: 350; 
-	             font-weight: 500; 
-	             font-size: 0.6em; 
-	             padding-bottom: 0.3em;
-	             line-height: 1;"> ( {{symbol}}{{delta}})
-	      </span>
+	     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
+               {{value}}
+               <span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
+             				line-height: 1;"> 
+                 ( {{symbol}}{{delta}},  <span style="font-weight: 250;  font-size: 0.8em; ">au {{date}} </span> )  
+               </span>
 	 	</span>
 	  </div>
 	</div>`
@@ -6073,10 +6068,10 @@ var badge_template = `<div class="card text-center {{color_class}}">
 		var d = extract_late_datarow();
 
 	
-		update_badge( "#card-1" , {	color_class : "badge-orange", label : "Cas confirmés (Covid-19)", 	value : d.sum_case , 		delta : d.new_case    } );
-		update_badge( "#card-2" , {	color_class : "badge-yellow", label : "Cas actifs", 	value : d.active_case , 	delta : d.new_case } );
-		update_badge( "#card-3" , {	color_class : "badge-red",	  label : "Décès", 			value : d.sum_deceased, 	delta : d.new_deceased } );
-		update_badge( "#card-4" , {	color_class : "badge-green",  label : "Guéris", 		value : d.sum_healed, 		delta : d.new_healed   } );	
+		update_badge( "#card-1" , {	color_class : "badge-orange", label : "Cas confirmés", 	value : d.sum_case ,        delta : d.new_case , 	   date : d.date_raw   } );
+		update_badge( "#card-2" , {	color_class : "badge-yellow", label : "Cas actifs", 	value : d.active_case , 	delta : d.new_case,  		date : d.date_raw   } );
+		update_badge( "#card-3" , {	color_class : "badge-red",	  label : "Décès", 			value : d.sum_deceased, 	delta : d.new_deceased, 	date : d.date_raw   } );
+		update_badge( "#card-4" , {	color_class : "badge-green",  label : "Guéris", 		value : d.sum_healed, 		delta : d.new_healed, 		date : d.date_raw   } );	
 		
 		function  update_badge( eltId, data ){
 			data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
