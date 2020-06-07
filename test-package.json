@@ -1,7 +1,7 @@
 {
   "name": "atlas-rass-2017",
   "version": "1.0.0",
-  "description": "Prototype d'un Atlas des indicateurs sanitaires déployé en LOCAL",
+  "description": "Prototype d'un Atlas des indicateurs sanitaires déployé sur le cloud",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
@@ -30,3 +30,5 @@
     "npm": "6.9.0"
   }
 }
+
+

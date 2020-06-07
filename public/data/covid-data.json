@@ -1128,5 +1128,18 @@
 		"nb_sample": 628,
 		"incidence": 0.269,
 		"sum_sample": 29856
+	},
+	{
+		"date": "06/06/2020",
+		"new_case": 126,
+		"new_healed": 146,
+		"new_deceased": 0,
+		"sum_case": 3557,
+		"sum_healed": 1750,
+		"sum_deceased": 36,
+		"active_case": 1771,
+		"nb_sample": 756,
+		"incidence": 0.167,
+		"sum_sample": 30612
 	}
 ]
