@@ -344,9 +344,6 @@ function detect_client(){
 var default_field_selection = function(){return (this.fld_name === "FLD1")? 'selected = "selected"' : "";	};
 
 
-
-
-
 function get_renderer ( count, value_range, color_range, labelmap = []){
 	var v = value_range
 	return {
@@ -426,12 +423,6 @@ var COVID_PARSER = {
 			{ ord: 2, value : "REGION", layer : "region_admin"	}
 		 ]
 	};
-
-
-
-//	"./data/geojson/tmp/civ-adm2-region-r2.geojson",
-//	"./data/geojson/tmp/civ-adm1-district-r2.geojson"
-
 
 var metaDataBase = {
 
@@ -528,7 +519,7 @@ var metaDataBase = {
 			valid: true,
 			table_num : "Tableau-99",			
 			layerList : [ "region_admin", "district_admin" ],
-			label: "0- Incidence nationale de la COVID-19",
+			label: "1- Incidence nationale de la COVID-19",
 			unit: "nombre de cas",
 			article: "de ",
 			path : "./data/statistics/tab_99_covid.csv",
@@ -539,7 +530,7 @@ var metaDataBase = {
 				threshold : [ 1, 4, 10, 100],
 				 colormap : ["#ffffff", "#ffbfbf", "#ff8080", "#dd4040", "#660000" ],  
 				 labelmap : ['Aucun cas' , "Incidence faible", "Incidence Moyenne" , "Incidence forte", "Epicentre"],
-			  legendtitle : "Incidence de la Covid-19 (nb. cas confirmés)"
+			  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
 			},
 			layout : "COVID",
 			color_palette: "YlOrRd",
@@ -547,10 +538,10 @@ var metaDataBase = {
 			data_fields : [					
 				{ 
 					fld_name : "FLD1",
-					short_name : "Nb de cas confirmés", 
+					short_name : "Nb de cas confirmés à la maladie à COVID-19", 
 					long_name : " Nombre de cas confirmés de COVID-19", 
 					data_type :  "INT", 
-					unit : "cas confirmés" 
+					unit : "cas confirmés e COVID-19" 
 				}
 			]
 		},
@@ -560,7 +551,7 @@ var metaDataBase = {
 			name : "demographic",
 			layerList : [  "district_sante", "region_sante" ],
 			table_num :"Tableau-DD",
-			label: "1- Données de population (2017)",
+			label: "2- Données de population (2017)",
 			"unit": "population",
 			article: "de ",
 			path : "./data/statistics/tab_01_demography.csv",
@@ -587,7 +578,7 @@ var metaDataBase = {
 			name: "human_ressource",
 			layerList : [  "district_sante", "region_sante" ],
 			table_num :"Tableau-5",
-			label: "2- Ressources des systèmes de santé - Personnel",
+			label: "3- Ressources des systèmes de santé - Personnel",
 			unit: "effectif",
 			article: "d'",
 			path : "./data/statistics/tab_05_human_res.csv",
@@ -618,7 +609,7 @@ var metaDataBase = {
 			name : "ratio_prestataire_pop", 
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau 6",
-			label: "3- Ratio Prestataires de soins - Population",
+			label: "4- Ratio Prestataires de soins - Population",
 			unit: "nombre",
 			article: "de ",
 			path : "./data/statistics/tab_06_ratio_prestataire_pop.csv",
@@ -642,7 +633,7 @@ var metaDataBase = {
 			name : "repartition_etabliss_sante", 
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-7",
-			label: "4- Ressources des systèmes de santé - Etablissements",
+			label: "5- Ressources des systèmes de santé - Etablissements",
 			unit: "nombre",
 			article: "de ",
 			path : "./data/statistics/tab_07_repartition_etabliss_sante.csv",
@@ -674,7 +665,7 @@ var metaDataBase = {
 			name : "ratio_hrsn_espc_pop", 
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-8",
-			label: "5- Ratio établissements de santé/Population",
+			label: "6- Ratio établissements de santé/Population",
 			unit: "nombre",
 			article: "de ",
 			path : "./data/statistics/tab_08_ratio_hrsn_espc_pop.csv",
@@ -696,7 +687,7 @@ var metaDataBase = {
 			name : "other_material", 
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-9",
-			label: "6- Autres ressources materielles (2017)",
+			label: "7- Autres ressources materielles (2017)",
 			unit: "nombre",
 			article: "de ",
 			path : "./data/statistics/tab_09_other_material.csv",
@@ -720,7 +711,7 @@ var metaDataBase = {
 			name : "tech_platform", 
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-10",
-			label: "7- Plateaux techniques et équipements (2017)",
+			label: "8- Plateaux techniques et équipements (2017)",
 			unit: "nombre",
 			article: "de ",
 			path : "./data/statistics/tab_10_tech_platform.csv",
@@ -750,7 +741,7 @@ var metaDataBase = {
 			name : "ratio_ambulance_structure_sante", 
 			table_num :"Tableau-11",
 			layerList : [ "region_sante" , "district_sante"],
-			label: "8- Ratio ambulance par nombre de structure de soin (tab 11)",
+			label: "9- Ratio ambulance par nombre de structure de soin (tab 11)",
 			unit: "nombre",
 			article: "de ",
 			path : "./data/statistics/tab_11_ratio_ambulance_structure_sante.csv",

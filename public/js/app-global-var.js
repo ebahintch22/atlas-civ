@@ -13,7 +13,7 @@ var geo_dataset_is_load = false;
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 window.onresize //= after_window_resized ;
 
-var initialTable = "tech_platform" ;//   "covid-19" //" "covid-19"; //demographic" ;//;"demographic"
+var initialTable = "covid-19" ;//   "covid-19" //" "covid-19"; //demographic" ;//;"demographic"
 var initialKey = "FLD1";
 
 var currentTable;

@@ -13,6 +13,7 @@ function app_start_up(){
 	mapBackground.on("click", function(){ MAP_overlay_draw([]) })
 
 	opera_console.addLog("Démarrage d'Atlas Santé Côte d'Ivoire.." , "success")
+	
 	legendController = new generate_legend( "#legend", {
 			"title"  : "Legend Controller....",
 			"width"  : 400,
