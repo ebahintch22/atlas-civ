@@ -141,17 +141,41 @@
             }
             function generate_colArray(){
 
-                var col_arr = [
-                    { "data": "uuid", "title" : "uuid"},
-                    { "data": "login", "title": "pseudo" },
-                    { "data": "lastname", "title" : "Nom"},
-                    { "data": "firstname", "title" : "Prénoms"},
-                    { "data": "conn_count", "title" : "Nb de visites" },
-                    { "data": "created_on", "title" : "Créé le" },
-                    { "data": "last_conn_started_at", "title" : "Dernière visite débutée à" }
+                var col_arr =  [
+
+                    {"data": "uuid",  "title": "Uuid" },
+                    {"data": "login", "title": "Pseudo" },
+                    {"data": "firstname", "title": "Prénoms" },
+                    {"data": "lastname" , "title": "Nom" },
+                    {"data": "registered" , "title": "Enregistré" },
+                    {"data": "conn_count" , "title": "Nb Visite" },
+                    {"data": "created_on" , "title": "Créé le" },
+                    {"data": "last_conn_started_at" , "title": "Dernière visite (début)" },
+                    {"data": "last_conn_ended_at" , "title": "Dernière visite (Fin)" },
+                    {"data": "online" , "title": "Connecté" },
+                    {"data": "email" , "title": "email" },
+                    {"data": "job" , "title": "Profession" },
+                    {"data": "new_visitor" , "title": "Nouveau visiteur" },
+                    {"data": "ua_browser_name" , "title": "Browser (nom)" },
+                    {"data": "ua_browser_version" , "title": "Browser (Ver)" },
+                    {"data": "ua_engine_name" , "title": "Moteur rendu" },
+                    {"data": "ua_engine_version" , "title": "Moteur rendu (ver)" },
+                    {"data": "ua_os_name" , "title": "OS" },
+                    {"data": "ua_os_version" , "title": "OS version" },
+                    {"data": "ua_device_type" , "title": "Type Client" },
+                    {"data": "ua_cpu_architecture" , "title": "Architect CPU" },
+                    {"data": "boot_exit" , "title": "Résultat init." },
+                    {"data": "boot_exit_how" , "title": "Fin (comment)" },
+                    {"data": "boot_exit_why" , "title": "Fin (raison)"  }
+                    
                 ]
+
                 return(col_arr)
             }
         }
 
     })()
+
+
+
+

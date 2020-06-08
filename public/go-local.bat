@@ -1,2 +1,2 @@
-COPY  ..\config\local\package.json /a ..\package.json /a
-COPY  ..\config\local\.env /a ..\.env /a
+COPY  ..\config\local\package.json /a ..\package.json /b
+COPY  ..\config\local\.env /a ..\.env /b
