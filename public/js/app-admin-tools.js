@@ -144,6 +144,8 @@
                 var col_arr =  [
 
                     {"data": "login", "title": "Pseudo" },
+                    {"data": "firstname", "title": "Prénoms" },
+                    {"data": "lastname" , "title": "Nom" },
                     {"data": "conn_count" , "title": "Nb Visite" },
                     {"data": "created_on" , "title": "Créé le" , "render" : set_as_date },
                     {"data": "last_conn_started_at" , "title": "Dernière visite (début)", "render" : set_as_date },
@@ -159,8 +161,6 @@
                     {"data": "email" , "title": "email" },
                     {"data": "job" , "title": "Profession" },
                     {"data": "new_visitor" , "title": "Nouveau visiteur" },
-                    {"data": "firstname", "title": "Prénoms" },
-                    {"data": "lastname" , "title": "Nom" },
                     {"data": "registered" , "title": "Enregistré" },
                     {"data": "ua_cpu_architecture" , "title": "Architect CPU" },
                     {"data": "boot_exit" , "title": "Résultat init." },
@@ -183,3 +183,10 @@
 
 
 
+
+/*UPDATE public.my_visitors SET firstname='admin-Windows 10', lastname='admin@Desktop'   WHERE uuid ='a5ecb32e-a6f3-11ea-9a76-22000bd88e02';
+UPDATE public.my_visitors SET firstname='admin-Android',    lastname='admin@Mobile'   WHERE uuid ='bff8a3f8-a6f4-11ea-b243-22000bd88e02';
+UPDATE public.my_visitors SET firstname='Ganon',    lastname='NBondanna'   WHERE uuid ='189fbaa4-a73c-11ea-b2ee-22000bd88e02';
+UPDATE public.my_visitors SET firstname='Yahault', lastname='AUGUSTE'   WHERE uuid ='79509898-a76c-11ea-b323-22000bd88e02';
+UPDATE public.my_visitors SET firstname='Dr Wodje', lastname='KACOU'   WHERE uuid ='ea515918-a7ff-11ea-b4e0-22000bd88e02';
+UPDATE public.my_visitors SET firstname='Inconnu', lastname=''   WHERE uuid ='3041a6f2-a84c-11ea-acc7-22000bd88e02';*/
