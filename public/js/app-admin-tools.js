@@ -143,19 +143,11 @@
 
                 var col_arr =  [
 
-                    {"data": "uuid",  "title": "Uuid" },
                     {"data": "login", "title": "Pseudo" },
-                    {"data": "firstname", "title": "Prénoms" },
-                    {"data": "lastname" , "title": "Nom" },
-                    {"data": "registered" , "title": "Enregistré" },
                     {"data": "conn_count" , "title": "Nb Visite" },
-                    {"data": "created_on" , "title": "Créé le" },
-                    {"data": "last_conn_started_at" , "title": "Dernière visite (début)" },
-                    {"data": "last_conn_ended_at" , "title": "Dernière visite (Fin)" },
-                    {"data": "online" , "title": "Connecté" },
-                    {"data": "email" , "title": "email" },
-                    {"data": "job" , "title": "Profession" },
-                    {"data": "new_visitor" , "title": "Nouveau visiteur" },
+                    {"data": "created_on" , "title": "Créé le" , "render" : set_as_date },
+                    {"data": "last_conn_started_at" , "title": "Dernière visite (début)", "render" : set_as_date },
+                    {"data": "last_conn_ended_at" , "title": "Dernière visite (Fin)", "render" : set_as_date },
                     {"data": "ua_browser_name" , "title": "Browser (nom)" },
                     {"data": "ua_browser_version" , "title": "Browser (Ver)" },
                     {"data": "ua_engine_name" , "title": "Moteur rendu" },
@@ -163,19 +155,31 @@
                     {"data": "ua_os_name" , "title": "OS" },
                     {"data": "ua_os_version" , "title": "OS version" },
                     {"data": "ua_device_type" , "title": "Type Client" },
+                    {"data": "online" , "title": "Connecté" },
+                    {"data": "email" , "title": "email" },
+                    {"data": "job" , "title": "Profession" },
+                    {"data": "new_visitor" , "title": "Nouveau visiteur" },
+                    {"data": "firstname", "title": "Prénoms" },
+                    {"data": "lastname" , "title": "Nom" },
+                    {"data": "registered" , "title": "Enregistré" },
                     {"data": "ua_cpu_architecture" , "title": "Architect CPU" },
                     {"data": "boot_exit" , "title": "Résultat init." },
                     {"data": "boot_exit_how" , "title": "Fin (comment)" },
                     {"data": "boot_exit_why" , "title": "Fin (raison)"  }
-                    
+
                 ]
 
                 return(col_arr)
+
+                function set_as_date( data, type, row ){
+                    //if (type === "display" || type === "filter" ){
+                        return ( _date.date_str(data))
+                    //}
+                }
             }
         }
 
     })()
-
 
 
 
