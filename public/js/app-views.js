@@ -281,7 +281,7 @@ var navtabController_RASS = new ui_render_navtabs(
 				id: "tab-e", 
 				name: "sys_console" , 
 				label : "Administration", 
-				html_content : ` <div id="ADMIN-TAB-WRAPPER" style="background-color: #ee8; 
+				html_content : ` <div id="ADMIN-TAB-WRAPPER" style="background-color: #fff; 
 				                  position:relative; height: 70vh;"> </div>`,
 				enabled : true,
 				visible : IS_ADMIN_SESSION
@@ -296,9 +296,11 @@ var navtabController_RASS = new ui_render_navtabs(
     		case "graphics" :
     			rass_active_panel = "tab-a" ;
     			break;
+
     		case "table" :
     			rass_active_panel = "tab-b" ;
     			break;
+
     		default: 
     	} 
     },
@@ -323,7 +325,7 @@ var navAdminController = new ui_render_navtabs(
 				id : "admin-tab-01",
 				name : "connected_users",
 				label : "Utilisateurs connectés",
-				html_content :  Mustache.render( include_supevision_table(), { users:[]}),
+				html_content : ` <div id="dttable_usertable_container"  style="margin:10px; padding: 10px;">  </div>` ,
 				enabled : true,
 				visible : true
 			}, 
@@ -346,7 +348,28 @@ var navAdminController = new ui_render_navtabs(
 			}
 		]
 	},
-	function(info){	/* ACTION TO TRIGGER WHEN TABS CHANGED*/},
+	function(info){	
+
+		/* ACTION TO TRIGGER WHEN TABS CHANGED*/
+		switch (info.tabname) {
+			case "connected_users" :
+
+				Ajaxian.post( "./visitors/connected", 
+				    {
+				    	key: "ABSCFDBYHDGGEGGG8587-855455-SGWX"
+				    },
+					function(data){
+						opera_console.connectedUsers.openList(data);
+					},
+					function(xhr, ajaxOptions, thrownError){
+						opera_console.addLog(`Erreur lors du chargement de la table`, "fail");
+					}
+				)
+				 
+
+			break;
+		}
+	},
 	1
 )
 
@@ -501,7 +524,7 @@ function init_helper_functions(){
 	    return html	
 	 };
 
-	 include_supevision_table = function(){
+	 include_supervision_table = function(){
 
 	 	return( `
 			<div  style="padding: 10px 20px 0px 20px; position: relative; height:80vh; width:90%;background-color: #ddd"> 

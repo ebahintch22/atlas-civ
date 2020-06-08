@@ -401,6 +401,23 @@ router.post('/boot_fail',  function(req, res, next) {
 });
 
 
+router.post('/connected',  function(req, res, next) {
+	//Confirm that local storage is implemented but no key found 
+	// So we confirm the temp key produce during boot request
+	var action = "new visitor"
+	var auth = req.body;
+
+	db.query( `SELECT * FROM my_visitors ` ,  [], 
+		function(err, dbResult){
+			if (err) { 
+				Watchdog.app_notify({ uuid : usrBadge.uuid, when: date_now(), req: action,  res : "failure",  comments: "Database System Error" });
+				return next(err)
+			}
+	    res.send( dbResult.rows )  	
+	})
+})
+
+
 
 
 /* Notify user alive  */

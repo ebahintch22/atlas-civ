@@ -1,5 +1,5 @@
 //app-controller-datatable.js
-function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack_UnSelect){
+function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack_UnSelect, useColArray){
 
 		var callBackFuncREF = callBack;
 		var callBack_UnSelect_FuncREF = callBack_UnSelect;
@@ -7,7 +7,7 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
 		var _reload_needed = false
 		var OptionsObj = update_Options(Cfg)  ;
 	        
-		    $(containerID).html( get_html_struct(Cfg.id , Cfg.colMapArray ));
+		    $(containerID).html( get_html_struct(Cfg.id , Cfg.colMapArray, useColArray ));
 	        var dt_coreObject =  $(`#${Cfg.id}`).DataTable( OptionsObj );
 
 
@@ -90,12 +90,16 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
 	            }
 	        }
         }
-        function get_html_struct( id , colArray ){
-        	var TMPLT = `
+        function get_html_struct( id , inColArray, useColArray = true ){
+
+        	var  colArray = useColArray? inColArray :  [] ;
+        	//colArray = []
+        	//alert ( "Longueur de la colonne List = " + colArray.length)
+        	var  TMPLT = `
                 <table class="table table-bordered display compact" id="${id}" width="100%" cellspacing="0" 
                         style=" white-space: nowrap ;background-color: #ccc;color:#444; width:100%;font-size: 8pt; 
                         font-family:Verdana">
-                    <thead> 
+                    <!--thead> 
                     	<tr>
                     		{{#field_list}}
                     			<th> {{short_name}} </th>
@@ -110,7 +114,7 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
                     		{{/field_list}}
 
                     	</tr>
-                    </tfoot>
+                    </tfoot-->
 
                 </table>
         	`

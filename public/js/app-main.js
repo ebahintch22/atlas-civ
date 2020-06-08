@@ -13,7 +13,7 @@ function app_start_up(){
 	mapBackground.on("click", function(){ MAP_overlay_draw([]) })
 
 	opera_console.addLog("Démarrage d'Atlas Santé Côte d'Ivoire.." , "success")
-	
+
 	legendController = new generate_legend( "#legend", {
 			"title"  : "Legend Controller....",
 			"width"  : 400,
@@ -400,7 +400,7 @@ function updateMapColors(){
 
 //Si le Layout est approprié, la mise à jour du tableau de données est enclenchée
 function update_dataTableView( metadata ){
-
+	var _generateCol_HTML_TAG = false
 	if ( metadata.layout !=  "COVID" ) {
 		//Generate IF NOT EXISTS the datatable column definition for the metadata
 		metadata.dt = metadata.dt || {}
@@ -415,7 +415,8 @@ function update_dataTableView( metadata ){
 			}, 
 			mapData,
 			after_row_selected,
-			after_row_unselected
+			after_row_unselected,
+			_generateCol_HTML_TAG
 		)
 
 		if (  dataTableController.reloadNeeded()  ){
@@ -432,6 +433,7 @@ function update_dataTableView( metadata ){
 		var feature_code = row["CODE"];
 		MAP_zoom_on_feature(  feature_code , -1  )
 	}
+	
 }
 
 

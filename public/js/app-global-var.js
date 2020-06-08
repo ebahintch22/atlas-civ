@@ -17,8 +17,8 @@ var initialTable = "covid-19" ;//   "covid-19" //" "covid-19"; //demographic" ;/
 var initialKey = "FLD1";
 
 var currentTable;
-var currentMetaTable ;
-var currentKey ;
+var currentMetaTable;
+var currentKey;
 var currentMetaField ;
 var currentGeodataset;
 var currentMetaGeo;

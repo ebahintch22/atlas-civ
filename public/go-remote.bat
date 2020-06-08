@@ -1,2 +1,2 @@
-COPY /A ..\config\remote\package.json  ..\package.json
-COPY /A ..\config\remote\.env  ..\.env
+COPY /a ..\config\remote\package.json  ..\package.json /a
+COPY /a ..\config\remote\.env  ..\.env /a

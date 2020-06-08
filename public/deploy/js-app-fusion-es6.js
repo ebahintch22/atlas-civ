@@ -2610,7 +2610,7 @@ function get_data(){
  }]
 		 )
 }//app-controller-datatable.js
-function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack_UnSelect){
+function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack_UnSelect, useColArray){
 
 		var callBackFuncREF = callBack;
 		var callBack_UnSelect_FuncREF = callBack_UnSelect;
@@ -2618,7 +2618,7 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
 		var _reload_needed = false
 		var OptionsObj = update_Options(Cfg)  ;
 	        
-		    $(containerID).html( get_html_struct(Cfg.id , Cfg.colMapArray ));
+		    $(containerID).html( get_html_struct(Cfg.id , Cfg.colMapArray, useColArray ));
 	        var dt_coreObject =  $(`#${Cfg.id}`).DataTable( OptionsObj );
 
 
@@ -2701,12 +2701,16 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
 	            }
 	        }
         }
-        function get_html_struct( id , colArray ){
-        	var TMPLT = `
+        function get_html_struct( id , inColArray, useColArray = true ){
+
+        	var  colArray = useColArray? inColArray :  [] ;
+        	//colArray = []
+        	//alert ( "Longueur de la colonne List = " + colArray.length)
+        	var  TMPLT = `
                 <table class="table table-bordered display compact" id="${id}" width="100%" cellspacing="0" 
                         style=" white-space: nowrap ;background-color: #ccc;color:#444; width:100%;font-size: 8pt; 
                         font-family:Verdana">
-                    <thead> 
+                    <!--thead> 
                     	<tr>
                     		{{#field_list}}
                     			<th> {{short_name}} </th>
@@ -2721,7 +2725,7 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
                     		{{/field_list}}
 
                     	</tr>
-                    </tfoot>
+                    </tfoot-->
 
                 </table>
         	`
@@ -3787,7 +3791,7 @@ var navtabController_RASS = new ui_render_navtabs(
 				id: "tab-e", 
 				name: "sys_console" , 
 				label : "Administration", 
-				html_content : ` <div id="ADMIN-TAB-WRAPPER" style="background-color: #ee8; 
+				html_content : ` <div id="ADMIN-TAB-WRAPPER" style="background-color: #fff; 
 				                  position:relative; height: 70vh;"> </div>`,
 				enabled : true,
 				visible : IS_ADMIN_SESSION
@@ -3802,9 +3806,11 @@ var navtabController_RASS = new ui_render_navtabs(
     		case "graphics" :
     			rass_active_panel = "tab-a" ;
     			break;
+
     		case "table" :
     			rass_active_panel = "tab-b" ;
     			break;
+
     		default: 
     	} 
     },
@@ -3829,7 +3835,7 @@ var navAdminController = new ui_render_navtabs(
 				id : "admin-tab-01",
 				name : "connected_users",
 				label : "Utilisateurs connectés",
-				html_content :  Mustache.render( include_supevision_table(), { users:[]}),
+				html_content : ` <div id="dttable_usertable_container"  style="margin:10px; padding: 10px;">  </div>` ,
 				enabled : true,
 				visible : true
 			}, 
@@ -3852,7 +3858,28 @@ var navAdminController = new ui_render_navtabs(
 			}
 		]
 	},
-	function(info){	/* ACTION TO TRIGGER WHEN TABS CHANGED*/},
+	function(info){	
+
+		/* ACTION TO TRIGGER WHEN TABS CHANGED*/
+		switch (info.tabname) {
+			case "connected_users" :
+
+				Ajaxian.post( "./visitors/connected", 
+				    {
+				    	key: "ABSCFDBYHDGGEGGG8587-855455-SGWX"
+				    },
+					function(data){
+						opera_console.connectedUsers.openList(data);
+					},
+					function(xhr, ajaxOptions, thrownError){
+						opera_console.addLog(`Erreur lors du chargement de la table`, "fail");
+					}
+				)
+				 
+
+			break;
+		}
+	},
 	1
 )
 
@@ -4007,7 +4034,7 @@ function init_helper_functions(){
 	    return html	
 	 };
 
-	 include_supevision_table = function(){
+	 include_supervision_table = function(){
 
 	 	return( `
 			<div  style="padding: 10px 20px 0px 20px; position: relative; height:80vh; width:90%;background-color: #ddd"> 
@@ -4772,8 +4799,8 @@ var initialTable = "covid-19" ;//   "covid-19" //" "covid-19"; //demographic" ;/
 var initialKey = "FLD1";
 
 var currentTable;
-var currentMetaTable ;
-var currentKey ;
+var currentMetaTable;
+var currentKey;
 var currentMetaField ;
 var currentGeodataset;
 var currentMetaGeo;
@@ -4873,7 +4900,7 @@ function app_start_up(){
 	mapBackground.on("click", function(){ MAP_overlay_draw([]) })
 
 	opera_console.addLog("Démarrage d'Atlas Santé Côte d'Ivoire.." , "success")
-	
+
 	legendController = new generate_legend( "#legend", {
 			"title"  : "Legend Controller....",
 			"width"  : 400,
@@ -5260,7 +5287,7 @@ function updateMapColors(){
 
 //Si le Layout est approprié, la mise à jour du tableau de données est enclenchée
 function update_dataTableView( metadata ){
-
+	var _generateCol_HTML_TAG = false
 	if ( metadata.layout !=  "COVID" ) {
 		//Generate IF NOT EXISTS the datatable column definition for the metadata
 		metadata.dt = metadata.dt || {}
@@ -5275,7 +5302,8 @@ function update_dataTableView( metadata ){
 			}, 
 			mapData,
 			after_row_selected,
-			after_row_unselected
+			after_row_unselected,
+			_generateCol_HTML_TAG
 		)
 
 		if (  dataTableController.reloadNeeded()  ){
@@ -5292,6 +5320,7 @@ function update_dataTableView( metadata ){
 		var feature_code = row["CODE"];
 		MAP_zoom_on_feature(  feature_code , -1  )
 	}
+	
 }
 
 
@@ -6105,4 +6134,4 @@ function notify_initialization_abort(mssg){
 	$("#spinner").html( ``)
 	$("#spinner-message").html( ``)
 }
-//FIN DU PROGRAMME
+//FIN DU PROGRAMME
