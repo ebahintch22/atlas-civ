@@ -459,7 +459,7 @@ function get_chart_container( canvas_id, width, height, x_width, x_height ){
 	return template ;
 }
 
-function get_Monography_template_TODO  (){ return fake_monography}
+function get_Monography_template_TODO(){ return fake_monography}
 function get_table_container_template_TODO(){ return fake_table }
 function get_ourReferences_template_TODO(){return fake_about_us }
 function get_opera_console_template_TODO(){ return opera_console_tmpl }  //  Template to generate the Identifier VIEW
