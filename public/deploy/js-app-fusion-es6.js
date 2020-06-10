@@ -3528,7 +3528,6 @@ function ui_render_ThematicSelectList_Component_ex( theme_data_arr , _eltID){
 		  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="">
 		 `;
 
-
 	
 	var data = theme_data_arr.filter(function(d){return (d.valid)});
 	var componentHtml = Mustache.render( template_theme_selector , { "thematic_arr": data});
@@ -3969,7 +3968,7 @@ function get_chart_container( canvas_id, width, height, x_width, x_height ){
 	return template ;
 }
 
-function get_Monography_template_TODO  (){ return fake_monography}
+function get_Monography_template_TODO(){ return fake_monography}
 function get_table_container_template_TODO(){ return fake_table }
 function get_ourReferences_template_TODO(){return fake_about_us }
 function get_opera_console_template_TODO(){ return opera_console_tmpl }  //  Template to generate the Identifier VIEW

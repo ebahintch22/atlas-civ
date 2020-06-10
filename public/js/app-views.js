@@ -18,7 +18,6 @@ function ui_render_ThematicSelectList_Component_ex( theme_data_arr , _eltID){
 		  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="">
 		 `;
 
-
 	
 	var data = theme_data_arr.filter(function(d){return (d.valid)});
 	var componentHtml = Mustache.render( template_theme_selector , { "thematic_arr": data});
