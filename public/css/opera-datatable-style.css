@@ -1,3 +1,9 @@
 #dttable_container tbody tr {	
 	cursor: pointer;
 }
+
+
+#dttable_usertable_object tbody tr {	
+	cursor: pointer;
+}
+
