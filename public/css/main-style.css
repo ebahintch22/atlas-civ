@@ -135,3 +135,36 @@
         fill: lightSteelBlue;
         fill-opacity: .15;
     }
+    .badge-green {
+		background-color: #daf392 !important;
+		color : green !important;
+	}
+	.badge-orange {
+		background-color: #fde5cc !important;
+		color : #ef8213 !important;
+	}
+	.badge-red {
+		background-color: #fbdede !important;
+		color : #ce1325 !important;
+	}
+	.badge-yellow {
+		background-color:  #fdfd02 !important;
+		color : #bd8f06 !important;
+	}
+
+	.badge-green-dark {
+		background-color: #444 !important;
+		color : #70A800 !important;
+	}
+	.badge-orange-dark {
+		background-color: #444 !important;
+		color : orange !important;
+	}
+	.badge-red-dark {
+		background-color: #444 !important;
+		color : red !important;
+	}
+	.badge-yellow-dark {
+		background-color:  #444 !important;
+		color : #FFD964 !important;
+	}

@@ -295,10 +295,10 @@ var badge_template = `<div class="card text-center {{color_class}}">
 		var d = extract_late_datarow();
 
 	
-		update_badge( "#card-1" , {	color_class : "badge-orange", label : "Cas confirmés", 	value : d.sum_case ,        delta : d.new_case , 	   date : d.date_raw   } );
-		update_badge( "#card-2" , {	color_class : "badge-yellow", label : "Cas actifs", 	value : d.active_case , 	delta : d.new_case,  		date : d.date_raw   } );
-		update_badge( "#card-3" , {	color_class : "badge-red",	  label : "Décès", 			value : d.sum_deceased, 	delta : d.new_deceased, 	date : d.date_raw   } );
-		update_badge( "#card-4" , {	color_class : "badge-green",  label : "Guéris", 		value : d.sum_healed, 		delta : d.new_healed, 		date : d.date_raw   } );	
+		update_badge( "#card-1" , {	color_class : "badge-orange-dark", label : "Cas confirmés", 	value : d.sum_case ,        delta : d.new_case , 	   date : d.date_raw   } );
+		update_badge( "#card-2" , {	color_class : "badge-yellow-dark", label : "Cas actifs", 	value : d.active_case , 	delta : d.new_case,  		date : d.date_raw   } );
+		update_badge( "#card-3" , {	color_class : "badge-red-dark",	  label : "Décès", 			value : d.sum_deceased, 	delta : d.new_deceased, 	date : d.date_raw   } );
+		update_badge( "#card-4" , {	color_class : "badge-green-dark",  label : "Guéris", 		value : d.sum_healed, 		delta : d.new_healed, 		date : d.date_raw   } );	
 		
 		function  update_badge( eltId, data ){
 			data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
