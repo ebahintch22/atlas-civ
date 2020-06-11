@@ -1,3 +1,5 @@
+
+
 [{
 		"date": "11/03/2020",
 		"new_case": 1,
@@ -1193,5 +1195,18 @@
 		"nb_sample": 612,
 		"incidence": 0.304,
 		"sum_sample": 33476
+	},
+	{
+		"date": "11/06/2020",
+		"new_case": 223,
+		"new_healed": 38,
+		"new_deceased": 0,
+		"sum_case": 4404,
+		"sum_healed": 2212,
+		"sum_deceased": 41,
+		"active_case": 2151,
+		"nb_sample": 796,
+		"incidence": 0.280,
+		"sum_sample": 34272
 	}
 ]
