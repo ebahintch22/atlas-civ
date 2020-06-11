@@ -116,7 +116,7 @@ var metaDataBase = {
 					short_name : "Nb de cas confirmés à la maladie à COVID-19", 
 					long_name : " Nombre de cas confirmés de COVID-19", 
 					data_type :  "INT", 
-					unit : "cas confirmés e COVID-19" 
+					unit : "cas confirmés de COVID-19" 
 				}
 			]
 		},
