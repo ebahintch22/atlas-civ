@@ -282,7 +282,7 @@ var badge_template = `<div class="card text-center {{color_class}}">
                {{value}}
                <span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
              				line-height: 1;"> 
-                 ( {{symbol}}{{delta}},  <span style="font-weight: 250;  font-size: 0.8em; ">au {{date}} </span> )  
+                 ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
                </span>
 	 	</span>
 	  </div>
