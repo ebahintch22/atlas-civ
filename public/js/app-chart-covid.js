@@ -28,8 +28,9 @@
 					label: 'Nombre de cas actifs',
 					type : "line",
 					field: 'active_case' ,
-					backgroundColor: "ORANGE" ,
-					borderColor: 'ORANGE',
+					backgroundColor: "YELLOW" ,
+					borderColor: 'YELLOW',
+					borderWidth : 1,
 					yAxisID : 'y-axis-1' 
 			   },
 				{      
@@ -156,7 +157,7 @@
 					type : "line",
 					field: "incidence" ,
 					backgroundColor: "VIOLET" ,
-					borderWidth: 3,
+					borderWidth: 1,
 					borderColor: 'VIOLET' ,
 					yAxisID : 'y-axis-2' 
 			   },

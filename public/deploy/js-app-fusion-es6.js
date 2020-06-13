@@ -3096,8 +3096,12 @@ function generate_legend( dom_elt, Cfg ){
 		//var CHART_CONFIG = JSON.stringify(chart_configurator)
 		//console.log(CHART_CONFIG)
 
-		var ctx = document.getElementById(elt_id);
-		var myChart = new Chart(ctx, chart_configurator)
+		var canvas = document.getElementById(elt_id);
+		var ctx = canvas.getContext("2d");
+			canvas.style.backgroundColor = "#111";
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+		var myChart = new Chart( canvas, chart_configurator)
 		return myChart
 
     }
@@ -4177,8 +4181,9 @@ function init_helper_functions(){
 					label: 'Nombre de cas actifs',
 					type : "line",
 					field: 'active_case' ,
-					backgroundColor: "ORANGE" ,
-					borderColor: 'ORANGE',
+					backgroundColor: "YELLOW" ,
+					borderColor: 'YELLOW',
+					borderWidth : 1,
 					yAxisID : 'y-axis-1' 
 			   },
 				{      
@@ -4305,7 +4310,7 @@ function init_helper_functions(){
 					type : "line",
 					field: "incidence" ,
 					backgroundColor: "VIOLET" ,
-					borderWidth: 3,
+					borderWidth: 1,
 					borderColor: 'VIOLET' ,
 					yAxisID : 'y-axis-2' 
 			   },

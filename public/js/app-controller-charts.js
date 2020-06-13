@@ -54,8 +54,12 @@
 		//var CHART_CONFIG = JSON.stringify(chart_configurator)
 		//console.log(CHART_CONFIG)
 
-		var ctx = document.getElementById(elt_id);
-		var myChart = new Chart(ctx, chart_configurator)
+		var canvas = document.getElementById(elt_id);
+		var ctx = canvas.getContext("2d");
+			canvas.style.backgroundColor = "#111";
+			ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+		var myChart = new Chart( canvas, chart_configurator)
 		return myChart
 
     }
