@@ -1261,15 +1261,28 @@
 	},
 	{
 		"date": "14/06/2020",
+		"new_case": 236,
+		"new_healed": 108,
+		"new_deceased": 0,
+		"sum_case": 5084,
+		"sum_healed": 2505,
+		"sum_deceased": 45,
+		"active_case": 2534,
+		"nb_sample": 848,
+		"incidence": 0.278,
+		"sum_sample": 36783
+	},
+	{
+		"date": "15/06/2020",
 		"new_case": 0,
 		"new_healed": 0,
 		"new_deceased": 0,
-		"sum_case": 4848,
-		"sum_healed": 2397,
+		"sum_case": 5084,
+		"sum_healed": 2505,
 		"sum_deceased": 45,
-		"active_case": 2406,
-		"nb_sample": 0,
-		"incidence": 0.217,
-		"sum_sample": 35935
+		"active_case": 2534,
+		"nb_sample": 848,
+		"incidence": 0.278,
+		"sum_sample": 36783
 	}
 ]
