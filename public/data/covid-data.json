@@ -1,4 +1,30 @@
 [{
+		"date": "09/03/2020",
+		"new_case": 0,
+		"new_healed": 0,
+		"new_deceased": 0,
+		"sum_case": 0,
+		"sum_healed": 0,
+		"sum_deceased": 0,
+		"active_case": 0,
+		"nb_sample": 0,
+		"incidence": 0,
+		"sum_sample": 0
+	},
+	{
+		"date": "10/03/2020",
+		"new_case": 0,
+		"new_healed": 0,
+		"new_deceased": 0,
+		"sum_case": 0,
+		"sum_healed": 0,
+		"sum_deceased": 0,
+		"active_case": 0,
+		"nb_sample": 0,
+		"incidence": 0,
+		"sum_sample": 0
+	},
+	{
 		"date": "11/03/2020",
 		"new_case": 1,
 		"new_healed": 0,
@@ -1219,5 +1245,31 @@
 		"nb_sample": 907,
 		"incidence": 0.309,
 		"sum_sample": 35179
+	},
+	{
+		"date": "13/06/2020",
+		"new_case": 164,
+		"new_healed": 134,
+		"new_deceased": 0,
+		"sum_case": 4848,
+		"sum_healed": 2397,
+		"sum_deceased": 45,
+		"active_case": 2406,
+		"nb_sample": 756,
+		"incidence": 0.217,
+		"sum_sample": 35935
+	},
+	{
+		"date": "13/06/2020",
+		"new_case": 0,
+		"new_healed": 0,
+		"new_deceased": 0,
+		"sum_case": 4848,
+		"sum_healed": 2397,
+		"sum_deceased": 45,
+		"active_case": 2406,
+		"nb_sample": 0,
+		"incidence": 0.217,
+		"sum_sample": 35935
 	}
 ]

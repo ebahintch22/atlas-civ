@@ -403,7 +403,16 @@ var navtabController_COVID_UP =  new ui_render_navtabs (
 				html_content : `${ get_chart_container( "covid-canvas-up-3" , 650, 300 ,'95%', '35vh')}`,
 				enabled : true,
 				visible : true
-			}
+			}/*,
+			{ 
+				id: "covid-tab-up-04", 
+				name: "covid-system-map" , 
+				label : "Couleurs de référence (mode admin)", 
+				html_content : `${ get_color_palette( "covid-canvas-up-4" , 650, 300 ,'95%', '35vh')}`,
+				enabled : true,
+				visible : IS_ADMIN_SESSION
+			}*/
+
 		]
 	},
 		function (info){ }, 
