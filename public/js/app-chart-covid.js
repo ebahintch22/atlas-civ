@@ -69,7 +69,7 @@
 				position : "right",
 				labelString : "Nombre de cas"
 			},		
-			charts : [
+			charts : [/*
 				{      
 					label: 'Nombre de prélèvements',
 					type : "bar",
@@ -77,13 +77,13 @@
 					backgroundColor: "GRAY" ,
 					borderColor: 'GRAY',
 					yAxisID : 'y-axis-1'  
-			   },
+			   },*/
 				{      
 					label: 'Nouveaux cas',
 					type : "bar",
 					field: 'new_case' ,
-					backgroundColor: "BLUE" ,
-					borderColor: 'BLUE' ,
+					backgroundColor: "ORANGE" ,
+					borderColor: 'ORANGE' ,
 					yAxisID : 'y-axis-1' 
 			   },
 				{      
@@ -121,7 +121,7 @@
 					backgroundColor: "ORANGE" ,
 					borderColor: 'ORANGE' ,
 					yAxisID : 'y-axis-1' 
-			   },
+			   }/*,
 				{      
 					label: 'Nombre de prélèvements',
 					type : "bar",
@@ -129,7 +129,7 @@
 					backgroundColor: "GRAY" ,
 					borderColor: 'GRAY' ,
 					yAxisID : 'y-axis-1' 
-			   }
+			   }*/
 			 ]
 		});
 
@@ -216,15 +216,15 @@
 					label: 'Nombre de cas confirmés',
 					type : "bar",
 					field: 'sum_case' ,
-					backgroundColor: "GRAY" ,
-					borderColor: 'GRAY' 
+					backgroundColor: "ORANGE" ,
+					borderColor: 'ORANGE' 
 			   },
 				{      
 					label: 'Nombre de prélèvements',
 					type : "bar",
 					field: 'sum_sample' ,
-					backgroundColor: "WHITE" ,
-					borderColor: 'WHITE' ,
+					backgroundColor: "GRAY" ,
+					borderColor: 'GRAY' ,
 					yAxisID : 'y-axis-1' 
 			   }
 			 ]

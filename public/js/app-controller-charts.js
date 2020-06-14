@@ -56,7 +56,7 @@
 
 		var canvas = document.getElementById(elt_id);
 		var ctx = canvas.getContext("2d");
-			canvas.style.backgroundColor = "#111";
+			canvas.style.backgroundColor = "#333";
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 		var myChart = new Chart( canvas, chart_configurator)
