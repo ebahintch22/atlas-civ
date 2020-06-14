@@ -216,15 +216,15 @@
 					label: 'Nombre de cas confirmés',
 					type : "bar",
 					field: 'sum_case' ,
-					backgroundColor: "KAKI" ,
-					borderColor: 'KAKI' 
+					backgroundColor: "GRAY" ,
+					borderColor: 'GRAY' 
 			   },
 				{      
 					label: 'Nombre de prélèvements',
 					type : "bar",
 					field: 'sum_sample' ,
-					backgroundColor: "GRAY" ,
-					borderColor: 'GRAY' ,
+					backgroundColor: "WHITE" ,
+					borderColor: 'WHITE' ,
 					yAxisID : 'y-axis-1' 
 			   }
 			 ]
