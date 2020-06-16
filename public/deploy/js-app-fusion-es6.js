@@ -3098,7 +3098,7 @@ function generate_legend( dom_elt, Cfg ){
 
 		var canvas = document.getElementById(elt_id);
 		var ctx = canvas.getContext("2d");
-			canvas.style.backgroundColor = "#111";
+			canvas.style.backgroundColor = "#333";
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 
 		var myChart = new Chart( canvas, chart_configurator)
@@ -3970,7 +3970,16 @@ var navtabController_COVID_UP =  new ui_render_navtabs (
 				html_content : `${ get_chart_container( "covid-canvas-up-3" , 650, 300 ,'95%', '35vh')}`,
 				enabled : true,
 				visible : true
-			}
+			}/*,
+			{ 
+				id: "covid-tab-up-04", 
+				name: "covid-system-map" , 
+				label : "Couleurs de référence (mode admin)", 
+				html_content : `${ get_color_palette( "covid-canvas-up-4" , 650, 300 ,'95%', '35vh')}`,
+				enabled : true,
+				visible : IS_ADMIN_SESSION
+			}*/
+
 		]
 	},
 		function (info){ }, 
@@ -4222,7 +4231,7 @@ function init_helper_functions(){
 				position : "right",
 				labelString : "Nombre de cas"
 			},		
-			charts : [
+			charts : [/*
 				{      
 					label: 'Nombre de prélèvements',
 					type : "bar",
@@ -4230,13 +4239,13 @@ function init_helper_functions(){
 					backgroundColor: "GRAY" ,
 					borderColor: 'GRAY',
 					yAxisID : 'y-axis-1'  
-			   },
+			   },*/
 				{      
 					label: 'Nouveaux cas',
 					type : "bar",
 					field: 'new_case' ,
-					backgroundColor: "BLUE" ,
-					borderColor: 'BLUE' ,
+					backgroundColor: "ORANGE" ,
+					borderColor: 'ORANGE' ,
 					yAxisID : 'y-axis-1' 
 			   },
 				{      
@@ -4274,7 +4283,7 @@ function init_helper_functions(){
 					backgroundColor: "ORANGE" ,
 					borderColor: 'ORANGE' ,
 					yAxisID : 'y-axis-1' 
-			   },
+			   }/*,
 				{      
 					label: 'Nombre de prélèvements',
 					type : "bar",
@@ -4282,7 +4291,7 @@ function init_helper_functions(){
 					backgroundColor: "GRAY" ,
 					borderColor: 'GRAY' ,
 					yAxisID : 'y-axis-1' 
-			   }
+			   }*/
 			 ]
 		});
 
@@ -4369,8 +4378,8 @@ function init_helper_functions(){
 					label: 'Nombre de cas confirmés',
 					type : "bar",
 					field: 'sum_case' ,
-					backgroundColor: "KAKI" ,
-					borderColor: 'KAKI' 
+					backgroundColor: "ORANGE" ,
+					borderColor: 'ORANGE' 
 			   },
 				{      
 					label: 'Nombre de prélèvements',
