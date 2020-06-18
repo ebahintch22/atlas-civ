@@ -293,7 +293,7 @@ var badge_template = `<div class="card text-center {{color_class}}">
 	function update_badges(){
 
 		var d = extract_late_datarow();
-		var d1 = extract_late_datarow();
+		var d1 = extract_late_datarow(1);
 
 	
 		update_badge( "#card-1" , {	color_class : "badge-orange-dark", label : "Cas confirmés", 	value : d.sum_case ,    delta : d.new_case , 	   date : d.date_raw   } );
