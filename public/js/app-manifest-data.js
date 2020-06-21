@@ -95,7 +95,7 @@ var metaDataBase = {
 			valid: true,
 			table_num : "Tableau-98",			
 			layerList : [  "district_sante", "region_sante" ],
-			label: "1- Incidence nationale de la COVID-19",
+			label: "1- Incidence nationale de la COVID-19 (Carto actualisée au 16/06/2020)",
 			unit: "nombre de cas",
 			article: "de ",
 			path : "./data/statistics/tab_98_covid_june16.csv",
