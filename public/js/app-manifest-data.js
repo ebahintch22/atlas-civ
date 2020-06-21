@@ -4,6 +4,7 @@ var metaDataBase = {
 	data_base_name : "Atlas Sanitaire - Côte d'Ivoire  - RASS 2017 version 1.0.5",
 	version : "2.0",
 	date : "21/05/2020",
+	default_theme : "covid-19-june16",
 	geo_dataset :{
 		name : "district_sante",
 		class: "Districts sanitaire",
@@ -75,7 +76,8 @@ var metaDataBase = {
 		"ratio_ambulance_structure_sante",
 		"repartition_struct_transfusion",
 		"std",
-		"covid-19"
+		"covid-19",
+		"covid-19-june16"
 	],
 	color_palettes : [ 
 			{ name:"YlGnBu"}, 
@@ -87,14 +89,52 @@ var metaDataBase = {
 	],
 	table_selected : default_table_selection,
 	table_details : [
-
+		{
+			index : 18,
+			name : "covid-19-june16", 
+			valid: true,
+			table_num : "Tableau-98",			
+			layerList : [  "district_sante", "region_sante" ],
+			label: "1- Incidence nationale de la COVID-19",
+			unit: "nombre de cas",
+			article: "de ",
+			path : "./data/statistics/tab_98_covid_june16.csv",
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : {
+				   source : "manual",
+				threshold : [ 1, 5, 10, 100, 1000],
+				 colormap : ['#ffffff' , '#fcf285', '#F6B20D' , '#CC5526', '#C22C1C' , '#660207'],  
+				 labelmap : ['Aucun cas' , "", "Incidence faible", "Incidence Moyenne" , "Incidence élevée", "Epicentres"],
+			  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+			},
+			layout : "COVID",
+			color_palette: "YlOrRd",
+			field_selected : default_field_selection,
+			data_fields : [					
+				{ 
+					fld_name : "FLD1",
+					short_name : "COVID-19: Répartition des cas confirmés (au 16/03/2019)", 
+					long_name : " Nombre de cas confirmés de COVID-19", 
+					data_type :  "INT", 
+					unit : "cas confirmés de COVID-19" 
+				},
+				{ 
+					fld_name : "FLD2",
+					short_name : "Nb de décès dus à la COVID-19", 
+					long_name : " Nombre de décès dus à la COVID-19 ", 
+					data_type :  "INT", 
+					unit : "décès dus à la COVID-19" 
+				}
+			]
+		},
 		{
 			index : 17,
 			name : "covid-19", 
-			valid: true,
+			valid: false,
 			table_num : "Tableau-99",			
 			layerList : [ "region_admin", "district_admin" ],
-			label: "1- Incidence nationale de la COVID-19",
+			label: "1- Incidence nationale de la COVID-19 (deprecated)",
 			unit: "nombre de cas",
 			article: "de ",
 			path : "./data/statistics/tab_99_covid.csv",
@@ -103,7 +143,7 @@ var metaDataBase = {
 			renderer : {
 				   source : "manual",
 				threshold : [ 1, 4, 10, 100],
-				 colormap : ["#ffffff", "#ffbfbf", "#ff8080", "#dd4040", "#660000" ],  
+				 colormap :    [ "#ffffff", "#ea7f7f" , "#e03e3e",  "#a70606",  "#710505"],  
 				 labelmap : ['Aucun cas' , "Incidence faible", "Incidence Moyenne" , "Incidence forte", "Epicentre"],
 			  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
 			},
@@ -562,3 +602,5 @@ var metaDataBase = {
 		}
 	]	
 };
+
+//Ord;Code;REGIONS_DISTRICTS;GEOLOC;NIVEAU;Nombre de cas au 16 juin 2020;Nombre de décès au 16 juin 2020
