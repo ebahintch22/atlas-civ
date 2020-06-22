@@ -1340,14 +1340,27 @@
 	{
 		"date": "20/06/2020",
 		"new_case": 402,
-		"new_healed": 52,
+		"new_healed": 50,
 		"new_deceased": 3,
 		"sum_case": 7276,
-		"sum_healed": 2994,
+		"sum_healed": 2992,
 		"sum_deceased": 52,
-		"active_case": 4230,
+		"active_case": 4232,
 		"nb_sample": 1155,
 		"incidence": 0.348,
 		"sum_sample": 44230
+	},
+	{
+		"date": "21/06/2020",
+		"new_case": 216,
+		"new_healed": 76,
+		"new_deceased": 2,
+		"sum_case": 7492,
+		"sum_healed": 3068,
+		"sum_deceased": 54,
+		"active_case": 4370,
+		"nb_sample": 922,
+		"incidence": 0.234,
+		"sum_sample": 45152
 	}
 ]
