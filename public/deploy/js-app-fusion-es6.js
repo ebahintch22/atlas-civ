@@ -194,6 +194,7 @@ function detect_client(){
                    d.nb_sample = +d.nb_sample;
                   d.sum_sample = +d.sum_sample;
                    d.incidence = +d.incidence * 100;
+                   d.remission = +d.remission * 100;
 	            
 	        });
             //console.log(data)
@@ -2727,7 +2728,7 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
 	            data: [],
 	            "select": true,
 	            "deferRender": true,
-	            "scrollY":  Config.Height_in?  Config.Height_in: 490,
+	            "scrollY":  Config.Height_in?  Config.Height_in : '25vh',
 	            "scrollX": true,
 	            "scrollCollapse": true,
 	            "scroller" : false,
@@ -3844,30 +3845,50 @@ var func_start_traffic_monitoring = function( that, eltID ){
 	)
 }
 
-
+//alert ( "IS_ADMIN_SESSION = " + IS_ADMIN_SESSION)
 
 var navtabController_RASS = new ui_render_navtabs( 
 	   "#RASS-NAV-TAB-CONTAINER", {
 		id : "nav-tab-01",
-		default : "tab-e",	
+		default : "tab-aa",	
 		nav_position : "top" ,  
 		color_theme  : "light",
 		tabs : [
 			{ 
+				id: "tab-aa", 
+				name: "table-graphics" , 
+				label : "Tableau/Graphique", 
+				html_content : `
+					<div id="wrapper-pane" class="col-sm-12 no-padding"  >
+					  	<div  id="RASS-ROW-TOP" class="row" style= "padding: 0px 15px;">
+					  		<div class="col-sm-12 no-padding"  >
+								 ${get_chart_container( "chart-canvas-rass" , 600, 250 ,'96%', '35vh')}	
+					  		</div>
+					  	</div>
+					  	<div  id="RASS-ROW-BOTTOM" class="row"  style= "padding: 0px 15px;">
+						  	<div  class="col-sm-12 no-padding"  >
+								 <div id="dttable_container"  style="margin:10px; padding: 10px;">  </div>		
+					  		</div>		  		
+					  	</div>
+					</div>` ,
+				enabled : true,
+				visible : true
+			},
+			{ 
 				id: "tab-a", 
 				name: "graphics" , 
 				label : "Graphiques", 
-				html_content : get_chart_container( "chart-canvas-rass" , 600, 250 ,'96%', '80vh') ,
+				html_content : get_chart_container( "@chart-canvas-rass" , 600, 250 ,'96%', '35vh') ,
 				enabled : true,
-				visible : true
+				visible : false
 			},
 			{ 
 				id: "tab-b", 
 				name: "table" ,    
 				label : "Vue tabulaire" , 
-				html_content : ` <div id="dttable_container"  style="margin:10px; padding: 10px;">  </div>`,
+				html_content : ` <div id="@dttable_container"  style="margin:10px; padding: 10px;">  </div>`,
 				enabled : true,
-				visible : true
+				visible : false
 			},
 			{ 
 				id: "tab-c", 
@@ -3928,7 +3949,7 @@ var navAdminController = new ui_render_navtabs(
 	id : "admin-tabs",
 	default : "admin-tab-02",
 	nav_position : "top" ,  
-	color_theme  : "dark",
+	color_theme  : "light",
 		tabs : [
 			{
 				id : "admin-tab-01",
@@ -4036,7 +4057,7 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 		
 		        id : "rstuow-2",
 	       default : "covid-tab-bottom-01",
-	  nav_position : "bottom",
+	  nav_position : "top",
 	    color_theme  : "dark",
        	      tabs : [
 				{
@@ -4047,14 +4068,14 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 					enabled : true,
 				    visible : true
 				}, 
-				/*{
+				{
 					id : "covid-tab-bottom-02",
-					name : "indicators_daily",
-					label : "Variation quotidienne des indicateurs",
+					name : "indicators_healing",
+					label : "Taux de guérison",
 					html_content : `${get_chart_container( "covid-canvas-bottom-2" , 650, 300 ,'95%', '35vh')}`,
 					enabled : true,
 				    visible : true
-				},*/
+				},
 				{ 
 					id: "covid-tab-bottom-03", 
 					name: "confirmed_cases_sum" , 
@@ -4328,15 +4349,7 @@ function init_helper_functions(){
 					backgroundColor: "ORANGE" ,
 					borderColor: 'ORANGE' ,
 					yAxisID : 'y-axis-1' 
-			   }/*,
-				{      
-					label: 'Nombre de prélèvements',
-					type : "bar",
-					field: 'sum_sample' ,
-					backgroundColor: "GRAY" ,
-					borderColor: 'GRAY' ,
-					yAxisID : 'y-axis-1' 
-			   }*/
+			   }
 			 ]
 		});
 
@@ -4387,11 +4400,21 @@ function init_helper_functions(){
 			 ]
 		});
 
-		/*create_Chart(data, "covid-canvas-bottom-2", {
+		create_Chart(data, "covid-canvas-bottom-2", {
 
-			title : "SUIVI DES CAS CONFIRMES",
+			title : "SUIVI DES CAS DE GUERISON",
 			label_field : "date_raw",
 			"x-axis-style" : "COVID",
+			"y-axis-1" : {
+				display : true,
+				position : "left",
+				labelString : "Nombre de cas"
+			},
+			"y-axis-2" : {
+				display : true,
+				position : "right",
+				labelString : "% de cas guérison"
+			},			
 			charts : [
 
 				{      
@@ -4403,15 +4426,17 @@ function init_helper_functions(){
 					yAxisID : 'y-axis-1'  
 			   },
 				{      
-					label: 'Nombre de prélèvements',
-					type : "bar",
-					field: 'nb_sample' ,
-					backgroundColor: "GRAY" ,
-					borderColor: 'GRAY' ,
-					yAxisID : 'y-axis-1' 
+					label: 'Taux de guérison (%)',
+					type : "line",
+					field: 'remission' ,
+					backgroundColor: "GREEN" ,
+					borderColor: 'GREEN' ,
+					yAxisID : 'y-axis-2' 
 			   }
 			 ]
-		});*/
+		});
+
+
 		create_Chart(data, "covid-canvas-bottom-3", {
 
 			title : "DÉPISTAGES REALISÉS",
@@ -5038,6 +5063,7 @@ function app_start_up(){
 
 
 function bind_layout_reset_to_windowResize(){
+
 	window.onresize = function(){
 
 
@@ -5047,8 +5073,11 @@ function bind_layout_reset_to_windowResize(){
 	 	
 	 	winResizeTimerID = setTimeout( 
 	 		function(){
-	 			opera_console.addLog("Windows resized detected")
+
+	 			ENV_VIEW_SIZE = getEnvSize()
+	 			opera_console.addLog("Windows resized detected. New dimensions are " + toJSON(ENV_VIEW_SIZE))
 				updateLegend(null, true);
+				updateSizeCard()
 				//histogram.draw(get_graphic_infos());
 				winResizeTimerID = 0;
 	 	} ,	450)
@@ -5376,6 +5405,8 @@ function updateMapColors(){
 	} else {
 	// Par principe, le moteur de rendu "manual" doit pas être modifié;
 		renderer = r
+		metaData.renderer_interpolated = r;
+
 	}
 
 
@@ -5409,7 +5440,7 @@ function update_dataTableView( metadata ){
 			{
 				id : "dttable_object",
 				colMapArray : metadata.dt.colArray,
-				height : "80vh"
+				height : "30vh"
 			}, 
 			mapData,
 			after_row_selected,
@@ -5489,6 +5520,10 @@ function clicked(d) {
  	if (before_app_initialization && !forceUpdate)  return;
 
  	//Capture legend container size (WIDTH)
+ 	if ( renderer == undefined ) {
+ 		alert( "INVALID Renderer Encountered!! Mesure must be taken" )
+ 	}
+
 	var legendWidth = d3.select('#map').node().getBoundingClientRect().width - 30;
 	var title = renderer.legendtitle ? renderer.legendtitle : field.short_name
 
@@ -5501,6 +5536,8 @@ function clicked(d) {
 
 	legendController.refresh();
  }
+
+
 
 
  function update_color_palette(palette_name){
@@ -5909,7 +5946,7 @@ var behave_as_mobile_device_on_start_up = false;
 var before_app_initialization = true;
 var COVIDATA;
 var user_session_manager = new user_connexion_manager_constructor()
-
+var ENV_VIEW_SIZE = getEnvSize()
 
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 //window.onresize = after_window_resized ;
@@ -5917,6 +5954,23 @@ function isMobileDevice() {
     return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 };
 
+function getEnvSize(){
+	return {
+		browser : {
+			height : $(window).height(),
+			 width : $(window).width()
+		},
+		page :{
+			height : $(document).height(),
+		     width : $(document).width()
+		},
+		screen :{
+			height : window.screen.height,
+		     width : window.screen.width
+		}
+	}
+
+}
 
 user_session_manager.boot_app()
 //user_session_manager.start_session();
@@ -6179,23 +6233,26 @@ function force_mobile(){
 }
 
 
-var badge_template = `<div class="card text-center {{color_class}}">
-	    <div class="card-body" style="padding: 0.5em;">
-	     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
-	     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
-	     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
-               {{value}}
-               <span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
-             				line-height: 1;"> 
-                 ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
-               </span>
-	 	</span>
-	  </div>
-	</div>`
+
+	
 
 
+	function update_badges( extended = true ){
+		var deltas = extended ?  `<span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
+	             				line-height: 1;"> 
+	                 ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
+	               </span>` : "";
 
-	function update_badges(){
+		var badge_template = `<div class="card text-center {{color_class}}"  style="position:relative; height:60px;">
+		    <div class="card-body" style="padding: 0.5em;">
+		     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
+		     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
+		     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
+	               {{value}}
+	               ${deltas}
+		 	</span>
+		  </div>
+		</div>`
 
 		var d = extract_late_datarow();
 		var d1 = extract_late_datarow(1);
@@ -6212,16 +6269,25 @@ var badge_template = `<div class="card text-center {{color_class}}">
 		}			
 	}
 
+	function updateSizeCard(){
+	 	
+	 	if ( ENV_VIEW_SIZE.browser.width > 1200 ){
+	 		update_badges(true)
 
+	 	} else {
+			update_badges(false)
+	 	}
+	}
 
 	function extract_late_datarow(index=0){
 		var n = COVIDATA.length
 		return COVIDATA[n-1-index];
 	}
 
-	function USER_INTERFACE_update_layout(){  
 
+	function USER_INTERFACE_update_layout(){  
 		opera_console.addLog("Windows resized");
+
 	}
 
 

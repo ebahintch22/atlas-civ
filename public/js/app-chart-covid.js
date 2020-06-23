@@ -121,15 +121,7 @@
 					backgroundColor: "ORANGE" ,
 					borderColor: 'ORANGE' ,
 					yAxisID : 'y-axis-1' 
-			   }/*,
-				{      
-					label: 'Nombre de prélèvements',
-					type : "bar",
-					field: 'sum_sample' ,
-					backgroundColor: "GRAY" ,
-					borderColor: 'GRAY' ,
-					yAxisID : 'y-axis-1' 
-			   }*/
+			   }
 			 ]
 		});
 
@@ -180,11 +172,21 @@
 			 ]
 		});
 
-		/*create_Chart(data, "covid-canvas-bottom-2", {
+		create_Chart(data, "covid-canvas-bottom-2", {
 
-			title : "SUIVI DES CAS CONFIRMES",
+			title : "SUIVI DES CAS DE GUERISON",
 			label_field : "date_raw",
 			"x-axis-style" : "COVID",
+			"y-axis-1" : {
+				display : true,
+				position : "left",
+				labelString : "Nombre de cas"
+			},
+			"y-axis-2" : {
+				display : true,
+				position : "right",
+				labelString : "% de cas guérison"
+			},			
 			charts : [
 
 				{      
@@ -196,15 +198,17 @@
 					yAxisID : 'y-axis-1'  
 			   },
 				{      
-					label: 'Nombre de prélèvements',
-					type : "bar",
-					field: 'nb_sample' ,
-					backgroundColor: "GRAY" ,
-					borderColor: 'GRAY' ,
-					yAxisID : 'y-axis-1' 
+					label: 'Taux de guérison (%)',
+					type : "line",
+					field: 'remission' ,
+					backgroundColor: "GREEN" ,
+					borderColor: 'GREEN' ,
+					yAxisID : 'y-axis-2' 
 			   }
 			 ]
-		});*/
+		});
+
+
 		create_Chart(data, "covid-canvas-bottom-3", {
 
 			title : "DÉPISTAGES REALISÉS",

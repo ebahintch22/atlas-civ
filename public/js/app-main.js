@@ -40,6 +40,7 @@ function app_start_up(){
 
 
 function bind_layout_reset_to_windowResize(){
+
 	window.onresize = function(){
 
 
@@ -49,8 +50,11 @@ function bind_layout_reset_to_windowResize(){
 	 	
 	 	winResizeTimerID = setTimeout( 
 	 		function(){
-	 			opera_console.addLog("Windows resized detected")
+
+	 			ENV_VIEW_SIZE = getEnvSize()
+	 			opera_console.addLog("Windows resized detected. New dimensions are " + toJSON(ENV_VIEW_SIZE))
 				updateLegend(null, true);
+				updateSizeCard()
 				//histogram.draw(get_graphic_infos());
 				winResizeTimerID = 0;
 	 	} ,	450)
@@ -378,6 +382,8 @@ function updateMapColors(){
 	} else {
 	// Par principe, le moteur de rendu "manual" doit pas être modifié;
 		renderer = r
+		metaData.renderer_interpolated = r;
+
 	}
 
 
@@ -411,7 +417,7 @@ function update_dataTableView( metadata ){
 			{
 				id : "dttable_object",
 				colMapArray : metadata.dt.colArray,
-				height : "80vh"
+				height : "30vh"
 			}, 
 			mapData,
 			after_row_selected,
@@ -491,6 +497,10 @@ function clicked(d) {
  	if (before_app_initialization && !forceUpdate)  return;
 
  	//Capture legend container size (WIDTH)
+ 	if ( renderer == undefined ) {
+ 		alert( "INVALID Renderer Encountered!! Mesure must be taken" )
+ 	}
+
 	var legendWidth = d3.select('#map').node().getBoundingClientRect().width - 30;
 	var title = renderer.legendtitle ? renderer.legendtitle : field.short_name
 
@@ -503,6 +513,8 @@ function clicked(d) {
 
 	legendController.refresh();
  }
+
+
 
 
  function update_color_palette(palette_name){

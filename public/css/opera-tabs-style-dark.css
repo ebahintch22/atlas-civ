@@ -1,7 +1,14 @@
 /*DARK THEME*/
- .dark .tab-content.orient-top {
+ .dark .tab-content.orient-top , .dark .tab-content.orient-bottom {
     border-color: transparent #000 #000 #000;   border-width: 1px !important; 
 }
+
+
+.dark .nav.nav-tabs.orient-top {
+    border-bottom-color: #fff; 
+    border-right-color: #fff
+}
+
 .dark .nav-tabs.orient-top {
     background-color: #6d6b6b; border-bottom-color: #000;
 }
@@ -24,9 +31,12 @@
     border-top-left-radius: 6px;
     border-top-right-radius: 6px;
 }
+/* ******************************************************************************************** */
 
 
-
+.dark .nav.nav-tabs.orient-bottom {
+    border-right-color: #fff;  border-right-width: 3px;
+}
 .dark .nav-tabs.orient-bottom {
 	background-color: #6d6b6b; border-top-color: #eee;
 }
@@ -43,16 +53,16 @@
     border-color:  #fff transparent transparent transparent;
 }	
 .dark .nav-tabs.orient-bottom  .nav-link.active, .nav-tabs.orient-bottom .nav-item.show .nav-link {
-    color: #fff ; font-weight: bold; font-size: 0.9rem;
+    color: #eee ; font-weight: bold; font-size: 0.9rem;
     background-color: rgb(51,51,51);
-    border-color: #fff #000 #000 #000;
+    border-color: #0000 #fff #fff #fff;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
 }
 
 
-.dark .tab-pane.fade.active.show{
+.dark .tab-pane.fade.active.show {
     background-color: rgb(51,51,51);
 }
-/*DARK THEME*/
+
 

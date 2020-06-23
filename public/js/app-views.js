@@ -236,30 +236,50 @@ var func_start_traffic_monitoring = function( that, eltID ){
 	)
 }
 
-
+//alert ( "IS_ADMIN_SESSION = " + IS_ADMIN_SESSION)
 
 var navtabController_RASS = new ui_render_navtabs( 
 	   "#RASS-NAV-TAB-CONTAINER", {
 		id : "nav-tab-01",
-		default : "tab-e",	
+		default : "tab-aa",	
 		nav_position : "top" ,  
 		color_theme  : "light",
 		tabs : [
 			{ 
+				id: "tab-aa", 
+				name: "table-graphics" , 
+				label : "Tableau/Graphique", 
+				html_content : `
+					<div id="wrapper-pane" class="col-sm-12 no-padding"  >
+					  	<div  id="RASS-ROW-TOP" class="row" style= "padding: 0px 15px;">
+					  		<div class="col-sm-12 no-padding"  >
+								 ${get_chart_container( "chart-canvas-rass" , 600, 250 ,'96%', '35vh')}	
+					  		</div>
+					  	</div>
+					  	<div  id="RASS-ROW-BOTTOM" class="row"  style= "padding: 0px 15px;">
+						  	<div  class="col-sm-12 no-padding"  >
+								 <div id="dttable_container"  style="margin:10px; padding: 10px;">  </div>		
+					  		</div>		  		
+					  	</div>
+					</div>` ,
+				enabled : true,
+				visible : true
+			},
+			{ 
 				id: "tab-a", 
 				name: "graphics" , 
 				label : "Graphiques", 
-				html_content : get_chart_container( "chart-canvas-rass" , 600, 250 ,'96%', '80vh') ,
+				html_content : get_chart_container( "@chart-canvas-rass" , 600, 250 ,'96%', '35vh') ,
 				enabled : true,
-				visible : true
+				visible : false
 			},
 			{ 
 				id: "tab-b", 
 				name: "table" ,    
 				label : "Vue tabulaire" , 
-				html_content : ` <div id="dttable_container"  style="margin:10px; padding: 10px;">  </div>`,
+				html_content : ` <div id="@dttable_container"  style="margin:10px; padding: 10px;">  </div>`,
 				enabled : true,
-				visible : true
+				visible : false
 			},
 			{ 
 				id: "tab-c", 
@@ -320,7 +340,7 @@ var navAdminController = new ui_render_navtabs(
 	id : "admin-tabs",
 	default : "admin-tab-02",
 	nav_position : "top" ,  
-	color_theme  : "dark",
+	color_theme  : "light",
 		tabs : [
 			{
 				id : "admin-tab-01",
@@ -428,7 +448,7 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 		
 		        id : "rstuow-2",
 	       default : "covid-tab-bottom-01",
-	  nav_position : "bottom",
+	  nav_position : "top",
 	    color_theme  : "dark",
        	      tabs : [
 				{
@@ -439,14 +459,14 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 					enabled : true,
 				    visible : true
 				}, 
-				/*{
+				{
 					id : "covid-tab-bottom-02",
-					name : "indicators_daily",
-					label : "Variation quotidienne des indicateurs",
+					name : "indicators_healing",
+					label : "Taux de guérison",
 					html_content : `${get_chart_container( "covid-canvas-bottom-2" , 650, 300 ,'95%', '35vh')}`,
 					enabled : true,
 				    visible : true
-				},*/
+				},
 				{ 
 					id: "covid-tab-bottom-03", 
 					name: "confirmed_cases_sum" , 

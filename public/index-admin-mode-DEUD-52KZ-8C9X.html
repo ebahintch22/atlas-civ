@@ -32,6 +32,24 @@
     		background-color: #f7f799 !important;
     		color : #bd8f06 !important;
     	}
+
+    	.badge-green-inverted {
+    		background-color: #5c5c5c !important;
+    		color : green !important;
+    	}
+    	.badge-orange-inverted {
+    		background-color: #5c5c5c !important;
+    		color : #ef8213 !important;
+    	}
+    	.badge-red-inverted {
+    		background-color: #5c5c5c !important;
+    		color : #ce1325 !important;
+    	}
+    	.badge-yellow-inverted {
+    		background-color:  #5c5c5c !important;
+    		color : #bd8f06 !important;
+    	}
+
     	.no-padding {
     		padding-left: 1px !important;
     		padding-right: 1px !important;
@@ -43,57 +61,17 @@
 		    display: block;   padding: 0.2rem 0.5rem;
 		}
     </style>
+    <script src="./vendors/polyfills/array.js" type="text/javascript" ></script>
+  
         <script type="text/javascript">
         	var IS_ADMIN_SESSION
-			if (!Array.prototype.fill) {
-				  Object.defineProperty(Array.prototype, 'fill', {
-				    value: function(value) {
 
-				      // Steps 1-2.
-				      if (this == null) {
-				        throw new TypeError('this is null or not defined');
-				      }
-
-				      var O = Object(this);
-
-				      // Steps 3-5.
-				      var len = O.length >>> 0;
-
-				      // Steps 6-7.
-				      var start = arguments[1];
-				      var relativeStart = start >> 0;
-
-				      // Step 8.
-				      var k = relativeStart < 0 ?
-				        Math.max(len + relativeStart, 0) :
-				        Math.min(relativeStart, len);
-
-				      // Steps 9-10.
-				      var end = arguments[2];
-				      var relativeEnd = end === undefined ?
-				        len : end >> 0;
-
-				      // Step 11.
-				      var final = relativeEnd < 0 ?
-				        Math.max(len + relativeEnd, 0) :
-				        Math.min(relativeEnd, len);
-
-				      // Step 12.
-				      while (k < final) {
-				        O[k] = value;
-				        k++;
-				      }
-
-				      // Step 13.
-				      return O;
-				    }
-				  });
-				}
         </script>
     	<script src="./vendors/ua-parser/ua-parser-min.js" type="text/javascript" ></script>
 	    <script src="./js/app-admin-tools.js" charset="utf-8"></script>
 		<script type="text/javascript"> 
 			 IS_ADMIN_SESSION = IS_ADMIN_SESSION || false;
+
 			var before_app_initialization = true;	
 			    user_agent = new UAParser().getResult();
 
@@ -136,9 +114,9 @@
 
 			<div class="row">
 
-				<div class="col-sm-4 no-padding"  id="card-0" style="padding:1px; top: 0px;bottom: 2px; font-family: 'time new roman' ; font-size: 1.75em; font-weight: 750; ">
-					<div class="card"  style="padding:1px; top: 0px;">
-					  <div class="card-body text-center" style="background-color:#444; color:#ccc; padding:7px; top: 0px;" >
+				<div class="col-sm-4 no-padding"  id="card-0" style="padding:1px;top: 0px;bottom: 2px; font-family: 'time new roman'; font-size: 1.75em; font-weight: 750; ">
+					<div class="card"  style="position:relative; height:60px; padding:0px; top: 0px; background-color:#444; ">
+					  <div class="card-body text-center" style="background-color:#444; color:#ccc; padding:0px; top: 0px;" >
 					     Atlas Santé <sub style="font-size: 0.5em; font-weight: 750; "> Côte d'Ivoire </sub> 
 					  </div>
 					</div>					
@@ -152,7 +130,7 @@
 			</div>
 
 		
-
+			<!-- SELECT CONTROLLER FOR THEMATIC DIMENSION AND SPATIAL LEVEL-->
 			<div class="row">
 				<div class="col-sm-6 no-padding" >
 					<nav class="navbar navbar-light bg-light" style="height: 35px; padding: 2px 8px 2px 8px;">
@@ -166,6 +144,8 @@
 					</nav>
 				</div>
 			</div>
+			<!-- /END OF SELECT CONTROLLER-->
+
 
 
 			<div class="row" style= "bottom: 20px;">

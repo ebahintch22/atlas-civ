@@ -9,6 +9,7 @@
 		"active_case": 0,
 		"nb_sample": 0,
 		"incidence": 0,
+		"remission": 0.000,
 		"sum_sample": 0
 	},
 	{
@@ -22,6 +23,7 @@
 		"active_case": 0,
 		"nb_sample": 0,
 		"incidence": 0,
+		"remission": 0.000,
 		"sum_sample": 0
 	},
 	{
@@ -35,6 +37,7 @@
 		"active_case": 1,
 		"nb_sample": 96,
 		"incidence": 0.010,
+		"remission": 0.000,
 		"sum_sample": 96
 	},
 	{
@@ -48,6 +51,7 @@
 		"active_case": 1,
 		"nb_sample": 96,
 		"incidence": 0.000,
+		"remission": 0.000,
 		"sum_sample": 192
 	},
 	{
@@ -61,6 +65,7 @@
 		"active_case": 1,
 		"nb_sample": 96,
 		"incidence": 0.000,
+		"remission": 0.000,
 		"sum_sample": 288
 	},
 	{
@@ -74,6 +79,7 @@
 		"active_case": 4,
 		"nb_sample": 96,
 		"incidence": 0.031,
+		"remission": 0.000,
 		"sum_sample": 384
 	},
 	{
@@ -87,6 +93,7 @@
 		"active_case": 4,
 		"nb_sample": 96,
 		"incidence": 0.000,
+		"remission": 0.000,
 		"sum_sample": 480
 	},
 	{
@@ -100,6 +107,7 @@
 		"active_case": 5,
 		"nb_sample": 96,
 		"incidence": 0.021,
+		"remission": 0.167,
 		"sum_sample": 576
 	},
 	{
@@ -113,6 +121,7 @@
 		"active_case": 5,
 		"nb_sample": 96,
 		"incidence": 0.000,
+		"remission": 0.167,
 		"sum_sample": 672
 	},
 	{
@@ -126,6 +135,7 @@
 		"active_case": 8,
 		"nb_sample": 96,
 		"incidence": 0.031,
+		"remission": 0.111,
 		"sum_sample": 768
 	},
 	{
@@ -139,6 +149,7 @@
 		"active_case": 8,
 		"nb_sample": 96,
 		"incidence": 0.000,
+		"remission": 0.111,
 		"sum_sample": 864
 	},
 	{
@@ -152,6 +163,7 @@
 		"active_case": 13,
 		"nb_sample": 96,
 		"incidence": 0.052,
+		"remission": 0.071,
 		"sum_sample": 960
 	},
 	{
@@ -165,6 +177,7 @@
 		"active_case": 16,
 		"nb_sample": 96,
 		"incidence": 0.031,
+		"remission": 0.059,
 		"sum_sample": 1056
 	},
 	{
@@ -178,6 +191,7 @@
 		"active_case": 23,
 		"nb_sample": 96,
 		"incidence": 0.083,
+		"remission": 0.080,
 		"sum_sample": 1152
 	},
 	{
@@ -191,6 +205,7 @@
 		"active_case": 23,
 		"nb_sample": 96,
 		"incidence": 0.000,
+		"remission": 0.080,
 		"sum_sample": 1248
 	},
 	{
@@ -204,6 +219,7 @@
 		"active_case": 70,
 		"nb_sample": 96,
 		"incidence": 0.500,
+		"remission": 0.041,
 		"sum_sample": 1344
 	},
 	{
@@ -217,6 +233,7 @@
 		"active_case": 77,
 		"nb_sample": 96,
 		"incidence": 0.073,
+		"remission": 0.038,
 		"sum_sample": 1440
 	},
 	{
@@ -230,6 +247,7 @@
 		"active_case": 93,
 		"nb_sample": 96,
 		"incidence": 0.167,
+		"remission": 0.031,
 		"sum_sample": 1536
 	},
 	{
@@ -243,6 +261,7 @@
 		"active_case": 98,
 		"nb_sample": 96,
 		"incidence": 0.052,
+		"remission": 0.030,
 		"sum_sample": 1632
 	},
 	{
@@ -256,6 +275,7 @@
 		"active_case": 137,
 		"nb_sample": 96,
 		"incidence": 0.406,
+		"remission": 0.021,
 		"sum_sample": 1728
 	},
 	{
@@ -269,6 +289,7 @@
 		"active_case": 160,
 		"nb_sample": 96,
 		"incidence": 0.260,
+		"remission": 0.024,
 		"sum_sample": 1824
 	},
 	{
@@ -282,6 +303,7 @@
 		"active_case": 161,
 		"nb_sample": 97,
 		"incidence": 0.031,
+		"remission": 0.036,
 		"sum_sample": 1921
 	},
 	{
@@ -295,6 +317,7 @@
 		"active_case": 171,
 		"nb_sample": 97,
 		"incidence": 0.113,
+		"remission": 0.039,
 		"sum_sample": 2018
 	},
 	{
@@ -308,6 +331,7 @@
 		"active_case": 180,
 		"nb_sample": 97,
 		"incidence": 0.113,
+		"remission": 0.047,
 		"sum_sample": 2115
 	},
 	{
@@ -321,6 +345,7 @@
 		"active_case": 178,
 		"nb_sample": 81,
 		"incidence": 0.049,
+		"remission": 0.077,
 		"sum_sample": 2196
 	},
 	{
@@ -334,6 +359,7 @@
 		"active_case": 198,
 		"nb_sample": 226,
 		"incidence": 0.106,
+		"remission": 0.087,
 		"sum_sample": 2422
 	},
 	{
@@ -347,6 +373,7 @@
 		"active_case": 219,
 		"nb_sample": 96,
 		"incidence": 0.281,
+		"remission": 0.102,
 		"sum_sample": 2518
 	},
 	{
@@ -360,6 +387,7 @@
 		"active_case": 221,
 		"nb_sample": 96,
 		"incidence": 0.167,
+		"remission": 0.142,
 		"sum_sample": 2614
 	},
 	{
@@ -373,6 +401,7 @@
 		"active_case": 279,
 		"nb_sample": 96,
 		"incidence": 0.646,
+		"remission": 0.127,
 		"sum_sample": 2710
 	},
 	{
@@ -386,6 +415,7 @@
 		"active_case": 305,
 		"nb_sample": 96,
 		"incidence": 0.271,
+		"remission": 0.117,
 		"sum_sample": 2806
 	},
 	{
@@ -399,6 +429,7 @@
 		"active_case": 333,
 		"nb_sample": 125,
 		"incidence": 0.280,
+		"remission": 0.125,
 		"sum_sample": 2931
 	},
 	{
@@ -412,6 +443,7 @@
 		"active_case": 389,
 		"nb_sample": 247,
 		"incidence": 0.243,
+		"remission": 0.117,
 		"sum_sample": 3178
 	},
 	{
@@ -425,6 +457,7 @@
 		"active_case": 423,
 		"nb_sample": 192,
 		"incidence": 0.188,
+		"remission": 0.113,
 		"sum_sample": 3370
 	},
 	{
@@ -438,6 +471,7 @@
 		"active_case": 471,
 		"nb_sample": 96,
 		"incidence": 0.552,
+		"remission": 0.109,
 		"sum_sample": 3466
 	},
 	{
@@ -451,6 +485,7 @@
 		"active_case": 484,
 		"nb_sample": 96,
 		"incidence": 0.427,
+		"remission": 0.148,
 		"sum_sample": 3562
 	},
 	{
@@ -464,6 +499,7 @@
 		"active_case": 531,
 		"nb_sample": 96,
 		"incidence": 0.542,
+		"remission": 0.142,
 		"sum_sample": 3658
 	},
 	{
@@ -477,6 +513,7 @@
 		"active_case": 518,
 		"nb_sample": 129,
 		"incidence": 0.093,
+		"remission": 0.179,
 		"sum_sample": 3787
 	},
 	{
@@ -490,6 +527,7 @@
 		"active_case": 502,
 		"nb_sample": 238,
 		"incidence": 0.067,
+		"remission": 0.223,
 		"sum_sample": 4025
 	},
 	{
@@ -503,6 +541,7 @@
 		"active_case": 489,
 		"nb_sample": 298,
 		"incidence": 0.114,
+		"remission": 0.281,
 		"sum_sample": 4323
 	},
 	{
@@ -516,6 +555,7 @@
 		"active_case": 516,
 		"nb_sample": 296,
 		"incidence": 0.182,
+		"remission": 0.296,
 		"sum_sample": 4619
 	},
 	{
@@ -529,6 +569,7 @@
 		"active_case": 554,
 		"nb_sample": 361,
 		"incidence": 0.163,
+		"remission": 0.298,
 		"sum_sample": 4980
 	},
 	{
@@ -542,6 +583,7 @@
 		"active_case": 578,
 		"nb_sample": 399,
 		"incidence": 0.115,
+		"remission": 0.307,
 		"sum_sample": 5379
 	},
 	{
@@ -555,6 +597,7 @@
 		"active_case": 582,
 		"nb_sample": 351,
 		"incidence": 0.091,
+		"remission": 0.327,
 		"sum_sample": 5730
 	},
 	{
@@ -568,6 +611,7 @@
 		"active_case": 600,
 		"nb_sample": 270,
 		"incidence": 0.137,
+		"remission": 0.331,
 		"sum_sample": 6000
 	},
 	{
@@ -581,6 +625,7 @@
 		"active_case": 628,
 		"nb_sample": 342,
 		"incidence": 0.105,
+		"remission": 0.326,
 		"sum_sample": 6342
 	},
 	{
@@ -594,6 +639,7 @@
 		"active_case": 631,
 		"nb_sample": 504,
 		"incidence": 0.103,
+		"remission": 0.358,
 		"sum_sample": 6846
 	},
 	{
@@ -607,6 +653,7 @@
 		"active_case": 644,
 		"nb_sample": 584,
 		"incidence": 0.125,
+		"remission": 0.389,
 		"sum_sample": 7430
 	},
 	{
@@ -620,6 +667,7 @@
 		"active_case": 648,
 		"nb_sample": 302,
 		"incidence": 0.113,
+		"remission": 0.404,
 		"sum_sample": 7732
 	},
 	{
@@ -633,6 +681,7 @@
 		"active_case": 668,
 		"nb_sample": 560,
 		"incidence": 0.070,
+		"remission": 0.407,
 		"sum_sample": 8292
 	},
 	{
@@ -646,6 +695,7 @@
 		"active_case": 651,
 		"nb_sample": 289,
 		"incidence": 0.048,
+		"remission": 0.429,
 		"sum_sample": 8581
 	},
 	{
@@ -659,6 +709,7 @@
 		"active_case": 644,
 		"nb_sample": 179,
 		"incidence": 0.106,
+		"remission": 0.444,
 		"sum_sample": 8760
 	},
 	{
@@ -672,6 +723,7 @@
 		"active_case": 667,
 		"nb_sample": 512,
 		"incidence": 0.107,
+		"remission": 0.450,
 		"sum_sample": 9272
 	},
 	{
@@ -685,6 +737,7 @@
 		"active_case": 687,
 		"nb_sample": 385,
 		"incidence": 0.096,
+		"remission": 0.450,
 		"sum_sample": 9657
 	},
 	{
@@ -698,6 +751,7 @@
 		"active_case": 721,
 		"nb_sample": 416,
 		"incidence": 0.139,
+		"remission": 0.448,
 		"sum_sample": 10073
 	},
 	{
@@ -711,6 +765,7 @@
 		"active_case": 725,
 		"nb_sample": 435,
 		"incidence": 0.067,
+		"remission": 0.457,
 		"sum_sample": 10508
 	},
 	{
@@ -724,6 +779,7 @@
 		"active_case": 728,
 		"nb_sample": 288,
 		"incidence": 0.125,
+		"remission": 0.467,
 		"sum_sample": 10796
 	},
 	{
@@ -737,6 +793,7 @@
 		"active_case": 722,
 		"nb_sample": 482,
 		"incidence": 0.071,
+		"remission": 0.484,
 		"sum_sample": 11278
 	},
 	{
@@ -750,6 +807,7 @@
 		"active_case": 745,
 		"nb_sample": 170,
 		"incidence": 0.188,
+		"remission": 0.479,
 		"sum_sample": 11448
 	},
 	{
@@ -763,6 +821,7 @@
 		"active_case": 777,
 		"nb_sample": 497,
 		"incidence": 0.105,
+		"remission": 0.476,
 		"sum_sample": 11945
 	},
 	{
@@ -776,6 +835,7 @@
 		"active_case": 809,
 		"nb_sample": 367,
 		"incidence": 0.150,
+		"remission": 0.472,
 		"sum_sample": 12312
 	},
 	{
@@ -789,6 +849,7 @@
 		"active_case": 828,
 		"nb_sample": 456,
 		"incidence": 0.068,
+		"remission": 0.471,
 		"sum_sample": 12768
 	},
 	{
@@ -802,6 +863,7 @@
 		"active_case": 877,
 		"nb_sample": 573,
 		"incidence": 0.113,
+		"remission": 0.461,
 		"sum_sample": 13341
 	},
 	{
@@ -815,6 +877,7 @@
 		"active_case": 885,
 		"nb_sample": 322,
 		"incidence": 0.102,
+		"remission": 0.467,
 		"sum_sample": 13663
 	},
 	{
@@ -828,6 +891,7 @@
 		"active_case": 891,
 		"nb_sample": 499,
 		"incidence": 0.060,
+		"remission": 0.473,
 		"sum_sample": 14162
 	},
 	{
@@ -841,6 +905,7 @@
 		"active_case": 1016,
 		"nb_sample": 506,
 		"incidence": 0.251,
+		"remission": 0.442,
 		"sum_sample": 14668
 	},
 	{
@@ -854,6 +919,7 @@
 		"active_case": 986,
 		"nb_sample": 592,
 		"incidence": 0.093,
+		"remission": 0.472,
 		"sum_sample": 15260
 	},
 	{
@@ -867,6 +933,7 @@
 		"active_case": 1017,
 		"nb_sample": 680,
 		"incidence": 0.087,
+		"remission": 0.472,
 		"sum_sample": 15940
 	},
 	{
@@ -880,6 +947,7 @@
 		"active_case": 1051,
 		"nb_sample": 728,
 		"incidence": 0.063,
+		"remission": 0.467,
 		"sum_sample": 16668
 	},
 	{
@@ -893,6 +961,7 @@
 		"active_case": 1049,
 		"nb_sample": 845,
 		"incidence": 0.052,
+		"remission": 0.479,
 		"sum_sample": 17513
 	},
 	{
@@ -906,6 +975,7 @@
 		"active_case": 1078,
 		"nb_sample": 790,
 		"incidence": 0.061,
+		"remission": 0.476,
 		"sum_sample": 18303
 	},
 	{
@@ -919,6 +989,7 @@
 		"active_case": 1051,
 		"nb_sample": 305,
 		"incidence": 0.033,
+		"remission": 0.491,
 		"sum_sample": 18608
 	},
 	{
@@ -932,6 +1003,7 @@
 		"active_case": 1075,
 		"nb_sample": 566,
 		"incidence": 0.060,
+		"remission": 0.488,
 		"sum_sample": 19174
 	},
 	{
@@ -945,6 +1017,7 @@
 		"active_case": 1119,
 		"nb_sample": 840,
 		"incidence": 0.093,
+		"remission": 0.485,
 		"sum_sample": 20014
 	},
 	{
@@ -958,6 +1031,7 @@
 		"active_case": 1172,
 		"nb_sample": 1055,
 		"incidence": 0.066,
+		"remission": 0.478,
 		"sum_sample": 21069
 	},
 	{
@@ -971,6 +1045,7 @@
 		"active_case": 1166,
 		"nb_sample": 1164,
 		"incidence": 0.034,
+		"remission": 0.490,
 		"sum_sample": 22233
 	},
 	{
@@ -984,6 +1059,7 @@
 		"active_case": 1148,
 		"nb_sample": 727,
 		"incidence": 0.034,
+		"remission": 0.502,
 		"sum_sample": 22960
 	},
 	{
@@ -997,6 +1073,7 @@
 		"active_case": 1127,
 		"nb_sample": 484,
 		"incidence": 0.021,
+		"remission": 0.513,
 		"sum_sample": 23444
 	},
 	{
@@ -1010,6 +1087,7 @@
 		"active_case": 1136,
 		"nb_sample": 873,
 		"incidence": 0.054,
+		"remission": 0.519,
 		"sum_sample": 24317
 	},
 	{
@@ -1023,6 +1101,7 @@
 		"active_case": 1161,
 		"nb_sample": 782,
 		"incidence": 0.069,
+		"remission": 0.519,
 		"sum_sample": 25099
 	},
 	{
@@ -1036,6 +1115,7 @@
 		"active_case": 1223,
 		"nb_sample": 425,
 		"incidence": 0.186,
+		"remission": 0.509,
 		"sum_sample": 25524
 	},
 	{
@@ -1049,6 +1129,7 @@
 		"active_case": 1283,
 		"nb_sample": 497,
 		"incidence": 0.171,
+		"remission": 0.502,
 		"sum_sample": 26021
 	},
 	{
@@ -1062,6 +1143,7 @@
 		"active_case": 1348,
 		"nb_sample": 527,
 		"incidence": 0.207,
+		"remission": 0.498,
 		"sum_sample": 26548
 	},
 	{
@@ -1075,6 +1157,7 @@
 		"active_case": 1381,
 		"nb_sample": 357,
 		"incidence": 0.137,
+		"remission": 0.495,
 		"sum_sample": 26905
 	},
 	{
@@ -1088,6 +1171,7 @@
 		"active_case": 1365,
 		"nb_sample": 134,
 		"incidence": 0.254,
+		"remission": 0.507,
 		"sum_sample": 27039
 	},
 	{
@@ -1101,6 +1185,7 @@
 		"active_case": 1451,
 		"nb_sample": 611,
 		"incidence": 0.193,
+		"remission": 0.497,
 		"sum_sample": 27650
 	},
 	{
@@ -1114,6 +1199,7 @@
 		"active_case": 1490,
 		"nb_sample": 470,
 		"incidence": 0.155,
+		"remission": 0.496,
 		"sum_sample": 28120
 	},
 	{
@@ -1127,6 +1213,7 @@
 		"active_case": 1545,
 		"nb_sample": 402,
 		"incidence": 0.214,
+		"remission": 0.492,
 		"sum_sample": 28522
 	},
 	{
@@ -1140,6 +1227,7 @@
 		"active_case": 1643,
 		"nb_sample": 706,
 		"incidence": 0.215,
+		"remission": 0.486,
 		"sum_sample": 29228
 	},
 	{
@@ -1153,6 +1241,7 @@
 		"active_case": 1791,
 		"nb_sample": 628,
 		"incidence": 0.269,
+		"remission": 0.468,
 		"sum_sample": 29856
 	},
 	{
@@ -1166,6 +1255,7 @@
 		"active_case": 1771,
 		"nb_sample": 756,
 		"incidence": 0.167,
+		"remission": 0.492,
 		"sum_sample": 30612
 	},
 	{
@@ -1179,6 +1269,7 @@
 		"active_case": 1885,
 		"nb_sample": 937,
 		"incidence": 0.194,
+		"remission": 0.486,
 		"sum_sample": 31549
 	},
 	{
@@ -1192,6 +1283,7 @@
 		"active_case": 1974,
 		"nb_sample": 800,
 		"incidence": 0.178,
+		"remission": 0.482,
 		"sum_sample": 32349
 	},
 	{
@@ -1205,6 +1297,7 @@
 		"active_case": 1912,
 		"nb_sample": 515,
 		"incidence": 0.221,
+		"remission": 0.512,
 		"sum_sample": 32864
 	},
 	{
@@ -1218,6 +1311,7 @@
 		"active_case": 1966,
 		"nb_sample": 612,
 		"incidence": 0.304,
+		"remission": 0.520,
 		"sum_sample": 33476
 	},
 	{
@@ -1231,6 +1325,7 @@
 		"active_case": 2151,
 		"nb_sample": 796,
 		"incidence": 0.280,
+		"remission": 0.502,
 		"sum_sample": 34272
 	},
 	{
@@ -1244,6 +1339,7 @@
 		"active_case": 2376,
 		"nb_sample": 907,
 		"incidence": 0.309,
+		"remission": 0.483,
 		"sum_sample": 35179
 	},
 	{
@@ -1257,6 +1353,7 @@
 		"active_case": 2406,
 		"nb_sample": 756,
 		"incidence": 0.217,
+		"remission": 0.494,
 		"sum_sample": 35935
 	},
 	{
@@ -1270,6 +1367,7 @@
 		"active_case": 2534,
 		"nb_sample": 848,
 		"incidence": 0.278,
+		"remission": 0.493,
 		"sum_sample": 36783
 	},
 	{
@@ -1283,6 +1381,7 @@
 		"active_case": 2803,
 		"nb_sample": 870,
 		"incidence": 0.408,
+		"remission": 0.476,
 		"sum_sample": 37653
 	},
 	{
@@ -1296,6 +1395,7 @@
 		"active_case": 2996,
 		"nb_sample": 984,
 		"incidence": 0.244,
+		"remission": 0.464,
 		"sum_sample": 38637
 	},
 	{
@@ -1309,6 +1409,7 @@
 		"active_case": 3266,
 		"nb_sample": 1214,
 		"incidence": 0.316,
+		"remission": 0.453,
 		"sum_sample": 39851
 	},
 	{
@@ -1322,6 +1423,7 @@
 		"active_case": 3532,
 		"nb_sample": 1592,
 		"incidence": 0.239,
+		"remission": 0.444,
 		"sum_sample": 41443
 	},
 	{
@@ -1335,6 +1437,7 @@
 		"active_case": 3883,
 		"nb_sample": 1632,
 		"incidence": 0.263,
+		"remission": 0.428,
 		"sum_sample": 43075
 	},
 	{
@@ -1348,6 +1451,7 @@
 		"active_case": 4232,
 		"nb_sample": 1155,
 		"incidence": 0.348,
+		"remission": 0.411,
 		"sum_sample": 44230
 	},
 	{
@@ -1361,6 +1465,7 @@
 		"active_case": 4370,
 		"nb_sample": 922,
 		"incidence": 0.234,
+		"remission": 0.410,
 		"sum_sample": 45152
 	},
 	{
@@ -1374,6 +1479,21 @@
 		"active_case": 4493,
 		"nb_sample": 844,
 		"incidence": 0.219,
+		"remission": 0.407,
 		"sum_sample": 45996
+	},
+	{
+		"date": "23/06/2020",
+		"new_case": 227,
+		"new_healed": 54,
+		"new_deceased": 2,
+		"sum_case": 7904,
+		"sum_healed": 3182,
+		"sum_deceased": 58,
+		"active_case": 4664,
+		"nb_sample": 1303,
+		"incidence": 0.174,
+		"remission": 0.403,
+		"sum_sample": 47299
 	}
 ]

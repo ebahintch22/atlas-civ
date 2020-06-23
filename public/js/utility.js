@@ -151,6 +151,7 @@ function detect_client(){
                    d.nb_sample = +d.nb_sample;
                   d.sum_sample = +d.sum_sample;
                    d.incidence = +d.incidence * 100;
+                   d.remission = +d.remission * 100;
 	            
 	        });
             //console.log(data)

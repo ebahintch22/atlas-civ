@@ -4,7 +4,7 @@ var behave_as_mobile_device_on_start_up = false;
 var before_app_initialization = true;
 var COVIDATA;
 var user_session_manager = new user_connexion_manager_constructor()
-
+var ENV_VIEW_SIZE = getEnvSize()
 
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 //window.onresize = after_window_resized ;
@@ -12,6 +12,23 @@ function isMobileDevice() {
     return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
 };
 
+function getEnvSize(){
+	return {
+		browser : {
+			height : $(window).height(),
+			 width : $(window).width()
+		},
+		page :{
+			height : $(document).height(),
+		     width : $(document).width()
+		},
+		screen :{
+			height : window.screen.height,
+		     width : window.screen.width
+		}
+	}
+
+}
 
 user_session_manager.boot_app()
 //user_session_manager.start_session();
@@ -274,23 +291,26 @@ function force_mobile(){
 }
 
 
-var badge_template = `<div class="card text-center {{color_class}}">
-	    <div class="card-body" style="padding: 0.5em;">
-	     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
-	     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
-	     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
-               {{value}}
-               <span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
-             				line-height: 1;"> 
-                 ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
-               </span>
-	 	</span>
-	  </div>
-	</div>`
+
+	
 
 
+	function update_badges( extended = true ){
+		var deltas = extended ?  `<span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
+	             				line-height: 1;"> 
+	                 ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
+	               </span>` : "";
 
-	function update_badges(){
+		var badge_template = `<div class="card text-center {{color_class}}"  style="position:relative; height:60px;">
+		    <div class="card-body" style="padding: 0.5em;">
+		     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
+		     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
+		     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
+	               {{value}}
+	               ${deltas}
+		 	</span>
+		  </div>
+		</div>`
 
 		var d = extract_late_datarow();
 		var d1 = extract_late_datarow(1);
@@ -307,16 +327,25 @@ var badge_template = `<div class="card text-center {{color_class}}">
 		}			
 	}
 
+	function updateSizeCard(){
+	 	
+	 	if ( ENV_VIEW_SIZE.browser.width > 1200 ){
+	 		update_badges(true)
 
+	 	} else {
+			update_badges(false)
+	 	}
+	}
 
 	function extract_late_datarow(index=0){
 		var n = COVIDATA.length
 		return COVIDATA[n-1-index];
 	}
 
-	function USER_INTERFACE_update_layout(){  
 
+	function USER_INTERFACE_update_layout(){  
 		opera_console.addLog("Windows resized");
+
 	}
 
 

@@ -16,7 +16,6 @@
 		<link href="./health-atlas-16x16.png" rel="icon">
 
     <style type="text/css">
-
     	.badge-green {
     		background-color: #daf392 !important;
     		color : green !important;
@@ -62,9 +61,11 @@
 		    display: block;    padding: 0.2rem 0.5rem;
 		}
     </style>
+    <script src="./vendors/polyfills/array.js" type="text/javascript" ></script>
+        
         <script type="text/javascript">
         	var IS_ADMIN_SESSION
-			if (!Array.prototype.fill) {
+		/*	if (!Array.prototype.fill) {
 				  Object.defineProperty(Array.prototype, 'fill', {
 				    value: function(value) {
 
@@ -107,7 +108,7 @@
 				      return O;
 				    }
 				 });
-			}
+			}*/
         </script>
     	<script src="./vendors/ua-parser/ua-parser-min.js" type="text/javascript" ></script>
 	   
