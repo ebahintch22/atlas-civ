@@ -34,7 +34,7 @@ function ui_render_navtabs ( _eltID , Cfg , callBack , delay = 1){
 	`
 
 	var template_nav_tabs = Cfg.nav_position == "top"? tmplt_02 + tmplt_01 : tmplt_01 + tmplt_02
-		template_nav_tabs = `   <div id="#${Cfg.id}"  class="card"> 	 ${template_nav_tabs}   </div>	`
+		template_nav_tabs = `   <div id="#${Cfg.id}"  class="card ${Cfg.color_theme}"> 	 ${template_nav_tabs}   </div>	`
 
 	//Add helper func for mustache render for Bootstrap-wise properties
 

@@ -242,7 +242,8 @@ var navtabController_RASS = new ui_render_navtabs(
 	   "#RASS-NAV-TAB-CONTAINER", {
 		id : "nav-tab-01",
 		default : "tab-e",	
-		nav_position : "top" ,
+		nav_position : "top" ,  
+		color_theme  : "light",
 		tabs : [
 			{ 
 				id: "tab-a", 
@@ -318,7 +319,8 @@ var navAdminController = new ui_render_navtabs(
 	"#ADMIN-TAB-WRAPPER", {
 	id : "admin-tabs",
 	default : "admin-tab-02",
-	nav_position : "top" ,
+	nav_position : "top" ,  
+	color_theme  : "dark",
 		tabs : [
 			{
 				id : "admin-tab-01",
@@ -379,6 +381,7 @@ var navtabController_COVID_UP =  new ui_render_navtabs (
 			 id : "rstuw-1",
 		default : "covid-tab-up-01",
    nav_position : "top",
+   color_theme  : "dark",
 		   tabs : [
 			{
 				id : "covid-tab-up-01",
@@ -426,6 +429,7 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 		        id : "rstuow-2",
 	       default : "covid-tab-bottom-01",
 	  nav_position : "bottom",
+	    color_theme  : "dark",
        	      tabs : [
 				{
 					id : "covid-tab-bottom-01",

@@ -429,6 +429,7 @@ var metaDataBase = {
 	data_base_name : "Atlas Sanitaire - Côte d'Ivoire  - RASS 2017 version 1.0.5",
 	version : "2.0",
 	date : "21/05/2020",
+	default_theme : "covid-19-june16",
 	geo_dataset :{
 		name : "district_sante",
 		class: "Districts sanitaire",
@@ -500,7 +501,8 @@ var metaDataBase = {
 		"ratio_ambulance_structure_sante",
 		"repartition_struct_transfusion",
 		"std",
-		"covid-19"
+		"covid-19",
+		"covid-19-june16"
 	],
 	color_palettes : [ 
 			{ name:"YlGnBu"}, 
@@ -512,14 +514,52 @@ var metaDataBase = {
 	],
 	table_selected : default_table_selection,
 	table_details : [
-
+		{
+			index : 18,
+			name : "covid-19-june16", 
+			valid: true,
+			table_num : "Tableau-98",			
+			layerList : [  "district_sante", "region_sante" ],
+			label: "1- Incidence nationale de la COVID-19 (Carto actualisée au 16/06/2020)",
+			unit: "nombre de cas",
+			article: "de ",
+			path : "./data/statistics/tab_98_covid_june16.csv",
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : {
+				   source : "manual",
+				threshold : [ 1, 5, 10, 100, 1000],
+				 colormap : ['#ffffff' , '#fcf285', '#F6B20D' , '#CC5526', '#C22C1C' , '#660207'],  
+				 labelmap : ['Aucun cas' , "", "Incidence faible", "Incidence Moyenne" , "Incidence élevée", "Epicentres"],
+			  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+			},
+			layout : "COVID",
+			color_palette: "YlOrRd",
+			field_selected : default_field_selection,
+			data_fields : [					
+				{ 
+					fld_name : "FLD1",
+					short_name : "COVID-19: Répartition des cas confirmés (au 16/03/2019)", 
+					long_name : " Nombre de cas confirmés de COVID-19", 
+					data_type :  "INT", 
+					unit : "cas confirmés de COVID-19" 
+				},
+				{ 
+					fld_name : "FLD2",
+					short_name : "Nb de décès dus à la COVID-19", 
+					long_name : " Nombre de décès dus à la COVID-19 ", 
+					data_type :  "INT", 
+					unit : "décès dus à la COVID-19" 
+				}
+			]
+		},
 		{
 			index : 17,
 			name : "covid-19", 
-			valid: true,
+			valid: false,
 			table_num : "Tableau-99",			
 			layerList : [ "region_admin", "district_admin" ],
-			label: "1- Incidence nationale de la COVID-19",
+			label: "1- Incidence nationale de la COVID-19 (deprecated)",
 			unit: "nombre de cas",
 			article: "de ",
 			path : "./data/statistics/tab_99_covid.csv",
@@ -528,7 +568,7 @@ var metaDataBase = {
 			renderer : {
 				   source : "manual",
 				threshold : [ 1, 4, 10, 100],
-				 colormap : ["#ffffff", "#ffbfbf", "#ff8080", "#dd4040", "#660000" ],  
+				 colormap :    [ "#ffffff", "#ea7f7f" , "#e03e3e",  "#a70606",  "#710505"],  
 				 labelmap : ['Aucun cas' , "Incidence faible", "Incidence Moyenne" , "Incidence forte", "Epicentre"],
 			  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
 			},
@@ -988,6 +1028,7 @@ var metaDataBase = {
 	]	
 };
 
+//Ord;Code;REGIONS_DISTRICTS;GEOLOC;NIVEAU;Nombre de cas au 16 juin 2020;Nombre de décès au 16 juin 2020
  var tmplt_details_hard =   `
 	<div class="pane-header">
 	 	<span>
@@ -2797,7 +2838,7 @@ function ui_render_navtabs ( _eltID , Cfg , callBack , delay = 1){
 	`
 
 	var template_nav_tabs = Cfg.nav_position == "top"? tmplt_02 + tmplt_01 : tmplt_01 + tmplt_02
-		template_nav_tabs = `   <div id="#${Cfg.id}"  class="card"> 	 ${template_nav_tabs}   </div>	`
+		template_nav_tabs = `   <div id="#${Cfg.id}"  class="card ${Cfg.color_theme}"> 	 ${template_nav_tabs}   </div>	`
 
 	//Add helper func for mustache render for Bootstrap-wise properties
 
@@ -3809,7 +3850,8 @@ var navtabController_RASS = new ui_render_navtabs(
 	   "#RASS-NAV-TAB-CONTAINER", {
 		id : "nav-tab-01",
 		default : "tab-e",	
-		nav_position : "top" ,
+		nav_position : "top" ,  
+		color_theme  : "light",
 		tabs : [
 			{ 
 				id: "tab-a", 
@@ -3885,7 +3927,8 @@ var navAdminController = new ui_render_navtabs(
 	"#ADMIN-TAB-WRAPPER", {
 	id : "admin-tabs",
 	default : "admin-tab-02",
-	nav_position : "top" ,
+	nav_position : "top" ,  
+	color_theme  : "dark",
 		tabs : [
 			{
 				id : "admin-tab-01",
@@ -3946,6 +3989,7 @@ var navtabController_COVID_UP =  new ui_render_navtabs (
 			 id : "rstuw-1",
 		default : "covid-tab-up-01",
    nav_position : "top",
+   color_theme  : "dark",
 		   tabs : [
 			{
 				id : "covid-tab-up-01",
@@ -3993,6 +4037,7 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 		        id : "rstuow-2",
 	       default : "covid-tab-bottom-01",
 	  nav_position : "bottom",
+	    color_theme  : "dark",
        	      tabs : [
 				{
 					id : "covid-tab-bottom-01",
@@ -4861,9 +4906,9 @@ var geo_dataset_is_load = false;
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 window.onresize //= after_window_resized ;
 
-var initialTable = "covid-19" ;//   "covid-19" //" "covid-19"; //demographic" ;//;"demographic"
+var initialTable = "covid-19-june16" // "covid-19" ;//   "covid-19" //" "covid-19"; //demographic" ;//;"demographic"
 var initialKey = "FLD1";
-
+    
 var currentTable;
 var currentMetaTable;
 var currentKey;
@@ -6153,11 +6198,12 @@ var badge_template = `<div class="card text-center {{color_class}}">
 	function update_badges(){
 
 		var d = extract_late_datarow();
+		var d1 = extract_late_datarow(1);
 
 	
-		update_badge( "#card-1" , {	color_class : "badge-orange-dark", label : "Cas confirmés", 	value : d.sum_case ,        delta : d.new_case , 	   date : d.date_raw   } );
-		update_badge( "#card-2" , {	color_class : "badge-yellow-dark", label : "Cas actifs", 	value : d.active_case , 	delta : d.new_case,  		date : d.date_raw   } );
-		update_badge( "#card-3" , {	color_class : "badge-red-dark",	  label : "Décès", 			value : d.sum_deceased, 	delta : d.new_deceased, 	date : d.date_raw   } );
+		update_badge( "#card-1" , {	color_class : "badge-orange-dark", label : "Cas confirmés", 	value : d.sum_case ,    delta : d.new_case , 	   date : d.date_raw   } );
+		update_badge( "#card-2" , {	color_class : "badge-yellow-dark", label : "Cas actifs", 	value : d.active_case  , 	delta : d.active_case - d1.active_case,  		date : d.date_raw   } );
+		update_badge( "#card-3" , {	color_class : "badge-red-dark",	   label : "Décès", 			value : d.sum_deceased, 	delta : d.new_deceased, 	date : d.date_raw   } );
 		update_badge( "#card-4" , {	color_class : "badge-green-dark",  label : "Guéris", 		value : d.sum_healed, 		delta : d.new_healed, 		date : d.date_raw   } );	
 		
 		function  update_badge( eltId, data ){
@@ -6168,9 +6214,9 @@ var badge_template = `<div class="card text-center {{color_class}}">
 
 
 
-	function extract_late_datarow(){
+	function extract_late_datarow(index=0){
 		var n = COVIDATA.length
-		return COVIDATA[n-1];
+		return COVIDATA[n-1-index];
 	}
 
 	function USER_INTERFACE_update_layout(){  
