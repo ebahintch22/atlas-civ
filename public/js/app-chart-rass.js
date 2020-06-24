@@ -45,7 +45,8 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 				borderColor: 'ORANGE',
 				yAxisID : 'y-axis-1' 
 		   }
-		]
+		],
+		fontColors : CHART_FONT_COLORS["rass"]
 	});
 
 	return {
@@ -140,7 +141,7 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 			function detect_changes(){
 				var r = null
 				if ( stamps.geolyr != metageo.name) r= "layer-changed";
-				if (  stamps.table != metadata.name) r= "data-theme-changed";
+				if ( stamps.table != metadata.name) r= "data-theme-changed";
 				if  (  r==null) r ="key-changed";
 
 				stamps.geolyr = metageo.name
@@ -188,68 +189,3 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 }	
 
 
-
-
-function create_Chart_ex( data_struct , elt_id, Cfg ){
-	
-	var dateFormat = d3.time.format("%d-%m-%Y");
-	var time_pattern = "DD/MM/YYYY";
-
-	Cfg.label_min = data_struct.min;
-	Cfg.label_max = data_struct.max;
-
-	var CHART_CONFIG = JSON.stringify(Cfg)
-	//console.log("HIGHLEVEL CONFIG ::---------------------------->>> " +CHART_CONFIG)
-	//opera_console.log("HIGHLEVEL CONFIG ::---------------------------->>> " + CHART_CONFIG)
-
-	var chart_configurator = {
-
-	    data: {
-	        labels:  data_struct.labels ,
-	        datasets: Cfg.charts.map(function(chart){
-				return {
-					label: chart.label,
-					type : chart.type ,
-					yAxisID : chart.yAxisID,
-					backgroundColor : get_color(chart.backgroundColor, 0.45),
-					borderColor : get_color( chart.borderColor, 0.99),
-					borderWidth : ( chart.type == "bar")? 1 : (chart.borderWidth? chart.borderWidth : 1),
-					fill : (chart.type == "line") ? false : true ,
-					data : data_struct.data
-
-				}
-			}),
-	    },
-
-	    options: {
-	    	maintainAspectRatio : false,
-	        title: {
-	            display: true,
-	            text: Cfg.title
-	        },
-
-			tooltips : {
-				intersect : true,
-				titleFontColor : '#333',
-				backgroundColor  : get_color( "WHITE", 0.8),
-				bodyFontColor : '#555',
-				borderWidth : 1,
-				cornerRadius : 2,
-				borderColor : get_color( "RED", 0.99),		
-			},
-	        scales: {
-	            xAxes: generate_xAxes_section(Cfg),		        	
-	            yAxes: generate_yAxes_section(Cfg)
-	        }
-	    }
-	}
-
-	var CHART_CONFIG = JSON.stringify(chart_configurator)
-	//console.log("\n\n\nLOW CONFIG ::---------------------------->>> " + CHART_CONFIG + "\n\n")
-	//opera_console.log(CHART_CONFIG)
-
-	var ctx = document.getElementById(elt_id);
-	var myChart = new Chart(ctx, chart_configurator)
-	return myChart
-
-}

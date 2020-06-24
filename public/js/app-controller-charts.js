@@ -1,7 +1,23 @@
 
+    var CHART_FONT_COLORS = {
+    	"covid" : {
+    		legend : "#ddd",
+    		  axis : "#ddd",
+    		 title : "#ddd",
+    	scaleLabel : "#ddd"
+
+    	},
+      	"rass" : {
+    		legend : "#222",
+    		  axis : "#222",
+    		 title : "#222",
+        scaleLabel : "#222"
+    	}	
+    }
+    
 
     function create_Chart( in_data , elt_id, Cfg ){
-    	
+    	Chart.defaults.global.defaultFontColor = "#ddd";
 
 		var dateFormat = d3.time.format("%d-%m-%Y");
 		var time_pattern = "DD/MM/YYYY";
@@ -32,8 +48,9 @@
 		    options: {
 		    	maintainAspectRatio : false,
 		        title: {
-		            display: true,
-		            text: Cfg.title
+		             display: true,
+		                text: Cfg.title,
+		           fontColor: Cfg.fontColors.title
 		        },
 
 				tooltips : {
@@ -48,7 +65,12 @@
 		        scales: {
 		            xAxes: generate_xAxes_section(Cfg),		        	
 		            yAxes: generate_yAxes_section(Cfg)
-		        }
+		        },
+		        legend: {
+	                labels: {
+	                   fontColor: Cfg.fontColors.legend
+	                }
+       			}
 		    }
 		}
 		//var CHART_CONFIG = JSON.stringify(chart_configurator)
@@ -57,12 +79,90 @@
 		var canvas = document.getElementById(elt_id);
 		var ctx = canvas.getContext("2d");
 			canvas.style.backgroundColor = "#333";
+
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+
 		var myChart = new Chart( canvas, chart_configurator)
+		    
+
 		return myChart
 
     }
+
+
+
+
+function create_Chart_ex( data_struct , elt_id, Cfg ){
+	
+	var dateFormat = d3.time.format("%d-%m-%Y");
+	var time_pattern = "DD/MM/YYYY";
+
+	Cfg.label_min = data_struct.min;
+	Cfg.label_max = data_struct.max;
+
+	var CHART_CONFIG = JSON.stringify(Cfg)
+	//console.log("HIGHLEVEL CONFIG ::---------------------------->>> " +CHART_CONFIG)
+	//opera_console.log("HIGHLEVEL CONFIG ::---------------------------->>> " + CHART_CONFIG)
+
+	var chart_configurator = {
+
+	    data: {
+	        labels:  data_struct.labels ,
+	        datasets: Cfg.charts.map(function(chart){
+				return {
+					label: chart.label,
+					type : chart.type ,
+					yAxisID : chart.yAxisID,
+					backgroundColor : get_color(chart.backgroundColor, 0.45),
+					borderColor : get_color( chart.borderColor, 0.99),
+					borderWidth : ( chart.type == "bar")? 1 : (chart.borderWidth? chart.borderWidth : 1),
+					fill : (chart.type == "line") ? false : true ,
+					data : data_struct.data
+
+				}
+			}),
+	    },
+
+	    options: {
+	    	maintainAspectRatio : false,
+	        title: {
+	            display: true,
+	            text: Cfg.title, 
+	       fontColor: Cfg.fontColors.title
+	        },
+
+			tooltips : {
+				intersect : true,
+				titleFontColor : '#333',
+				backgroundColor  : get_color( "WHITE", 0.8),
+				bodyFontColor : '#555',
+				borderWidth : 1,
+				cornerRadius : 2,
+				borderColor : get_color( "RED", 0.99),		
+			},
+	        scales: {
+	            xAxes: generate_xAxes_section(Cfg),		        	
+	            yAxes: generate_yAxes_section(Cfg)
+	        },
+	        legend: {
+                labels: {
+                   fontColor: Cfg.fontColors.legend
+                }
+   			}
+	    }
+	}
+
+	//var CHART_CONFIG = JSON.stringify(chart_configurator)
+	//console.log("\n\n\nLOW CONFIG ::---------------------------->>> " + CHART_CONFIG + "\n\n")
+	//opera_console.log(CHART_CONFIG)
+
+	var ctx = document.getElementById(elt_id);
+	var myChart = new Chart(ctx, chart_configurator)
+	return myChart
+
+}
+
 
     function generate_yAxes_section(Cfg){
     	//Génère la section de l'objet options relatives aux axes Yaxis
@@ -90,7 +190,8 @@
                 },
                 scaleLabel : {
                 	display: true,
-                	labelString : "Nombre de cas"
+                	labelString : "Nombre de cas",
+                	fontColor : Cfg.fontColors.scaleLabel
                 }
  			})
  		}
@@ -107,11 +208,13 @@
         			color : get_color( "GRAY", 0.7)
         		},
                 ticks: {
-                    beginAtZero: false
+                    beginAtZero: false,
+                      fontColor: Cfg.fontColors.axis,
                 },
                 scaleLabel : {
                 	display: true,
-                	labelString : axe.labelString ? axe.labelString : "Title axe y1"
+                	labelString : axe.labelString ? axe.labelString : "Title axe y1",
+                	  fontColor : Cfg.fontColors.scaleLabel
                 }
 			}
     	}
@@ -136,7 +239,7 @@
                 	autoSkipPadding: 0,
                 	maxRotation: 90,
                 	minRotation: 60, 
-                	fontColor: "gray",
+                	fontColor: Cfg.fontColors.axis,
                 	fontSize: 9,
 					fontFamily: "Univers Condensed,arial",
 					callback: function(value, index, values){
@@ -161,6 +264,7 @@
                 	source: "auto",
                 	autoSkip: true,
                 	autoSkipPadding: 25,
+                	fontColor: Cfg.fontColors.axis,
                 	maxRotation: 0
                 }
 		    }

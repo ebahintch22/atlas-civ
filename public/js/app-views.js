@@ -305,7 +305,6 @@ var navtabController_RASS = new ui_render_navtabs(
 				                  position:relative; height: 70vh;"> </div>`,
 				enabled : true,
 				visible : IS_ADMIN_SESSION
-
 			}
 		]
     },
@@ -334,6 +333,9 @@ var navtabController_RASS = new ui_render_navtabs(
 var html_02 = get_chart_container( "chart-canvas-traffic" , 600, 250 ,'90%', '35vh');
 			  console.log( "Template du graphique de fréquentation : " + html_02  );*/
 
+var color_data = {
+	colors : object_to_array(chartColors)
+}
 
 var navAdminController = new ui_render_navtabs(
 	"#ADMIN-TAB-WRAPPER", {
@@ -366,9 +368,18 @@ var navAdminController = new ui_render_navtabs(
 				html_content : get_opera_console_template_TODO() ,
 				enabled : true,
 				visible : IS_ADMIN_SESSION
+			},
+			{ 
+				id: "admin-tab-04", 
+				name: "sys_config" , 
+				label : "Configuration", 
+				html_content : get_color_ramp_html( color_data ) ,
+				enabled : true,
+				visible : IS_ADMIN_SESSION
 			}
 		]
 	},
+
 	function(info){	
 
 		/* ACTION TO TRIGGER WHEN TABS CHANGED*/
@@ -387,7 +398,8 @@ var navAdminController = new ui_render_navtabs(
 					}
 				)
 				 
-
+			case "sys_config":
+				opera_console.addLog("COLOR OBJECT " + toJSON(color_data));
 			break;
 		}
 	},
@@ -426,16 +438,7 @@ var navtabController_COVID_UP =  new ui_render_navtabs (
 				html_content : `${ get_chart_container( "covid-canvas-up-3" , 650, 300 ,'95%', '35vh')}`,
 				enabled : true,
 				visible : true
-			}/*,
-			{ 
-				id: "covid-tab-up-04", 
-				name: "covid-system-map" , 
-				label : "Couleurs de référence (mode admin)", 
-				html_content : `${ get_color_palette( "covid-canvas-up-4" , 650, 300 ,'95%', '35vh')}`,
-				enabled : true,
-				visible : IS_ADMIN_SESSION
-			}*/
-
+			}
 		]
 	},
 		function (info){ }, 
@@ -612,9 +615,21 @@ function init_helper_functions(){
 		 </div>  ` 
     }
 
+    get_color_ramp_html = function( color_arr ){
+    	
+    	var TMPLT =  `
+    		<div  style= "margin: 20px 0px 0px 40px;position:relative; width:400px; height:300px; overflow-y: scroll;font-size: 10px;">
+    			{{#colors}}
+    				<div style="display: inline-block; position:relative; border: 1px solid #000 ;margin:5px; width:100px; height:40px; background-color:{{value}};" > {{key}} </div>
+    			{{/colors}}
+    		</div> 	`
+		
+		return ( Mustache.render( TMPLT , color_arr ))
 
+    }
 
 	 fa_icon = function(ico_name){
 	 	return ( ` <i class="fa fa-${ico_name}" aria-hidden="true"></i> `)
 	 }
+
 }

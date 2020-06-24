@@ -25,6 +25,12 @@ function detect_client(){
     return (output)
 }
 
+
+    function object_to_array(obj){
+       var arr = Object.entries( obj).map( function(d){ return { key: d[0], value: d[1]}  })
+       return arr;
+    }
+
     // "./data/covid-data.json"
     var opera_console = (opera_console) || (function(){
         var _Number = new Intl.NumberFormat();

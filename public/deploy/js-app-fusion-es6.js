@@ -68,6 +68,12 @@ function detect_client(){
     return (output)
 }
 
+
+    function object_to_array(obj){
+       var arr = Object.entries( obj).map( function(d){ return { key: d[0], value: d[1]}  })
+       return arr;
+    }
+
     // "./data/covid-data.json"
     var opera_console = (opera_console) || (function(){
         var _Number = new Intl.NumberFormat();
@@ -3083,9 +3089,25 @@ function generate_legend( dom_elt, Cfg ){
 }
 
 
+    var CHART_FONT_COLORS = {
+    	"covid" : {
+    		legend : "#ddd",
+    		  axis : "#ddd",
+    		 title : "#ddd",
+    	scaleLabel : "#ddd"
+
+    	},
+      	"rass" : {
+    		legend : "#222",
+    		  axis : "#222",
+    		 title : "#222",
+        scaleLabel : "#222"
+    	}	
+    }
+    
 
     function create_Chart( in_data , elt_id, Cfg ){
-    	
+    	Chart.defaults.global.defaultFontColor = "#ddd";
 
 		var dateFormat = d3.time.format("%d-%m-%Y");
 		var time_pattern = "DD/MM/YYYY";
@@ -3116,8 +3138,9 @@ function generate_legend( dom_elt, Cfg ){
 		    options: {
 		    	maintainAspectRatio : false,
 		        title: {
-		            display: true,
-		            text: Cfg.title
+		             display: true,
+		                text: Cfg.title,
+		           fontColor: Cfg.fontColors.title
 		        },
 
 				tooltips : {
@@ -3132,7 +3155,12 @@ function generate_legend( dom_elt, Cfg ){
 		        scales: {
 		            xAxes: generate_xAxes_section(Cfg),		        	
 		            yAxes: generate_yAxes_section(Cfg)
-		        }
+		        },
+		        legend: {
+	                labels: {
+	                   fontColor: Cfg.fontColors.legend
+	                }
+       			}
 		    }
 		}
 		//var CHART_CONFIG = JSON.stringify(chart_configurator)
@@ -3141,12 +3169,90 @@ function generate_legend( dom_elt, Cfg ){
 		var canvas = document.getElementById(elt_id);
 		var ctx = canvas.getContext("2d");
 			canvas.style.backgroundColor = "#333";
+
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+
 		var myChart = new Chart( canvas, chart_configurator)
+		    
+
 		return myChart
 
     }
+
+
+
+
+function create_Chart_ex( data_struct , elt_id, Cfg ){
+	
+	var dateFormat = d3.time.format("%d-%m-%Y");
+	var time_pattern = "DD/MM/YYYY";
+
+	Cfg.label_min = data_struct.min;
+	Cfg.label_max = data_struct.max;
+
+	var CHART_CONFIG = JSON.stringify(Cfg)
+	//console.log("HIGHLEVEL CONFIG ::---------------------------->>> " +CHART_CONFIG)
+	//opera_console.log("HIGHLEVEL CONFIG ::---------------------------->>> " + CHART_CONFIG)
+
+	var chart_configurator = {
+
+	    data: {
+	        labels:  data_struct.labels ,
+	        datasets: Cfg.charts.map(function(chart){
+				return {
+					label: chart.label,
+					type : chart.type ,
+					yAxisID : chart.yAxisID,
+					backgroundColor : get_color(chart.backgroundColor, 0.45),
+					borderColor : get_color( chart.borderColor, 0.99),
+					borderWidth : ( chart.type == "bar")? 1 : (chart.borderWidth? chart.borderWidth : 1),
+					fill : (chart.type == "line") ? false : true ,
+					data : data_struct.data
+
+				}
+			}),
+	    },
+
+	    options: {
+	    	maintainAspectRatio : false,
+	        title: {
+	            display: true,
+	            text: Cfg.title, 
+	       fontColor: Cfg.fontColors.title
+	        },
+
+			tooltips : {
+				intersect : true,
+				titleFontColor : '#333',
+				backgroundColor  : get_color( "WHITE", 0.8),
+				bodyFontColor : '#555',
+				borderWidth : 1,
+				cornerRadius : 2,
+				borderColor : get_color( "RED", 0.99),		
+			},
+	        scales: {
+	            xAxes: generate_xAxes_section(Cfg),		        	
+	            yAxes: generate_yAxes_section(Cfg)
+	        },
+	        legend: {
+                labels: {
+                   fontColor: Cfg.fontColors.legend
+                }
+   			}
+	    }
+	}
+
+	//var CHART_CONFIG = JSON.stringify(chart_configurator)
+	//console.log("\n\n\nLOW CONFIG ::---------------------------->>> " + CHART_CONFIG + "\n\n")
+	//opera_console.log(CHART_CONFIG)
+
+	var ctx = document.getElementById(elt_id);
+	var myChart = new Chart(ctx, chart_configurator)
+	return myChart
+
+}
+
 
     function generate_yAxes_section(Cfg){
     	//Génère la section de l'objet options relatives aux axes Yaxis
@@ -3174,7 +3280,8 @@ function generate_legend( dom_elt, Cfg ){
                 },
                 scaleLabel : {
                 	display: true,
-                	labelString : "Nombre de cas"
+                	labelString : "Nombre de cas",
+                	fontColor : Cfg.fontColors.scaleLabel
                 }
  			})
  		}
@@ -3191,11 +3298,13 @@ function generate_legend( dom_elt, Cfg ){
         			color : get_color( "GRAY", 0.7)
         		},
                 ticks: {
-                    beginAtZero: false
+                    beginAtZero: false,
+                      fontColor: Cfg.fontColors.axis,
                 },
                 scaleLabel : {
                 	display: true,
-                	labelString : axe.labelString ? axe.labelString : "Title axe y1"
+                	labelString : axe.labelString ? axe.labelString : "Title axe y1",
+                	  fontColor : Cfg.fontColors.scaleLabel
                 }
 			}
     	}
@@ -3220,7 +3329,7 @@ function generate_legend( dom_elt, Cfg ){
                 	autoSkipPadding: 0,
                 	maxRotation: 90,
                 	minRotation: 60, 
-                	fontColor: "gray",
+                	fontColor: Cfg.fontColors.axis,
                 	fontSize: 9,
 					fontFamily: "Univers Condensed,arial",
 					callback: function(value, index, values){
@@ -3245,6 +3354,7 @@ function generate_legend( dom_elt, Cfg ){
                 	source: "auto",
                 	autoSkip: true,
                 	autoSkipPadding: 25,
+                	fontColor: Cfg.fontColors.axis,
                 	maxRotation: 0
                 }
 		    }
@@ -3914,7 +4024,6 @@ var navtabController_RASS = new ui_render_navtabs(
 				                  position:relative; height: 70vh;"> </div>`,
 				enabled : true,
 				visible : IS_ADMIN_SESSION
-
 			}
 		]
     },
@@ -3943,6 +4052,9 @@ var navtabController_RASS = new ui_render_navtabs(
 var html_02 = get_chart_container( "chart-canvas-traffic" , 600, 250 ,'90%', '35vh');
 			  console.log( "Template du graphique de fréquentation : " + html_02  );*/
 
+var color_data = {
+	colors : object_to_array(chartColors)
+}
 
 var navAdminController = new ui_render_navtabs(
 	"#ADMIN-TAB-WRAPPER", {
@@ -3975,9 +4087,18 @@ var navAdminController = new ui_render_navtabs(
 				html_content : get_opera_console_template_TODO() ,
 				enabled : true,
 				visible : IS_ADMIN_SESSION
+			},
+			{ 
+				id: "admin-tab-04", 
+				name: "sys_config" , 
+				label : "Configuration", 
+				html_content : get_color_ramp_html( color_data ) ,
+				enabled : true,
+				visible : IS_ADMIN_SESSION
 			}
 		]
 	},
+
 	function(info){	
 
 		/* ACTION TO TRIGGER WHEN TABS CHANGED*/
@@ -3996,7 +4117,8 @@ var navAdminController = new ui_render_navtabs(
 					}
 				)
 				 
-
+			case "sys_config":
+				opera_console.addLog("COLOR OBJECT " + toJSON(color_data));
 			break;
 		}
 	},
@@ -4035,16 +4157,7 @@ var navtabController_COVID_UP =  new ui_render_navtabs (
 				html_content : `${ get_chart_container( "covid-canvas-up-3" , 650, 300 ,'95%', '35vh')}`,
 				enabled : true,
 				visible : true
-			}/*,
-			{ 
-				id: "covid-tab-up-04", 
-				name: "covid-system-map" , 
-				label : "Couleurs de référence (mode admin)", 
-				html_content : `${ get_color_palette( "covid-canvas-up-4" , 650, 300 ,'95%', '35vh')}`,
-				enabled : true,
-				visible : IS_ADMIN_SESSION
-			}*/
-
+			}
 		]
 	},
 		function (info){ }, 
@@ -4221,15 +4334,28 @@ function init_helper_functions(){
 		 </div>  ` 
     }
 
+    get_color_ramp_html = function( color_arr ){
+    	
+    	var TMPLT =  `
+    		<div  style= "margin: 20px 0px 0px 40px;position:relative; width:400px; height:300px; overflow-y: scroll;font-size: 10px;">
+    			{{#colors}}
+    				<div style="display: inline-block; position:relative; border: 1px solid #000 ;margin:5px; width:100px; height:40px; background-color:{{value}};" > {{key}} </div>
+    			{{/colors}}
+    		</div> 	`
+		
+		return ( Mustache.render( TMPLT , color_arr ))
 
+    }
 
 	 fa_icon = function(ico_name){
 	 	return ( ` <i class="fa fa-${ico_name}" aria-hidden="true"></i> `)
 	 }
+
 }	
 
 
 	function build_COVID_chart_component(  data ){
+		
 		var mvData = data.map(function(d){return d}) 
 
 
@@ -4265,8 +4391,8 @@ function init_helper_functions(){
 					label: 'Nombre de cas guéris',
 					type : "bar",
 					field: 'sum_healed' ,
-					backgroundColor: "GREEN" ,
-					borderColor: 'GREEN',
+					backgroundColor: "LIME" ,
+					borderColor: 'LIME',
 					yAxisID : 'y-axis-1'  
 			   },
 				{      
@@ -4277,7 +4403,8 @@ function init_helper_functions(){
 					borderColor: 'RED',
 					yAxisID : 'y-axis-1'  
 			   }
-			]
+			],
+			fontColors : CHART_FONT_COLORS["covid"]
 		})
 
 
@@ -4318,8 +4445,8 @@ function init_helper_functions(){
 					label: 'Nouveaux guéris',
 					type : "bar",
 					field: 'new_healed' ,
-					backgroundColor: "GREEN" ,
-					borderColor: 'GREEN' ,
+					backgroundColor: "LIME" ,
+					borderColor: 'LIME' ,
 					yAxisID : 'y-axis-1' 
 			   },
 				{      
@@ -4330,7 +4457,8 @@ function init_helper_functions(){
 					borderColor: 'RED' ,
 					yAxisID : 'y-axis-1' 
 			   }
-			]
+			],
+			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 
 
@@ -4350,7 +4478,8 @@ function init_helper_functions(){
 					borderColor: 'ORANGE' ,
 					yAxisID : 'y-axis-1' 
 			   }
-			 ]
+			 ],
+			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 
 
@@ -4397,7 +4526,8 @@ function init_helper_functions(){
 					borderColor: 'GRAY' ,
 					yAxisID : 'y-axis-1' 
 			   }
-			 ]
+			 ],
+			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 
 		create_Chart(data, "covid-canvas-bottom-2", {
@@ -4429,11 +4559,12 @@ function init_helper_functions(){
 					label: 'Taux de guérison (%)',
 					type : "line",
 					field: 'remission' ,
-					backgroundColor: "GREEN" ,
-					borderColor: 'GREEN' ,
+					backgroundColor: "LIME" ,
+					borderColor: 'LIME' ,
 					yAxisID : 'y-axis-2' 
 			   }
-			 ]
+			 ],
+			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 
 
@@ -4459,10 +4590,10 @@ function init_helper_functions(){
 					borderColor: 'GRAY' ,
 					yAxisID : 'y-axis-1' 
 			   }
-			 ]
+			 ],
+			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 	}	
-
 
 
 /*
@@ -4516,7 +4647,8 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 				borderColor: 'ORANGE',
 				yAxisID : 'y-axis-1' 
 		   }
-		]
+		],
+		fontColors : CHART_FONT_COLORS["rass"]
 	});
 
 	return {
@@ -4611,7 +4743,7 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 			function detect_changes(){
 				var r = null
 				if ( stamps.geolyr != metageo.name) r= "layer-changed";
-				if (  stamps.table != metadata.name) r= "data-theme-changed";
+				if ( stamps.table != metadata.name) r= "data-theme-changed";
 				if  (  r==null) r ="key-changed";
 
 				stamps.geolyr = metageo.name
@@ -4659,71 +4791,6 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 }	
 
 
-
-
-function create_Chart_ex( data_struct , elt_id, Cfg ){
-	
-	var dateFormat = d3.time.format("%d-%m-%Y");
-	var time_pattern = "DD/MM/YYYY";
-
-	Cfg.label_min = data_struct.min;
-	Cfg.label_max = data_struct.max;
-
-	var CHART_CONFIG = JSON.stringify(Cfg)
-	//console.log("HIGHLEVEL CONFIG ::---------------------------->>> " +CHART_CONFIG)
-	//opera_console.log("HIGHLEVEL CONFIG ::---------------------------->>> " + CHART_CONFIG)
-
-	var chart_configurator = {
-
-	    data: {
-	        labels:  data_struct.labels ,
-	        datasets: Cfg.charts.map(function(chart){
-				return {
-					label: chart.label,
-					type : chart.type ,
-					yAxisID : chart.yAxisID,
-					backgroundColor : get_color(chart.backgroundColor, 0.45),
-					borderColor : get_color( chart.borderColor, 0.99),
-					borderWidth : ( chart.type == "bar")? 1 : (chart.borderWidth? chart.borderWidth : 1),
-					fill : (chart.type == "line") ? false : true ,
-					data : data_struct.data
-
-				}
-			}),
-	    },
-
-	    options: {
-	    	maintainAspectRatio : false,
-	        title: {
-	            display: true,
-	            text: Cfg.title
-	        },
-
-			tooltips : {
-				intersect : true,
-				titleFontColor : '#333',
-				backgroundColor  : get_color( "WHITE", 0.8),
-				bodyFontColor : '#555',
-				borderWidth : 1,
-				cornerRadius : 2,
-				borderColor : get_color( "RED", 0.99),		
-			},
-	        scales: {
-	            xAxes: generate_xAxes_section(Cfg),		        	
-	            yAxes: generate_yAxes_section(Cfg)
-	        }
-	    }
-	}
-
-	var CHART_CONFIG = JSON.stringify(chart_configurator)
-	//console.log("\n\n\nLOW CONFIG ::---------------------------->>> " + CHART_CONFIG + "\n\n")
-	//opera_console.log(CHART_CONFIG)
-
-	var ctx = document.getElementById(elt_id);
-	var myChart = new Chart(ctx, chart_configurator)
-	return myChart
-
-}
 	
 	
 
@@ -6235,77 +6302,74 @@ function force_mobile(){
 
 
 	
+function update_badges( extended = true ){
+	var deltas = extended ?  `<span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
+             				line-height: 1;"> 
+                 ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
+               </span>` : "";
+
+	var badge_template = `<div class="card text-center {{color_class}}"  style="position:relative; height:60px;">
+	    <div class="card-body" style="padding: 0.5em;">
+	     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
+	     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
+	     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
+               {{value}}
+               ${deltas}
+	 	</span>
+	  </div>
+	</div>`
+
+	var d = extract_late_datarow();
+	var d1 = extract_late_datarow(1);
 
 
-	function update_badges( extended = true ){
-		var deltas = extended ?  `<span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
-	             				line-height: 1;"> 
-	                 ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
-	               </span>` : "";
-
-		var badge_template = `<div class="card text-center {{color_class}}"  style="position:relative; height:60px;">
-		    <div class="card-body" style="padding: 0.5em;">
-		     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
-		     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
-		     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
-	               {{value}}
-	               ${deltas}
-		 	</span>
-		  </div>
-		</div>`
-
-		var d = extract_late_datarow();
-		var d1 = extract_late_datarow(1);
-
+	update_badge( "#card-1" , {	color_class : "badge-orange-dark", label : "Cas confirmés", value : d.sum_case ,    	delta : d.new_case , 	   date : d.date_raw   } );
+	update_badge( "#card-2" , {	color_class : "badge-yellow-dark", label : "Cas actifs", 	value : d.active_case  , 	delta : d.active_case - d1.active_case,  		date : d.date_raw   } );
+	update_badge( "#card-3" , {	color_class : "badge-red-dark",	   label : "Décès", 		value : d.sum_deceased, 	delta : d.new_deceased, 	date : d.date_raw   } );
+	update_badge( "#card-4" , {	color_class : "badge-green-dark",  label : "Guéris", 		value : d.sum_healed, 		delta : d.new_healed, 		date : d.date_raw   } );	
 	
-		update_badge( "#card-1" , {	color_class : "badge-orange-dark", label : "Cas confirmés", 	value : d.sum_case ,    delta : d.new_case , 	   date : d.date_raw   } );
-		update_badge( "#card-2" , {	color_class : "badge-yellow-dark", label : "Cas actifs", 	value : d.active_case  , 	delta : d.active_case - d1.active_case,  		date : d.date_raw   } );
-		update_badge( "#card-3" , {	color_class : "badge-red-dark",	   label : "Décès", 			value : d.sum_deceased, 	delta : d.new_deceased, 	date : d.date_raw   } );
-		update_badge( "#card-4" , {	color_class : "badge-green-dark",  label : "Guéris", 		value : d.sum_healed, 		delta : d.new_healed, 		date : d.date_raw   } );	
-		
-		function  update_badge( eltId, data ){
-			data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
-			$( eltId ).html( Mustache.render(badge_template, data));
-		}			
+	function  update_badge( eltId, data ){
+		data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
+		$( eltId ).html( Mustache.render(badge_template, data));
+	}			
+}
+
+function updateSizeCard(){
+ 	
+ 	if ( ENV_VIEW_SIZE.browser.width > 1200 ){
+ 		update_badges(true)
+
+ 	} else {
+		update_badges(false)
+ 	}
+}
+
+function extract_late_datarow(index=0){
+	var n = COVIDATA.length
+	return COVIDATA[n-1-index];
+}
+
+
+function USER_INTERFACE_update_layout(){  
+	opera_console.addLog("Windows resized");
+
+}
+
+
+var color_helper = Chart.helpers.color
+fileLoad_JSON( 
+	"Données épidémiologique sur le COVID-19", "./data/covid-data.json", 
+	function(data) {
+		COVIDATA = data;
+		update_badges()
+		build_COVID_chart_component(  data );
+		//build_RASS_chart_component(  data );
+		before_app_initialization = false;
+    }, 
+    function(error){
+		alert("erreur " + error)
 	}
-
-	function updateSizeCard(){
-	 	
-	 	if ( ENV_VIEW_SIZE.browser.width > 1200 ){
-	 		update_badges(true)
-
-	 	} else {
-			update_badges(false)
-	 	}
-	}
-
-	function extract_late_datarow(index=0){
-		var n = COVIDATA.length
-		return COVIDATA[n-1-index];
-	}
-
-
-	function USER_INTERFACE_update_layout(){  
-		opera_console.addLog("Windows resized");
-
-	}
-
-
-	var color_helper = Chart.helpers.color
-
-	fileLoad_JSON( 
-		"Données épidémiologique sur le COVID-19", "./data/covid-data.json", 
-		function(data) {
-			COVIDATA = data;
-			update_badges()
-			build_COVID_chart_component(  data );
-			//build_RASS_chart_component(  data );
-			before_app_initialization = false;
-	    }, 
-	    function(error){
-			alert("erreur " + error)
-		}
-	);	
+);	
 
 function notify_initialization_abort(mssg){
 	$("#start-up-failure-msgbox").html( mssg );

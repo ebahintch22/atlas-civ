@@ -293,77 +293,74 @@ function force_mobile(){
 
 
 	
+function update_badges( extended = true ){
+	var deltas = extended ?  `<span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
+             				line-height: 1;"> 
+                 ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
+               </span>` : "";
+
+	var badge_template = `<div class="card text-center {{color_class}}"  style="position:relative; height:60px;">
+	    <div class="card-body" style="padding: 0.5em;">
+	     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
+	     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
+	     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
+               {{value}}
+               ${deltas}
+	 	</span>
+	  </div>
+	</div>`
+
+	var d = extract_late_datarow();
+	var d1 = extract_late_datarow(1);
 
 
-	function update_badges( extended = true ){
-		var deltas = extended ?  `<span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
-	             				line-height: 1;"> 
-	                 ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
-	               </span>` : "";
-
-		var badge_template = `<div class="card text-center {{color_class}}"  style="position:relative; height:60px;">
-		    <div class="card-body" style="padding: 0.5em;">
-		     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
-		     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
-		     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
-	               {{value}}
-	               ${deltas}
-		 	</span>
-		  </div>
-		</div>`
-
-		var d = extract_late_datarow();
-		var d1 = extract_late_datarow(1);
-
+	update_badge( "#card-1" , {	color_class : "badge-orange-dark", label : "Cas confirmés", value : d.sum_case ,    	delta : d.new_case , 	   date : d.date_raw   } );
+	update_badge( "#card-2" , {	color_class : "badge-yellow-dark", label : "Cas actifs", 	value : d.active_case  , 	delta : d.active_case - d1.active_case,  		date : d.date_raw   } );
+	update_badge( "#card-3" , {	color_class : "badge-red-dark",	   label : "Décès", 		value : d.sum_deceased, 	delta : d.new_deceased, 	date : d.date_raw   } );
+	update_badge( "#card-4" , {	color_class : "badge-green-dark",  label : "Guéris", 		value : d.sum_healed, 		delta : d.new_healed, 		date : d.date_raw   } );	
 	
-		update_badge( "#card-1" , {	color_class : "badge-orange-dark", label : "Cas confirmés", 	value : d.sum_case ,    delta : d.new_case , 	   date : d.date_raw   } );
-		update_badge( "#card-2" , {	color_class : "badge-yellow-dark", label : "Cas actifs", 	value : d.active_case  , 	delta : d.active_case - d1.active_case,  		date : d.date_raw   } );
-		update_badge( "#card-3" , {	color_class : "badge-red-dark",	   label : "Décès", 			value : d.sum_deceased, 	delta : d.new_deceased, 	date : d.date_raw   } );
-		update_badge( "#card-4" , {	color_class : "badge-green-dark",  label : "Guéris", 		value : d.sum_healed, 		delta : d.new_healed, 		date : d.date_raw   } );	
-		
-		function  update_badge( eltId, data ){
-			data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
-			$( eltId ).html( Mustache.render(badge_template, data));
-		}			
+	function  update_badge( eltId, data ){
+		data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
+		$( eltId ).html( Mustache.render(badge_template, data));
+	}			
+}
+
+function updateSizeCard(){
+ 	
+ 	if ( ENV_VIEW_SIZE.browser.width > 1200 ){
+ 		update_badges(true)
+
+ 	} else {
+		update_badges(false)
+ 	}
+}
+
+function extract_late_datarow(index=0){
+	var n = COVIDATA.length
+	return COVIDATA[n-1-index];
+}
+
+
+function USER_INTERFACE_update_layout(){  
+	opera_console.addLog("Windows resized");
+
+}
+
+
+var color_helper = Chart.helpers.color
+fileLoad_JSON( 
+	"Données épidémiologique sur le COVID-19", "./data/covid-data.json", 
+	function(data) {
+		COVIDATA = data;
+		update_badges()
+		build_COVID_chart_component(  data );
+		//build_RASS_chart_component(  data );
+		before_app_initialization = false;
+    }, 
+    function(error){
+		alert("erreur " + error)
 	}
-
-	function updateSizeCard(){
-	 	
-	 	if ( ENV_VIEW_SIZE.browser.width > 1200 ){
-	 		update_badges(true)
-
-	 	} else {
-			update_badges(false)
-	 	}
-	}
-
-	function extract_late_datarow(index=0){
-		var n = COVIDATA.length
-		return COVIDATA[n-1-index];
-	}
-
-
-	function USER_INTERFACE_update_layout(){  
-		opera_console.addLog("Windows resized");
-
-	}
-
-
-	var color_helper = Chart.helpers.color
-
-	fileLoad_JSON( 
-		"Données épidémiologique sur le COVID-19", "./data/covid-data.json", 
-		function(data) {
-			COVIDATA = data;
-			update_badges()
-			build_COVID_chart_component(  data );
-			//build_RASS_chart_component(  data );
-			before_app_initialization = false;
-	    }, 
-	    function(error){
-			alert("erreur " + error)
-		}
-	);	
+);	
 
 function notify_initialization_abort(mssg){
 	$("#start-up-failure-msgbox").html( mssg );

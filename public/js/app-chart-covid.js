@@ -2,6 +2,7 @@
 
 
 	function build_COVID_chart_component(  data ){
+		
 		var mvData = data.map(function(d){return d}) 
 
 
@@ -37,8 +38,8 @@
 					label: 'Nombre de cas guéris',
 					type : "bar",
 					field: 'sum_healed' ,
-					backgroundColor: "GREEN" ,
-					borderColor: 'GREEN',
+					backgroundColor: "LIME" ,
+					borderColor: 'LIME',
 					yAxisID : 'y-axis-1'  
 			   },
 				{      
@@ -49,7 +50,8 @@
 					borderColor: 'RED',
 					yAxisID : 'y-axis-1'  
 			   }
-			]
+			],
+			fontColors : CHART_FONT_COLORS["covid"]
 		})
 
 
@@ -90,8 +92,8 @@
 					label: 'Nouveaux guéris',
 					type : "bar",
 					field: 'new_healed' ,
-					backgroundColor: "GREEN" ,
-					borderColor: 'GREEN' ,
+					backgroundColor: "LIME" ,
+					borderColor: 'LIME' ,
 					yAxisID : 'y-axis-1' 
 			   },
 				{      
@@ -102,7 +104,8 @@
 					borderColor: 'RED' ,
 					yAxisID : 'y-axis-1' 
 			   }
-			]
+			],
+			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 
 
@@ -122,7 +125,8 @@
 					borderColor: 'ORANGE' ,
 					yAxisID : 'y-axis-1' 
 			   }
-			 ]
+			 ],
+			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 
 
@@ -169,7 +173,8 @@
 					borderColor: 'GRAY' ,
 					yAxisID : 'y-axis-1' 
 			   }
-			 ]
+			 ],
+			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 
 		create_Chart(data, "covid-canvas-bottom-2", {
@@ -201,11 +206,12 @@
 					label: 'Taux de guérison (%)',
 					type : "line",
 					field: 'remission' ,
-					backgroundColor: "GREEN" ,
-					borderColor: 'GREEN' ,
+					backgroundColor: "LIME" ,
+					borderColor: 'LIME' ,
 					yAxisID : 'y-axis-2' 
 			   }
-			 ]
+			 ],
+			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 
 
@@ -231,10 +237,10 @@
 					borderColor: 'GRAY' ,
 					yAxisID : 'y-axis-1' 
 			   }
-			 ]
+			 ],
+			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 	}	
-
 
 
 /*
