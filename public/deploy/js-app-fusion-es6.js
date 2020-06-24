@@ -201,6 +201,7 @@ function detect_client(){
                   d.sum_sample = +d.sum_sample;
                    d.incidence = +d.incidence * 100;
                    d.remission = +d.remission * 100;
+                    d.letalite = +d.letalite * 100;
 	            
 	        });
             //console.log(data)
@@ -4191,9 +4192,17 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 				},
 				{ 
 					id: "covid-tab-bottom-03", 
-					name: "confirmed_cases_sum" , 
-					label : "Dépistages réalisés", 
+					name: "indicators_cfr" , 
+					label : "Taux de létalité (CFR)", 
 					html_content : `${get_chart_container( "covid-canvas-bottom-3" , 650, 300 ,'95%', '35vh')}`,
+					enabled : true,
+				    visible : true
+				},
+				{
+					id : "covid-tab-bottom-04",
+					name : "depistage",
+					label : "Dépistages",
+					html_content : `${get_chart_container( "covid-canvas-bottom-4" , 650, 300 ,'95%', '35vh')}`,
 					enabled : true,
 				    visible : true
 				}
@@ -4355,7 +4364,7 @@ function init_helper_functions(){
 
 
 	function build_COVID_chart_component(  data ){
-		
+
 		var mvData = data.map(function(d){return d}) 
 
 
@@ -4567,8 +4576,44 @@ function init_helper_functions(){
 			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 
-
 		create_Chart(data, "covid-canvas-bottom-3", {
+
+			title : "TAUX DE LÉTALITÉ",
+			label_field : "date_raw",
+			"x-axis-style" : "COVID",	
+			"y-axis-1" : {
+				display : true,
+				position : "left",
+				labelString : "Nombre de cas"
+			},
+			"y-axis-2" : {
+				display : true,
+				position : "right",
+				labelString : "% de décès"
+			},		
+			charts : [
+
+				{      
+					label: 'Nombre de cas confirmés',
+					type : "bar",
+					field: 'sum_case' ,
+					backgroundColor: "ORANGE" ,
+					borderColor: 'ORANGE' 
+			   },
+				{      
+					label: 'Taux de létalité (CFR)',
+					type : "line",
+					field: 'letalite' ,
+					backgroundColor: "CRIMSON" ,
+					borderColor: 'RED' ,
+					yAxisID : 'y-axis-2' 
+			   }
+			 ],
+			 fontColors : CHART_FONT_COLORS["covid"]
+		});
+
+
+		create_Chart(data, "covid-canvas-bottom-4", {
 
 			title : "DÉPISTAGES REALISÉS",
 			label_field : "date_raw",

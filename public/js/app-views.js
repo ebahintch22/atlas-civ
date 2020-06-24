@@ -472,9 +472,17 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 				},
 				{ 
 					id: "covid-tab-bottom-03", 
-					name: "confirmed_cases_sum" , 
-					label : "Dépistages réalisés", 
+					name: "indicators_cfr" , 
+					label : "Taux de létalité (CFR)", 
 					html_content : `${get_chart_container( "covid-canvas-bottom-3" , 650, 300 ,'95%', '35vh')}`,
+					enabled : true,
+				    visible : true
+				},
+				{
+					id : "covid-tab-bottom-04",
+					name : "depistage",
+					label : "Dépistages",
+					html_content : `${get_chart_container( "covid-canvas-bottom-4" , 650, 300 ,'95%', '35vh')}`,
 					enabled : true,
 				    visible : true
 				}

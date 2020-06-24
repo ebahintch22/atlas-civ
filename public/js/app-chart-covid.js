@@ -2,7 +2,7 @@
 
 
 	function build_COVID_chart_component(  data ){
-		
+
 		var mvData = data.map(function(d){return d}) 
 
 
@@ -214,8 +214,44 @@
 			 fontColors : CHART_FONT_COLORS["covid"]
 		});
 
-
 		create_Chart(data, "covid-canvas-bottom-3", {
+
+			title : "TAUX DE LÉTALITÉ",
+			label_field : "date_raw",
+			"x-axis-style" : "COVID",	
+			"y-axis-1" : {
+				display : true,
+				position : "left",
+				labelString : "Nombre de cas"
+			},
+			"y-axis-2" : {
+				display : true,
+				position : "right",
+				labelString : "% de décès"
+			},		
+			charts : [
+
+				{      
+					label: 'Nombre de cas confirmés',
+					type : "bar",
+					field: 'sum_case' ,
+					backgroundColor: "ORANGE" ,
+					borderColor: 'ORANGE' 
+			   },
+				{      
+					label: 'Taux de létalité (CFR)',
+					type : "line",
+					field: 'letalite' ,
+					backgroundColor: "CRIMSON" ,
+					borderColor: 'RED' ,
+					yAxisID : 'y-axis-2' 
+			   }
+			 ],
+			 fontColors : CHART_FONT_COLORS["covid"]
+		});
+
+
+		create_Chart(data, "covid-canvas-bottom-4", {
 
 			title : "DÉPISTAGES REALISÉS",
 			label_field : "date_raw",
