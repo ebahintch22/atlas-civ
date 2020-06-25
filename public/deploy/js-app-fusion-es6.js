@@ -4595,6 +4595,7 @@ function init_helper_functions(){
 
 				{      
 					label: 'Nombre de cas confirmés',
+					
 					type : "bar",
 					field: 'sum_case' ,
 					backgroundColor: "ORANGE" ,
@@ -5198,7 +5199,7 @@ function bind_layout_reset_to_windowResize(){
 
 function notify_application_readiness(){
 	setTimeout( function(){
-		if (isMobileDevice() == false && force_mobile() == false ){
+		if ( ACCEPT_MOBILE || (isMobileDevice() == false && force_mobile() == false )){
 
 			before_app_initialization = false;
 			$("#curtain").addClass("hidden")
@@ -6054,7 +6055,8 @@ function bind_Scale_Selector(){
 	}
 }	
 var winResizeTimerID = 0;
-var behave_as_mobile_device_on_start_up = true;
+var ACCEPT_MOBILE = true;
+var behave_as_mobile_device_on_start_up = false;
 var before_app_initialization = true;
 var COVIDATA;
 var user_session_manager = new user_connexion_manager_constructor()

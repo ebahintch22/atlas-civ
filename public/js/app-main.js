@@ -63,7 +63,7 @@ function bind_layout_reset_to_windowResize(){
 
 function notify_application_readiness(){
 	setTimeout( function(){
-		if (isMobileDevice() == false && force_mobile() == false ){
+		if ( ACCEPT_MOBILE || (isMobileDevice() == false && force_mobile() == false )){
 
 			before_app_initialization = false;
 			$("#curtain").addClass("hidden")

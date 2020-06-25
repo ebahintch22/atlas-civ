@@ -233,6 +233,7 @@
 
 				{      
 					label: 'Nombre de cas confirmés',
+					
 					type : "bar",
 					field: 'sum_case' ,
 					backgroundColor: "ORANGE" ,
