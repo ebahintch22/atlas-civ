@@ -1,6 +1,6 @@
 	
 var winResizeTimerID = 0;
-var behave_as_mobile_device_on_start_up = false;
+var behave_as_mobile_device_on_start_up = true;
 var before_app_initialization = true;
 var COVIDATA;
 var user_session_manager = new user_connexion_manager_constructor()

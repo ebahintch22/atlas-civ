@@ -69,7 +69,7 @@ function notify_application_readiness(){
 			$("#curtain").addClass("hidden")
 
 		} else {
-			notify_initialization_abort(` Désolé, cette version d'Atlas Santé Côte d'Ivoire est destinée aux terminaux Desktop!`)
+			notify_initialization_abort(`Désolé, application non encore adapté aux clients mobiles! Veuillez, s'il vous plait, vous connecter depuis un ordinateur destop/laptop`)
 		}
 
 	}, 5000)

@@ -5204,7 +5204,7 @@ function notify_application_readiness(){
 			$("#curtain").addClass("hidden")
 
 		} else {
-			notify_initialization_abort(` Désolé, cette version d'Atlas Santé Côte d'Ivoire est destinée aux terminaux Desktop!`)
+			notify_initialization_abort(`Désolé, application non encore adapté aux clients mobiles! Veuillez, s'il vous plait, vous connecter depuis un ordinateur destop/laptop`)
 		}
 
 	}, 5000)
@@ -6054,7 +6054,7 @@ function bind_Scale_Selector(){
 	}
 }	
 var winResizeTimerID = 0;
-var behave_as_mobile_device_on_start_up = false;
+var behave_as_mobile_device_on_start_up = true;
 var before_app_initialization = true;
 var COVIDATA;
 var user_session_manager = new user_connexion_manager_constructor()
