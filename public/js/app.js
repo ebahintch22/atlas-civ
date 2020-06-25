@@ -9,9 +9,8 @@ var ENV_VIEW_SIZE = getEnvSize()
 
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 //window.onresize = after_window_resized ;
-function isMobileDevice() {
-    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-};
+
+
 
 function getEnvSize(){
 	return {

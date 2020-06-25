@@ -65,6 +65,9 @@
   
         <script type="text/javascript">
         	var IS_ADMIN_SESSION
+			function isMobileDevice() {
+			    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+			};        	
 
         </script>
     	<script src="./vendors/ua-parser/ua-parser-min.js" type="text/javascript" ></script>
@@ -76,10 +79,6 @@
 			    user_agent = new UAParser().getResult();
 
 				user_agent.device_type = isMobileDevice() ? "mobile" : "desktop"
-
-			function isMobileDevice() {
-			    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-			};
 
 		</script>
 	</head>
@@ -114,7 +113,9 @@
 
 			<div class="row">
 
-				<div class="col-sm-4 no-padding"  id="card-0" style="padding:1px;top: 0px;bottom: 2px; font-family: 'time new roman'; font-size: 1.2em; font-weight: 750; ">
+				<div class="col-sm-4 no-padding"  id="card-0" style="padding:1px;top: 0px;
+				       bottom: 2px; font-family: 'time new roman'; 
+				       font-size: 2.2em; font-weight: 750; ">
 					<div class="card"  style="position:relative; height:60px; padding:0px; top: 0px; background-color:#444; ">
 					  <div class="card-body text-center" style="background-color:#444; color:#ccc; padding:0px; top: 0px;" >
 					     Atlas Santé <sub style="font-size: 0.4em; font-weight: 750; "> Côte d'Ivoire </sub> 

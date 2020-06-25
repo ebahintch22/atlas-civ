@@ -52,7 +52,7 @@ function bind_layout_reset_to_windowResize(){
 	 		function(){
 
 	 			ENV_VIEW_SIZE = getEnvSize()
-	 			opera_console.addLog("Windows resized detected. New dimensions are " + toJSON(ENV_VIEW_SIZE))
+	 			//opera_console.addLog("Windows resized detected. New dimensions are " + toJSON(ENV_VIEW_SIZE))
 				updateLegend(null, true);
 				updateSizeCard()
 				//histogram.draw(get_graphic_infos());
@@ -63,7 +63,7 @@ function bind_layout_reset_to_windowResize(){
 
 function notify_application_readiness(){
 	setTimeout( function(){
-		if ( ACCEPT_MOBILE || (isMobileDevice() == false && force_mobile() == false )){
+		if ( ACCEPT_MOBILE || ( isMobileDevice() == false && force_mobile() == false )){
 
 			before_app_initialization = false;
 			$("#curtain").addClass("hidden")
