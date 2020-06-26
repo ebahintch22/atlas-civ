@@ -547,7 +547,7 @@ var metaDataBase = {
 			data_fields : [					
 				{ 
 					fld_name : "FLD1",
-					short_name : "COVID-19: Répartition des cas confirmés (au 16/03/2019)", 
+					short_name : "COVID-19: Répartition des cas confirmés (au 16 juin 2020)", 
 					long_name : " Nombre de cas confirmés de COVID-19", 
 					data_type :  "INT", 
 					unit : "cas confirmés de COVID-19" 
