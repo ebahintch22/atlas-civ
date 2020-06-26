@@ -1617,5 +1617,35 @@
 		"remission": 0.419,
 		"letalite": 0.007,
 		"sum_sample": 48340
+	},
+	{
+		"date": "25/06/2020",
+		"new_case": 170,
+		"new_healed": 68,
+		"new_deceased": 2,
+		"sum_case": 8334,
+		"sum_healed": 3487,
+		"sum_deceased": 60,
+		"active_case": 4787,
+		"nb_sample": 1012,
+		"incidence": 0.168,
+		"remission": 0.418,
+		"letalite": 0.007,
+		"sum_sample": 49352
+	},
+	{
+		"date": "26/06/2020",
+		"new_case": 405,
+		"new_healed": 100,
+		"new_deceased": 4,
+		"sum_case": 8739,
+		"sum_healed": 3587,
+		"sum_deceased": 64,
+		"active_case": 5088,
+		"nb_sample": 1562,
+		"incidence": 0.259,
+		"remission": 0.410,
+		"letalite": 0.007,
+		"sum_sample": 50914
 	}
 ]
