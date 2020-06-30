@@ -5252,16 +5252,19 @@ function after_user_accept_UX_degradation(){
 
 
 function notify_application_readiness(){
-	
-		before_app_initialization = false;
+
+		
 		setTimeout( function(){
+
 			if ( ACCEPT_MOBILE || ( isMobileDevice() == false && force_mobile() == false )){
-				
+				 
+				 remove_start_up_curtain();
 			} else {
+			
 				remove_start_up_curtain();
 				show_address_to_mobile_users();
 			}
-		}, 1000)
+		}, 1000 )
 	
 }
 
@@ -6126,6 +6129,7 @@ var ENV_VIEW_SIZE = getEnvSize()
 
 function getEnvSize(){
 	return {
+
 		browser : {
 			height : $(window).height(),
 			 width : $(window).width()
@@ -6138,6 +6142,7 @@ function getEnvSize(){
 			height : window.screen.height,
 		     width : window.screen.width
 		}
+
 	}
 
 }
@@ -6399,9 +6404,8 @@ function user_connexion_manager_constructor(){
 
 
 function force_mobile(){
-	return (behave_as_mobile_device_on_start_up == true)
+	return ( behave_as_mobile_device_on_start_up == true )
 }
-
 
 
 	
@@ -6416,11 +6420,10 @@ function update_badges( extended = true ){
 	     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
 	     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
 	     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
-               {{value}}
-               ${deltas}
+               {{value}} ${deltas}
 	 	</span>
 	  </div>
-	</div>`
+	</div>`;
 
 	var d = extract_late_datarow();
 	var d1 = extract_late_datarow(1);
@@ -6473,15 +6476,19 @@ fileLoad_JSON(
 	}
 );	
 function remove_start_up_curtain(){
+
 	$("#curtain").addClass("hidden")
 	$("#start-up-failure-msgbox").html( "" );
 	$("#spinner").html( ``)
 	$("#spinner-message").html( ``)	
+
 }
+
+
 function show_address_to_mobile_users(){
 	var mssg = `<p class="align-middle text-center" > Nous avons détecté que vous utilisez un terminal mobile.<br>
     		<span style="font-weight:800; color: orange;">Atlas Santé</span> est conçu à la base pour des terminaux à large écran (Desktop/Laptop) exclusivement.
-    	    <br> Cependant, vu le nombre élevé de requêtes de connexion, l'accès a été aussi ouvert aux terminaux mobiles, et ce, malgré une expérience utilisateur sensiblement dégradée.
+    	    <br> Cependant, vu le nombre élevé de requêtes de connexion les concernant, l'accès depuis les terminaux mobiles a été ouvert, et ce, malgré une expérience utilisateur sensiblement dégradée.
     	    En attendant la disponibilité d'une véritable version mobile, nous nous excusons auprès des utilisateurs "mobiles".
     	</p> 
     
@@ -6491,4 +6498,3 @@ function show_address_to_mobile_users(){
 	$("#id-address-to-mobile-users").html(mssg)
 
 }
-//FIN DU PROGRAMME
