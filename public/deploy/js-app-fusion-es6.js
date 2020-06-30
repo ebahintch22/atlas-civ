@@ -5253,10 +5253,10 @@ function after_user_accept_UX_degradation(){
 
 function notify_application_readiness(){
 	
+		before_app_initialization = false;
 		setTimeout( function(){
-
 			if ( ACCEPT_MOBILE || ( isMobileDevice() == false && force_mobile() == false )){
-				before_app_initialization = false;
+				
 			} else {
 				remove_start_up_curtain();
 				show_address_to_mobile_users();
@@ -5298,7 +5298,7 @@ function Activate_thematic_section(frame_name){
 
 			key_controller.update_view("FLD1");
 			//after_selectKey_Changed("FLD1");//TO DO: transform this code to more parametrizable version
-			
+
 			if ( before_app_initialization ) 	notify_application_readiness()
 
 		}, 
@@ -6112,7 +6112,7 @@ function bind_Scale_Selector(){
 }	
 var winResizeTimerID = 0;
 var ACCEPT_MOBILE = false;
-var behave_as_mobile_device_on_start_up = true;
+var behave_as_mobile_device_on_start_up = false;
 
 var before_app_initialization = true;
 var COVIDATA;
@@ -6480,9 +6480,9 @@ function remove_start_up_curtain(){
 }
 function show_address_to_mobile_users(){
 	var mssg = `<p class="align-middle text-center" > Nous avons détecté que vous utilisez un terminal mobile.<br>
-    		<span style="font-weight:800; color: orange;">Atlas Santé</span> a été conçu à l'origine pour des terminaux à large écran (Desktop/Laptop) exclusivement.
-    	    Mais, vu le nombre élevé de demande de connexion, l'accès a été aussi ouvert aux terminaux mobiles, et ce, malgré une expérience utilisateur sensiblement dégradée.
-    	    En attendant la disponibilité de la version mobile, toutes nos excusons aux utilisateurs "mobiles".
+    		<span style="font-weight:800; color: orange;">Atlas Santé</span> est conçu à la base pour des terminaux à large écran (Desktop/Laptop) exclusivement.
+    	    <br> Cependant, vu le nombre élevé de requêtes de connexion, l'accès a été aussi ouvert aux terminaux mobiles, et ce, malgré une expérience utilisateur sensiblement dégradée.
+    	    En attendant la disponibilité d'une véritable version mobile, nous nous excusons auprès des utilisateurs "mobiles".
     	</p> 
     
     	<center>  <a href="#/action/address-to-mobile/close" class="btn btn-success btn-lg active" role="button" aria-pressed="true"> Cliquer pour continuer </a> </center>

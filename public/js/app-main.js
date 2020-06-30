@@ -69,16 +69,19 @@ function after_user_accept_UX_degradation(){
 
 
 function notify_application_readiness(){
-	
-		before_app_initialization = false;
+
+		
 		setTimeout( function(){
+
 			if ( ACCEPT_MOBILE || ( isMobileDevice() == false && force_mobile() == false )){
-				
+				 
+				 remove_start_up_curtain();
 			} else {
+			
 				remove_start_up_curtain();
 				show_address_to_mobile_users();
 			}
-		}, 1000)
+		}, 1000 )
 	
 }
 
