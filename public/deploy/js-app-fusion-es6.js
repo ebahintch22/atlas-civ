@@ -510,7 +510,9 @@ var metaDataBase = {
 		"repartition_struct_transfusion",
 		"std",
 		"covid-19",
-		"covid-19-june16"
+		"covid-19-june16",
+		"paludisme_u5_ans",
+		"paludisme_glo"
 	],
 	color_palettes : [ 
 			{ name:"YlGnBu"}, 
@@ -600,7 +602,7 @@ var metaDataBase = {
 			layerList : [  "district_sante", "region_sante" ],
 			table_num :"Tableau-DD",
 			label: "2- Données de population (2017)",
-			"unit": "population",
+			unit: "population",
 			article: "de ",
 			path : "./data/statistics/tab_01_demography.csv",
 			source: "INS-2017",
@@ -1032,11 +1034,56 @@ var metaDataBase = {
 				{ fld_name : "FLD5", short_name : "Proportion Consultants ESPC 2017 (%)", long_name : "Proportion Consultants ESPC 2017 (%)", data_type :  "INT", unit : "nombre" },
 				{ fld_name : "FLD6", short_name : "Proportion Consultants HG & CHR 2017 (%)", long_name : "Proportion Consultants HG & CHR 2017 (%)", data_type :  "INT", unit : "nombre" }
 			]
+		},
+		{
+			index : 39,
+			name : "paludisme_u5_ans", 
+			valid: true,
+			table_num :"Tableau-39",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "39-Incidence du paludisme dans la population générale chez les moins de 5 ans",
+			unit: "nombre",
+			article: "de ",
+			path : "./data/statistics/tab_39_paludisme_incidence_under_5.csv",
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [	
+
+				{ fld_name: "FLD1", short_name: "Population 0 à 4 ans", long_name: "Population 0 à 4 ans", data_type: "INT", unit: "Habitants"},
+				{ fld_name: "FLD2", short_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", long_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD3", short_name: "Incidence du paludisme chez les moins de 5 ans (‰)", long_name: "Incidence du paludisme chez les moins de 5 ans (‰)", data_type: "INT", unit: "cas confirmés pour 1000 hbts"}
+			]
+		},
+		{
+			index : 42,
+			name : "paludisme_glo", 
+			valid: true,
+			table_num :"Tableau-42",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "42-Incidence du paludisme dans la population générale",
+			unit: "nombre",
+			article: "de ",
+			path : "./data/statistics/tab_42_paludisme_incidence_glo.csv",
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [		
+				{ fld_name: "FLD1", short_name: "Population totale", long_name: "Population totale", data_type: "INT", unit: "Habitants"},
+				{ fld_name: "FLD2", short_name: "Nombre total de cas de paludisme confirmés dans la population", long_name: "Nombre total de cas de paludisme confirmés dans la population", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD3", short_name: "Incidence global du paludisme (‰)", long_name: "Incidence du paludisme dans la population générale (‰)", data_type: "INT", unit: "cas confirmés pour 1000 hbts"}
+			]
 		}
 	]	
 };
 
 //Ord;Code;REGIONS_DISTRICTS;GEOLOC;NIVEAU;Nombre de cas au 16 juin 2020;Nombre de décès au 16 juin 2020
+
+
  var tmplt_details_hard =   `
 	<div class="pane-header">
 	 	<span>
@@ -5170,7 +5217,7 @@ function app_start_up(){
 	set_routes();
 	bind_Scale_Selector()
 	bind_layout_reset_to_windowResize();
-    //before_app_initialization = false ;
+    
 }
 
 
@@ -5188,28 +5235,34 @@ function bind_layout_reset_to_windowResize(){
 	 		function(){
 
 	 			ENV_VIEW_SIZE = getEnvSize()
-	 			//opera_console.addLog("Windows resized detected. New dimensions are " + toJSON(ENV_VIEW_SIZE))
+	 			
 				updateLegend(null, true);
 				updateSizeCard()
-				//histogram.draw(get_graphic_infos());
+				
 				winResizeTimerID = 0;
 	 	} ,	450)
 	}
 }
 
+function after_user_accept_UX_degradation(){
+	navigate("home");
+	$("#id-address-to-mobile-users").addClass("hidden");
+}
+
+
+
 function notify_application_readiness(){
-	setTimeout( function(){
-		if ( ACCEPT_MOBILE || ( isMobileDevice() == false && force_mobile() == false )){
+	
+		setTimeout( function(){
 
-			before_app_initialization = false;
-			$("#curtain").addClass("hidden")
-
-		} else {
-			notify_initialization_abort(`Désolé, application non encore adapté aux clients mobiles! Veuillez, s'il vous plait, vous connecter depuis un ordinateur destop/laptop`)
-		}
-
-	}, 5000)
-
+			if ( ACCEPT_MOBILE || ( isMobileDevice() == false && force_mobile() == false )){
+				before_app_initialization = false;
+			} else {
+				remove_start_up_curtain();
+				show_address_to_mobile_users();
+			}
+		}, 1000)
+	
 }
 
 function Activate_thematic_section(frame_name){
@@ -5243,8 +5296,10 @@ function Activate_thematic_section(frame_name){
 			layer_controller.update_view( metaData.layerList[0] )
 			after_selectLayer_Changed( metaData.layerList[0] ); //TO DO: transform this code to more parametrizable version 
 
-			key_controller.update_view("FLD1");//after_selectKey_Changed("FLD1");//TO DO: transform this code to more parametrizable version
-			notify_application_readiness()
+			key_controller.update_view("FLD1");
+			//after_selectKey_Changed("FLD1");//TO DO: transform this code to more parametrizable version
+			
+			if ( before_app_initialization ) 	notify_application_readiness()
 
 		}, 
 
@@ -5983,6 +6038,7 @@ function ui_pre_render_format(obj){
 
 function set_routes(){
 	var routes = {
+		"/action/address-to-mobile/:close" : after_user_accept_UX_degradation,
 		"/action/select-palette/:color_palette" : after_colorPalette_selected,
 		"/action/test-debug/:reload_chart" : histogram_draw,
 		"/action/:start-server" : start_server,
@@ -6055,8 +6111,9 @@ function bind_Scale_Selector(){
 	}
 }	
 var winResizeTimerID = 0;
-var ACCEPT_MOBILE = true;
-var behave_as_mobile_device_on_start_up = false;
+var ACCEPT_MOBILE = false;
+var behave_as_mobile_device_on_start_up = true;
+
 var before_app_initialization = true;
 var COVIDATA;
 var user_session_manager = new user_connexion_manager_constructor()
@@ -6409,17 +6466,29 @@ fileLoad_JSON(
 		COVIDATA = data;
 		update_badges()
 		build_COVID_chart_component(  data );
-		//build_RASS_chart_component(  data );
-		before_app_initialization = false;
+
     }, 
     function(error){
 		alert("erreur " + error)
 	}
 );	
-
-function notify_initialization_abort(mssg){
-	$("#start-up-failure-msgbox").html( mssg );
+function remove_start_up_curtain(){
+	$("#curtain").addClass("hidden")
+	$("#start-up-failure-msgbox").html( "" );
 	$("#spinner").html( ``)
-	$("#spinner-message").html( ``)
+	$("#spinner-message").html( ``)	
+}
+function show_address_to_mobile_users(){
+	var mssg = `<p class="align-middle text-center" > Nous avons détecté que vous utilisez un terminal mobile.<br>
+    		<span style="font-weight:800; color: orange;">Atlas Santé</span> a été conçu à l'origine pour des terminaux à large écran (Desktop/Laptop) exclusivement.
+    	    Mais, vu le nombre élevé de demande de connexion, l'accès a été aussi ouvert aux terminaux mobiles, et ce, malgré une expérience utilisateur sensiblement dégradée.
+    	    En attendant la disponibilité de la version mobile, toutes nos excusons aux utilisateurs "mobiles".
+    	</p> 
+    
+    	<center>  <a href="#/action/address-to-mobile/close" class="btn btn-success btn-lg active" role="button" aria-pressed="true"> Cliquer pour continuer </a> </center>
+    	`
+	$("#id-address-to-mobile-users").removeClass("hidden")
+	$("#id-address-to-mobile-users").html(mssg)
+
 }
 //FIN DU PROGRAMME

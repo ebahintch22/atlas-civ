@@ -34,7 +34,7 @@ function app_start_up(){
 	set_routes();
 	bind_Scale_Selector()
 	bind_layout_reset_to_windowResize();
-    //before_app_initialization = false ;
+    
 }
 
 
@@ -52,28 +52,34 @@ function bind_layout_reset_to_windowResize(){
 	 		function(){
 
 	 			ENV_VIEW_SIZE = getEnvSize()
-	 			//opera_console.addLog("Windows resized detected. New dimensions are " + toJSON(ENV_VIEW_SIZE))
+	 			
 				updateLegend(null, true);
 				updateSizeCard()
-				//histogram.draw(get_graphic_infos());
+				
 				winResizeTimerID = 0;
 	 	} ,	450)
 	}
 }
 
+function after_user_accept_UX_degradation(){
+	navigate("home");
+	$("#id-address-to-mobile-users").addClass("hidden");
+}
+
+
+
 function notify_application_readiness(){
-	setTimeout( function(){
-		if ( ACCEPT_MOBILE || ( isMobileDevice() == false && force_mobile() == false )){
-
-			before_app_initialization = false;
-			$("#curtain").addClass("hidden")
-
-		} else {
-			notify_initialization_abort(`Désolé, application non encore adapté aux clients mobiles! Veuillez, s'il vous plait, vous connecter depuis un ordinateur destop/laptop`)
-		}
-
-	}, 5000)
-
+	
+		before_app_initialization = false;
+		setTimeout( function(){
+			if ( ACCEPT_MOBILE || ( isMobileDevice() == false && force_mobile() == false )){
+				
+			} else {
+				remove_start_up_curtain();
+				show_address_to_mobile_users();
+			}
+		}, 1000)
+	
 }
 
 function Activate_thematic_section(frame_name){
@@ -107,8 +113,10 @@ function Activate_thematic_section(frame_name){
 			layer_controller.update_view( metaData.layerList[0] )
 			after_selectLayer_Changed( metaData.layerList[0] ); //TO DO: transform this code to more parametrizable version 
 
-			key_controller.update_view("FLD1");//after_selectKey_Changed("FLD1");//TO DO: transform this code to more parametrizable version
-			notify_application_readiness()
+			key_controller.update_view("FLD1");
+			//after_selectKey_Changed("FLD1");//TO DO: transform this code to more parametrizable version
+
+			if ( before_app_initialization ) 	notify_application_readiness()
 
 		}, 
 
@@ -847,6 +855,7 @@ function ui_pre_render_format(obj){
 
 function set_routes(){
 	var routes = {
+		"/action/address-to-mobile/:close" : after_user_accept_UX_degradation,
 		"/action/select-palette/:color_palette" : after_colorPalette_selected,
 		"/action/test-debug/:reload_chart" : histogram_draw,
 		"/action/:start-server" : start_server,

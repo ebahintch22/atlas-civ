@@ -77,7 +77,9 @@ var metaDataBase = {
 		"repartition_struct_transfusion",
 		"std",
 		"covid-19",
-		"covid-19-june16"
+		"covid-19-june16",
+		"paludisme_u5_ans",
+		"paludisme_glo"
 	],
 	color_palettes : [ 
 			{ name:"YlGnBu"}, 
@@ -167,7 +169,7 @@ var metaDataBase = {
 			layerList : [  "district_sante", "region_sante" ],
 			table_num :"Tableau-DD",
 			label: "2- Données de population (2017)",
-			"unit": "population",
+			unit: "population",
 			article: "de ",
 			path : "./data/statistics/tab_01_demography.csv",
 			source: "INS-2017",
@@ -599,8 +601,52 @@ var metaDataBase = {
 				{ fld_name : "FLD5", short_name : "Proportion Consultants ESPC 2017 (%)", long_name : "Proportion Consultants ESPC 2017 (%)", data_type :  "INT", unit : "nombre" },
 				{ fld_name : "FLD6", short_name : "Proportion Consultants HG & CHR 2017 (%)", long_name : "Proportion Consultants HG & CHR 2017 (%)", data_type :  "INT", unit : "nombre" }
 			]
+		},
+		{
+			index : 39,
+			name : "paludisme_u5_ans", 
+			valid: true,
+			table_num :"Tableau-39",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "39-Incidence du paludisme dans la population générale chez les moins de 5 ans",
+			unit: "nombre",
+			article: "de ",
+			path : "./data/statistics/tab_39_paludisme_incidence_under_5.csv",
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [	
+
+				{ fld_name: "FLD1", short_name: "Population 0 à 4 ans", long_name: "Population 0 à 4 ans", data_type: "INT", unit: "Habitants"},
+				{ fld_name: "FLD2", short_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", long_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD3", short_name: "Incidence du paludisme chez les moins de 5 ans (‰)", long_name: "Incidence du paludisme chez les moins de 5 ans (‰)", data_type: "INT", unit: "cas confirmés pour 1000 hbts"}
+			]
+		},
+		{
+			index : 42,
+			name : "paludisme_glo", 
+			valid: true,
+			table_num :"Tableau-42",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "42-Incidence du paludisme dans la population générale",
+			unit: "nombre",
+			article: "de ",
+			path : "./data/statistics/tab_42_paludisme_incidence_glo.csv",
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [		
+				{ fld_name: "FLD1", short_name: "Population totale", long_name: "Population totale", data_type: "INT", unit: "Habitants"},
+				{ fld_name: "FLD2", short_name: "Nombre total de cas de paludisme confirmés dans la population", long_name: "Nombre total de cas de paludisme confirmés dans la population", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD3", short_name: "Incidence global du paludisme (‰)", long_name: "Incidence du paludisme dans la population générale (‰)", data_type: "INT", unit: "cas confirmés pour 1000 hbts"}
+			]
 		}
 	]	
 };
 
 //Ord;Code;REGIONS_DISTRICTS;GEOLOC;NIVEAU;Nombre de cas au 16 juin 2020;Nombre de décès au 16 juin 2020
+

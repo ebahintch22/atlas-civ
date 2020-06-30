@@ -1,7 +1,8 @@
 	
 var winResizeTimerID = 0;
-var ACCEPT_MOBILE = true;
-var behave_as_mobile_device_on_start_up = false;
+var ACCEPT_MOBILE = false;
+var behave_as_mobile_device_on_start_up = true;
+
 var before_app_initialization = true;
 var COVIDATA;
 var user_session_manager = new user_connexion_manager_constructor()
@@ -354,17 +355,29 @@ fileLoad_JSON(
 		COVIDATA = data;
 		update_badges()
 		build_COVID_chart_component(  data );
-		//build_RASS_chart_component(  data );
-		before_app_initialization = false;
+
     }, 
     function(error){
 		alert("erreur " + error)
 	}
 );	
-
-function notify_initialization_abort(mssg){
-	$("#start-up-failure-msgbox").html( mssg );
+function remove_start_up_curtain(){
+	$("#curtain").addClass("hidden")
+	$("#start-up-failure-msgbox").html( "" );
 	$("#spinner").html( ``)
-	$("#spinner-message").html( ``)
+	$("#spinner-message").html( ``)	
+}
+function show_address_to_mobile_users(){
+	var mssg = `<p class="align-middle text-center" > Nous avons détecté que vous utilisez un terminal mobile.<br>
+    		<span style="font-weight:800; color: orange;">Atlas Santé</span> est conçu à la base pour des terminaux à large écran (Desktop/Laptop) exclusivement.
+    	    <br> Cependant, vu le nombre élevé de requêtes de connexion, l'accès a été aussi ouvert aux terminaux mobiles, et ce, malgré une expérience utilisateur sensiblement dégradée.
+    	    En attendant la disponibilité d'une véritable version mobile, nous nous excusons auprès des utilisateurs "mobiles".
+    	</p> 
+    
+    	<center>  <a href="#/action/address-to-mobile/close" class="btn btn-success btn-lg active" role="button" aria-pressed="true"> Cliquer pour continuer </a> </center>
+    	`
+	$("#id-address-to-mobile-users").removeClass("hidden")
+	$("#id-address-to-mobile-users").html(mssg)
+
 }
 //FIN DU PROGRAMME
