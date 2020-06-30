@@ -1,0 +1,73 @@
+#cssmenu li {
+  background: #EEE;
+}
+
+#cssmenu ul li a {
+  color: #333;
+}
+
+#cssmenu ul ul li a {
+  color: #333;
+  background: #EEE;
+}
+
+#cssmenu ul ul li a:hover {
+  font-weight: bold;
+  color: #000;
+}
+
+#cssmenu {
+  background: #EEE;
+}
+
+#cssmenu #menu-button {
+  color: #333;
+}
+
+#cssmenu li.selected a {
+  color: #000!important;
+  font-weight: bold;
+}
+
+#cssmenu span.setting {
+  color:#000;
+  font-weight:bold;
+}
+
+#cssmenu #menu-button:after {
+  border-color: #000;
+}
+
+#cssmenu #menu-button:before {
+  background: #000;
+}
+
+#cssmenu #menu-button.menu-opened:after {
+  background: #000;
+}
+
+#cssmenu .submenu-button:before {
+  color: #000;
+}
+
+#cssmenu .submenu-button.submenu-opened:before {
+  color: #000;
+}
+
+@media all and (max-width: 700px),
+only screen and (-webkit-min-device-pixel-ratio: 2) and (max-width: 700px),
+only screen and (min--moz-device-pixel-ratio: 2) and (max-width: 700px),
+only screen and (-o-min-device-pixel-ratio: 2/1) and (max-width: 700px),
+only screen and (min-device-pixel-ratio: 2) and (max-width: 700px),
+only screen and (min-resolution: 192dpi) and (max-width: 700px),
+only screen and (min-resolution: 2dppx) and (max-width: 700px) {
+
+
+  #cssmenu {
+    background: #fff;
+  }
+
+  #menu-button {
+    height:40px;
+  }
+}

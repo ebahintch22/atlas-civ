@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Vizuly 2.0 - WordCloud</title>
+
+    <!-- We use google fonts for many of the examples, but they are not necessary -->
+    <link href='https://fonts.googleapis.com/css?family=Raleway:600,400,200' rel='stylesheet' type='text/css'>
+    <link href="https://fonts.googleapis.com/css?family=Anton:400" rel="stylesheet"  type='text/css'>
+
+    <!-- vizuly2.specific style sheets -->
+    <link rel="stylesheet" href="lib/styles/vizuly.css">
+
+    <script src="lib/d3_v5.7.min.js"></script>
+
+    <script src="lib/vizuly2_core.min.js"></script>
+    <script src="src/WordCloud.js"></script>
+    <script src="data/wordcloud_data.js"></script>
+
+
+    <!-- DEMO CODE:START -->
+    <link rel="stylesheet" href="demo/scripts/cssmenu.css">
+    <script type="text/javascript" src="demo/scripts/jquery-2.1.1.min.js"></script>
+    <script src="demo/scripts/cssmenu.js"></script>
+    <script src="demo/WordCloudDemo.js"></script>
+    <!-- DEMO CODE: END -->
+
+
+</head>
+
+<body onload="start()">
+
+<!-- Our main content container-->
+<div class="container" style="width:100%;">
+    <div id="viz_container" class="z-depth-3" style="width:600px; height:600px; border-radius:10px; overflow:hidden">
+    </div>
+</div>
+<div style="position:absolute; bottom:10px; right:10px; font-size:10px; color:#777"><span>v.</span> 2.1.232 - @date</div>
+
+<script id="testscript">
+
+	var viz = vizuly2.viz.WordCloud("#viz_container");
+
+	viz
+	 .data(data.goodWillHunting)
+	 .width('100%')
+	 .height('100%')
+	 .fontSizeMax(function () { return 60 })
+	 .style('font-family', 'Anton')
+	 .on('mouseover', onMouseOver)
+	 .on('mouseout', onMouseOut)
+	 .on('click', onClick)
+	 .update();
+
+	function start() {
+
+		//Easy way to ensure font has loaded correctly by rendering 2x
+		viz.update();
+		if (runDemo) runDemo();
+	}
+
+	function onMouseOver(e, d, i) {
+		console.log('onMouseOver ' + d.key)
+	}
+
+	function onMouseOut(e, d, i) {
+		console.log('onMouseOut ' + d.key)
+	}
+
+	function onClick(e, d, i) {
+		console.log('onClick ' + d.key)
+	}
+
+
+</script>
+
+</body>
+
+</html>
