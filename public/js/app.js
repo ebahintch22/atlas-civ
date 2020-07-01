@@ -370,7 +370,6 @@ function remove_start_up_curtain(){
 
 }
 
-
 function show_address_to_mobile_users(){
 	var mssg = `<p class="align-middle text-center" > Nous avons détecté que vous utilisez un terminal mobile.<br>
     		<span style="font-weight:800; color: orange;">Atlas Santé</span> est conçu à la base pour des terminaux à large écran (Desktop/Laptop) exclusivement.

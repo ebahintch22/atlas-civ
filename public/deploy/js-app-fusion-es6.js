@@ -5253,7 +5253,7 @@ function after_user_accept_UX_degradation(){
 
 function notify_application_readiness(){
 
-		
+		before_app_initialization = false; 
 		setTimeout( function(){
 
 			if ( ACCEPT_MOBILE || ( isMobileDevice() == false && force_mobile() == false )){
