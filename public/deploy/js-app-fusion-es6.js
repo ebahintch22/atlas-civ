@@ -6608,13 +6608,13 @@ function display_atlas_infos_slide(){
 		return {
 			"badge_01" : _render_cool(`<div> Atlas Santé CI, une contribution à la valorisation des statistiques sanitaires </div> `),
 			"badge_02" : _render_cool(`<div> Traduction du RASS de grâce aux techniques modernes de dataViz </div>`),
-			"badge_03" : _render_cool(`<div> Atlas santé CI, une plateforme évolutive </div>`),
-			"badge_04" : _render_cool(`<div> Bientôt disponible en version mobile pour un accès élargi </div>` )	
+			"badge_03" : _render_cool(`<div> Une plateforme appelée à évoluer </div>`),
+			"badge_04" : _render_cool(`<div> Bientôt disponible en version mobile pour une ubiquité d'accès </div>` )	
 		 }
 
 		function _render_cool(html){
 		 	var template =  `
-				<div class="card text-center badge-yellow-dark "  style="position:relative; height:60px;">
+				<div class="card text-center badge-white-dark "  style="position:relative; height:60px;">
 				    <div class="card-body" style="padding: 0.5em;">
 					     <span style="display: block; font-weight: 500 ;font-size: 1.2em; 
 					     		padding-bottom: 0.3em; line-height: 1;"> 

@@ -151,7 +151,10 @@
 		background-color:  #fdfd02 !important;
 		color : #bd8f06 !important;
 	}
-
+	.badge-white {
+		background-color:  #fdfd02 !important;
+		color : #fefefe !important;
+	}
 	.badge-green-dark {
 		background-color: #444 !important;
 		color : #9de807 !important;
@@ -167,4 +170,9 @@
 	.badge-yellow-dark {
 		background-color:  #444 !important;
 		color : #ffff00 !important;
+	}
+
+	.badge-white-dark {
+		background-color:  #444 !important;
+		color : #fefefe !important;
 	}
