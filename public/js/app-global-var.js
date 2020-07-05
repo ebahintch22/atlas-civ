@@ -98,9 +98,13 @@ var formatNumber = d3.format('.2f'); // We prepare a number format which will al
 var legendX = d3.scale.linear();     // For the legend, we prepare a very simple linear scale. 
  // Domain and range will be set later as they depend on the data currently shown.
 
+var keyController ; // Controller de sélection de la variable de base pour la cartographie et le diagrammes
+var managerController
+var slideController
 var chartController_admin
 var chartController_rass
 var legendControllervar 
+
 var dataTableController
 var ZOOM_IS_DISABLE = true
 var rass_active_panel = "tab-b" // or "tab-b"

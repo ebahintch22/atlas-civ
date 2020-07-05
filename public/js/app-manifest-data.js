@@ -1,4 +1,5 @@
 
+
 var metaDataBase = {
 
 	data_base_name : "Atlas Sanitaire - Côte d'Ivoire  - RASS 2017 version 1.0.5",

@@ -15,73 +15,59 @@
 
 		<link href="./health-atlas-16x16.png" rel="icon">
 
-    <style type="text/css">
-    	.badge-green {
-    		background-color: #daf392 !important;
-    		color : green !important;
-    	}
-    	.badge-orange {
-    		background-color: #fde5cc !important;
-    		color : #ef8213 !important;
-    	}
-    	.badge-red {
-    		background-color: #fbdede !important;
-    		color : #ce1325 !important;
-    	}
-    	.badge-yellow {
-    		background-color:  #fdfd02 !important;
-    		color : #bd8f06 !important;
-    	}
+	    <style type="text/css">
+	    	.badge-green {
+	    		background-color: #daf392 !important;
+	    		color : green !important;
+	    	}
+	    	.badge-orange {
+	    		background-color: #fde5cc !important;
+	    		color : #ef8213 !important;
+	    	}
+	    	.badge-red {
+	    		background-color: #fbdede !important;
+	    		color : #ce1325 !important;
+	    	}
+	    	.badge-yellow {
+	    		background-color:  #fdfd02 !important;
+	    		color : #bd8f06 !important;
+	    	}
 
-    	.badge-green-inverted {
-    		background-color: #5c5c5c !important;
-    		color : green !important;
-    	}
-    	.badge-orange-inverted {
-    		background-color: #5c5c5c !important;
-    		color : #ef8213 !important;
-    	}
-    	.badge-red-inverted {
-    		background-color: #5c5c5c !important;
-    		color : #ce1325 !important;
-    	}
-    	.badge-yellow-inverted {
-    		background-color:  #5c5c5c !important;
-    		color : #bd8f06 !important;
-    	}
-    	.no-padding {
-    		padding-left: 1px !important;
-    		padding-right: 1px !important;
-    	}
+	    	.badge-green-inverted {
+	    		background-color: #5c5c5c !important;
+	    		color : green !important;
+	    	}
+	    	.badge-orange-inverted {
+	    		background-color: #5c5c5c !important;
+	    		color : #ef8213 !important;
+	    	}
+	    	.badge-red-inverted {
+	    		background-color: #5c5c5c !important;
+	    		color : #ce1325 !important;
+	    	}
+	    	.badge-yellow-inverted {
+	    		background-color:  #5c5c5c !important;
+	    		color : #bd8f06 !important;
+	    	}
+	    	.no-padding {
+	    		padding-left: 1px !important;
+	    		padding-right: 1px !important;
+	    	}
 
-		.nav-tabs .nav-item {
-		    margin-bottom: -1px;
-		}
-		.nav-link {
-		    display: block;    padding: 0.2rem 0.5rem;
-		}
-    </style>
-    <script src="./vendors/polyfills/array.js" type="text/javascript" ></script>
-        
-        <script type="text/javascript">
-        	var IS_ADMIN_SESSION
-		
-        </script>
-    	<script src="./vendors/ua-parser/ua-parser-min.js" type="text/javascript" ></script>
-	   
-		<script type="text/javascript"> 
+			.nav-tabs .nav-item {
+			    margin-bottom: -1px;
+			}
+			.nav-link {
+			    display: block;    padding: 0.2rem 0.5rem;
+			}
+	    </style>
 
-			 IS_ADMIN_SESSION = IS_ADMIN_SESSION || false;
-			var before_app_initialization = true;	
-			    user_agent = new UAParser().getResult();
+	    <script src="./vendors/jquery/3.3.1/jquery-3.3.1.js" type="text/javascript"></script>
+	    <script src="./vendors/polyfills/array.js" type="text/javascript" ></script>
+	    <script src="./js/app-platform-detect.js"  type="text/javascript" ></script>
+		<script src="./vendors/ua-parser/ua-parser-min.js" type="text/javascript" ></script>
+	    <script src="./js/app-admin-standard-tools.js" charset="utf-8"></script>
 
-				user_agent.device_type = isMobileDevice() ? "mobile" : "desktop"
-
-			function isMobileDevice() {
-			    return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-			};
-
-		</script>
 	</head>
 
 
@@ -94,15 +80,15 @@
 	            		Côte d'Ivoire 
 	            	</sub> 
 
-	              </div> 
+	            </div> 
 	            <div id="spinner" class="loader">
-	                <span></span>
-	                <span></span>
-	                <span></span>
-	                <span></span>
-	                <span></span>
+	                <span></span><span></span> <span></span><span></span> <span></span>
 	            </div>
-	            <div id="spinner-message" class="sig-subtitle"> Chargement en cours, veuillez patienter...</div>
+
+	            <div id="spinner-message" class="sig-subtitle"> 
+	            	Chargement en cours, veuillez patienter...
+	        	</div>
+
 	            <div class="sig-text-h2" style="color:#f9cc19; font-size:3vh;" id="start-up-failure-msgbox" class="sig-subtitle"> </div>
 	        </div>
 	    </div>
@@ -113,35 +99,42 @@
 	    </div>
 
        
+
+
+
 		<div class="container-fluid"  style="background-color: #ddd ; height: 100%">
 
 			<div class="row">
 
-				<div class="col-sm-4 no-padding"  id="card-0" style="padding:1px;top: 0px;bottom: 2px; font-family: 'time new roman'; font-size: 1.75em; font-weight: 750; ">
-					<div class="card"  style="position:relative; height:60px; padding:0px; top: 0px; background-color:#444; ">
-					  <div class="card-body text-center" style="background-color:#444; color:#ccc; padding:0px; top: 0px;" >
-					     Atlas Santé <sub style="font-size: 0.5em; font-weight: 750; "> Côte d'Ivoire </sub> 
+				<div class="col-md-4 no-padding"  id="card-0" style="padding:1px;top: 0px;
+				       bottom: 2px; font-family: 'Arial Black'; 
+				       font-size: 2.2em; font-weight: 850; ">
+					<div class="card"  style="position:relative; height:60px; padding:0px; top: 0px; 
+					background-color:#444;">
+					  <div class="card-body text-center" style=" -webkit-text-stroke-width: 0.03em; 
+					        -webkit-text-stroke-color: #ec740d; 
+					        background-image: url('./images/atlas-sante-banner.jpg'); 
+					        color:#fff; padding:0px; top: 0px;" >
+					     Atlas Santé <sub style="font-size: 0.45em; font-weight: 750; "> CÔTE D'IVOIRE</sub> 
 					  </div>
 					</div>					
 				</div>
 
-				<div class="col-sm-2 no-padding" id="card-1"></div>
-				<div class="col-sm-2 no-padding" id="card-2"></div>
-				<div class="col-sm-2 no-padding" id="card-3"></div>
-				<div class="col-sm-2 no-padding" id="card-4"></div>
+				<div class="col-md-3 no-padding" id="card-1"></div>
+				<div class="col-md-5 no-padding" id="card-2"></div>
 
 			</div>
 
 		
 			<!-- SELECT CONTROLLER FOR THEMATIC DIMENSION AND SPATIAL LEVEL-->
 			<div class="row">
-				<div class="col-sm-6 no-padding" >
+				<div class="col-md-6 no-padding" >
 					<nav class="navbar navbar-light bg-light" style="height: 35px; padding: 2px 8px 2px 8px;">
 						<div id="opera-theme-selector-1" class="input-group input-group-sm mb-3" style="margin: 0px 0px 2px 0px;"></div>
 					</nav>
 				</div>
 
-				<div class="col-sm-6 no-padding" >
+				<div class="col-md-6 no-padding" >
 					<nav class="navbar navbar-light bg-light" style="height: 35px; padding: 2px 8px 2px 8px;">
 						<div id="opera-spatiallayer-selector-2" class="input-group input-group-sm mb-3" style="margin: 0px 0px 2px 0px;"></div>
 					</nav>
@@ -153,13 +146,13 @@
 
 			<div class="row" style= "bottom: 20px;">
 				
-					<div id="RASS-pane" class="col-sm-7 no-padding ">
+					<div id="RASS-pane" class="col-xl-7 no-padding ">
 						<div class="row" style= "bottom: 20px; padding: 0px 15px;">
 							<div id="RASS-NAV-TAB-CONTAINER" class="col-sm-12 no-padding"></div>		
 						</div>
 					</div>	
 
-					<div id="COVID-pane" class="col-sm-7 no-padding hidden"  >
+					<div id="COVID-pane" class="col-xl-7 no-padding hidden"  >
 					  	<div  class="row" style= "padding: 0px 15px;">
 					  		<div class="col-sm-12 no-padding"  >
 								<div id="COVID-NAV-TAB-UP" class="col-sm-12 no-padding"  ></div>	
@@ -172,7 +165,7 @@
 					  	</div>
 					</div>
 
-				 <div class="col-sm-5 no-padding">
+				 <div class="col-xl-5 no-padding">
 					<div class="card" style= "position:relative ;height:80vh;">
 					  <div class="card-header" style="padding: 4px ;">
 							<nav class="navbar navbar-light bg-light" style="height: 35px; padding: 2px 8px 2px 8px;">
@@ -198,7 +191,7 @@
 			</div>
 
 			<div class="row fixed-bottom"  style="height: 6vh ; background-color: #444; color:#aaa; font-size: 0.7rem; padding: 5px 5px 2px 10px;">
-			    <div class="col-sm-12" > 
+			    <div class="col-md-12" > 
 			    	<div class="float-left"> Application développée avec  &nbsp 
 			    		<img src="./images/D3_js_logo_44x40.png" class="mr-3 border border-light" alt="heroku LOGO"> et 
 			    	    <img src="./images/node-express-js-60x40a.png" class="mr-3 border border-light" alt="Node Express JS LOGO"> </div>

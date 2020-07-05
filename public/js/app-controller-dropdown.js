@@ -16,24 +16,46 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 		 `;
 
 
-
 	var data = Cfg ;
-    var tranform_func = Cfg.tranform;
+    var transform_func = Cfg.transform;
+    var filter_func = Cfg.filter;
 
-	if (  is_function(Cfg.tranform ) ) {
-		data.option_list = data.option_list.map( tranform_func) 
-	} 
-
-	var componentHtml = Mustache.render( template_drop_downn ,  data );
-	d3.select(`${_eltID}`).html(componentHtml );
-	bind_Selector();
+    //Construire la liste des options
+    __refresh_options(Cfg.options)
 
     return {
-    	update_view: function(theme){
-   			var _info = $(`${_eltID}  a[data-key="${theme}"]`)[0].dataset;
+    	update_view: function(key){
+    		console.log(" _eltID " + _eltID )
+   			var _info = $(`${_eltID}  a[data-key="${key}"]`)[0].dataset;
     		$(`${ _eltID} > input.form-control`).val( _info.label );
+    	},
+    	refresh_options : function(options) {
+    		__refresh_options(options)
     	}
     }
+
+    function __refresh_options( options ){
+		//filtrer la liste d'options
+		console.log("Control name :" + Cfg.prompt)
+		console.log(options)
+		data.option_list  =  is_function( filter_func ) ? 
+				data.option_list = options.filter( filter_func ) : 
+				                                          options
+
+		//Transformer (reformattage) de la liste d'options
+		data.option_list = is_function( transform_func ) ?
+			data.option_list = data.option_list.map( transform_func ) :
+			data.option_list.map( function(d){
+			d.key = d[Cfg.transform.key]
+			d.label = d[Cfg.transform.label]
+			return (d)
+			}) 
+
+		var componentHtml = Mustache.render( template_drop_downn ,  data );
+		d3.select(`${_eltID}`).html(componentHtml );
+		bind_Selector();
+
+	}
 
 	function bind_Selector(){
 
@@ -47,5 +69,9 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 					callBack( _info );
 			}
 		})			
+	}
+
+	function is_function(f){
+	    return (Object.prototype.toString.call(f) == '[object Function]') 
 	}
 }

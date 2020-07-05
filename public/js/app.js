@@ -294,57 +294,171 @@ function force_mobile(){
 }
 
 
-	
-function update_badges( extended = true ){
-	var deltas = extended ?  `<span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
-             				line-height: 1;"> 
-                 ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
-               </span>` : "";
 
-	var badge_template = `<div class="card text-center {{color_class}}"  style="position:relative; height:60px;">
-	    <div class="card-body" style="padding: 0.5em;">
-	     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
-	     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
-	     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
-               {{value}} ${deltas}
-	 	</span>
-	  </div>
-	</div>`;
+function update_covid_badges(){
 
-	var d = extract_late_datarow();
-	var d1 = extract_late_datarow(1);
+	var slides = new COVID_BADGES();
+	//alert("update_covid_badges")
+	console.log(slides)
 
 
-	update_badge( "#card-1" , {	color_class : "badge-orange-dark", label : "Cas confirmés", value : d.sum_case ,    	delta : d.new_case , 	   date : d.date_raw   } );
-	update_badge( "#card-2" , {	color_class : "badge-yellow-dark", label : "Cas actifs", 	value : d.active_case  , 	delta : d.active_case - d1.active_case,  		date : d.date_raw   } );
-	update_badge( "#card-3" , {	color_class : "badge-red-dark",	   label : "Décès", 		value : d.sum_deceased, 	delta : d.new_deceased, 	date : d.date_raw   } );
-	update_badge( "#card-4" , {	color_class : "badge-green-dark",  label : "Guéris", 		value : d.sum_healed, 		delta : d.new_healed, 		date : d.date_raw   } );	
-	
-	function  update_badge( eltId, data ){
-		data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
-		$( eltId ).html( Mustache.render(badge_template, data));
-	}			
+
+	var covid_slideController = new ui_render_caroussel( "#card-1", 
+			{
+				id : "slide-covid-figures",
+				default : "slide-0",
+				addCursor : true,
+				addLink : false,
+		   		slides : [
+		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
+		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
+		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
+		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"}
+		   		]			   
+			},
+			function(){}
+	);
+
+	$('#slide-covid-figures').carousel({
+	  interval: 2000,
+	  ride : "carousel"
+	})
+	$('#slide-covid-figures').carousel(1)	
+
+
+	function COVID_BADGES( ){
+
+
+		var d = extract_late_datarow();
+		var d1 = extract_late_datarow(1);
+
+		return {
+			"badge_01" : update_one_badge( { 
+						color_class : "badge-orange-dark", 
+						label : "Cas confirmés (Covid-19)", 
+						value : d.sum_case ,     
+						delta : d.new_case , 	   
+						date : d.date_raw   
+					}),
+			"badge_02" : update_one_badge( {
+						color_class : "badge-yellow-dark", 
+						label : "Cas actifs (Covid-19)",    
+						value : d.active_case  , 
+						delta : d.active_case - d1.active_case,  
+						date : d.date_raw   
+					}),
+			"badge_03" : update_one_badge( { 
+				       color_class : "badge-red-dark",	  
+				       label : "Décès (Covid-19)", 		   
+				       value : d.sum_deceased, 	
+				       delta : d.new_deceased, 	
+				       date : d.date_raw   
+				   }),
+			"badge_04" : update_one_badge( { 
+				        color_class : "badge-green-dark",  
+				        label : "Guéris (Covid-19)", 	   
+				        value : d.sum_healed,    
+				        delta : d.new_healed, 		
+				        date : d.date_raw   
+				   }),	
+		 }
+
+		function  update_one_badge( data ){
+			var extended =  ( ENV_VIEW_SIZE.browser.width > 1200 )
+
+			data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
+			return (Mustache.render(badge_template(extended), data));
+		}	
+
+		function badge_template( extended = true ){
+			var deltas = extended ?  `
+		       <span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
+		     				line-height: 1;"> 
+		         ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
+		       </span>` : "";
+
+			var badge_template = `
+			<div class="card text-center  {{color_class}}"  style="position:relative; height:60px;">
+			    <div class="card-body" style="padding: 0.5em;">
+				     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
+				     		padding-bottom: 0.3em; line-height: 1;"> 
+				     		{{label}} 
+				     </span>
+				     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
+			               {{value}} ${deltas}
+				 	</span>
+			  </div>
+			</div>`;
+			return(badge_template)
+		}
+	}	
 }
 
-function updateSizeCard(){
- 	
- 	if ( ENV_VIEW_SIZE.browser.width > 1200 ){
- 		update_badges(true)
 
- 	} else {
-		update_badges(false)
- 	}
+function display_atlas_infos_slide(){
+
+	var slides = new ATLAS_BADGES();
+
+	var covid_slideController = new ui_render_caroussel( "#card-2", 
+			{
+				id : "slide-atlas-infos",
+				default : "slide-0",
+				addCursor : true,
+				addLink : false,
+				transition : "fade",
+		   		slides : [
+		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
+		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
+		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
+		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"}
+		   		]			   
+			},
+			function(){}
+	);
+
+	$('#slide-atlas-infos').carousel({
+	  interval: 2000,
+	  ride : "carousel"
+	})	
+
+
+	function ATLAS_BADGES( ){
+
+		return {
+			"badge_01" : _render_cool(`<div> Atlas Santé CI, une contribution à la valorisation des statistiques sanitaires </div> `),
+			"badge_02" : _render_cool(`<div> Traduction du RASS de grâce aux techniques modernes de dataViz </div>`),
+			"badge_03" : _render_cool(`<div> Atlas santé CI, une plateforme évolutive </div>`),
+			"badge_04" : _render_cool(`<div> Bientôt disponible en version mobile pour un accès élargi </div>` )	
+		 }
+
+		function _render_cool(html){
+		 	var template =  `
+				<div class="card text-center badge-yellow-dark "  style="position:relative; height:60px;">
+				    <div class="card-body" style="padding: 0.5em;">
+					     <span style="display: block; font-weight: 500 ;font-size: 1.2em; 
+					     		padding-bottom: 0.3em; line-height: 1;"> 
+					     		${html}
+					     </span>
+					     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
+				              
+					 	</span>
+				  </div>
+				</div>`;
+				return (template);
+
+		}
+	}	
 }
+
+
 
 function extract_late_datarow(index=0){
 	var n = COVIDATA.length
 	return COVIDATA[n-1-index];
 }
 
-
 function USER_INTERFACE_update_layout(){  
 	opera_console.addLog("Windows resized");
-
 }
 
 
@@ -353,7 +467,8 @@ fileLoad_JSON(
 	"Données épidémiologique sur le COVID-19", "./data/covid-data.json", 
 	function(data) {
 		COVIDATA = data;
-		update_badges()
+		update_covid_badges();
+		display_atlas_infos_slide();
 		build_COVID_chart_component(  data );
 
     }, 
@@ -361,6 +476,9 @@ fileLoad_JSON(
 		alert("erreur " + error)
 	}
 );	
+
+
+
 function remove_start_up_curtain(){
 
 	$("#curtain").addClass("hidden")
@@ -383,3 +501,4 @@ function show_address_to_mobile_users(){
 	$("#id-address-to-mobile-users").html(mssg)
 
 }
+

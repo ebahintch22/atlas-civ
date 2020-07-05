@@ -1,3 +1,46 @@
+ 
+TABLESPACE pg_default;
+
+ALTER TABLE public.covid_records
+    OWNER to postgres;;
+
+
+    CREATE TABLE public.my_visitors
+(
+    uuid character varying(50) COLLATE pg_catalog."default" NOT NULL,
+    login character varying(50) COLLATE pg_catalog."default",
+    firstname character varying(50) COLLATE pg_catalog."default",
+    lastname character varying(50) COLLATE pg_catalog."default",
+    registered boolean,
+
+    id integer,
+    _date date,
+    new_case integer,
+    new_healed integer,
+    new_deceased integer,
+ 	nb_sample integer,
+ 	sum_case integer,
+ 	sum_healed integer,
+ 	sum_deceased integer,
+ 	sum_sample integer,
+ 	active_case integer,
+ 	incidence_rate xxxxx,
+ 	remission_rate yyyyy,
+ 	letality_rate
+ 	CONSTRAINT covid_record_pkey PRIMARY KEY (id)
+
+    created_on timestamp without time zone,
+
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.my_visitors
+    OWNER to postgres;  
+
+
  [{
  		"id": 0,
  		"date": "09/03/2020",
@@ -1821,85 +1864,5 @@
  		"remission": 0.450,
  		"letalite": 0.0072,
  		"sum_sample": 55950
- 	},
- 	{
- 		"id": 113,
- 		"date": "01/07/2020",
- 		"new_case": 203,
- 		"new_healed": 108,
- 		"new_deceased": 0,
- 		"sum_case": 9702,
- 		"sum_healed": 4381,
- 		"sum_deceased": 68,
- 		"active_case": 5253,
- 		"nb_sample": 1824,
- 		"incidence": 0.111,
- 		"remission": 0.452,
- 		"letalite": 0.0070,
- 		"sum_sample": 57774
- 	},
- 	{
- 		"id": 114,
- 		"date": "02/07/2020",
- 		"new_case": 290,
- 		"new_healed": 279,
- 		"new_deceased": 0,
- 		"sum_case": 9992,
- 		"sum_healed": 4660,
- 		"sum_deceased": 68,
- 		"active_case": 5264,
- 		"nb_sample": 1608,
- 		"incidence": 0.180,
- 		"remission": 0.466,
- 		"letalite": 0.0068,
- 		"sum_sample": 59382
- 	},
- 	{
- 		"id": 115,
- 		"date": "03/07/2020",
- 		"new_case": 252,
- 		"new_healed": 66,
- 		"new_deceased": 2,
- 		"sum_case": 10244,
- 		"sum_healed": 4726,
- 		"sum_deceased": 70,
- 		"active_case": 5448,
- 		"nb_sample": 1270,
- 		"incidence": 0.198,
- 		"remission": 0.461,
- 		"letalite": 0.0068,
- 		"sum_sample": 60652
- 	},
- 	{
- 		"id": 116,
- 		"date": "04/07/2020",
- 		"new_case": 218,
- 		"new_healed": 81,
- 		"new_deceased": 2,
- 		"sum_case": 10462,
- 		"sum_healed": 4807,
- 		"sum_deceased": 72,
- 		"active_case": 5583,
- 		"nb_sample": 1553,
- 		"incidence": 0.140,
- 		"remission": 0.459,
- 		"letalite": 0.0069,
- 		"sum_sample": 62205
- 	},
- 	{
- 		"id": 117,
- 		"date": "05/07/2020",
- 		"new_case": 310,
- 		"new_healed": 260,
- 		"new_deceased": 2,
- 		"sum_case": 10772,
- 		"sum_healed": 5067,
- 		"sum_deceased": 74,
- 		"active_case": 5631,
- 		"nb_sample": 2219,
- 		"incidence": 0.140,
- 		"remission": 0.470,
- 		"letalite": 0.0069,
- 		"sum_sample": 64424
  	}
  ]

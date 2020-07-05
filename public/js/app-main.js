@@ -26,8 +26,22 @@ function app_start_up(){
 		}
 	)
 
-	
-	theme_controller = ui_render_ThematicSelectList_Component_ex( metaDataBase.table_details , "#opera-theme-selector-1");
+
+	theme_controller = ui_render_dropdown_inputgroup("#opera-theme-selector-1", {
+		      "prompt": "Choisir un thème",
+		"options" : metaDataBase.table_details,
+		        "key" : "name",
+		      "label" : "label",
+	      "transform" : { key: "name", label : "label"	},
+	         "filter" : function(d){return (d.valid)}
+	}, function(_info){
+		Activate_thematic_section( _info.key , false)
+	})
+
+
+	//theme_controller = ui_render_ThematicSelectList_Component_ex( metaDataBase.table_details , "#opera-theme-selector-1");
+
+
 	theme_controller.update_view(initialTable)
 	Activate_thematic_section(initialTable);	//activate the default dataframe 
 
@@ -38,24 +52,19 @@ function app_start_up(){
 }
 
 
-
 function bind_layout_reset_to_windowResize(){
 
 	window.onresize = function(){
 
-
 	 	if (before_app_initialization)  return;
 	 	if (winResizeTimerID) { clearTimeout(winResizeTimerID);}
-	 	
 	 	
 	 	winResizeTimerID = setTimeout( 
 	 		function(){
 
 	 			ENV_VIEW_SIZE = getEnvSize()
-	 			
 				updateLegend(null, true);
-				updateSizeCard()
-				
+				//updateSizeCard()
 				winResizeTimerID = 0;
 	 	} ,	450)
 	}
@@ -85,18 +94,41 @@ function notify_application_readiness(){
 	
 }
 
+function create_or_update_key_selectList( data ){
+	if (keyController == undefined ){
+
+		keyController  = ui_render_dropdown_inputgroup("#opera-variablekey-selector-3", {
+			     "prompt" : "Variable à cartographier",
+		   	    "options" : data,
+			        "key" : "fld_name",
+			      "label" : "short_name",
+		      "transform" : { key: "fld_name", label : "short_name"	},
+		         "filter" : null
+		}, 
+		function after_key_selected(_info){
+			after_selectKey_Changed(_info.key )
+		})
+
+	} else {
+		
+		keyController.refresh_options( data)
+	}
+}
+
 function Activate_thematic_section(frame_name){
 	load_dataframe(frame_name, 
+
 		function(metaData){	// Here note that the @metaData param  is the active metaDataframe section in metaDataBase
 			//look_at("metaData", metaData)
 			
 			toogle_layout(metaData)
-
          
 			layer_arr = extractLayerObjects( metaDataBase.geo_datasets, metaData.layerList, "name")
 			layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" )
 
-			key_controller = ui_render_keySelectList_component_ex(metaData , "#opera-variablekey-selector-3");	// update key selectlist control
+			key_controller = create_or_update_key_selectList(metaData.data_fields)	
+			keyController.update_view("FLD1");
+
 			currentKey = "FLD1";					// get (refactoring: allow to be read from metabase section and ...
 			currentMetaTable = metaData ;	
 
@@ -116,7 +148,6 @@ function Activate_thematic_section(frame_name){
 			layer_controller.update_view( metaData.layerList[0] )
 			after_selectLayer_Changed( metaData.layerList[0] ); //TO DO: transform this code to more parametrizable version 
 
-			key_controller.update_view("FLD1");
 			//after_selectKey_Changed("FLD1");//TO DO: transform this code to more parametrizable version
 
 			if ( before_app_initialization ) 	notify_application_readiness()

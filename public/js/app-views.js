@@ -3,95 +3,6 @@ init_helper_functions()
 
 
 
-function ui_render_ThematicSelectList_Component_ex( theme_data_arr , _eltID){
-
-	var template_theme_selector = `
-			 <div class="input-group-prepend">
-			    <button class="btn btn-outline btn-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choisir une thématique :</button>
-			    <div class="dropdown-menu">
-				    {{#thematic_arr}}
-						<a class="dropdown-item"  data-key="{{name}}" data-label="{{label}}"
-						style="line-height:1.2em; padding: 1px 4px; font-size:0.8rem;" href="#"> {{ label }} </a>
-					{{/thematic_arr}}
-			    </div>
-			</div>
-		  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="">
-		 `;
-
-	
-	var data = theme_data_arr.filter(function(d){return (d.valid)});
-	var componentHtml = Mustache.render( template_theme_selector , { "thematic_arr": data});
-	d3.select( `${_eltID}`).html(componentHtml );
-	bind_Selector()
-
-    return {
-    	update_view: function(theme){
-   			var _info = $(`${_eltID}  a[data-key="${theme}"]`)[0].dataset;
-    		$(`${ _eltID} > input.form-control`).val(_info.label);
-    	}
-    }
-
-	function bind_Selector(){
-
-		$( `${ _eltID }  .dropdown-item` ).on({
-
-			"click": function(evt){
-				var _elt = $(this),  
-					_data = evt.currentTarget.dataset,
-					_info = { "key": _data.key, "label": _data.label};
-					$(`${ _eltID} > input.form-control`).val(_info.label);
-					Activate_thematic_section( _info.key , false)
-			}
-
-		})	
-	}		
-}
-
-
-
-function ui_render_keySelectList_component_ex( theme_data_fields, _eltID ){
-	var template_theme_selector = `
-			 <div class="input-group-prepend">
-			    <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
-			        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Variable à cartographier :</button>
-			    <div class="dropdown-menu">
-				    {{#field_arr}}
-						<a class="dropdown-item"  data-key="{{fld_name}}" data-label="{{short_name}}"
-						style="line-height:1.2em; padding: 1px 4px; font-size:0.8rem;" href="#"> {{ short_name }} </a>
-					{{/field_arr}}
-			    </div>
-			</div>
-		  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="">
-		 `;
-
-	var data = theme_data_fields.data_fields ;
-	var componentHtml = Mustache.render( template_theme_selector , { "field_arr": data});
-	d3.select(`${_eltID}`).html(componentHtml );
-	bind_Selector();
-
-    return {
-    	update_view: function(theme){
-   			var _info = $(`${_eltID}  a[data-key="${theme}"]`)[0].dataset;
-    		$(`${ _eltID} > input.form-control`).val(_info.label);
-    	}
-    }
-
-	function bind_Selector(){
-
-		$( `${ _eltID} .dropdown-item` ).on({
-
-			"click": function(evt){
-				var _elt = $(this),  
-					_data = evt.currentTarget.dataset,
-					_info = { "key": _data.key, "label": _data.label};
-					$(`${ _eltID} > input.form-control`).val(_info.label);
-					after_selectKey_Changed( _info.key );
-			}
-		})			
-	}
-}
-
-
 function ui_render_spatialLayerSelectList_component( layer_data_arr, _eltID ){
 	var template_theme_selector = `
 			 <div class="input-group-prepend">
@@ -293,7 +204,7 @@ var navtabController_RASS = new ui_render_navtabs(
 				id: "tab-d", 
 				name: "about_us" , 
 				label : "Qui-sommes nous?", 
-				html_content : get_ourReferences_template_TODO() ,
+				html_content :  `<div id="caroussel_container"  style="position:relative; height:300px; margin:10px; padding: 10px;">  </div> `, //   get_ourReferences_template_TODO() ,
 				enabled : true,
 				visible : IS_ADMIN_SESSION
 			},
@@ -406,6 +317,8 @@ var navAdminController = new ui_render_navtabs(
 	1
 )
 
+
+
 var navtabController_COVID_UP =  new ui_render_navtabs (
 
 		"#COVID-NAV-TAB-UP", {
@@ -491,6 +404,15 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 		function(info){}, 
 		1
 	)
+
+
+
+
+
+
+
+
+
 
 
 

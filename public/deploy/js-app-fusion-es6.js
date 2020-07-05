@@ -432,6 +432,7 @@ var COVID_PARSER = {
 		 ]
 	};
 
+
 var metaDataBase = {
 
 	data_base_name : "Atlas Sanitaire - Côte d'Ivoire  - RASS 2017 version 1.0.5",
@@ -2953,24 +2954,46 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 		 `;
 
 
-
 	var data = Cfg ;
-    var tranform_func = Cfg.tranform;
+    var transform_func = Cfg.transform;
+    var filter_func = Cfg.filter;
 
-	if (  is_function(Cfg.tranform ) ) {
-		data.option_list = data.option_list.map( tranform_func) 
-	} 
-
-	var componentHtml = Mustache.render( template_drop_downn ,  data );
-	d3.select(`${_eltID}`).html(componentHtml );
-	bind_Selector();
+    //Construire la liste des options
+    __refresh_options(Cfg.options)
 
     return {
-    	update_view: function(theme){
-   			var _info = $(`${_eltID}  a[data-key="${theme}"]`)[0].dataset;
+    	update_view: function(key){
+    		console.log(" _eltID " + _eltID )
+   			var _info = $(`${_eltID}  a[data-key="${key}"]`)[0].dataset;
     		$(`${ _eltID} > input.form-control`).val( _info.label );
+    	},
+    	refresh_options : function(options) {
+    		__refresh_options(options)
     	}
     }
+
+    function __refresh_options( options ){
+		//filtrer la liste d'options
+		console.log("Control name :" + Cfg.prompt)
+		console.log(options)
+		data.option_list  =  is_function( filter_func ) ? 
+				data.option_list = options.filter( filter_func ) : 
+				                                          options
+
+		//Transformer (reformattage) de la liste d'options
+		data.option_list = is_function( transform_func ) ?
+			data.option_list = data.option_list.map( transform_func ) :
+			data.option_list.map( function(d){
+			d.key = d[Cfg.transform.key]
+			d.label = d[Cfg.transform.label]
+			return (d)
+			}) 
+
+		var componentHtml = Mustache.render( template_drop_downn ,  data );
+		d3.select(`${_eltID}`).html(componentHtml );
+		bind_Selector();
+
+	}
 
 	function bind_Selector(){
 
@@ -2984,6 +3007,10 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 					callBack( _info );
 			}
 		})			
+	}
+
+	function is_function(f){
+	    return (Object.prototype.toString.call(f) == '[object Function]') 
 	}
 }//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 function generate_legend( dom_elt, Cfg ){
@@ -3765,98 +3792,92 @@ var myChart = new Chart(ctx, {
             }]
         }
     }
-});*/var include_button_input , upcoming_function // helper function variables
+});*///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+function ui_render_caroussel ( _eltID , Cfg , callBack , delay = 1){
+
+	/* Config structure
+	   var Cfg = {
+	   		id : "slide-covid-figures",
+	   		default : "slide-a",
+	   		slides : [
+	   			{ id: "slide-1", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : "" , visible: true},
+	   			{ id: "slide-2", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : "" , visible: true},
+	   			{ id: "slide-3", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : "" , visible: true},
+	   			{ id: "slide-4", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : "" , visible: true}
+	   		]
+	   }
+	*/
+
+	var transition = (Cfg.transition == "fade")? "carousel-fade" : "";
+    var template_carousel = `
+		<div id="${Cfg.id}" class="carousel slide ${transition}" data-ride="carousel" >
+
+
+
+			${ !Cfg.addLink? "" : `
+				<ol class="carousel-indicators">
+					{{#slides_arr}} 
+						<li data-target="#${Cfg.id}" data-slide-to="{{index}}" class="{{active}}"> </li>
+					{{/slides_arr}}
+				</ol>` 
+			}
+
+
+			<div class="carousel-inner">
+				{{#slides_arr}}
+					<div class="carousel-item {{active}}" id="{{id}}">
+					  	{{{Html_content}}}
+					</div>
+				{{/slides_arr}}		
+			</div>
+
+
+			${ !Cfg.addCursor? "" : `<a class="carousel-control-prev" href="#${Cfg.id}" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			
+			<a class="carousel-control-next" href="#${Cfg.id}" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>` }
+		</div>
+	`
+
+	//Add helper func for mustache render for Bootstrap-wise properties
+
+		var data = Cfg
+		data.slides_arr = data.slides.filter(function(d){return(d.visible)});
+		data.slides_arr = data.slides_arr.map( function(d,i){
+			d["active"] = (d.id == data.default)? "active" : "";
+			d["selected"] = (d.id == data.default)? "true" : "false";
+			d["disable"] = (d.enabled == false)? "disabled" : "";
+			d["index"] = i;
+			return (d)
+		});
+
+	var componentHtml = Mustache.render( template_carousel,  data );
+
+
+	setTimeout(  
+		function(){ d3.select(`${_eltID}`).html(componentHtml ); 
+	    }, 
+		delay
+	)
+
+
+    return {
+
+    	api_func : function(theme){},
+    	show_slide : function(tab_id){
+    		
+    		$(`#${tab_id}-tab`).tab('show');
+    	}
+    }
+
+}var include_button_input , upcoming_function // helper function variables
 init_helper_functions()
 
-
-
-function ui_render_ThematicSelectList_Component_ex( theme_data_arr , _eltID){
-
-	var template_theme_selector = `
-			 <div class="input-group-prepend">
-			    <button class="btn btn-outline btn-dark dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Choisir une thématique :</button>
-			    <div class="dropdown-menu">
-				    {{#thematic_arr}}
-						<a class="dropdown-item"  data-key="{{name}}" data-label="{{label}}"
-						style="line-height:1.2em; padding: 1px 4px; font-size:0.8rem;" href="#"> {{ label }} </a>
-					{{/thematic_arr}}
-			    </div>
-			</div>
-		  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="">
-		 `;
-
-	
-	var data = theme_data_arr.filter(function(d){return (d.valid)});
-	var componentHtml = Mustache.render( template_theme_selector , { "thematic_arr": data});
-	d3.select( `${_eltID}`).html(componentHtml );
-	bind_Selector()
-
-    return {
-    	update_view: function(theme){
-   			var _info = $(`${_eltID}  a[data-key="${theme}"]`)[0].dataset;
-    		$(`${ _eltID} > input.form-control`).val(_info.label);
-    	}
-    }
-
-	function bind_Selector(){
-
-		$( `${ _eltID }  .dropdown-item` ).on({
-
-			"click": function(evt){
-				var _elt = $(this),  
-					_data = evt.currentTarget.dataset,
-					_info = { "key": _data.key, "label": _data.label};
-					$(`${ _eltID} > input.form-control`).val(_info.label);
-					Activate_thematic_section( _info.key , false)
-			}
-
-		})	
-	}		
-}
-
-
-
-function ui_render_keySelectList_component_ex( theme_data_fields, _eltID ){
-	var template_theme_selector = `
-			 <div class="input-group-prepend">
-			    <button class="btn btn-outline-secondary dropdown-toggle" type="button" 
-			        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Variable à cartographier :</button>
-			    <div class="dropdown-menu">
-				    {{#field_arr}}
-						<a class="dropdown-item"  data-key="{{fld_name}}" data-label="{{short_name}}"
-						style="line-height:1.2em; padding: 1px 4px; font-size:0.8rem;" href="#"> {{ short_name }} </a>
-					{{/field_arr}}
-			    </div>
-			</div>
-		  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="">
-		 `;
-
-	var data = theme_data_fields.data_fields ;
-	var componentHtml = Mustache.render( template_theme_selector , { "field_arr": data});
-	d3.select(`${_eltID}`).html(componentHtml );
-	bind_Selector();
-
-    return {
-    	update_view: function(theme){
-   			var _info = $(`${_eltID}  a[data-key="${theme}"]`)[0].dataset;
-    		$(`${ _eltID} > input.form-control`).val(_info.label);
-    	}
-    }
-
-	function bind_Selector(){
-
-		$( `${ _eltID} .dropdown-item` ).on({
-
-			"click": function(evt){
-				var _elt = $(this),  
-					_data = evt.currentTarget.dataset,
-					_info = { "key": _data.key, "label": _data.label};
-					$(`${ _eltID} > input.form-control`).val(_info.label);
-					after_selectKey_Changed( _info.key );
-			}
-		})			
-	}
-}
 
 
 function ui_render_spatialLayerSelectList_component( layer_data_arr, _eltID ){
@@ -4060,7 +4081,7 @@ var navtabController_RASS = new ui_render_navtabs(
 				id: "tab-d", 
 				name: "about_us" , 
 				label : "Qui-sommes nous?", 
-				html_content : get_ourReferences_template_TODO() ,
+				html_content :  `<div id="caroussel_container"  style="position:relative; height:300px; margin:10px; padding: 10px;">  </div> `, //   get_ourReferences_template_TODO() ,
 				enabled : true,
 				visible : IS_ADMIN_SESSION
 			},
@@ -4173,6 +4194,8 @@ var navAdminController = new ui_render_navtabs(
 	1
 )
 
+
+
 var navtabController_COVID_UP =  new ui_render_navtabs (
 
 		"#COVID-NAV-TAB-UP", {
@@ -4258,6 +4281,15 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 		function(info){}, 
 		1
 	)
+
+
+
+
+
+
+
+
+
 
 
 
@@ -5176,9 +5208,13 @@ var formatNumber = d3.format('.2f'); // We prepare a number format which will al
 var legendX = d3.scale.linear();     // For the legend, we prepare a very simple linear scale. 
  // Domain and range will be set later as they depend on the data currently shown.
 
+var keyController ; // Controller de sélection de la variable de base pour la cartographie et le diagrammes
+var managerController
+var slideController
 var chartController_admin
 var chartController_rass
 var legendControllervar 
+
 var dataTableController
 var ZOOM_IS_DISABLE = true
 var rass_active_panel = "tab-b" // or "tab-b"
@@ -5209,8 +5245,22 @@ function app_start_up(){
 		}
 	)
 
-	
-	theme_controller = ui_render_ThematicSelectList_Component_ex( metaDataBase.table_details , "#opera-theme-selector-1");
+
+	theme_controller = ui_render_dropdown_inputgroup("#opera-theme-selector-1", {
+		      "prompt": "Choisir un thème",
+		"options" : metaDataBase.table_details,
+		        "key" : "name",
+		      "label" : "label",
+	      "transform" : { key: "name", label : "label"	},
+	         "filter" : function(d){return (d.valid)}
+	}, function(_info){
+		Activate_thematic_section( _info.key , false)
+	})
+
+
+	//theme_controller = ui_render_ThematicSelectList_Component_ex( metaDataBase.table_details , "#opera-theme-selector-1");
+
+
 	theme_controller.update_view(initialTable)
 	Activate_thematic_section(initialTable);	//activate the default dataframe 
 
@@ -5221,24 +5271,19 @@ function app_start_up(){
 }
 
 
-
 function bind_layout_reset_to_windowResize(){
 
 	window.onresize = function(){
 
-
 	 	if (before_app_initialization)  return;
 	 	if (winResizeTimerID) { clearTimeout(winResizeTimerID);}
-	 	
 	 	
 	 	winResizeTimerID = setTimeout( 
 	 		function(){
 
 	 			ENV_VIEW_SIZE = getEnvSize()
-	 			
 				updateLegend(null, true);
-				updateSizeCard()
-				
+				//updateSizeCard()
 				winResizeTimerID = 0;
 	 	} ,	450)
 	}
@@ -5268,18 +5313,41 @@ function notify_application_readiness(){
 	
 }
 
+function create_or_update_key_selectList( data ){
+	if (keyController == undefined ){
+
+		keyController  = ui_render_dropdown_inputgroup("#opera-variablekey-selector-3", {
+			     "prompt" : "Variable à cartographier",
+		   	    "options" : data,
+			        "key" : "fld_name",
+			      "label" : "short_name",
+		      "transform" : { key: "fld_name", label : "short_name"	},
+		         "filter" : null
+		}, 
+		function after_key_selected(_info){
+			after_selectKey_Changed(_info.key )
+		})
+
+	} else {
+		
+		keyController.refresh_options( data)
+	}
+}
+
 function Activate_thematic_section(frame_name){
 	load_dataframe(frame_name, 
+
 		function(metaData){	// Here note that the @metaData param  is the active metaDataframe section in metaDataBase
 			//look_at("metaData", metaData)
 			
 			toogle_layout(metaData)
-
          
 			layer_arr = extractLayerObjects( metaDataBase.geo_datasets, metaData.layerList, "name")
 			layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" )
 
-			key_controller = ui_render_keySelectList_component_ex(metaData , "#opera-variablekey-selector-3");	// update key selectlist control
+			key_controller = create_or_update_key_selectList(metaData.data_fields)	
+			keyController.update_view("FLD1");
+
 			currentKey = "FLD1";					// get (refactoring: allow to be read from metabase section and ...
 			currentMetaTable = metaData ;	
 
@@ -5299,7 +5367,6 @@ function Activate_thematic_section(frame_name){
 			layer_controller.update_view( metaData.layerList[0] )
 			after_selectLayer_Changed( metaData.layerList[0] ); //TO DO: transform this code to more parametrizable version 
 
-			key_controller.update_view("FLD1");
 			//after_selectKey_Changed("FLD1");//TO DO: transform this code to more parametrizable version
 
 			if ( before_app_initialization ) 	notify_application_readiness()
@@ -6408,57 +6475,171 @@ function force_mobile(){
 }
 
 
-	
-function update_badges( extended = true ){
-	var deltas = extended ?  `<span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
-             				line-height: 1;"> 
-                 ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
-               </span>` : "";
 
-	var badge_template = `<div class="card text-center {{color_class}}"  style="position:relative; height:60px;">
-	    <div class="card-body" style="padding: 0.5em;">
-	     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
-	     padding-bottom: 0.3em; line-height: 1;"> {{label}} </span>
-	     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
-               {{value}} ${deltas}
-	 	</span>
-	  </div>
-	</div>`;
+function update_covid_badges(){
 
-	var d = extract_late_datarow();
-	var d1 = extract_late_datarow(1);
+	var slides = new COVID_BADGES();
+	//alert("update_covid_badges")
+	console.log(slides)
 
 
-	update_badge( "#card-1" , {	color_class : "badge-orange-dark", label : "Cas confirmés", value : d.sum_case ,    	delta : d.new_case , 	   date : d.date_raw   } );
-	update_badge( "#card-2" , {	color_class : "badge-yellow-dark", label : "Cas actifs", 	value : d.active_case  , 	delta : d.active_case - d1.active_case,  		date : d.date_raw   } );
-	update_badge( "#card-3" , {	color_class : "badge-red-dark",	   label : "Décès", 		value : d.sum_deceased, 	delta : d.new_deceased, 	date : d.date_raw   } );
-	update_badge( "#card-4" , {	color_class : "badge-green-dark",  label : "Guéris", 		value : d.sum_healed, 		delta : d.new_healed, 		date : d.date_raw   } );	
-	
-	function  update_badge( eltId, data ){
-		data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
-		$( eltId ).html( Mustache.render(badge_template, data));
-	}			
+
+	var covid_slideController = new ui_render_caroussel( "#card-1", 
+			{
+				id : "slide-covid-figures",
+				default : "slide-0",
+				addCursor : true,
+				addLink : false,
+		   		slides : [
+		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
+		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
+		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
+		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"}
+		   		]			   
+			},
+			function(){}
+	);
+
+	$('#slide-covid-figures').carousel({
+	  interval: 2000,
+	  ride : "carousel"
+	})
+	$('#slide-covid-figures').carousel(1)	
+
+
+	function COVID_BADGES( ){
+
+
+		var d = extract_late_datarow();
+		var d1 = extract_late_datarow(1);
+
+		return {
+			"badge_01" : update_one_badge( { 
+						color_class : "badge-orange-dark", 
+						label : "Cas confirmés (Covid-19)", 
+						value : d.sum_case ,     
+						delta : d.new_case , 	   
+						date : d.date_raw   
+					}),
+			"badge_02" : update_one_badge( {
+						color_class : "badge-yellow-dark", 
+						label : "Cas actifs (Covid-19)",    
+						value : d.active_case  , 
+						delta : d.active_case - d1.active_case,  
+						date : d.date_raw   
+					}),
+			"badge_03" : update_one_badge( { 
+				       color_class : "badge-red-dark",	  
+				       label : "Décès (Covid-19)", 		   
+				       value : d.sum_deceased, 	
+				       delta : d.new_deceased, 	
+				       date : d.date_raw   
+				   }),
+			"badge_04" : update_one_badge( { 
+				        color_class : "badge-green-dark",  
+				        label : "Guéris (Covid-19)", 	   
+				        value : d.sum_healed,    
+				        delta : d.new_healed, 		
+				        date : d.date_raw   
+				   }),	
+		 }
+
+		function  update_one_badge( data ){
+			var extended =  ( ENV_VIEW_SIZE.browser.width > 1200 )
+
+			data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
+			return (Mustache.render(badge_template(extended), data));
+		}	
+
+		function badge_template( extended = true ){
+			var deltas = extended ?  `
+		       <span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
+		     				line-height: 1;"> 
+		         ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
+		       </span>` : "";
+
+			var badge_template = `
+			<div class="card text-center  {{color_class}}"  style="position:relative; height:60px;">
+			    <div class="card-body" style="padding: 0.5em;">
+				     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
+				     		padding-bottom: 0.3em; line-height: 1;"> 
+				     		{{label}} 
+				     </span>
+				     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
+			               {{value}} ${deltas}
+				 	</span>
+			  </div>
+			</div>`;
+			return(badge_template)
+		}
+	}	
 }
 
-function updateSizeCard(){
- 	
- 	if ( ENV_VIEW_SIZE.browser.width > 1200 ){
- 		update_badges(true)
 
- 	} else {
-		update_badges(false)
- 	}
+function display_atlas_infos_slide(){
+
+	var slides = new ATLAS_BADGES();
+
+	var covid_slideController = new ui_render_caroussel( "#card-2", 
+			{
+				id : "slide-atlas-infos",
+				default : "slide-0",
+				addCursor : true,
+				addLink : false,
+				transition : "fade",
+		   		slides : [
+		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
+		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
+		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
+		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"}
+		   		]			   
+			},
+			function(){}
+	);
+
+	$('#slide-atlas-infos').carousel({
+	  interval: 2000,
+	  ride : "carousel"
+	})	
+
+
+	function ATLAS_BADGES( ){
+
+		return {
+			"badge_01" : _render_cool(`<div> Atlas Santé CI, une contribution à la valorisation des statistiques sanitaires </div> `),
+			"badge_02" : _render_cool(`<div> Traduction du RASS de grâce aux techniques modernes de dataViz </div>`),
+			"badge_03" : _render_cool(`<div> Atlas santé CI, une plateforme évolutive </div>`),
+			"badge_04" : _render_cool(`<div> Bientôt disponible en version mobile pour un accès élargi </div>` )	
+		 }
+
+		function _render_cool(html){
+		 	var template =  `
+				<div class="card text-center badge-yellow-dark "  style="position:relative; height:60px;">
+				    <div class="card-body" style="padding: 0.5em;">
+					     <span style="display: block; font-weight: 500 ;font-size: 1.2em; 
+					     		padding-bottom: 0.3em; line-height: 1;"> 
+					     		${html}
+					     </span>
+					     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
+				              
+					 	</span>
+				  </div>
+				</div>`;
+				return (template);
+
+		}
+	}	
 }
+
+
 
 function extract_late_datarow(index=0){
 	var n = COVIDATA.length
 	return COVIDATA[n-1-index];
 }
 
-
 function USER_INTERFACE_update_layout(){  
 	opera_console.addLog("Windows resized");
-
 }
 
 
@@ -6467,7 +6648,8 @@ fileLoad_JSON(
 	"Données épidémiologique sur le COVID-19", "./data/covid-data.json", 
 	function(data) {
 		COVIDATA = data;
-		update_badges()
+		update_covid_badges();
+		display_atlas_infos_slide();
 		build_COVID_chart_component(  data );
 
     }, 
@@ -6475,6 +6657,9 @@ fileLoad_JSON(
 		alert("erreur " + error)
 	}
 );	
+
+
+
 function remove_start_up_curtain(){
 
 	$("#curtain").addClass("hidden")
@@ -6483,7 +6668,6 @@ function remove_start_up_curtain(){
 	$("#spinner-message").html( ``)	
 
 }
-
 
 function show_address_to_mobile_users(){
 	var mssg = `<p class="align-middle text-center" > Nous avons détecté que vous utilisez un terminal mobile.<br>
@@ -6498,3 +6682,4 @@ function show_address_to_mobile_users(){
 	$("#id-address-to-mobile-users").html(mssg)
 
 }
+
