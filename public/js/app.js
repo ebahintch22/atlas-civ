@@ -410,7 +410,8 @@ function display_atlas_infos_slide(){
 		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
 		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
 		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
-		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"}
+		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"},
+		   			{ id: "slide-5", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_05  , visible: true , color: "green"}
 		   		]			   
 			},
 			function(){}
@@ -425,17 +426,18 @@ function display_atlas_infos_slide(){
 	function ATLAS_BADGES( ){
 
 		return {
-			"badge_01" : _render_cool(`<div> Atlas Santé CI, une contribution à la valorisation des statistiques sanitaires </div> `),
-			"badge_02" : _render_cool(`<div> Traduction du RASS de grâce aux techniques modernes de dataViz </div>`),
-			"badge_03" : _render_cool(`<div> Une plateforme appelée à évoluer </div>`),
-			"badge_04" : _render_cool(`<div> Bientôt disponible en version mobile pour une ubiquité d'accès </div>` )	
+			"badge_01" : _render_cool(`Atlas Santé CI ? ...`),
+			"badge_02" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...les données du RASS passées au moule de la DATAVIZ... </span>`),
+			"badge_03" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...une contribution à la valorisation des statistiques sanitaires...  </span>`),
+			"badge_04" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...un contenu appelé à évoluer regulièrement...</span>`),
+			"badge_05" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...vers une version mobile pour une ubiquité d'accès </div>` )	
 		 }
 
 		function _render_cool(html){
 		 	var template =  `
-				<div class="card text-center badge-white-dark "  style="position:relative; height:60px;">
-				    <div class="card-body" style="padding: 0.5em;">
-					     <span style="display: block; font-weight: 500 ;font-size: 1.2em; 
+				<div class="card text-center align-middle  badge-white-dark "  style="position:relative; height:60px;">
+				    <div class="card-body"  style="padding: 0.1em;">
+					     <span  style="display: inline-block; position: relative;height:100%;font-weight: 500 ;font-size: 1.2em; 
 					     		padding-bottom: 0.3em; line-height: 1;"> 
 					     		${html}
 					     </span>
@@ -443,8 +445,9 @@ function display_atlas_infos_slide(){
 				              
 					 	</span>
 				  </div>
-				</div>`;
-				return (template);
+				</div>
+			`;
+			return (template);
 
 		}
 	}	

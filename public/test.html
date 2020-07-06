@@ -1,0 +1,141 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title> Atlas Santé - Côte d'Ivoire </title>
+  		<link href="./vendors/font-awesome/4.7/css/font-awesome.min.css" rel="stylesheet">
+  		<link href="./vendors/bootstrap/4.4.1/css/bootstrap.css" rel="stylesheet">
+
+  		<link href="./css/map-style.css" rel="stylesheet">
+  		<link href="./css/main-style.css" rel="stylesheet">
+  		<link href="./css/curtain-spinner.css" rel="stylesheet">
+  		<link href="./css/opera-tabs-style.css" rel="stylesheet">
+
+		<link href="./health-atlas-16x16.png" rel="icon">
+
+    <style type="text/css">
+
+    	.opera-fullscreen{
+    		display: block;
+    		width:100vw;
+    		height:100vh;
+    	}
+    	
+    	.badge-green {
+    		background-color: #daf392 !important;
+    		color : green !important;
+    	}
+
+    	.badge-orange {
+    		background-color: #fde5cc !important;
+    		color : #ef8213 !important;
+    	}
+
+    	.badge-red {
+    		background-color: #fbdede !important;
+    		color : #ce1325 !important;
+    	}
+    	.badge-yellow {
+    		background-color: #f7f799 !important;
+    		color : #bd8f06 !important;
+    	}
+
+    	.no-padding {
+    		padding-left: 1px !important;
+    		padding-right: 1px !important;
+    	}
+
+		.nav-tabs .nav-item {
+		    margin-bottom: -1px;
+		}
+		.nav-link {
+		    display: block;
+		    padding: 0.2rem 0.5rem;
+		}
+    </style>
+
+    <script src="./vendors/ua-parser/ua-parser-min.js" type="text/javascript" ></script>
+
+	</head>
+
+	<body>
+
+
+    <!--span class="d-lg-none">           Masqué à partir de LG et au-delà    </span-->
+    <!--span class="d-none d-lg-block">  visible à partir de LG et au-delà    </span-->
+
+       
+	<div class="container-fluid"  style="background-color: #ddd ; height: 100%">
+
+			<div id="home-view" class="row">
+				<div class="badge-yellow opera-fullscreen">
+					
+				</div>
+			</div>
+
+			<div id="map-view" class="row">
+				<div class="badge-orange opera-fullscreen">
+					
+				</div>
+			</div>
+
+			<div id="table-view" class="row">
+				<div class="badge-green opera-fullscreen">
+					
+				</div>				
+			</div>
+
+			<div id="graphic-view" class="row">
+				<div class="badge-red opera-fullscreen">
+					
+				</div>
+			</div>
+
+			<div class="row fixed-bottom"  style="height: 6vh ; background-color: #444; color:#aaa; font-size: 0.7rem; padding: 5px 5px 2px 10px;">
+			    <div class="col-md-12" > 
+
+			    	<div class="float-left d-none d-md-block"> 
+			    		<span class="d-none d-lg-inline-block d-xl-none"> Développé avec &nbsp </span>
+			    		<span class="d-none d-xl-inline-block"> Application développée avec &nbsp  </span>
+
+			    		<img src="./images/D3_js_logo_44x40.png" class="mr-3" alt="heroku LOGO"> 
+			    	    <img src="./images/node-express-js-60x40a.png" class="mr-3" alt="Node Express JS LOGO"> 
+			    	</div>
+
+			    	<div class="float-right d-none d-md-block"> 
+			    		<span class="d-none d-lg-inline-block d-xl-none"> Hébergé par &nbsp </span>
+			    		<span class="d-none d-xl-inline-block"> Application hébergée par &nbsp  </span>
+			    		<img src="./images/heroku-gray-round.png" class="mr-3" alt="heroku LOGO">
+			    	</div>
+
+
+			    	<div class="text-center" > Atlas Santé 2020 - Source des données sanitaires :
+			    		<span class="d-lg-inline-block d-xl-none"> RASS-2017 - MSHP/COVID-19-Centre d'information </span>
+			    		<span class="d-none d-xl-inline-block"> Rapport Annuel de la Situation Sanitaire en Côte d'Ivoire (2017) - MSHP / COVID-19-Centre d'information  </span> &nbsp|&nbsp  
+			    		
+			    		<span class="d-lg-inline-block d-xl-none"> Données spatiales: HDX/OCHA-CNTIG </span>
+			    		<span class="d-none d-xl-inline-block"> Sources des données spatiales: HUMANITARIAN DATA EXCHANGE / OCHA-CNTIG  </span> &nbsp|&nbsp 
+			    	     Nous contacter au : <span class="font-weight-bold" style="color: orange;"> opera4gis@gmail.com</span>
+			      </div>
+
+			    </div>
+			</div>
+
+	</div>
+
+	<script src="./vendors/jquery/3.3.1/jquery-3.3.1.js" type="text/javascript"></script>
+	<script src="./vendors/director/1.2.6/director.min.js" type="text/javascript"></script>
+	<script src="./vendors/d3/v3/d3.v3.min.js" charset="utf-8"></script>
+	<script src="./vendors/mustache/2.2.1/mustache.min.js" charset="utf-8"></script>
+	<script src="./vendors/object-path/object-path.js" charset="utf-8"></script>
+	<script src="./vendors/bootstrap/4.4.1/js/bootstrap.js" charset="utf-8"></script>
+	<script src="./vendors/momentJs/moment.js" charset="utf-8"></script>
+	<script src="./vendors/chartjs/js/2.9.3/chart.js" charset="utf-8"></script>
+
+	
+
+
+</body>
+</html>
+
+
+	
