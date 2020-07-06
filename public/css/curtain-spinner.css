@@ -1,7 +1,10 @@
 
 
 /* ------ Global styles -------*/
-    body{margin: 0px;}
+    body{
+        margin: 0px;
+    }
+
     .outer-div
     {
         background-color: #d4d6d6;
@@ -18,40 +21,40 @@
     
         color : #2a263c;
         margin: auto;
-        width:90%; height:40%;
+        width: 100vw; height: 100vh;
         border:1px none rgb(255,255,255);
         text-align: center;
     }
 
     .loader {
-        display: inline-block;
+        display: block;
         position: relative;
         margin: auto;
-        width: 5em; 
-        height: 5em;  
+        width: 5vh; 
+        height: 5vh;  
     }
 
     .sig-title { 
         font-family: "arial black", "time new roman" ; 
         font-weight: 500;
-        font-size: 5em;  
-        -webkit-text-stroke-width: 0.01em; 
+        font-size: 5vh;  
+        -webkit-text-stroke-width: 0.2vh; 
         -webkit-text-stroke-color: white; 
     }
 
     .sig-text-h2 { 
         font-family: "arial black", "time new roman" ; 
         font-weight: 500;
-        font-size: 2.5em; 
+        font-size: 2.5vh; 
         color: red; 
-        -webkit-text-stroke-width: 0.01em; 
+        -webkit-text-stroke-width: 0.01vh; 
         -webkit-text-stroke-color: white; 
     }
 
     .sig-subtitle { 
         font-family: "arial" ; 
-        font-size: 15px;  font-weight: 550; color: #fff;
-        margin-top: 1em;
+        font-size: 3vh;  font-weight: 550; color: #fff;
+        margin-top: 1vh;
     }
 
     .loader span:nth-child(1n)
@@ -60,29 +63,29 @@
         -webkit-animation: load1 1.4s infinite ease-in-out;
         animation: load1 1.4s infinite ease-in-out;
         position: absolute;
-        width: 10px;
-        height: 5px;
+        width: 1.5vh;
+        height: 10vh;
         content: '';
     }
 
-    .loader span:nth-child(1) {  left: 4em; top: 3em;   -webkit-animation-delay: -0.16s;  animation-delay: -0.16s; }
-    .loader span:nth-child(2) {  left: 3em; top: 3em;   -webkit-animation-delay: -0.32s;  animation-delay: -0.32s; }
-    .loader span:nth-child(3) {  left: 2em; top: 3em;   -webkit-animation-delay: -0.48s;  animation-delay: -0.48s; }
-    .loader span:nth-child(4) {  left: 1em; top: 3em;   -webkit-animation-delay: -0.64s;  animation-delay: -0.64s; }
-    .loader span:nth-child(5) {  left: 0em; top: 3em;   -webkit-animation-delay: -0.80s;  animation-delay: -0.80s; }
+    .loader span:nth-child(1) {  left: 8vh; top: 3vh;   -webkit-animation-delay: -0.16s;  animation-delay: -0.16s; }
+    .loader span:nth-child(2) {  left: 6vh; top: 3vh;   -webkit-animation-delay: -0.32s;  animation-delay: -0.32s; }
+    .loader span:nth-child(3) {  left: 4vh; top: 3vh;   -webkit-animation-delay: -0.48s;  animation-delay: -0.48s; }
+    .loader span:nth-child(4) {  left: 2vh; top: 3vh;   -webkit-animation-delay: -0.64s;  animation-delay: -0.64s; }
+    .loader span:nth-child(5) {  left: 0vh; top: 3vh;   -webkit-animation-delay: -0.80s;  animation-delay: -0.80s; }
 
     @-webkit-keyframes load1 {
-        0%   { box-shadow: 0 -1em #fca002; height: 2em;  background-color: #fca002;}
-        40%  { box-shadow: 0  0em #bcd1e2; height: 1em;  background-color: #bcd1e2;}
-        95%  { box-shadow: 0 -1em #bcd1e2; height: 2em;  background-color: #bcd1e2;} 
-        100% { box-shadow: 0 -1em #64ad16; height: 2em;  background-color: #64ad16;}  
+        0%   { box-shadow: 0 -1vh #fca002; height: 4vh;  background-color: #fca002;}
+        40%  { box-shadow: 0  0vh #bcd1e2; height: 3vh;  background-color: #bcd1e2;}
+        95%  { box-shadow: 0 -1vh #bcd1e2; height: 4vh;  background-color: #bcd1e2;} 
+        100% { box-shadow: 0 -1vh #64ad16; height: 4vh;  background-color: #64ad16;}  
     }
 
     @keyframes load1 {
-         0%  { box-shadow: 0 -0.5em #64ad16; height: 2em;    background-color: #64ad16;}
-        40%  { box-shadow: 0    0em #bcd1e2; height: 1.5em;  background-color: #bcd1e2;}
-        95%  { box-shadow: 0 -0.5em #fca002; height: 2em;    background-color: #fca002;} 
-        100% { box-shadow: 0 -0.5em #bcd1e2; height: 2em;    background-color: #bcd1e2;}             
+         0%  { box-shadow: 0 -1vh #64ad16; height: 4vh;    background-color: #64ad16;}
+        40%  { box-shadow: 0    0vh #bcd1e2; height: 3vh;  background-color: #bcd1e2;}
+        95%  { box-shadow: 0 -1vh #fca002; height: 4vh;    background-color: #fca002;} 
+        100% { box-shadow: 0 -1vh #bcd1e2; height: 4vh;    background-color: #bcd1e2;}             
     } 
 /* fca002: orange            #64ad16 vert
     @-webkit-keyframes load1 {
@@ -101,6 +104,7 @@
 */
 
     .rideau {
+
         background: linear-gradient( 45deg, #9bc9e8, #0b596d );
         background-size: 100% 100%;
     }
