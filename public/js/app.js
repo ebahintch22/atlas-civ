@@ -484,10 +484,11 @@ fileLoad_JSON(
 
 function remove_start_up_curtain(){
 
-	$("#curtain").addClass("hidden")
+	$("#home-view").addClass("hidden");
+	//$("#curtain").addClass("hidden")
 	$("#start-up-failure-msgbox").html( "" );
-	$("#spinner").html( ``)
-	$("#spinner-message").html( ``)	
+	$("#spinner").html( ``);
+	$("#spinner-message").html( ``)	;
 
 }
 

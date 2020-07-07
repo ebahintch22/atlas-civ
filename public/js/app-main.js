@@ -83,7 +83,7 @@ function notify_application_readiness(){
 		setTimeout( function(){
 
 			if ( ACCEPT_MOBILE || ( isMobileDevice() == false && force_mobile() == false )){
-				 
+				// alert("notify_application_readiness")
 				 remove_start_up_curtain();
 			} else {
 			

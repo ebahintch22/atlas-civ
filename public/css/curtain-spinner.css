@@ -4,7 +4,7 @@
     body{
         margin: 0px;
     }
-
+/*
     .outer-div
     {
         background-color: #d4d6d6;
@@ -14,22 +14,28 @@
         height:100%;
         position:fixed;
         margin:0px;
-    }
+    }*/
 
     .inner-div {
         font-family: "arial black";
-    
         color : #2a263c;
-        margin: auto;
+        padding: 20vh 0vh;
         width: 100vw; height: 100vh;
         border:1px none rgb(255,255,255);
         text-align: center;
     }
 
+    .wrapper {
+
+         display: inline-block;
+         position:relative;
+         height: 10vh;
+         margin: 0 auto;
+    }
     .loader {
         display: block;
         position: relative;
-        margin: auto;
+        margin: 5vh auto;
         width: 5vh; 
         height: 5vh;  
     }

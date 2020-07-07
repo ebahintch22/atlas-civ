@@ -5302,7 +5302,7 @@ function notify_application_readiness(){
 		setTimeout( function(){
 
 			if ( ACCEPT_MOBILE || ( isMobileDevice() == false && force_mobile() == false )){
-				 
+				// alert("notify_application_readiness")
 				 remove_start_up_curtain();
 			} else {
 			
@@ -6665,10 +6665,11 @@ fileLoad_JSON(
 
 function remove_start_up_curtain(){
 
-	$("#curtain").addClass("hidden")
+	$("#home-view").addClass("hidden");
+	//$("#curtain").addClass("hidden")
 	$("#start-up-failure-msgbox").html( "" );
-	$("#spinner").html( ``)
-	$("#spinner-message").html( ``)	
+	$("#spinner").html( ``);
+	$("#spinner-message").html( ``)	;
 
 }
 
