@@ -1,5 +1,6 @@
 //globals var déclaration
 //const http_server_exe_mode = false;
+
 var navigate = function (path) {
 	  	var current = window.location.href;
 	    window.location.href = current.replace(/#(.*)$/, '') + '#' + path;
@@ -99,11 +100,12 @@ var legendX = d3.scale.linear();     // For the legend, we prepare a very simple
  // Domain and range will be set later as they depend on the data currently shown.
 
 var keyController ; // Controller de sélection de la variable de base pour la cartographie et le diagrammes
-var managerController
-var slideController
-var chartController_admin
-var chartController_rass
-var legendControllervar 
+var spatialLayerController ; // Controller pour la sélection du nveau de représentation spatiale (echelle cartographique)
+var managerController;
+var slideController;
+var chartController_admin;
+var chartController_rass;
+var legendControllervar ;
 
 var dataTableController
 var ZOOM_IS_DISABLE = true

@@ -32,6 +32,7 @@ app.use('/users', usersRouter);
 //app.use('/socket', socketRouter);//socketRouter
 
 app.use('/visitors', visitorRouter);//socketRouter
+app.use('/guest-acf/visitors', visitorRouter);//socketRouter
 app.use('/buyers'  , buyerRouter);
 
 // catch 404 and forward to error handler

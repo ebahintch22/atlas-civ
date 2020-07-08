@@ -26,7 +26,7 @@ function app_start_up(){
 		}
 	)
 
-
+	metaDataBase.orderby_num("index");
 	theme_controller = ui_render_dropdown_inputgroup("#opera-theme-selector-1", {
 		      "prompt": "Choisir un thème",
 		"options" : metaDataBase.table_details,
@@ -101,8 +101,8 @@ function create_or_update_key_selectList( data ){
 			     "prompt" : "Variable à cartographier",
 		   	    "options" : data,
 			        "key" : "fld_name",
-			      "label" : "short_name",
-		      "transform" : { key: "fld_name", label : "short_name"	},
+			      "label" : "long_name",
+		      "transform" : { key: "fld_name", label : "long_name"	},
 		         "filter" : null
 		}, 
 		function after_key_selected(_info){
@@ -110,31 +110,54 @@ function create_or_update_key_selectList( data ){
 		})
 
 	} else {
-		
 		keyController.refresh_options( data)
 	}
 }
 
+function create_or_update_spatialLayer_selectList( data ){
+	if (spatialLayerController == undefined ){
+
+		spatialLayerController  = ui_render_dropdown_inputgroup( "#opera-spatiallayer-selector-2", {
+			     "prompt" : "Niveau spatial",
+		   	    "options" : data,
+			        "key" : "name",
+			      "label" : "label",
+		      "transform" : null,
+		         "filter" : null
+		}, 
+		function after_key_selected(_info){
+			after_selectLayer_Changed( _info.key )
+		})
+
+	} else {
+		spatialLayerController.refresh_options( data)
+	}
+}
+
+
+
+
+
 function Activate_thematic_section(frame_name){
 	load_dataframe(frame_name, 
 
-		function(metaData){	// Here note that the @metaData param  is the active metaDataframe section in metaDataBase
-			//look_at("metaData", metaData)
+		function(metaData){	
+		    // Here note that the @metaData param  is the active metaDataframe section in metaDataBase
+			// look_at("metaData", metaData)
 			
 			toogle_layout(metaData)
          
-			layer_arr = extractLayerObjects( metaDataBase.geo_datasets, metaData.layerList, "name")
-			layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" )
+			layer_arr = extractLayerObjects( metaDataBase.geo_datasets, metaData.layerList, "name");
+			layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" );
+			
 
-			key_controller = create_or_update_key_selectList(metaData.data_fields)	
+			key_controller = create_or_update_key_selectList( metaData.data_fields )	
 			keyController.update_view("FLD1");
 
-			currentKey = "FLD1";					// get (refactoring: allow to be read from metabase section and ...
+			currentKey = "FLD1";	// get (refactoring: allow to be read from metabase section and ...
 			currentMetaTable = metaData ;	
-
-			//set the current color palette to that of the metaTable
-			update_color_palette(metaData.color_palette);
-
+		
+			update_color_palette(metaData.color_palette); //set the current color palette to that of the metaTable
 			update_dataTableView(metaData)
 
 			//update the property window html template to the new table columnset					
@@ -145,10 +168,8 @@ function Activate_thematic_section(frame_name){
 			});
 
 			//create_histogram_object();
-			layer_controller.update_view( metaData.layerList[0] )
-			after_selectLayer_Changed( metaData.layerList[0] ); //TO DO: transform this code to more parametrizable version 
-
-			//after_selectKey_Changed("FLD1");//TO DO: transform this code to more parametrizable version
+			layer_controller.update_view( metaData.layerList[0] );
+			after_selectLayer_Changed( metaData.layerList[0] ); 
 
 			if ( before_app_initialization ) 	notify_application_readiness()
 

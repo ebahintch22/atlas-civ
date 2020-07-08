@@ -10,7 +10,17 @@ var metaDataBase = {
 		name : "district_sante",
 		class: "Districts sanitaire",
 		label: "Découpage en <b> districts sanitaires (83)</b>",
-		path : "./data/geojson/health/civ-district-sante.geojson"
+		path : `${PATH_PREFIX}data/geojson/health/civ-district-sante.geojson`
+	},
+	orderby_num: function(fld){
+		var themes_arr = this.table_details;
+		themes_arr.sort(function( a,b ){ return ( a[fld] - b[fld]) })
+		//console.log( themes_arr )
+	},
+	orderby_str: function(fld){
+		var themes_arr = this.table_details;
+		themes_arr.sort(function( a,b ){ return ('' + a[fld].attr).localeCompare(b[fld].attr); })
+		//console.log( themes_arr )
 	},
 	geo_datasets :[
 		{
@@ -22,7 +32,7 @@ var metaDataBase = {
 				abbr : "RS."
 			},			
 			label: "Découpage en régions sanitaires (20)",
-			path : "./data/geojson/health/civ-region-sante.geojson",
+			path : `${PATH_PREFIX}data/geojson/health/civ-region-sante.geojson`,
 			idfield : "code_R",
 			labelField :"Region_S"
 		},
@@ -35,7 +45,7 @@ var metaDataBase = {
 				abbr : "DS."
 			},
 			label: "Découpage en districts sanitaires (83)",
-			path : "./data/geojson/health/civ-district-sante.geojson",
+			path : `${PATH_PREFIX}data/geojson/health/civ-district-sante.geojson`,
 			idfield : "code",
 			labelField :"District_S"
 		},	
@@ -48,7 +58,7 @@ var metaDataBase = {
 				 abbr : "Dst."
 			},
 			label: "Découpage en districts administratifs (14)",
-			path : "./data/geojson/tmp/civ-adm1-district-r2.geojson",
+			path : `${PATH_PREFIX}data/geojson/tmp/civ-adm1-district-r2.geojson`,
 			idfield : "code",
 			labelField :"admin1Name"
 		},
@@ -61,7 +71,7 @@ var metaDataBase = {
 				 abbr : "Rgn."
 			},
 			label: "Découpage en régions administratives (33)",
-			path :  "./data/geojson/tmp/civ-adm2-region-r2.geojson",
+			path :  `${PATH_PREFIX}data/geojson/tmp/civ-adm2-region-r2.geojson`,
 			idfield : "admin2Pcod",
 			labelField :"admin2Name"
 		}	
@@ -80,7 +90,11 @@ var metaDataBase = {
 		"covid-19",
 		"covid-19-june16",
 		"paludisme_u5_ans",
-		"paludisme_glo"
+		"paludisme_glo",
+		"incidence_IRA_u5_ans",
+		"incidence_IRA_glo",
+		"incidence_anemie",
+		"incidence_coqueluche"
 	],
 	color_palettes : [ 
 			{ name:"YlGnBu"}, 
@@ -93,7 +107,7 @@ var metaDataBase = {
 	table_selected : default_table_selection,
 	table_details : [
 		{
-			index : 18,
+			index : 1,
 			name : "covid-19-june16", 
 			valid: true,
 			table_num : "Tableau-98",			
@@ -101,7 +115,7 @@ var metaDataBase = {
 			label: "1- Incidence nationale de la COVID-19 (Carto actualisée au 16/06/2020)",
 			unit: "nombre de cas",
 			article: "de ",
-			path : "./data/statistics/tab_98_covid_june16.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_98_covid_june16.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : {
@@ -113,6 +127,9 @@ var metaDataBase = {
 			},
 			layout : "COVID",
 			color_palette: "YlOrRd",
+			charts : {
+				color : "RED"
+			},
 			field_selected : default_field_selection,
 			data_fields : [					
 				{ 
@@ -132,7 +149,7 @@ var metaDataBase = {
 			]
 		},
 		{
-			index : 17,
+			index : 2,
 			name : "covid-19", 
 			valid: false,
 			table_num : "Tableau-99",			
@@ -140,7 +157,7 @@ var metaDataBase = {
 			label: "1- Incidence nationale de la COVID-19 (deprecated)",
 			unit: "nombre de cas",
 			article: "de ",
-			path : "./data/statistics/tab_99_covid.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_99_covid.csv`,
 			source: "DIIS/INS",
 			data_parser : COVID_PARSER,
 			renderer : {
@@ -164,7 +181,7 @@ var metaDataBase = {
 			]
 		},
 		{
-			index : 1,
+			index : 3,
 			valid: true,
 			name : "demographic",
 			layerList : [  "district_sante", "region_sante" ],
@@ -172,7 +189,7 @@ var metaDataBase = {
 			label: "2- Données de population (2017)",
 			unit: "population",
 			article: "de ",
-			path : "./data/statistics/tab_01_demography.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_01_demography.csv`,
 			source: "INS-2017",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 9 , [] , ['white', 'red']),
@@ -191,7 +208,7 @@ var metaDataBase = {
 			]
 		},
 		{
-			index : 2,
+			index : 4,
 			valid: true,
 			name: "human_ressource",
 			layerList : [  "district_sante", "region_sante" ],
@@ -199,7 +216,7 @@ var metaDataBase = {
 			label: "3- Ressources des systèmes de santé - Personnel",
 			unit: "effectif",
 			article: "d'",
-			path : "./data/statistics/tab_05_human_res.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_05_human_res.csv`,
 			source: "DRH/Ministère de la Santé et de l’Hygiène Publique",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'red']),
@@ -222,7 +239,7 @@ var metaDataBase = {
 			]
 		}, 
 		{
-			index : 3,
+			index : 5,
 			valid: true,
 			name : "ratio_prestataire_pop", 
 			layerList :  [ "district_sante", "region_sante"],
@@ -230,7 +247,7 @@ var metaDataBase = {
 			label: "4- Ratio Prestataires de soins - Population",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_06_ratio_prestataire_pop.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_06_ratio_prestataire_pop.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,			
 			renderer : get_renderer( 5 , [] , ['white', 'orange']),
@@ -246,7 +263,7 @@ var metaDataBase = {
 			]
 		},
 		{
-			index : 4,
+			index : 6,
 			valid: true,
 			name : "repartition_etabliss_sante", 
 			layerList :  [ "district_sante", "region_sante"],
@@ -254,7 +271,7 @@ var metaDataBase = {
 			label: "5- Ressources des systèmes de santé - Etablissements",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_07_repartition_etabliss_sante.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_07_repartition_etabliss_sante.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,			
 			renderer : get_renderer( 5 , [] , ['white', 'orange']),
@@ -278,7 +295,7 @@ var metaDataBase = {
 			]
 		},
 		{
-			index : 5,
+			index : 7,
 			valid: true,
 			name : "ratio_hrsn_espc_pop", 
 			layerList :  [ "district_sante", "region_sante"],
@@ -286,7 +303,7 @@ var metaDataBase = {
 			label: "6- Ratio établissements de santé/Population",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_08_ratio_hrsn_espc_pop.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_08_ratio_hrsn_espc_pop.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,			
 			renderer : get_renderer( 5 , [] , ['white', 'green']),
@@ -300,7 +317,7 @@ var metaDataBase = {
 			]
 		},
 		{
-			index : 6,
+			index : 8,
 			valid: true,
 			name : "other_material", 
 			layerList :  [ "district_sante", "region_sante"],
@@ -308,7 +325,7 @@ var metaDataBase = {
 			label: "7- Autres ressources materielles (2017)",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_09_other_material.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_09_other_material.csv`,
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			source:  "DIIS/INS",
@@ -324,7 +341,7 @@ var metaDataBase = {
 			]
 		},
 		{
-			index : 7,
+			index : 9,
 			valid: true,
 			name : "tech_platform", 
 			layerList :  [ "district_sante", "region_sante"],
@@ -332,7 +349,7 @@ var metaDataBase = {
 			label: "8- Plateaux techniques et équipements (2017)",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_10_tech_platform.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_10_tech_platform.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,			
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
@@ -354,7 +371,7 @@ var metaDataBase = {
 			]
 		},
 		{
-			index : 8,
+			index : 10,
 			valid: true,
 			name : "ratio_ambulance_structure_sante", 
 			table_num :"Tableau-11",
@@ -362,7 +379,7 @@ var metaDataBase = {
 			label: "9- Ratio ambulance par nombre de structure de soin (tab 11)",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_11_ratio_ambulance_structure_sante.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_11_ratio_ambulance_structure_sante.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 10 , [] , ['white', 'violet']),
@@ -377,7 +394,7 @@ var metaDataBase = {
 		},
 
 		{
-			index : 9,
+			index : 11,
 			valid: false,
 			name : "repartition_struct_transfusion", 
 			layerList : [ "region_sante" , "district_sante"],
@@ -386,7 +403,7 @@ var metaDataBase = {
 			label: "9- Répartition géographique des dépôts/banques de sang (tab. 12)",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_12_repartition_structure_transfusion.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_12_repartition_structure_transfusion.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
@@ -400,7 +417,7 @@ var metaDataBase = {
 		},
 
 		{
-			index : 10,
+			index : 12,
 			valid: false,
 			name : "xxxxxxxxxxxxxxxxx", 
 			table_num :"Tableau-13",
@@ -409,7 +426,7 @@ var metaDataBase = {
 			label: "xxxxxx",
 			unit: "Données du tableau 13",
 			article: "de ",
-			path : "./data/statistics/tab_xx_axxxxxxx.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
@@ -423,7 +440,7 @@ var metaDataBase = {
 			]
 		},	
 		{
-			index : 11,
+			index : 45,
 			name: "std",
 			valid: false,
 			table_num :"Tableau-45",
@@ -432,10 +449,10 @@ var metaDataBase = {
 				"district_sante"
 			],
 			adminlevels: [ "region", "district"],
-			label: "Maladies sexuellement transmissibles",
+			label: "45-Maladies sexuellement transmissibles",
 			unit: "cas déclaré(s)",
 			article: "de ",
-			path : "./data/statistics/tab_45_std.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_45_std.csv`,
 			source: "Ministère de la Santé et de l’Hygiène Publique",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
@@ -485,7 +502,7 @@ var metaDataBase = {
         },
 
 		{
-			index : 12,
+			index : 14,
 			name: "xxxxxxxxxxxxxxxxx", 
 			valid: false,
 			table_num :"Tableau-14",
@@ -494,7 +511,7 @@ var metaDataBase = {
 			label: "xxxxxx",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_xx_axxxxxxx.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'yellow']),
@@ -508,7 +525,7 @@ var metaDataBase = {
 		},
 
 		{
-			index : 13,
+			index : 15,
 			name : "xxxxxxxxxxxxxxxxx", 
 			valid: false,
 			layerList : [ "region_sante" , "district_sante"],
@@ -517,7 +534,7 @@ var metaDataBase = {
 			label: "xxxxxx",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_xx_axxxxxxx.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
@@ -533,7 +550,7 @@ var metaDataBase = {
 		},
 
 		{
-			index : 14,
+			index : 16,
 			name : "xxxxxxxxxxxxxxxxx", 
 			valid: false,
 			table_num :"Tableau-16",
@@ -542,7 +559,7 @@ var metaDataBase = {
 			label: "xxxxxx",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_xx_axxxxxxx.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'black']),
@@ -556,7 +573,7 @@ var metaDataBase = {
 		},
 
 		{
-			index : 15,
+			index : 17,
 			name : "xxxxxxxxxxxxxxxxx", 
 			valid: false,
 			table_num :"Tableau-17",
@@ -565,7 +582,7 @@ var metaDataBase = {
 			label: "xxxxxx",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_xx_axxxxxxx.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'cyan']),
@@ -580,7 +597,7 @@ var metaDataBase = {
 			]
 		},
 		{
-			index : 16,
+			index : 18,
 			name : "xxxxxxxxxxxxxxxxx", 
 			valid: false,
 			table_num :"Tableau-18",
@@ -589,18 +606,146 @@ var metaDataBase = {
 			label: "xxxxxx",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_xx_axxxxxxx.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
 			source: "DIIS/INS",
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
 			data_fields : [					
-				{ fld_name : "FLD1", short_name : "Nombre total de consultants ESPC 2017", long_name : "Nombre total de consultants ESPC 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD2", short_name : "Nombre Total Consultants HG et CHR 2017", long_name : "Nombre Total Consultants HG et CHR 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD3", short_name : "Nombre Total Consultants EPN/CHU 2017", long_name : "Nombre Total Consultants EPN/CHU 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD4", short_name : "Total Consultants 2017", long_name : "Total Consultants 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD5", short_name : "Proportion Consultants ESPC 2017 (%)", long_name : "Proportion Consultants ESPC 2017 (%)", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD6", short_name : "Proportion Consultants HG & CHR 2017 (%)", long_name : "Proportion Consultants HG & CHR 2017 (%)", data_type :  "INT", unit : "nombre" }
+				{ fld_name : "FLD1", short_name : "Nombre total de consultants ESPC", long_name : "Nombre total de consultants ESPC", data_type :  "INT", unit : "nombre" },
+				{ fld_name : "FLD2", short_name : "Nombre Total Consultants HG et CHR", long_name : "Nombre Total Consultants HG et CHR", data_type :  "INT", unit : "nombre" },
+				{ fld_name : "FLD3", short_name : "Nombre Total Consultants EPN/CHU", long_name : "Nombre Total Consultants EPN/CHU", data_type :  "INT", unit : "nombre" },
+				{ fld_name : "FLD4", short_name : "Total Consultants", long_name : "Total Consultants ", data_type :  "INT", unit : "nombre" },
+				{ fld_name : "FLD5", short_name : "Proportion Consultants ESPC (%)", long_name : "Proportion Consultants ESPC (%)", data_type :  "INT", unit : "nombre" },
+				{ fld_name : "FLD6", short_name : "Proportion Consultants HG & CHR (%)", long_name : "Proportion Consultants HG & CHR (%)", data_type :  "INT", unit : "nombre" }
+			]
+		},
+		{
+			index : 33,
+			name : "couverture_vaccinale", 
+			valid: true,
+			table_num :"Tableau-33",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "33-Couverture vaccinale",
+			unit: "nombre",
+			article: "de ",
+			path : `${PATH_PREFIX}data/statistics/tab_33_couverture_vaccinale.csv`,
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : {
+				   source : "manual",
+				threshold : [ 80, 92],
+				 colormap : ['#ff0000' , '#ffff00', '#4ce600' ],  
+				 labelmap : ["Insuffisante" , "Moyenne", "Satisfaisante" ],
+			  legendtitle : "Couverture vaccinale (maladie?)"
+			},
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [	
+
+				{
+					fld_name: "FLD1",
+					short_name: "Couverture en BCG (%)",
+					long_name: "Couverture en BCG (%)",
+					data_type: "INT",
+					unit: "%",
+					renderer : "default"
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Couverture en VPO-1 (%)",
+					long_name: "Couverture en VPO-1 (%)",
+					data_type: "INT",
+					unit: "%"
+				},
+				{
+					fld_name: "FLD3",
+					short_name: "Couverture en VPO-2 (%)",
+					long_name: "Couverture en VPO-2 (%)",
+					data_type: "INT",
+					unit: "%"
+				},
+				{
+					fld_name: "FLD4",
+					short_name: "Couverture en VPO-3(%)",
+					long_name: "Couverture vaccinale antipoliomyélitique orale-3e dose (VPO-3)",
+					data_type: "INT",
+					unit: "%",
+					renderer : "default"
+				},
+				{
+					fld_name: "FLD5",
+					short_name: "Couverture en Penta-1 (%)",
+					long_name: "Couverture en Penta-1 (%)",
+					data_type: "INT",
+					unit: "%"
+				},
+				{
+					fld_name: "FLD6",
+					short_name: "Couverture en Penta-2(%)",
+					long_name: "Couverture en Penta-2(%)",
+					data_type: "INT",
+					unit: "%"
+				},
+				{
+					fld_name: "FLD7",
+					short_name: "Couverture en Penta-3(%)",
+					long_name: "Couverture en Penta-3(%)",
+					data_type: "INT",
+					unit: "%"
+				},
+				{
+					fld_name: "FLD8",
+					short_name: "Couverture en PCV13-1 (%)",
+					long_name: "Couverture en PCV13-1 (%)",
+					data_type: "INT",
+					unit: "%"
+				},
+				{
+					fld_name: "FLD9",
+					short_name: "Couverture en PCV13- 2 (%)",
+					long_name: "Couverture en PCV13- 2 (%)",
+					data_type: "INT",
+					unit: "%"
+				},
+				{
+					fld_name: "FLD10",
+					short_name: "Couverture en PCV13-3 (%)",
+					long_name: "Couverture en PCV13-3 (%)",
+					data_type: "INT",
+					unit: "%"
+				},
+				{
+					fld_name: "FLD11",
+					short_name: "Couverture en VPI (%)",
+					long_name: "Couverture en VPI (%)",
+					data_type: "INT",
+					unit: "%"
+				},
+				{
+					fld_name: "FLD12",
+					short_name: "VAR-2 (%)",
+					long_name: "Taux de couverture vaccinale antirougeoleuse (VAR)",
+					data_type: "INT",
+					unit: "%",
+					renderer : "default"
+				},
+				{
+					fld_name: "FLD13",
+					short_name: "VAA",
+					long_name: "Taux de couverture de vaccination antiamarile (VAA)",
+					data_type: "INT",
+					unit: "¨%",
+					renderer : "default"
+				},
+				{
+					fld_name: "FLD14",
+					short_name: "Couverture en VAT 2+ (%)",
+					long_name: "Taux de couverture vaccin tétanos néonatal (VAT 2+)",
+					data_type: "INT",
+					unit: "nombre",
+					renderer : "default"
+				}
 			]
 		},
 		{
@@ -609,20 +754,62 @@ var metaDataBase = {
 			valid: true,
 			table_num :"Tableau-39",
 			layerList : [ "region_sante" , "district_sante"],
-			label: "39-Incidence du paludisme dans la population générale chez les moins de 5 ans",
+			label: "39-Incidence du paludisme chez les moins de 5 ans",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_39_paludisme_incidence_under_5.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_39_paludisme_incidence_under_5.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
 			data_fields : [	
-
-				{ fld_name: "FLD1", short_name: "Population 0 à 4 ans", long_name: "Population 0 à 4 ans", data_type: "INT", unit: "Habitants"},
+				{ fld_name: "FLD1", short_name: "Population de 0 à 4 ans", long_name: "Population 0 à 4 ans", data_type: "INT", unit: "Habitants"},
 				{ fld_name: "FLD2", short_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", long_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD3", short_name: "Incidence du paludisme chez les moins de 5 ans (‰)", long_name: "Incidence du paludisme chez les moins de 5 ans (‰)", data_type: "INT", unit: "cas confirmés pour 1000 hbts"}
+				{ fld_name: "FLD3", short_name: "Incidence du paludisme chez les moins de 5 ans (‰)", long_name: "Incidence du paludisme chez les moins de 5 ans (‰)", data_type: "INT", unit: "cas confirmés pour 1 000 hbts"}
+			]
+		},
+		{
+			index : 40,
+			name : "incidence_anemie", 
+			valid: true,
+			table_num :"Tableau-40",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "40- incidence de l'anémie",
+			unit: "nombre",
+			article: "de ",
+			path : `${PATH_PREFIX}data/statistics/tab_40_incidence_anemie.csv`,
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [	
+				{ fld_name: "FLD1", short_name: "Population de 0 à 4 ans", long_name: "Population de 0 à 4 ans", data_type: "INT", unit: "habitants"},
+				{ fld_name: "FLD2", short_name: "Nombre de cas d'Anémie", long_name: "Nombre de cas d'Anémie", data_type: "INT", unit: "cas"},
+				{ fld_name: "FLD3", short_name: "Incidence Anémie (‰)", long_name: "Incidence Anémie (‰)", data_type: "INT", unit: "cas pour 1 000 hbts"}
+
+			]
+		},
+		{
+			index : 41,
+			name : "incidence_coqueluche", 
+			valid: true,
+			table_num :"Tableau-41",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "41-Incidence de la Coqueluche chez les enfants de moins de 5 ans",
+			unit: "nombre",
+			article: "de ",
+			path : `${PATH_PREFIX}data/statistics/tab_41_coqueluche_incidence.csv`,
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [	
+				{ fld_name: "FLD1", short_name: "Population totale", long_name: "Population totale", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD2", short_name: "Nombre de cas de Coqueluche", long_name: "Nombre de cas de Coqueluche", data_type: "INT", unit: "cas"},
+				{ fld_name: "FLD3", short_name: "Incidence Coqueluche (‰)", long_name: "Incidence Coqueluche (‰)", data_type: "INT", unit: "cas pour 1 000 hbts"}
 			]
 		},
 		{
@@ -634,7 +821,7 @@ var metaDataBase = {
 			label: "42-Incidence du paludisme dans la population générale",
 			unit: "nombre",
 			article: "de ",
-			path : "./data/statistics/tab_42_paludisme_incidence_glo.csv",
+			path : `${PATH_PREFIX}data/statistics/tab_42_paludisme_incidence_glo.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
@@ -645,9 +832,51 @@ var metaDataBase = {
 				{ fld_name: "FLD2", short_name: "Nombre total de cas de paludisme confirmés dans la population", long_name: "Nombre total de cas de paludisme confirmés dans la population", data_type: "INT", unit: "nombre"},
 				{ fld_name: "FLD3", short_name: "Incidence global du paludisme (‰)", long_name: "Incidence du paludisme dans la population générale (‰)", data_type: "INT", unit: "cas confirmés pour 1000 hbts"}
 			]
+		},
+		{
+			index : 38,
+			name : "incidence_IRA_u5_ans", 
+			valid: true,
+			table_num :"Tableau-38",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "38-Infections Respiratoires Aiguës (IRA) chez les moins de 5 ans",
+			unit: "nombre",
+			article: "de ",
+			path : `${PATH_PREFIX}data/statistics/tab_38_Incidence_IRA_under_5.csv`,
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [	
+				{ fld_name: "FLD1", short_name: " Population de 0 à 4 ans", long_name: " Population de 0 à 4 ans", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD2", short_name: "Nombre de cas d’IRA chez les Enfants", long_name: "Nombre de cas d’IRA chez les Enfants", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD3", short_name: "Incidence IRA chez les Enfants (‰)", long_name: "Incidence IRA chez les Enfants (‰)", data_type: "INT", unit: "nombre"}
+			]
+		},
+		{
+			index : 43,
+			name : "incidence_IRA_glo", 
+			valid: true,
+			table_num :"Tableau-43",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "43-Infections Respiratoires Aiguës (IRA) dans la population générale",
+			unit: "nombre",
+			article: "de ",
+			path : `${PATH_PREFIX}data/statistics/tab_43_incidence_IRA_glo.csv`,
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [	
+
+				{ fld_name: "FLD1", short_name: "Population totale", long_name: " Population totale", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD2", short_name: "Nombre de cas d'IRA dans la population générale", long_name: "Nombre de cas d'IRA dans la population générale", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD3", short_name: "Incidence d'IRA dans la population générale (‰)", long_name: "Incidence d'IRA dans la population générale (‰)", data_type: "INT", unit: "cas pour 1 000 hbts"}
+			]
 		}
 	]	
 };
 
-//Ord;Code;REGIONS_DISTRICTS;GEOLOC;NIVEAU;Nombre de cas au 16 juin 2020;Nombre de décès au 16 juin 2020
 

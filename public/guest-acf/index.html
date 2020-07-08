@@ -1,19 +1,19 @@
-﻿<html lang="en">
+<html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<title> Atlas Santé - Côte d'Ivoire </title>
-  		<link href="./vendors/font-awesome/4.7/css/font-awesome.min.css" rel="stylesheet">
-  		<link href="./vendors/bootstrap/4.4.1/css/bootstrap.css" rel="stylesheet">
-        <link href="./vendors/datatable/1.10.18-cdn/datatable.min.css" rel="stylesheet" media="screen" type="text/css">
+  		<link href="../vendors/font-awesome/4.7/css/font-awesome.min.css" rel="stylesheet">
+  		<link href="../vendors/bootstrap/4.4.1/css/bootstrap.css" rel="stylesheet">
+        <link href="../vendors/datatable/1.10.18-cdn/datatable.min.css" rel="stylesheet" media="screen" type="text/css">
 
-  		<link href="./css/map-style.css" rel="stylesheet">
-  		<link href="./css/main-style.css" rel="stylesheet">
-  		<link href="./css/curtain-spinner.css" rel="stylesheet">
-  		<link href="./css/opera-tabs-style.css" rel="stylesheet">
-  		<link href="./css/opera-tabs-style-dark.css" rel="stylesheet">
-  		<link href="./css/opera-datatable-style.css" rel="stylesheet">
+  		<link href="../css/map-style.css" rel="stylesheet">
+  		<link href="../css/main-style.css" rel="stylesheet">
+  		<link href="../css/curtain-spinner.css" rel="stylesheet">
+  		<link href="../css/opera-tabs-style.css" rel="stylesheet">
+  		<link href="../css/opera-tabs-style-dark.css" rel="stylesheet">
+  		<link href="../css/opera-datatable-style.css" rel="stylesheet">
 
-		<link href="./health-atlas-16x16.png" rel="icon">
+		<link href="../health-atlas-16x16.png" rel="icon">
 
 	    <style type="text/css">
 
@@ -70,11 +70,12 @@
 			}
 	    </style>
 	        <!--    sm: +576px ; md: +768px  lg: +992px   xl: +1200px  -->
-		<script src="./vendors/jquery/3.3.1/jquery-3.3.1.js" type="text/javascript"></script>
-	    <script src="./vendors/polyfills/array.js" type="text/javascript" ></script>
-	    <script src="./js/app-platform-detect.js"  type="text/javascript" ></script>
-		<script src="./vendors/ua-parser/ua-parser-min.js" type="text/javascript" ></script>
-	    <script src="./js/app-admin-tools.js" charset="utf-8"></script>
+		<script src="../vendors/jquery/3.3.1/jquery-3.3.1.js" type="text/javascript"></script>
+	    <script src="../vendors/polyfills/array.js" type="text/javascript" ></script>
+	    <script src="../js/app-platform-detect.js"  type="text/javascript" ></script>
+		<script src="../vendors/ua-parser/ua-parser-min.js" type="text/javascript" ></script>
+	    <script src="../js/app-admin-acf-tools.js" charset="utf-8"></script>
+	    <script src="../js/app-admin-standard-tools.js" charset="utf-8"></script>
 
 	</head>
 
@@ -138,7 +139,7 @@
 					background-color:#444;">
 					  <div class="card-body text-center" style=" -webkit-text-stroke-width: 0.03em; 
 					        -webkit-text-stroke-color: #ec740d; 
-					        background-image: url('./images/atlas-sante-banner.jpeg'); 
+					        background-image: url('../images/atlas-sante-banner.jpeg'); 
 					        color:#fff; padding:0px; top: 0px;" >
 					     Atlas Santé <sub style="font-size: 0.45em; font-weight: 750; "> CÔTE D'IVOIRE</sub> 
 					  </div>
@@ -222,8 +223,8 @@
 			    <div class="col-lg-2" > 
 			    	<div class="d-none d-xl-block"> 
 			    		<center>
-				    		<img src="./images/D3_js_logo_44x40.png" class="mr-3" alt="heroku LOGO"> 
-				    	    <img src="./images/node-express-js-60x40a.png" class="mr-3" alt="Node Express JS LOGO"> 
+				    		<img src="../images/D3_js_logo_44x40.png" class="mr-3" alt="heroku LOGO"> 
+				    	    <img src="../images/node-express-js-60x40a.png" class="mr-3" alt="Node Express JS LOGO"> 
 				    		<span class="d-none d-lg-inline-block d-xl-none text-center"> Développé avec &nbsp </span>
 				    		<span class="d-none d-xl-inline-block text-center"> Application développée avec &nbsp  </span>
 			    		</center>
@@ -248,7 +249,7 @@
 			    <div class="col-lg-2" > 
 			    	<div class="d-none d-xl-block"> 
 			    		<center>
-				    		<img src="./images/heroku-gray-round.png" class="mr-3" alt="heroku LOGO"> <br>
+				    		<img src="../images/heroku-gray-round.png" class="mr-3" alt="heroku LOGO"> <br>
 				    		<span class="d-none d-lg-inline-block d-xl-none text-center"> Hébergé par &nbsp </span>
 				    		<span class="d-none d-xl-inline-block text-center"> Application hébergée par &nbsp  </span>
 			    		</center>
@@ -259,41 +260,41 @@
 
 	</div>
 
-	<script src="./vendors/director/1.2.6/director.min.js" type="text/javascript"></script>
-	<script src="./vendors/d3/v3/d3.v3.min.js" charset="utf-8"></script>
-	<script src="./vendors/mustache/2.2.1/mustache.min.js" charset="utf-8"></script>
-	<script src="./vendors/object-path/object-path.js" charset="utf-8"></script>
-    <script src="./vendors/datatable/1.10.18-cdn/datatable.min.js" type="text/javascript"></script>
-    <script src="./vendors/datatable/1.10.18-cdn/datatable.scroller.min.js"   type="text/javascript"></script>
-	<script src="./vendors/bootstrap/4.4.1/js/bootstrap.js" charset="utf-8"></script>
-	<script src="./vendors/momentJs/moment.js" charset="utf-8"></script>
-	<script src="./vendors/chartjs/js/2.9.3/chart.js" charset="utf-8"></script>
+	<script src="../vendors/director/1.2.6/director.min.js" type="text/javascript"></script>
+	<script src="../vendors/d3/v3/d3.v3.min.js" charset="utf-8"></script>
+	<script src="../vendors/mustache/2.2.1/mustache.min.js" charset="utf-8"></script>
+	<script src="../vendors/object-path/object-path.js" charset="utf-8"></script>
+    <script src="../vendors/datatable/1.10.18-cdn/datatable.min.js" type="text/javascript"></script>
+    <script src="../vendors/datatable/1.10.18-cdn/datatable.scroller.min.js"   type="text/javascript"></script>
+	<script src="../vendors/bootstrap/4.4.1/js/bootstrap.js" charset="utf-8"></script>
+	<script src="../vendors/momentJs/moment.js" charset="utf-8"></script>
+	<script src="../vendors/chartjs/js/2.9.3/chart.js" charset="utf-8"></script>
 
 	<!--script src="./deploy/js-app-fusion-es6.js" charset="utf-8"></script-->
 
-	<script src="./js/app-ajax.js" charset="utf-8"></script>
-	<script src="./js/utility.js" charset="utf-8"></script>
-	<script src="./js/app-manifest-parser.js" charset="utf-8"></script>
-	<script src="./js/app-manifest-data.js" charset="utf-8"></script>
-	<script src="./js/app-templates.js" charset="utf-8"></script>
+	<script src="../js/app-ajax.js" charset="utf-8"></script>
+	<script src="../js/utility.js" charset="utf-8"></script>
+	<script src="../js/app-manifest-parser.js" charset="utf-8"></script>
+	<script src="../js/app-manifest-data.js" charset="utf-8"></script>
+	<script src="../js/app-templates.js" charset="utf-8"></script>
 
-	<script src="./js/app-data-test.js" charset="utf-8"></script>
+	<script src="../js/app-data-test.js" charset="utf-8"></script>
 
-	<script src="./js/app-views-helper.js" charset="utf-8"></script>
-	<script src="./js/app-controller-datatable.js" charset="utf-8"></script>
-	<script src="./js/app-controller-navtabs.js" charset="utf-8"></script>
-	<script src="./js/app-controller-dropdown.js" charset="utf-8"></script>
-	<script src="./js/app-controller-legend.js" charset="utf-8"></script>
-	<script src="./js/app-controller-charts.js" charset="utf-8"></script>
-	<script src="./js/app-controller-carousel.js" charset="utf-8"></script>
+	<script src="../js/app-views-helper.js" charset="utf-8"></script>
+	<script src="../js/app-controller-datatable.js" charset="utf-8"></script>
+	<script src="../js/app-controller-navtabs.js" charset="utf-8"></script>
+	<script src="../js/app-controller-dropdown.js" charset="utf-8"></script>
+	<script src="../js/app-controller-legend.js" charset="utf-8"></script>
+	<script src="../js/app-controller-charts.js" charset="utf-8"></script>
+	<script src="../js/app-controller-carousel.js" charset="utf-8"></script>
 
-	<script src="./js/app-views.js" charset="utf-8"></script>
-	<script src="./js/app-chart-covid.js" charset="utf-8"></script>
-	<script src="./js/app-chart-rass.js" charset="utf-8"></script>
-	<script src="./js/app-chart-traffic.js" charset="utf-8"></script>
-	<script src="./js/app-global-var.js" charset="utf-8"></script>
-	<script src="./js/app-main.js" charset="utf-8"></script>
-	<script src="./js/app.js" charset="utf-8"></script>
+	<script src="../js/app-views.js" charset="utf-8"></script>
+	<script src="../js/app-chart-covid.js" charset="utf-8"></script>
+	<script src="../js/app-chart-rass.js" charset="utf-8"></script>
+	<script src="../js/app-chart-traffic.js" charset="utf-8"></script>
+	<script src="../js/app-global-var.js" charset="utf-8"></script>
+	<script src="../js/app-main.js" charset="utf-8"></script>
+	<script src="../js/app.js" charset="utf-8"></script>
 
 </body>
 </html>

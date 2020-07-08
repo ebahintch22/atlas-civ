@@ -513,7 +513,11 @@ var metaDataBase = {
 		"covid-19",
 		"covid-19-june16",
 		"paludisme_u5_ans",
-		"paludisme_glo"
+		"paludisme_glo",
+		"incidence_IRA_u5_ans",
+		"incidence_IRA_glo",
+		"incidence_anemie",
+		"incidence_coqueluche"
 	],
 	color_palettes : [ 
 			{ name:"YlGnBu"}, 
@@ -1037,12 +1041,55 @@ var metaDataBase = {
 			]
 		},
 		{
+			index : 38,
+			name : "incidence_IRA_u5_ans", 
+			valid: true,
+			table_num :"Tableau-38",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "38-Infections Respiratoires Aiguës (IRA) chez les moins de 5 ans",
+			unit: "nombre",
+			article: "de ",
+			path : "./data/statistics/tab_38_Incidence_IRA_under_5.csv",
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [	
+				{ fld_name: "FLD1", short_name: " Population de 0 à 4 ans", long_name: " Population de 0 à 4 ans", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD2", short_name: "Nombre de cas d’IRA chez les Enfants", long_name: "Nombre de cas d’IRA chez les Enfants", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD3", short_name: "Incidence IRA chez les Enfants (‰)", long_name: "Incidence IRA chez les Enfants (‰)", data_type: "INT", unit: "nombre"}
+			]
+		},
+		{
+			index : 43,
+			name : "incidence_IRA_glo", 
+			valid: true,
+			table_num :"Tableau-43",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "43-Infections Respiratoires Aiguës (IRA) dans la population générale",
+			unit: "nombre",
+			article: "de ",
+			path : "./data/statistics/tab_43_incidence_IRA_glo.csv",
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [	
+
+				{ fld_name: "FLD1", short_name: "Population totale", long_name: " Population totale", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD2", short_name: "Nombre de cas d'IRA dans la population générale", long_name: "Nombre de cas d'IRA dans la population générale", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD3", short_name: "Incidence d'IRA dans la population générale (‰)", long_name: "Incidence d'IRA dans la population générale (‰)", data_type: "INT", unit: "cas pour 1 000 hbts"}
+			]
+		},
+		{
 			index : 39,
 			name : "paludisme_u5_ans", 
 			valid: true,
 			table_num :"Tableau-39",
 			layerList : [ "region_sante" , "district_sante"],
-			label: "39-Incidence du paludisme dans la population générale chez les moins de 5 ans",
+			label: "39-Incidence du paludisme chez les moins de 5 ans",
 			unit: "nombre",
 			article: "de ",
 			path : "./data/statistics/tab_39_paludisme_incidence_under_5.csv",
@@ -1052,10 +1099,52 @@ var metaDataBase = {
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
 			data_fields : [	
-
-				{ fld_name: "FLD1", short_name: "Population 0 à 4 ans", long_name: "Population 0 à 4 ans", data_type: "INT", unit: "Habitants"},
+				{ fld_name: "FLD1", short_name: "Population de 0 à 4 ans", long_name: "Population 0 à 4 ans", data_type: "INT", unit: "Habitants"},
 				{ fld_name: "FLD2", short_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", long_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD3", short_name: "Incidence du paludisme chez les moins de 5 ans (‰)", long_name: "Incidence du paludisme chez les moins de 5 ans (‰)", data_type: "INT", unit: "cas confirmés pour 1000 hbts"}
+				{ fld_name: "FLD3", short_name: "Incidence du paludisme chez les moins de 5 ans (‰)", long_name: "Incidence du paludisme chez les moins de 5 ans (‰)", data_type: "INT", unit: "cas confirmés pour 1 000 hbts"}
+			]
+		},
+		{
+			index : 40,
+			name : "incidence_anemie", 
+			valid: true,
+			table_num :"Tableau-40",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "40- incidence de l'anémie",
+			unit: "nombre",
+			article: "de ",
+			path : "./data/statistics/tab_40_incidence_anemie.csv",
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [	
+				{ fld_name: "FLD1", short_name: "Population de 0 à 4 ans", long_name: "Population de 0 à 4 ans", data_type: "INT", unit: "habitants"},
+				{ fld_name: "FLD2", short_name: "Nombre de cas d'Anémie", long_name: "Nombre de cas d'Anémie", data_type: "INT", unit: "cas"},
+				{ fld_name: "FLD3", short_name: "Incidence Anémie (‰)", long_name: "Incidence Anémie (‰)", data_type: "INT", unit: "cas pour 1 000 hbts"}
+
+			]
+		},
+		{
+			index : 41,
+			name : "incidence_coqueluche", 
+			valid: true,
+			table_num :"Tableau-41",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "41-Incidence de la Coqueluche chez les enfants de moins de 5 ans",
+			unit: "nombre",
+			article: "de ",
+			path : "./data/statistics/tab_41_coqueluche_incidence.csv",
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [	
+				{ fld_name: "FLD1", short_name: "Population totale", long_name: "Population totale", data_type: "INT", unit: "nombre"},
+				{ fld_name: "FLD2", short_name: "Nombre de cas de Coqueluche", long_name: "Nombre de cas de Coqueluche", data_type: "INT", unit: "cas"},
+				{ fld_name: "FLD3", short_name: "Incidence Coqueluche (‰)", long_name: "Incidence Coqueluche (‰)", data_type: "INT", unit: "cas pour 1 000 hbts"}
 			]
 		},
 		{
@@ -1082,7 +1171,6 @@ var metaDataBase = {
 	]	
 };
 
-//Ord;Code;REGIONS_DISTRICTS;GEOLOC;NIVEAU;Nombre de cas au 16 juin 2020;Nombre de décès au 16 juin 2020
 
 
  var tmplt_details_hard =   `
@@ -2706,6 +2794,146 @@ function get_data(){
  	"iddle": 14
  }]
 		 )
+}
+init_helper_functions()
+function get_chart_container( canvas_id, width, height, x_width, x_height ){
+	var template = 	`
+		<div class="chart-container" style="position: relative; width: ${x_width} ; height: ${x_height}; ">
+			<canvas id="${canvas_id}" width="${width}" height="${height}"> 	</canvas>
+		</div>`
+	return template ;
+}
+
+
+function init_helper_functions(){
+
+	include_button_input = function(eltID , btnCaption , placeHolder, callBackFuncname){
+		return(
+			`
+			<nav class="navbar navbar-light bg-light">
+			  <form id="${eltID}" class="form-inline" onSubmit="${callBackFuncname}(this , '${eltID}')">
+			    	<input class="form-control mr-sm-2" type="search" placeholder="${placeHolder}" aria-label="Search">
+			    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">${btnCaption}</button>
+			  </form>
+			</nav>
+			`
+		)
+	};
+
+	include_button = function(eltID , btnCaption, callBackFuncname ){
+		return(
+			`
+			<nav class="navbar navbar-light bg-light">
+			  <form id="${eltID}" class="form-inline" onSubmit="${callBackFuncname}(this , '${eltID}')">
+			    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">${btnCaption}</button>
+			  </form>
+			</nav>
+			`
+		)
+	};
+
+	include_button_group = function( button_arr  ){
+		
+			var TMPLT = `
+				<div id="{{group_id}}" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups"  
+				    style="padding: 5px 20px;">
+				 	<div class="btn-group btn-group-sm mr-2" role="group" aria-label="First group">
+				 	{{#button_list}}
+					    <button  id="{{id}}" type="button" class="btn btn-secondary"  onClick="{{callBack}}(this, '{{id}}')"> {{{caption}}} </button>
+					 {{/button_list}}
+				 	</div>
+				</div>
+			`
+			  return ( Mustache.render(TMPLT , button_arr ))
+		
+	};
+
+	upcoming_function = function (dataset){
+		var html = Mustache.render( 
+			`<center>
+		       <span style="position:relative; top: 150px; font-size: 20px; color:#999">  
+		          <i class="fa {{fa_icon}} fa-5x"  style= "color:#ccc" ></i>
+		          <h3> {{messageTitle}}</h3>
+		          <h4> {{{messageContent}}}</h4>
+		      </span>         
+	    	</center> `, 
+	    	dataset)
+		
+	    return html	
+	 };
+
+	 include_supervision_table = function(){
+
+	 	return( `
+			<div  style="padding: 10px 20px 0px 20px; position: relative; height:80vh; width:90%;background-color: #ddd"> 
+				<!--div style="position: absolute; top:0px;height:10vh; width:90%;background-color: #eee;">
+				</div-->
+
+				<div style="position:relative; height:35vh; width:90%;margin-top:2vh;overflow:scroll; ">
+					<table class="table table-sm">
+						<thead>
+						    <tr>
+						      <th scope="col"> UUID  </th> 
+						      <th scope="col"> Démarré à </th> 
+						      <th scope="col"> Dernière notif   </th> 
+						      <th scope="col"> Requête </th>
+						      <th scope="col"> Réponse </th>
+						      <th scope="col"> observation </th>
+						    </tr>
+						</thead>
+						<tbody>
+							{{#users}}
+							    <tr>
+							      	<th>  {{uuid}}   </th> 
+							      	<td>  {{start_at}} </td>  
+							      	<td>  {{when}} </td>  
+							      	<td>  {{req}} </td>  
+							      	<td>  {{res}} </td>
+							      	<td>  {{comments}} </td>
+							    </tr>
+							{{/users}}   
+						  </tbody>
+					</table>
+				</div>
+			</div>`)
+	 }
+
+
+	 // Template to generate the monography //VIEW
+
+     get_table_container  = function(){
+
+      	return  `
+      	<div id="table-view-container" style= "position: relative; height:80vh;"> 
+            <div id="tableview-wrapper" class="enveloppe">
+                <table class="table table-bordered display compact" id="data_table_id" width="100%" cellspacing="0" 
+                        style=" white-space: nowrap ;background-color: #ccc;color:#444; width:100%;font-size: 8pt; 
+                        font-family:Verdana">
+                    <thead> </thead>
+                    <tfoot> </tfoot>
+                </table>
+                <br>
+            </div>
+		 </div>  ` 
+    }
+
+    get_color_ramp_html = function( color_arr ){
+    	
+    	var TMPLT =  `
+    		<div  style= "margin: 20px 0px 0px 40px;position:relative; width:400px; height:300px; overflow-y: scroll;font-size: 10px;">
+    			{{#colors}}
+    				<div style="display: inline-block; position:relative; border: 1px solid #000 ;margin:5px; width:100px; height:40px; background-color:{{value}};" > {{key}} </div>
+    			{{/colors}}
+    		</div> 	`
+		
+		return ( Mustache.render( TMPLT , color_arr ))
+
+    }
+
+	 fa_icon = function(ico_name){
+	 	return ( ` <i class="fa fa-${ico_name}" aria-hidden="true"></i> `)
+	 }
+
 }//app-controller-datatable.js
 function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack_UnSelect, useColArray ){
 
@@ -3876,8 +4104,6 @@ function ui_render_caroussel ( _eltID , Cfg , callBack , delay = 1){
     }
 
 }var include_button_input , upcoming_function // helper function variables
-init_helper_functions()
-
 
 
 function ui_render_spatialLayerSelectList_component( layer_data_arr, _eltID ){
@@ -4115,11 +4341,6 @@ var navtabController_RASS = new ui_render_navtabs(
     1
 )
 
-/*var html_01 = Mustache.render( include_supevision_table(), { users:[]});
-			  console.log("Template de la liste des connexions " + html_01 );
-
-var html_02 = get_chart_container( "chart-canvas-traffic" , 600, 250 ,'90%', '35vh');
-			  console.log( "Template du graphique de fréquentation : " + html_02  );*/
 
 var color_data = {
 	colors : object_to_array(chartColors)
@@ -4283,24 +4504,6 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 	)
 
 
-
-
-
-
-
-
-
-
-
-
-function get_chart_container( canvas_id, width, height, x_width, x_height ){
-	var template = 	`
-		<div class="chart-container" style="position: relative; width: ${x_width} ; height: ${x_height}; ">
-			<canvas id="${canvas_id}" width="${width}" height="${height}"> 	</canvas>
-		</div>`
-	return template ;
-}
-
 function get_Monography_template_TODO(){ return fake_monography}
 function get_table_container_template_TODO(){ return fake_table }
 function get_ourReferences_template_TODO(){return fake_about_us }
@@ -4308,138 +4511,7 @@ function get_opera_console_template_TODO(){ return opera_console_tmpl }  //  Tem
 //function get_opera_table_template_TODO(){ return opera_table_template }
 
 
-
-function init_helper_functions(){
-
-	include_button_input = function(eltID , btnCaption , placeHolder, callBackFuncname){
-		return(
-			`
-			<nav class="navbar navbar-light bg-light">
-			  <form id="${eltID}" class="form-inline" onSubmit="${callBackFuncname}(this , '${eltID}')">
-			    	<input class="form-control mr-sm-2" type="search" placeholder="${placeHolder}" aria-label="Search">
-			    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">${btnCaption}</button>
-			  </form>
-			</nav>
-			`
-		)
-	};
-
-	include_button = function(eltID , btnCaption, callBackFuncname ){
-		return(
-			`
-			<nav class="navbar navbar-light bg-light">
-			  <form id="${eltID}" class="form-inline" onSubmit="${callBackFuncname}(this , '${eltID}')">
-			    	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">${btnCaption}</button>
-			  </form>
-			</nav>
-			`
-		)
-	};
-
-	include_button_group = function( button_arr  ){
-		
-			var TMPLT = `
-				<div id="{{group_id}}" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups"  
-				    style="padding: 5px 20px;">
-				 	<div class="btn-group btn-group-sm mr-2" role="group" aria-label="First group">
-				 	{{#button_list}}
-					    <button  id="{{id}}" type="button" class="btn btn-secondary"  onClick="{{callBack}}(this, '{{id}}')"> {{{caption}}} </button>
-					 {{/button_list}}
-				 	</div>
-				</div>
-			`
-			  return ( Mustache.render(TMPLT , button_arr ))
-		
-	};
-
-	upcoming_function = function (dataset){
-		var html = Mustache.render( 
-			`<center>
-		       <span style="position:relative; top: 150px; font-size: 20px; color:#999">  
-		          <i class="fa {{fa_icon}} fa-5x"  style= "color:#ccc" ></i>
-		          <h3> {{messageTitle}}</h3>
-		          <h4> {{{messageContent}}}</h4>
-		      </span>         
-	    	</center> `, 
-	    	dataset)
-		
-	    return html	
-	 };
-
-	 include_supervision_table = function(){
-
-	 	return( `
-			<div  style="padding: 10px 20px 0px 20px; position: relative; height:80vh; width:90%;background-color: #ddd"> 
-				<!--div style="position: absolute; top:0px;height:10vh; width:90%;background-color: #eee;">
-				</div-->
-
-				<div style="position:relative; height:35vh; width:90%;margin-top:2vh;overflow:scroll; ">
-					<table class="table table-sm">
-						<thead>
-						    <tr>
-						      <th scope="col"> UUID  </th> 
-						      <th scope="col"> Démarré à </th> 
-						      <th scope="col"> Dernière notif   </th> 
-						      <th scope="col"> Requête </th>
-						      <th scope="col"> Réponse </th>
-						      <th scope="col"> observation </th>
-						    </tr>
-						</thead>
-						<tbody>
-							{{#users}}
-							    <tr>
-							      	<th>  {{uuid}}   </th> 
-							      	<td>  {{start_at}} </td>  
-							      	<td>  {{when}} </td>  
-							      	<td>  {{req}} </td>  
-							      	<td>  {{res}} </td>
-							      	<td>  {{comments}} </td>
-							    </tr>
-							{{/users}}   
-						  </tbody>
-					</table>
-				</div>
-			</div>`)
-	 }
-
-
-
-	 // Template to generate the monography //VIEW
-
-     get_table_container  = function(){
-
-      	return  `
-      	<div id="table-view-container" style= "position: relative; height:80vh;"> 
-            <div id="tableview-wrapper" class="enveloppe">
-                <table class="table table-bordered display compact" id="data_table_id" width="100%" cellspacing="0" 
-                        style=" white-space: nowrap ;background-color: #ccc;color:#444; width:100%;font-size: 8pt; 
-                        font-family:Verdana">
-                    <thead> </thead>
-                    <tfoot> </tfoot>
-                </table>
-                <br>
-            </div>
-		 </div>  ` 
-    }
-
-    get_color_ramp_html = function( color_arr ){
-    	
-    	var TMPLT =  `
-    		<div  style= "margin: 20px 0px 0px 40px;position:relative; width:400px; height:300px; overflow-y: scroll;font-size: 10px;">
-    			{{#colors}}
-    				<div style="display: inline-block; position:relative; border: 1px solid #000 ;margin:5px; width:100px; height:40px; background-color:{{value}};" > {{key}} </div>
-    			{{/colors}}
-    		</div> 	`
-		
-		return ( Mustache.render( TMPLT , color_arr ))
-
-    }
-
-	 fa_icon = function(ico_name){
-	 	return ( ` <i class="fa fa-${ico_name}" aria-hidden="true"></i> `)
-	 }
-
-}	
+	
 
 
 	function build_COVID_chart_component(  data ){
@@ -5209,11 +5281,12 @@ var legendX = d3.scale.linear();     // For the legend, we prepare a very simple
  // Domain and range will be set later as they depend on the data currently shown.
 
 var keyController ; // Controller de sélection de la variable de base pour la cartographie et le diagrammes
-var managerController
-var slideController
-var chartController_admin
-var chartController_rass
-var legendControllervar 
+var spatialLayerController ; // Controller pour la sélection du nveau de représentation spatiale (echelle cartographique)
+var managerController;
+var slideController;
+var chartController_admin;
+var chartController_rass;
+var legendControllervar ;
 
 var dataTableController
 var ZOOM_IS_DISABLE = true
@@ -5329,31 +5402,54 @@ function create_or_update_key_selectList( data ){
 		})
 
 	} else {
-		
 		keyController.refresh_options( data)
 	}
 }
 
+function create_or_update_spatialLayer_selectList( data ){
+	if (spatialLayerController == undefined ){
+
+		spatialLayerController  = ui_render_dropdown_inputgroup( "#opera-spatiallayer-selector-2", {
+			     "prompt" : "Niveau spatial",
+		   	    "options" : data,
+			        "key" : "name",
+			      "label" : "label",
+		      "transform" : null,
+		         "filter" : null
+		}, 
+		function after_key_selected(_info){
+			after_selectLayer_Changed( _info.key )
+		})
+
+	} else {
+		spatialLayerController.refresh_options( data)
+	}
+}
+
+
+
+
+
 function Activate_thematic_section(frame_name){
 	load_dataframe(frame_name, 
 
-		function(metaData){	// Here note that the @metaData param  is the active metaDataframe section in metaDataBase
-			//look_at("metaData", metaData)
+		function(metaData){	
+		    // Here note that the @metaData param  is the active metaDataframe section in metaDataBase
+			// look_at("metaData", metaData)
 			
 			toogle_layout(metaData)
          
-			layer_arr = extractLayerObjects( metaDataBase.geo_datasets, metaData.layerList, "name")
-			layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" )
+			layer_arr = extractLayerObjects( metaDataBase.geo_datasets, metaData.layerList, "name");
+			layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" );
+			
 
-			key_controller = create_or_update_key_selectList(metaData.data_fields)	
+			key_controller = create_or_update_key_selectList( metaData.data_fields )	
 			keyController.update_view("FLD1");
 
-			currentKey = "FLD1";					// get (refactoring: allow to be read from metabase section and ...
+			currentKey = "FLD1";	// get (refactoring: allow to be read from metabase section and ...
 			currentMetaTable = metaData ;	
-
-			//set the current color palette to that of the metaTable
-			update_color_palette(metaData.color_palette);
-
+		
+			update_color_palette(metaData.color_palette); //set the current color palette to that of the metaTable
 			update_dataTableView(metaData)
 
 			//update the property window html template to the new table columnset					
@@ -5364,10 +5460,8 @@ function Activate_thematic_section(frame_name){
 			});
 
 			//create_histogram_object();
-			layer_controller.update_view( metaData.layerList[0] )
-			after_selectLayer_Changed( metaData.layerList[0] ); //TO DO: transform this code to more parametrizable version 
-
-			//after_selectKey_Changed("FLD1");//TO DO: transform this code to more parametrizable version
+			layer_controller.update_view( metaData.layerList[0] );
+			after_selectLayer_Changed( metaData.layerList[0] ); 
 
 			if ( before_app_initialization ) 	notify_application_readiness()
 

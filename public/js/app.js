@@ -467,7 +467,7 @@ function USER_INTERFACE_update_layout(){
 
 var color_helper = Chart.helpers.color
 fileLoad_JSON( 
-	"Données épidémiologique sur le COVID-19", "./data/covid-data.json", 
+	"Données épidémiologique sur le COVID-19", PATH_PREFIX + "data/covid-data.json", 
 	function(data) {
 		COVIDATA = data;
 		update_covid_badges();
