@@ -48,8 +48,9 @@ function ui_render_navtabs ( _eltID , Cfg , callBack , delay = 1){
 		});
 
 	var componentHtml = Mustache.render( template_nav_tabs,  data );
+        d3.select(`${_eltID}`).html(componentHtml ); bind_Selector();
 
-	setTimeout(  function(){ d3.select(`${_eltID}`).html(componentHtml ); bind_Selector();}, delay)
+	    //setTimeout(  function(){ d3.select(`${_eltID}`).html(componentHtml ); bind_Selector();}, delay)
 
 
     return {

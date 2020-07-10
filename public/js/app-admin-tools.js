@@ -144,6 +144,8 @@
                 var col_arr =  [
 
                     {"data": "login", "title": "Pseudo" },
+                    {"data": "user_type", "title": "Type Utilisateur" },
+                    {"data": "user_url", "title": "Url d'accès" },
                     {"data": "firstname", "title": "Prénoms" },
                     {"data": "lastname" , "title": "Nom" },
                     {"data": "conn_count" , "title": "Nb Visite" },

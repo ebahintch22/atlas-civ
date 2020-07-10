@@ -32,6 +32,7 @@
 
                     error: function (xhr, ajaxOptions, thrownError) {
                             callBackFailure(xhr, ajaxOptions, thrownError);
+                            console.log(xhr)
                         }
                 })
 

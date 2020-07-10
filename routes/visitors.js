@@ -5,7 +5,7 @@ var router = express.Router();
 const db = require('../db');
 const KEY_SERVER = require('../db/server');
 const table_name = "atlas_visitors";
-
+var ACCESS_URL = {};
 const query_string = `
 	select
 		_index,
@@ -13,6 +13,14 @@ const query_string = `
 		info->'userid' As Identifiant, 
 		info->'login' As Pseudo
 	from atlas_visitors`;
+
+router.use( function(req, res, next) {
+
+	ACCESS_URL.base = req.baseUrl
+	ACCESS_URL.original = req.originalUrl
+
+	next()
+})
 
 
 /* Get existing visitor  */
@@ -39,6 +47,8 @@ router.post('/boot_app',  function(req, res, next) {
 			 	firstname : "n/a",
 			 	lastname  : "n/a", 
 			 	registered : null,
+			 	user_type : qualify_user( ACCESS_URL.base ),
+			 	user_url : ACCESS_URL.base ,
 			 	conn_count : 0,
 			 	created_on : date_now(),
 			 	last_conn_started_at : date_now(),
@@ -52,8 +62,9 @@ router.post('/boot_app',  function(req, res, next) {
 			 	boot_exit_how : "aborted without notification"
 			 };			
 
-	
+			
 			Watchdog.app_notify({ uuid : new_uuid , when : date_now(), req : action,  res : "success",  comments: "N/A" });
+			console.log(usrBadge)
 
 			db.query(  ` INSERT INTO my_visitors ( 
 				       uuid, 
@@ -83,12 +94,14 @@ router.post('/boot_app',  function(req, res, next) {
 				       ua_cpu_architecture,
 				       boot_exit,
 				       boot_exit_how,
-				       boot_exit_why
+				       boot_exit_why,
 
+				       user_type,
+				       user_url
 				     ) 
-				    VALUES( $1,  $2,  $3,  $4,  $5,  $6,  $7,  $8,  $9, $10, 
-				           $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, 
-				           $21, $22, $23 , $24 )`, 
+				    VALUES( $1,  $2,   $3,  $4,   $5,  $6,  $7,  $8,  $9, $10, 
+				           $11, $12,  $13, $14,  $15, $16, $17, $18, $19, $20, 
+				           $21, $22,  $23, $24,  $25, $26 )`, 
 				    [  
 				       usrBadge._uuid, 
 				       usrBadge.login, 
@@ -117,12 +130,15 @@ router.post('/boot_app',  function(req, res, next) {
 				       usrBadge.UA.cpu.architecture,
 				       usrBadge.boot_exit,
 				       usrBadge.boot_exit_how,
-				       usrBadge.boot_exit_why
+				       usrBadge.boot_exit_why,
+				       usrBadge.user_type,
+				       usrBadge.user_url
 				    ], 
 				
 				function(err, dbResult){
 
 					if (err) { 
+
 						Watchdog.app_notify({ uuid : usrBadge.uuid, when: date_now(), req: action,  res : "failure",  comments: "Database System Error" });
 						return next(err)
 					}
@@ -130,6 +146,16 @@ router.post('/boot_app',  function(req, res, next) {
 			    res.send( usrBadge)  	
 			})
 		})
+
+		function qualify_user( str){
+			var user_classes = {
+				"/visitors" : "DEFAULT",
+				"/guest-acf/visitors" : "ACF-GUEST",
+				"/guest-unicef/visitors" : "UNICEF-GUEST",
+				"/guest-cepici/visitors" : "CEPICI"
+			}
+			return user_classes[str]
+		}
 	}
 );
 
@@ -220,6 +246,9 @@ router.get('/read_visitor/:uuid', function(req, res, next) {
 					   usrBadge.firstname = r.firstname ;
 					    usrBadge.lastname = r.lastname ;
 					  usrBadge.registered = r.registered ;
+
+					   usrBadge.user_type = r.user_type ;
+					    usrBadge.user_url = r.user_url ;
 
 					  usrBadge.conn_count = r.conn_count ;
 			          usrBadge.created_on = r.created_on ;
@@ -327,7 +356,8 @@ router.post('/boot_success',  function(req, res, next) {
 					boot_exit = $3,
 					boot_exit_how = $4,
 					boot_exit_why = $5,
-					conn_count = $7
+					conn_count = $7,
+					user_url = $8
 	 			WHERE
 	 				uuid = $6
 	 			`, 
@@ -338,12 +368,15 @@ router.post('/boot_success',  function(req, res, next) {
 			       usrBadge.boot_exit_how,
 			       usrBadge.boot_exit_why,
 			       usrBadge.uuid,
-			       usrBadge.conn_count 
+			       usrBadge.conn_count,
+			       usrBadge.user_url 
 			    ],
+
 	 		 function( err,dbResult ){
 	 		 	KEY_SERVER.delete_temp_badge ( 
 	 		 		usrBadge._uuid, 
 					function(err, dbRes){
+
 						console.log("BOOT-END : SUCCESSFUL DELETE OF TEMP BADGE # " + usrBadge._uuid)	
 						usrBadge.appIsReady = true;
 						usrBadge.timers = OPERA.Delays	
@@ -407,12 +440,13 @@ router.post('/connected',  function(req, res, next) {
 	var action = "new visitor"
 	var auth = req.body;
 
-	db.query( `SELECT * FROM my_visitors ` ,  [], 
+	db.query( `SELECT *, $1 as url_access FROM my_visitors ` ,  [ ACCESS_URL.base ], 
 		function(err, dbResult){
 			if (err) { 
 				Watchdog.app_notify({ uuid : usrBadge.uuid, when: date_now(), req: action,  res : "failure",  comments: "Database System Error" });
 				return next(err)
 			}
+		console.log( dbResult.rows )
 	    res.send( dbResult.rows )  	
 	})
 })
@@ -446,6 +480,16 @@ router.get('/admin_query', function(req, res, next) {
 
 function date_now(){
 	return( new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') )
+}
+
+function qualify_user( str){
+	var user_classes = {
+		"/visitors" : "DEFAULT",
+		"/guest-acf/visitors" : "ACF-GUEST",
+		"/guest-unicef/visitors" : "UNICEF-GUEST",
+		"/guest-cepici/visitors" : "CEPICI"
+	}
+	return user_classes[str]
 }
 
 module.exports = router;
