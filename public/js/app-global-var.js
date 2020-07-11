@@ -107,6 +107,10 @@ var chartController_admin;
 var chartController_rass;
 var legendControllervar ;
 
+var COVIDATA = null;
+var COVIDATA_STATUS = "UNLOAD";
+var COVID_SPINNER_ARR = [];
+
 var dataTableController
 var ZOOM_IS_DISABLE = true
-var rass_active_panel = "tab-b" // or "tab-b"
+var rass_active_panel = "tab-b" 

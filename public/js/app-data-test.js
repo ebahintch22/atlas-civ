@@ -17,6 +17,214 @@ function get_random_data(){
 }
 
 
+
+function load_COVID_DATA_IF_NEEDED( the_spinner ){
+
+	COVID_SPINNER_ARR.push( the_spinner )
+
+	if ( COVIDATA_STATUS != "UNLOAD") return (COVIDATA_STATUS)
+	if ( COVIDATA == null) {
+		COVIDATA_STATUS = "LOADING"
+		fileLoad_JSON( 
+			"Données épidémiologique sur le COVID-19", PATH_PREFIX + "data/covid-data.json", 
+			function(data) {
+
+				COVIDATA = data;
+				update_covid_badges();
+				display_atlas_infos_slide();
+				build_COVID_chart_component(  data );
+				COVIDATA_STATUS = "LOAD-ENDED";
+
+				COVID_SPINNER_ARR.forEach( function (spin){
+					spin.remove()
+				}) ;
+				Spinners.removeDetached();
+		    }, 
+		    function(error){
+				alert("erreur " + error)
+			}
+		);			
+	}
+}
+
+
+
+
+function update_covid_badges(){
+
+	var slides = new COVID_BADGES();
+	//alert("update_covid_badges")
+	console.log(slides)
+
+
+
+	var covid_slideController = new ui_render_caroussel( "#card-1", 
+			{
+				id : "slide-covid-figures",
+				default : "slide-0",
+				addCursor : true,
+				addLink : false,
+		   		slides : [
+		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
+		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
+		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
+		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"},
+		   			{ id: "slide-3", name: "Prélèvements" ,  label : "Comentaire"    ,  Html_content : slides.badge_05  , visible: true , color: "white"}
+		   		]			   
+			},
+			function(){}
+	);
+
+	$('#slide-covid-figures').carousel({
+	  interval: 2000,
+	  ride : "carousel"
+	})
+	$('#slide-covid-figures').carousel(1)	
+
+
+	function COVID_BADGES( ){
+
+
+		var d = extract_late_datarow();
+		var d1 = extract_late_datarow(1);
+
+		return {
+			"badge_01" : update_one_badge( { 
+						color_class : "badge-orange-dark", 
+						label : "Cas confirmés (Covid-19)", 
+						value : d.sum_case ,     
+						delta : d.new_case , 	   
+						 date : d.date_raw   
+					}),
+			"badge_02" : update_one_badge( {
+						color_class : "badge-yellow-dark", 
+						label : "Cas actifs (Covid-19)",    
+						value : d.active_case  , 
+						delta : d.active_case - d1.active_case,  
+						 date : d.date_raw   
+					}),
+			"badge_03" : update_one_badge( { 
+				       color_class : "badge-red-dark",	  
+				       label : "Décès (Covid-19)", 		   
+				       value : d.sum_deceased, 	
+				       delta : d.new_deceased, 	
+				        date : d.date_raw   
+				   }),
+			"badge_04" : update_one_badge( { 
+				        color_class : "badge-green-dark",  
+				        label : "Guéris (Covid-19)", 	   
+				        value : d.sum_healed,    
+				        delta : d.new_healed, 		
+				         date : d.date_raw   
+				   }),	
+			"badge_05" : update_one_badge( { 
+				        color_class : "badge-white-dark",  
+				        label : "Prélèvements (Covid-19)", 	   
+				        value : d.sum_sample,    
+				        delta : d.nb_sample, 		
+				         date : d.date_raw   
+				   })
+		 }
+
+		function  update_one_badge( data ){
+			var extended =  ( ENV_VIEW_SIZE.browser.width > 1200 )
+
+			data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
+			return (Mustache.render(badge_template(extended), data));
+		}	
+
+		function badge_template( extended = true ){
+			var deltas = extended ?  `
+		       <span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
+		     				line-height: 1;"> 
+		         ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
+		       </span>` : "";
+
+			var badge_template = `
+			<div class="card text-center  {{color_class}}"  style="position:relative; height:60px;">
+			    <div class="card-body" style="padding: 0.5em;">
+				     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
+				     		padding-bottom: 0.3em; line-height: 1;"> 
+				     		{{label}} 
+				     </span>
+				     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
+			               {{value}} ${deltas}
+				 	</span>
+			  </div>
+			</div>`;
+			return(badge_template)
+		}
+	}	
+}
+
+
+function display_atlas_infos_slide(){
+
+	var slides = new ATLAS_BADGES();
+
+	var covid_slideController = new ui_render_caroussel( "#card-2", 
+			{
+				id : "slide-atlas-infos",
+				default : "slide-0",
+				addCursor : true,
+				addLink : false,
+				transition : "fade",
+		   		slides : [
+		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
+		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
+		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
+		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"},
+		   			{ id: "slide-5", name: "Prélèvements" ,  label : "Comentaire"    ,  Html_content : slides.badge_06  , visible: true , color: "green"}
+		   		]			   
+			},
+			function(){}
+	);
+
+	$('#slide-atlas-infos').carousel({
+	  interval: 2000,
+	  ride : "carousel"
+	})	
+
+
+	function ATLAS_BADGES( ){
+		return {
+			"badge_01" : _render_cool(`Atlas Santé CI ? ...`),
+			"badge_02" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...les données du RASS passées au moule de la DATAVIZ... </span>`),
+			"badge_03" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...une contribution à la valorisation des statistiques sanitaires...  </span>`),
+			"badge_04" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...un contenu appelé à évoluer regulièrement...</span>`),
+			"badge_05" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...vers une version mobile pour une ubiquité d'accès </div>` )	
+		 }
+
+		function _render_cool(html){
+		 	var template =  `
+				<div class="card text-center align-middle  badge-white-dark "  style="position:relative; height:60px;">
+				    <div class="card-body"  style="padding: 0.1em;">
+					     <span  style="display: inline-block; position: relative;height:100%;font-weight: 500 ;font-size: 1.2em; 
+					     		padding-bottom: 0.3em; line-height: 1;"> 
+					     		${html}
+					     </span>
+					     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
+				              
+					 	</span>
+				  </div>
+				</div>
+			`;
+			return (template);
+
+		}
+	}	
+}
+
+function extract_late_datarow(index=0){
+	var n = COVIDATA.length
+	return COVIDATA[n-1-index];
+}
+
+
+
+
+
+
 function get_data(){
 	return (
 	 [{
@@ -346,1167 +554,6 @@ function get_data(){
  }, {
  	"alive": 270,
  	"iddle": 17
- }, {
- 	"alive": 270,
- 	"iddle": 17
- }, {
- 	"alive": 271,
- 	"iddle": 17
- }, {
- 	"alive": 272,
- 	"iddle": 17
- }, {
- 	"alive": 274,
- 	"iddle": 17
- }, {
- 	"alive": 275,
- 	"iddle": 17
- }, {
- 	"alive": 276,
- 	"iddle": 17
- }, {
- 	"alive": 276,
- 	"iddle": 17
- }, {
- 	"alive": 276,
- 	"iddle": 17
- }, {
- 	"alive": 276,
- 	"iddle": 17
- }, {
- 	"alive": 275,
- 	"iddle": 17
- }, {
- 	"alive": 274,
- 	"iddle": 18
- }, {
- 	"alive": 273,
- 	"iddle": 18
- }, {
- 	"alive": 273,
- 	"iddle": 18
- }, {
- 	"alive": 273,
- 	"iddle": 18
- }, {
- 	"alive": 274,
- 	"iddle": 18
- }, {
- 	"alive": 275,
- 	"iddle": 18
- }, {
- 	"alive": 279,
- 	"iddle": 18
- }, {
- 	"alive": 283,
- 	"iddle": 18
- }, {
- 	"alive": 287,
- 	"iddle": 19
- }, {
- 	"alive": 290,
- 	"iddle": 19
- }, {
- 	"alive": 292,
- 	"iddle": 19
- }, {
- 	"alive": 293,
- 	"iddle": 19
- }, {
- 	"alive": 294,
- 	"iddle": 19
- }, {
- 	"alive": 294,
- 	"iddle": 19
- }, {
- 	"alive": 294,
- 	"iddle": 19
- }, {
- 	"alive": 299,
- 	"iddle": 19
- }, {
- 	"alive": 303,
- 	"iddle": 19
- }, {
- 	"alive": 310,
- 	"iddle": 19
- }, {
- 	"alive": 317,
- 	"iddle": 19
- }, {
- 	"alive": 324,
- 	"iddle": 19
- }, {
- 	"alive": 334,
- 	"iddle": 20
- }, {
- 	"alive": 343,
- 	"iddle": 20
- }, {
- 	"alive": 347,
- 	"iddle": 20
- }, {
- 	"alive": 348,
- 	"iddle": 20
- }, {
- 	"alive": 347,
- 	"iddle": 20
- }, {
- 	"alive": 343,
- 	"iddle": 20
- }, {
- 	"alive": 337,
- 	"iddle": 20
- }, {
- 	"alive": 334,
- 	"iddle": 20
- }, {
- 	"alive": 332,
- 	"iddle": 20
- }, {
- 	"alive": 331,
- 	"iddle": 20
- }, {
- 	"alive": 329,
- 	"iddle": 20
- }, {
- 	"alive": 329,
- 	"iddle": 20
- }, {
- 	"alive": 329,
- 	"iddle": 20
- }, {
- 	"alive": 333,
- 	"iddle": 21
- }, {
- 	"alive": 346,
- 	"iddle": 21
- }, {
- 	"alive": 367,
- 	"iddle": 22
- }, {
- 	"alive": 392,
- 	"iddle": 22
- }, {
- 	"alive": 410,
- 	"iddle": 22
- }, {
- 	"alive": 435,
- 	"iddle": 23
- }, {
- 	"alive": 453,
- 	"iddle": 23
- }, {
- 	"alive": 460,
- 	"iddle": 23
- }, {
- 	"alive": 462,
- 	"iddle": 23
- }, {
- 	"alive": 463,
- 	"iddle": 23
- }, {
- 	"alive": 464,
- 	"iddle": 23
- }, {
- 	"alive": 462,
- 	"iddle": 23
- }, {
- 	"alive": 459,
- 	"iddle": 23
- }, {
- 	"alive": 456,
- 	"iddle": 23
- }, {
- 	"alive": 453,
- 	"iddle": 23
- }, {
- 	"alive": 448,
- 	"iddle": 23
- }, {
- 	"alive": 444,
- 	"iddle": 23
- }, {
- 	"alive": 439,
- 	"iddle": 24
- }, {
- 	"alive": 435,
- 	"iddle": 24
- }, {
- 	"alive": 432,
- 	"iddle": 24
- }, {
- 	"alive": 432,
- 	"iddle": 24
- }, {
- 	"alive": 429,
- 	"iddle": 24
- }, {
- 	"alive": 428,
- 	"iddle": 24
- }, {
- 	"alive": 427,
- 	"iddle": 24
- }, {
- 	"alive": 425,
- 	"iddle": 24
- }, {
- 	"alive": 424,
- 	"iddle": 24
- }, {
- 	"alive": 424,
- 	"iddle": 25
- }, {
- 	"alive": 423,
- 	"iddle": 25
- }, {
- 	"alive": 422,
- 	"iddle": 25
- }, {
- 	"alive": 422,
- 	"iddle": 25
- }, {
- 	"alive": 422,
- 	"iddle": 25
- }, {
- 	"alive": 422,
- 	"iddle": 25
- }, {
- 	"alive": 424,
- 	"iddle": 25
- }, {
- 	"alive": 425,
- 	"iddle": 25
- }, {
- 	"alive": 426,
- 	"iddle": 25
- }, {
- 	"alive": 427,
- 	"iddle": 25
- }, {
- 	"alive": 428,
- 	"iddle": 25
- }, {
- 	"alive": 429,
- 	"iddle": 25
- }, {
- 	"alive": 432,
- 	"iddle": 25
- }, {
- 	"alive": 436,
- 	"iddle": 25
- }, {
- 	"alive": 443,
- 	"iddle": 25
- }, {
- 	"alive": 451,
- 	"iddle": 25
- }, {
- 	"alive": 461,
- 	"iddle": 25
- }, {
- 	"alive": 470,
- 	"iddle": 25
- }, {
- 	"alive": 474,
- 	"iddle": 25
- }, {
- 	"alive": 477,
- 	"iddle": 25
- }, {
- 	"alive": 478,
- 	"iddle": 25
- }, {
- 	"alive": 479,
- 	"iddle": 25
- }, {
- 	"alive": 479,
- 	"iddle": 25
- }, {
- 	"alive": 477,
- 	"iddle": 25
- }, {
- 	"alive": 475,
- 	"iddle": 26
- }, {
- 	"alive": 473,
- 	"iddle": 26
- }, {
- 	"alive": 472,
- 	"iddle": 26
- }, {
- 	"alive": 471,
- 	"iddle": 26
- }, {
- 	"alive": 471,
- 	"iddle": 26
- }, {
- 	"alive": 470,
- 	"iddle": 26
- }, {
- 	"alive": 469,
- 	"iddle": 26
- }, {
- 	"alive": 467,
- 	"iddle": 26
- }, {
- 	"alive": 463,
- 	"iddle": 25
- }, {
- 	"alive": 460,
- 	"iddle": 25
- }, {
- 	"alive": 454,
- 	"iddle": 25
- }, {
- 	"alive": 442,
- 	"iddle": 25
- }, {
- 	"alive": 432,
- 	"iddle": 24
- }, {
- 	"alive": 421,
- 	"iddle": 24
- }, {
- 	"alive": 412,
- 	"iddle": 24
- }, {
- 	"alive": 408,
- 	"iddle": 24
- }, {
- 	"alive": 406,
- 	"iddle": 24
- }, {
- 	"alive": 407,
- 	"iddle": 24
- }, {
- 	"alive": 411,
- 	"iddle": 24
- }, {
- 	"alive": 415,
- 	"iddle": 24
- }, {
- 	"alive": 420,
- 	"iddle": 24
- }, {
- 	"alive": 426,
- 	"iddle": 24
- }, {
- 	"alive": 428,
- 	"iddle": 24
- }, {
- 	"alive": 429,
- 	"iddle": 24
- }, {
- 	"alive": 430,
- 	"iddle": 23
- }, {
- 	"alive": 431,
- 	"iddle": 23
- }, {
- 	"alive": 431,
- 	"iddle": 23
- }, {
- 	"alive": 431,
- 	"iddle": 23
- }, {
- 	"alive": 431,
- 	"iddle": 23
- }, {
- 	"alive": 431,
- 	"iddle": 23
- }, {
- 	"alive": 426,
- 	"iddle": 23
- }, {
- 	"alive": 420,
- 	"iddle": 23
- }, {
- 	"alive": 415,
- 	"iddle": 23
- }, {
- 	"alive": 407,
- 	"iddle": 23
- }, {
- 	"alive": 404,
- 	"iddle": 23
- }, {
- 	"alive": 402,
- 	"iddle": 23
- }, {
- 	"alive": 399,
- 	"iddle": 22
- }, {
- 	"alive": 397,
- 	"iddle": 22
- }, {
- 	"alive": 394,
- 	"iddle": 22
- }, {
- 	"alive": 393,
- 	"iddle": 22
- }, {
- 	"alive": 392,
- 	"iddle": 22
- }, {
- 	"alive": 392,
- 	"iddle": 22
- }, {
- 	"alive": 390,
- 	"iddle": 22
- }, {
- 	"alive": 389,
- 	"iddle": 22
- }, {
- 	"alive": 388,
- 	"iddle": 22
- }, {
- 	"alive": 387,
- 	"iddle": 22
- }, {
- 	"alive": 385,
- 	"iddle": 22
- }, {
- 	"alive": 382,
- 	"iddle": 22
- }, {
- 	"alive": 379,
- 	"iddle": 22
- }, {
- 	"alive": 378,
- 	"iddle": 22
- }, {
- 	"alive": 377,
- 	"iddle": 22
- }, {
- 	"alive": 376,
- 	"iddle": 22
- }, {
- 	"alive": 374,
- 	"iddle": 22
- }, {
- 	"alive": 373,
- 	"iddle": 23
- }, {
- 	"alive": 373,
- 	"iddle": 23
- }, {
- 	"alive": 373,
- 	"iddle": 23
- }, {
- 	"alive": 373,
- 	"iddle": 23
- }, {
- 	"alive": 373,
- 	"iddle": 23
- }, {
- 	"alive": 373,
- 	"iddle": 24
- }, {
- 	"alive": 375,
- 	"iddle": 24
- }, {
- 	"alive": 381,
- 	"iddle": 24
- }, {
- 	"alive": 394,
- 	"iddle": 25
- }, {
- 	"alive": 410,
- 	"iddle": 25
- }, {
- 	"alive": 424,
- 	"iddle": 25
- }, {
- 	"alive": 434,
- 	"iddle": 25
- }, {
- 	"alive": 442,
- 	"iddle": 25
- }, {
- 	"alive": 443,
- 	"iddle": 25
- }, {
- 	"alive": 444,
- 	"iddle": 25
- }, {
- 	"alive": 444,
- 	"iddle": 25
- }, {
- 	"alive": 443,
- 	"iddle": 25
- }, {
- 	"alive": 438,
- 	"iddle": 25
- }, {
- 	"alive": 434,
- 	"iddle": 25
- }, {
- 	"alive": 430,
- 	"iddle": 25
- }, {
- 	"alive": 427,
- 	"iddle": 25
- }, {
- 	"alive": 424,
- 	"iddle": 25
- }, {
- 	"alive": 422,
- 	"iddle": 25
- }, {
- 	"alive": 420,
- 	"iddle": 25
- }, {
- 	"alive": 418,
- 	"iddle": 25
- }, {
- 	"alive": 417,
- 	"iddle": 25
- }, {
- 	"alive": 416,
- 	"iddle": 25
- }, {
- 	"alive": 415,
- 	"iddle": 25
- }, {
- 	"alive": 413,
- 	"iddle": 25
- }, {
- 	"alive": 412,
- 	"iddle": 25
- }, {
- 	"alive": 409,
- 	"iddle": 25
- }, {
- 	"alive": 407,
- 	"iddle": 25
- }, {
- 	"alive": 404,
- 	"iddle": 25
- }, {
- 	"alive": 401,
- 	"iddle": 25
- }, {
- 	"alive": 397,
- 	"iddle": 25
- }, {
- 	"alive": 394,
- 	"iddle": 25
- }, {
- 	"alive": 391,
- 	"iddle": 25
- }, {
- 	"alive": 389,
- 	"iddle": 25
- }, {
- 	"alive": 388,
- 	"iddle": 25
- }, {
- 	"alive": 387,
- 	"iddle": 25
- }, {
- 	"alive": 385,
- 	"iddle": 25
- }, {
- 	"alive": 384,
- 	"iddle": 25
- }, {
- 	"alive": 382,
- 	"iddle": 25
- }, {
- 	"alive": 379,
- 	"iddle": 24
- }, {
- 	"alive": 378,
- 	"iddle": 24
- }, {
- 	"alive": 377,
- 	"iddle": 24
- }, {
- 	"alive": 375,
- 	"iddle": 24
- }, {
- 	"alive": 375,
- 	"iddle": 24
- }, {
- 	"alive": 374,
- 	"iddle": 24
- }, {
- 	"alive": 374,
- 	"iddle": 23
- }, {
- 	"alive": 373,
- 	"iddle": 23
- }, {
- 	"alive": 373,
- 	"iddle": 23
- }, {
- 	"alive": 371,
- 	"iddle": 23
- }, {
- 	"alive": 371,
- 	"iddle": 23
- }, {
- 	"alive": 369,
- 	"iddle": 22
- }, {
- 	"alive": 368,
- 	"iddle": 22
- }, {
- 	"alive": 367,
- 	"iddle": 22
- }, {
- 	"alive": 366,
- 	"iddle": 22
- }, {
- 	"alive": 364,
- 	"iddle": 22
- }, {
- 	"alive": 364,
- 	"iddle": 21
- }, {
- 	"alive": 363,
- 	"iddle": 21
- }, {
- 	"alive": 362,
- 	"iddle": 21
- }, {
- 	"alive": 360,
- 	"iddle": 21
- }, {
- 	"alive": 358,
- 	"iddle": 21
- }, {
- 	"alive": 355,
- 	"iddle": 21
- }, {
- 	"alive": 350,
- 	"iddle": 21
- }, {
- 	"alive": 346,
- 	"iddle": 21
- }, {
- 	"alive": 340,
- 	"iddle": 21
- }, {
- 	"alive": 335,
- 	"iddle": 21
- }, {
- 	"alive": 331,
- 	"iddle": 21
- }, {
- 	"alive": 329,
- 	"iddle": 21
- }, {
- 	"alive": 328,
- 	"iddle": 21
- }, {
- 	"alive": 325,
- 	"iddle": 21
- }, {
- 	"alive": 324,
- 	"iddle": 21
- }, {
- 	"alive": 321,
- 	"iddle": 21
- }, {
- 	"alive": 318,
- 	"iddle": 21
- }, {
- 	"alive": 316,
- 	"iddle": 21
- }, {
- 	"alive": 312,
- 	"iddle": 21
- }, {
- 	"alive": 310,
- 	"iddle": 21
- }, {
- 	"alive": 307,
- 	"iddle": 21
- }, {
- 	"alive": 305,
- 	"iddle": 21
- }, {
- 	"alive": 303,
- 	"iddle": 21
- }, {
- 	"alive": 300,
- 	"iddle": 21
- }, {
- 	"alive": 298,
- 	"iddle": 21
- }, {
- 	"alive": 297,
- 	"iddle": 21
- }, {
- 	"alive": 296,
- 	"iddle": 21
- }, {
- 	"alive": 295,
- 	"iddle": 21
- }, {
- 	"alive": 293,
- 	"iddle": 21
- }, {
- 	"alive": 292,
- 	"iddle": 21
- }, {
- 	"alive": 289,
- 	"iddle": 21
- }, {
- 	"alive": 285,
- 	"iddle": 21
- }, {
- 	"alive": 281,
- 	"iddle": 21
- }, {
- 	"alive": 275,
- 	"iddle": 21
- }, {
- 	"alive": 271,
- 	"iddle": 21
- }, {
- 	"alive": 268,
- 	"iddle": 21
- }, {
- 	"alive": 267,
- 	"iddle": 21
- }, {
- 	"alive": 266,
- 	"iddle": 21
- }, {
- 	"alive": 266,
- 	"iddle": 21
- }, {
- 	"alive": 264,
- 	"iddle": 21
- }, {
- 	"alive": 264,
- 	"iddle": 21
- }, {
- 	"alive": 264,
- 	"iddle": 21
- }, {
- 	"alive": 263,
- 	"iddle": 20
- }, {
- 	"alive": 260,
- 	"iddle": 20
- }, {
- 	"alive": 260,
- 	"iddle": 20
- }, {
- 	"alive": 259,
- 	"iddle": 20
- }, {
- 	"alive": 256,
- 	"iddle": 20
- }, {
- 	"alive": 254,
- 	"iddle": 19
- }, {
- 	"alive": 253,
- 	"iddle": 19
- }, {
- 	"alive": 253,
- 	"iddle": 19
- }, {
- 	"alive": 252,
- 	"iddle": 19
- }, {
- 	"alive": 251,
- 	"iddle": 19
- }, {
- 	"alive": 250,
- 	"iddle": 19
- }, {
- 	"alive": 250,
- 	"iddle": 19
- }, {
- 	"alive": 250,
- 	"iddle": 19
- }, {
- 	"alive": 250,
- 	"iddle": 19
- }, {
- 	"alive": 251,
- 	"iddle": 19
- }, {
- 	"alive": 253,
- 	"iddle": 19
- }, {
- 	"alive": 258,
- 	"iddle": 19
- }, {
- 	"alive": 263,
- 	"iddle": 19
- }, {
- 	"alive": 271,
- 	"iddle": 19
- }, {
- 	"alive": 281,
- 	"iddle": 19
- }, {
- 	"alive": 290,
- 	"iddle": 19
- }, {
- 	"alive": 299,
- 	"iddle": 19
- }, {
- 	"alive": 309,
- 	"iddle": 19
- }, {
- 	"alive": 315,
- 	"iddle": 19
- }, {
- 	"alive": 323,
- 	"iddle": 19
- }, {
- 	"alive": 330,
- 	"iddle": 19
- }, {
- 	"alive": 333,
- 	"iddle": 19
- }, {
- 	"alive": 336,
- 	"iddle": 19
- }, {
- 	"alive": 339,
- 	"iddle": 19
- }, {
- 	"alive": 340,
- 	"iddle": 19
- }, {
- 	"alive": 343,
- 	"iddle": 19
- }, {
- 	"alive": 344,
- 	"iddle": 19
- }, {
- 	"alive": 346,
- 	"iddle": 19
- }, {
- 	"alive": 348,
- 	"iddle": 19
- }, {
- 	"alive": 350,
- 	"iddle": 18
- }, {
- 	"alive": 350,
- 	"iddle": 18
- }, {
- 	"alive": 350,
- 	"iddle": 18
- }, {
- 	"alive": 350,
- 	"iddle": 18
- }, {
- 	"alive": 348,
- 	"iddle": 18
- }, {
- 	"alive": 346,
- 	"iddle": 18
- }, {
- 	"alive": 342,
- 	"iddle": 18
- }, {
- 	"alive": 338,
- 	"iddle": 18
- }, {
- 	"alive": 333,
- 	"iddle": 18
- }, {
- 	"alive": 327,
- 	"iddle": 18
- }, {
- 	"alive": 317,
- 	"iddle": 17
- }, {
- 	"alive": 313,
- 	"iddle": 17
- }, {
- 	"alive": 304,
- 	"iddle": 17
- }, {
- 	"alive": 296,
- 	"iddle": 17
- }, {
- 	"alive": 289,
- 	"iddle": 17
- }, {
- 	"alive": 281,
- 	"iddle": 16
- }, {
- 	"alive": 277,
- 	"iddle": 16
- }, {
- 	"alive": 271,
- 	"iddle": 16
- }, {
- 	"alive": 266,
- 	"iddle": 16
- }, {
- 	"alive": 263,
- 	"iddle": 16
- }, {
- 	"alive": 259,
- 	"iddle": 16
- }, {
- 	"alive": 254,
- 	"iddle": 16
- }, {
- 	"alive": 250,
- 	"iddle": 16
- }, {
- 	"alive": 244,
- 	"iddle": 16
- }, {
- 	"alive": 241,
- 	"iddle": 16
- }, {
- 	"alive": 237,
- 	"iddle": 16
- }, {
- 	"alive": 231,
- 	"iddle": 16
- }, {
- 	"alive": 227,
- 	"iddle": 16
- }, {
- 	"alive": 223,
- 	"iddle": 16
- }, {
- 	"alive": 219,
- 	"iddle": 16
- }, {
- 	"alive": 215,
- 	"iddle": 15
- }, {
- 	"alive": 213,
- 	"iddle": 15
- }, {
- 	"alive": 211,
- 	"iddle": 15
- }, {
- 	"alive": 210,
- 	"iddle": 15
- }, {
- 	"alive": 209,
- 	"iddle": 15
- }, {
- 	"alive": 209,
- 	"iddle": 15
- }, {
- 	"alive": 209,
- 	"iddle": 15
- }, {
- 	"alive": 208,
- 	"iddle": 15
- }, {
- 	"alive": 208,
- 	"iddle": 15
- }, {
- 	"alive": 207,
- 	"iddle": 15
- }, {
- 	"alive": 205,
- 	"iddle": 15
- }, {
- 	"alive": 204,
- 	"iddle": 15
- }, {
- 	"alive": 202,
- 	"iddle": 15
- }, {
- 	"alive": 201,
- 	"iddle": 15
- }, {
- 	"alive": 200,
- 	"iddle": 15
- }, {
- 	"alive": 197,
- 	"iddle": 15
- }, {
- 	"alive": 195,
- 	"iddle": 14
- }, {
- 	"alive": 193,
- 	"iddle": 14
- }, {
- 	"alive": 190,
- 	"iddle": 14
- }, {
- 	"alive": 189,
- 	"iddle": 14
- }, {
- 	"alive": 187,
- 	"iddle": 14
- }, {
- 	"alive": 187,
- 	"iddle": 14
- }, {
- 	"alive": 187,
- 	"iddle": 14
- }, {
- 	"alive": 187,
- 	"iddle": 14
- }, {
- 	"alive": 187,
- 	"iddle": 14
- }, {
- 	"alive": 187,
- 	"iddle": 14
- }, {
- 	"alive": 187,
- 	"iddle": 13
- }, {
- 	"alive": 187,
- 	"iddle": 13
- }, {
- 	"alive": 187,
- 	"iddle": 13
- }, {
- 	"alive": 187,
- 	"iddle": 13
- }, {
- 	"alive": 187,
- 	"iddle": 13
- }, {
- 	"alive": 188,
- 	"iddle": 13
- }, {
- 	"alive": 189,
- 	"iddle": 13
- }, {
- 	"alive": 191,
- 	"iddle": 13
- }, {
- 	"alive": 193,
- 	"iddle": 13
- }, {
- 	"alive": 194,
- 	"iddle": 13
- }, {
- 	"alive": 196,
- 	"iddle": 13
- }, {
- 	"alive": 198,
- 	"iddle": 13
- }, {
- 	"alive": 199,
- 	"iddle": 13
- }, {
- 	"alive": 201,
- 	"iddle": 13
- }, {
- 	"alive": 202,
- 	"iddle": 13
- }, {
- 	"alive": 205,
- 	"iddle": 13
- }, {
- 	"alive": 209,
- 	"iddle": 13
- }, {
- 	"alive": 214,
- 	"iddle": 13
- }, {
- 	"alive": 218,
- 	"iddle": 13
- }, {
- 	"alive": 223,
- 	"iddle": 13
- }, {
- 	"alive": 224,
- 	"iddle": 13
- }, {
- 	"alive": 226,
- 	"iddle": 13
- }, {
- 	"alive": 227,
- 	"iddle": 13
- }, {
- 	"alive": 227,
- 	"iddle": 13
- }, {
- 	"alive": 227,
- 	"iddle": 13
- }, {
- 	"alive": 227,
- 	"iddle": 13
- }, {
- 	"alive": 225,
- 	"iddle": 13
- }, {
- 	"alive": 222,
- 	"iddle": 13
- }, {
- 	"alive": 219,
- 	"iddle": 13
- }, {
- 	"alive": 217,
- 	"iddle": 13
- }, {
- 	"alive": 213,
- 	"iddle": 13
- }, {
- 	"alive": 210,
- 	"iddle": 13
- }, {
- 	"alive": 205,
- 	"iddle": 13
- }, {
- 	"alive": 199,
- 	"iddle": 13
- }, {
- 	"alive": 192,
- 	"iddle": 13
- }, {
- 	"alive": 188,
- 	"iddle": 13
- }, {
- 	"alive": 182,
- 	"iddle": 13
- }, {
- 	"alive": 179,
- 	"iddle": 13
- }, {
- 	"alive": 177,
- 	"iddle": 13
- }, {
- 	"alive": 176,
- 	"iddle": 13
- }, {
- 	"alive": 175,
- 	"iddle": 13
- }, {
- 	"alive": 174,
- 	"iddle": 13
- }, {
- 	"alive": 173,
- 	"iddle": 13
- }, {
- 	"alive": 172,
- 	"iddle": 13
- }, {
- 	"alive": 171,
- 	"iddle": 13
- }, {
- 	"alive": 169,
- 	"iddle": 13
- }, {
- 	"alive": 169,
- 	"iddle": 13
- }, {
- 	"alive": 169,
- 	"iddle": 13
- }, {
- 	"alive": 169,
- 	"iddle": 13
- }, {
- 	"alive": 169,
- 	"iddle": 13
  }, {
  	"alive": 169,
  	"iddle": 13

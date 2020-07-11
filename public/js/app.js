@@ -4,7 +4,7 @@ var ACCEPT_MOBILE = false;
 var behave_as_mobile_device_on_start_up = false;
 
 var before_app_initialization = true;
-var COVIDATA;
+
 var user_session_manager = new user_connexion_manager_constructor()
 var ENV_VIEW_SIZE = getEnvSize()
 
@@ -295,6 +295,8 @@ function force_mobile(){
 
 
 
+/*
+
 function update_covid_badges(){
 
 	var slides = new COVID_BADGES();
@@ -313,7 +315,8 @@ function update_covid_badges(){
 		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
 		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
 		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
-		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"}
+		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"},
+		   			{ id: "slide-3", name: "Prélèvements" ,  label : "Comentaire"    ,  Html_content : slides.badge_05  , visible: true , color: "white"}
 		   		]			   
 			},
 			function(){}
@@ -338,29 +341,36 @@ function update_covid_badges(){
 						label : "Cas confirmés (Covid-19)", 
 						value : d.sum_case ,     
 						delta : d.new_case , 	   
-						date : d.date_raw   
+						 date : d.date_raw   
 					}),
 			"badge_02" : update_one_badge( {
 						color_class : "badge-yellow-dark", 
 						label : "Cas actifs (Covid-19)",    
 						value : d.active_case  , 
 						delta : d.active_case - d1.active_case,  
-						date : d.date_raw   
+						 date : d.date_raw   
 					}),
 			"badge_03" : update_one_badge( { 
 				       color_class : "badge-red-dark",	  
 				       label : "Décès (Covid-19)", 		   
 				       value : d.sum_deceased, 	
 				       delta : d.new_deceased, 	
-				       date : d.date_raw   
+				        date : d.date_raw   
 				   }),
 			"badge_04" : update_one_badge( { 
 				        color_class : "badge-green-dark",  
 				        label : "Guéris (Covid-19)", 	   
 				        value : d.sum_healed,    
 				        delta : d.new_healed, 		
-				        date : d.date_raw   
+				         date : d.date_raw   
 				   }),	
+			"badge_05" : update_one_badge( { 
+				        color_class : "badge-white-dark",  
+				        label : "Prélèvements (Covid-19)", 	   
+				        value : d.sum_sample,    
+				        delta : d.nb_sample, 		
+				         date : d.date_raw   
+				   })
 		 }
 
 		function  update_one_badge( data ){
@@ -411,7 +421,7 @@ function display_atlas_infos_slide(){
 		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
 		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
 		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"},
-		   			{ id: "slide-5", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_05  , visible: true , color: "green"}
+		   			{ id: "slide-5", name: "Prélèvements" ,  label : "Comentaire"    ,  Html_content : slides.badge_06  , visible: true , color: "green"}
 		   		]			   
 			},
 			function(){}
@@ -453,12 +463,21 @@ function display_atlas_infos_slide(){
 	}	
 }
 
-
-
 function extract_late_datarow(index=0){
 	var n = COVIDATA.length
 	return COVIDATA[n-1-index];
 }
+
+
+*/
+
+
+
+
+
+
+
+
 
 function USER_INTERFACE_update_layout(){  
 	opera_console.addLog("Windows resized");
@@ -466,29 +485,18 @@ function USER_INTERFACE_update_layout(){
 
 
 var color_helper = Chart.helpers.color
-fileLoad_JSON( 
-	"Données épidémiologique sur le COVID-19", PATH_PREFIX + "data/covid-data.json", 
-	function(data) {
-		COVIDATA = data;
-		update_covid_badges();
-		display_atlas_infos_slide();
-		build_COVID_chart_component(  data );
 
-    }, 
-    function(error){
-		alert("erreur " + error)
-	}
-);	
 
 
 
 function remove_start_up_curtain(){
 
 	$("#home-view").addClass("hidden");
-	//$("#curtain").addClass("hidden")
+
 	$("#start-up-failure-msgbox").html( "" );
 	$("#spinner").html( ``);
 	$("#spinner-message").html( ``)	;
+	$("#app-footer-banner").removeClass("hidden");
 
 }
 

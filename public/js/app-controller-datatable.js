@@ -34,6 +34,10 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
 				dt_coreObject =  $(`#${configObj.id}`).DataTable( OptionsObj )
 				__load_data(data);
 				__bind_callbacks( callBackFuncREF, callBack_UnSelect_FuncREF);
+			},
+			adjustColumns : function(){
+				//dt_coreObject.columns.adjust().draw();
+				dt_coreObject.columns(0).order('desc').draw()
 			}
 		}
 

@@ -221,6 +221,11 @@ var navtabController_RASS = new ui_render_navtabs(
     	/* ACTION TO TRIGGER WHEN TABS CHANGED*/
     	
     	switch(info.tabname){
+
+    		case "table-graphics" : 
+    			// Align datatable columns ::
+    			 setTimeout( function(){ dataTableController.adjustColumns() }, 500 )
+
     		case "graphics" :
     			rass_active_panel = "tab-a" ;
     			break;
@@ -233,7 +238,9 @@ var navtabController_RASS = new ui_render_navtabs(
     	} 
     },
 
-    1
+	function on_navtabs_load(){
+		// Init data load
+	}
 )
 
 
@@ -307,7 +314,10 @@ var navAdminController = new ui_render_navtabs(
 			break;
 		}
 	},
-	1
+
+	function on_navtabs_load(){
+		// Init data load
+	}
 )
 
 
@@ -320,6 +330,8 @@ var navtabController_COVID_UP =  new ui_render_navtabs (
 		default : "covid-tab-up-01",
    nav_position : "top",
    color_theme  : "dark",
+  spinner_class : "covid-spinner",
+
 		   tabs : [
 			{
 				id : "covid-tab-up-01",
@@ -347,18 +359,38 @@ var navtabController_COVID_UP =  new ui_render_navtabs (
 			}
 		]
 	},
-		function (info){ }, 
-		1
+
+		function (info){ }
+		,
+
+		function on_navtabs_load(){
+			// Init data load
+			var covid_spinner = Spinners.create('.opera-loading', {
+				  radius: 22,
+				  dashes: 30,
+				  width: 2.5,
+				  height: 10,
+				  opacity: 1,
+				  padding: 3,
+				  rotation: 1000,
+				  color: '#aaaaaa'
+			}).play();
+			covid_spinner.center();
+
+			load_COVID_DATA_IF_NEEDED(covid_spinner)
+
+		}
 	)
 
 var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 
 		"#COVID-NAV-TAB-BOTTOM", {
 		
-		        id : "rstuow-2",
-	       default : "covid-tab-bottom-01",
-	  nav_position : "top",
+		          id : "rstuow-2",
+	         default : "covid-tab-bottom-01",
+	    nav_position : "top",
 	    color_theme  : "dark",
+	   spinner_class : "covid-spinner",
        	      tabs : [
 				{
 					id : "covid-tab-bottom-01",
@@ -395,7 +427,23 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 			]
 		},
 		function(info){}, 
-		1
+
+		function on_navtabs_load(){
+			// Init data load
+			var covid_spinner = Spinners.create('.covid-chart-spinner', {
+				  radius: 22,
+				  dashes: 30,
+				  width: 2.5,
+				  height: 10,
+				  opacity: 1,
+				  padding: 3,
+				  rotation: 600,
+				  color: '#aaaaaa'
+			}).play();
+			covid_spinner.center();
+			
+			load_COVID_DATA_IF_NEEDED(covid_spinner)
+		}
 	)
 
 

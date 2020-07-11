@@ -2,7 +2,9 @@
 init_helper_functions()
 function get_chart_container( canvas_id, width, height, x_width, x_height ){
 	var template = 	`
+
 		<div class="chart-container" style="position: relative; width: ${x_width} ; height: ${x_height}; ">
+			<div class="opera-loading"></div>
 			<canvas id="${canvas_id}" width="${width}" height="${height}"> 	</canvas>
 		</div>`
 	return template ;
@@ -138,4 +140,46 @@ function init_helper_functions(){
 	 	return ( ` <i class="fa fa-${ico_name}" aria-hidden="true"></i> `)
 	 }
 
+/*
+
+	 canvas_spinner = function( canvasID ){
+
+		var canvas = document.getElementById( canvasID ),
+		    dw = canvas.width , dh = canvas.height ,
+		    ctx = canvas.getContext('2d'),  opacity;
+
+		ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+		ctx.translate(dh/2, dh/2);
+		ctx.rotate(Math.PI * 360/360);
+		ctx.lineWidth = Math.ceil(dh / 50);
+		ctx.lineCap = 'square';
+
+		for (var i=0; i<=360; i++) {
+		    ctx.save();
+		    
+		    ctx.rotate((Math.PI * i/180));
+		    
+		    ctx.beginPath();
+		    ctx.moveTo(0, 0);
+		    opacity = (360 - (i * 0.95)) / 360;
+		    ctx.strokeStyle = 'rgba(255,255,255,' + opacity.toFixed(2) +')'; 
+		    ctx.lineTo(0, dh + 30);
+		    ctx.stroke();
+		    ctx.closePath();
+		    
+		    ctx.restore();
+		}
+
+		ctx.globalCompositeOperation ='source-out';
+		ctx.beginPath();
+		ctx.arc(0, 0, dh/2, 2 * Math.PI, false);
+		ctx.fillStyle = 'white';
+		ctx.fill();
+
+		ctx.globalCompositeOperation ='destination-out';
+		ctx.beginPath();
+		ctx.arc(0, 0, (dh/2) * .9, 2 * Math.PI, false); 
+		ctx.fill();
+	}*/
 }

@@ -1,5 +1,5 @@
 //@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-function ui_render_navtabs ( _eltID , Cfg , callBack , delay = 1){
+function ui_render_navtabs ( _eltID , Cfg , callBack ,  callBack_onLoad , delay = 1){
 
 	/* Config structure
 	   var Cfg = {
@@ -49,7 +49,7 @@ function ui_render_navtabs ( _eltID , Cfg , callBack , delay = 1){
 
 	var componentHtml = Mustache.render( template_nav_tabs,  data );
         d3.select(`${_eltID}`).html(componentHtml ); bind_Selector();
-
+        callBack_onLoad()
 	    //setTimeout(  function(){ d3.select(`${_eltID}`).html(componentHtml ); bind_Selector();}, delay)
 
 
