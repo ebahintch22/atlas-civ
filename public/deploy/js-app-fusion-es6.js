@@ -10,7 +10,7 @@ var test_capture_serie = []
 var winResizeTimerID = 0;
 var before_app_initialization = true
 var geo_dataset_is_load = false;
-
+var ENV_VIEW_SIZE = getEnvSize()
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 window.onresize //= after_window_resized ;
 
@@ -114,7 +114,28 @@ var COVID_SPINNER_ARR = [];
 var dataTableController
 var ZOOM_IS_DISABLE = true
 var rass_active_panel = "tab-b" 
- Ajaxian = new function (){
+
+
+
+function getEnvSize(){
+	return {
+
+		browser : {
+			height : $(window).height(),
+			 width : $(window).width()
+		},
+		page :{
+			height : $(document).height(),
+		     width : $(document).width()
+		},
+		screen :{
+			height : window.screen.height,
+		     width : window.screen.width
+		}
+
+	}
+
+} Ajaxian = new function (){
 
     return {
 
@@ -681,22 +702,36 @@ var metaDataBase = {
 				color : "RED"
 			},
 			field_selected : default_field_selection,
-			data_fields : [					
-				{ 
-					fld_name : "FLD1",
-					short_name : "COVID-19: Répartition des cas confirmés (au 16 juin 2020)", 
-					long_name : " Nombre de cas confirmés de COVID-19", 
-					data_type :  "INT", 
-					unit : "cas confirmés de COVID-19" 
-				},
-				{ 
-					fld_name : "FLD2",
-					short_name : "Nb de décès dus à la COVID-19", 
-					long_name : " Nombre de décès dus à la COVID-19 ", 
-					data_type :  "INT", 
-					unit : "décès dus à la COVID-19" 
-				}
-			]
+			data_fields : [{
+			 		fld_name: "FLD1",
+			 		short_name: "COVID-19: Répartition des cas confirmés (au 16 juin 2020)",
+			 		long_name: " Nombre de cas confirmés de COVID-19",
+			 		data_type: "INT",
+			 		unit: "cas confirmés de COVID-19",
+			 		renderer: {
+			 			source: "manual",
+			 			threshold: [1, 5, 10, 100, 1000],
+			 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#C22C1C', '#660207'],
+			 			labelmap: ['Aucun cas', "", "Incidence faible", "Incidence Moyenne", "Incidence élevée", "Epicentres"],
+			 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+			 		}
+			 	},
+			 	{
+			 		fld_name: "FLD2",
+			 		short_name: "Nb de décès dus à la COVID-19",
+			 		long_name: "Nombre de décès dus à la COVID-19 ",
+			 		data_type: "INT",
+			 		unit: "décès dus à la COVID-19",
+			 		renderer: {
+			 			source: "manual",
+			 			threshold: [1, 5, 10, 20],
+			 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#660207'],
+			 			labelmap: ['Aucun décès', "1 à 4 décès", "5 à 9 décès", "10 à 19 décès", "plus de 20 décès"],
+			 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. de décès)"
+			 		}
+			 	}
+			 ]
+
 		},
 		{
 			index : 2,
@@ -1253,8 +1288,8 @@ var metaDataBase = {
 				},
 				{
 					fld_name: "FLD9",
-					short_name: "Couverture en PCV13- 2 (%)",
-					long_name: "Couverture en PCV13- 2 (%)",
+					short_name: "Couverture en PCV13-2 (%)",
+					long_name: "Couverture en PCV13-2 (%)",
 					data_type: "INT",
 					unit: "%"
 				},
@@ -1268,7 +1303,7 @@ var metaDataBase = {
 				{
 					fld_name: "FLD11",
 					short_name: "Couverture en VPI (%)",
-					long_name: "Couverture en VPI (%)",
+					long_name: "Couverture du vaccin antipoliomyélitique inactivé (%)",
 					data_type: "INT",
 					unit: "%"
 				},
@@ -1290,7 +1325,7 @@ var metaDataBase = {
 				},
 				{
 					fld_name: "FLD14",
-					short_name: "Couverture en VAT 2+ (%)",
+					short_name: "Couverture en VAT 2+(%)",
 					long_name: "Taux de couverture vaccin tétanos néonatal (VAT 2+)",
 					data_type: "INT",
 					unit: "nombre",
@@ -1378,9 +1413,33 @@ var metaDataBase = {
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
 			data_fields : [		
-				{ fld_name: "FLD1", short_name: "Population totale", long_name: "Population totale", data_type: "INT", unit: "Habitants"},
-				{ fld_name: "FLD2", short_name: "Nombre total de cas de paludisme confirmés dans la population", long_name: "Nombre total de cas de paludisme confirmés dans la population", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD3", short_name: "Incidence global du paludisme (‰)", long_name: "Incidence du paludisme dans la population générale (‰)", data_type: "INT", unit: "cas confirmés pour 1000 hbts"}
+
+				{
+					fld_name: "FLD1",
+					short_name: "Population totale",
+					long_name: "Population totale",
+					data_type: "INT",
+					unit: "Habitants"
+				}, {
+					fld_name: "FLD2",
+					short_name: "Nombre total de cas de paludisme confirmés dans la population",
+					long_name: "Nombre total de cas de paludisme confirmés dans la population",
+					data_type: "INT",
+					unit: "nombre"
+				}, {
+					fld_name: "FLD3",
+					short_name: "Incidence global du paludisme (‰)",
+					long_name: "Incidence du paludisme dans la population générale (‰)",
+					data_type: "INT",
+					unit: "cas confirmés pour 1000 hbts",
+					renderer : {
+			   			   source : "manual",
+						threshold : [ 100, 200],
+						 colormap : [ '#ffff00' ,  '#f57a00' , '#ff0000' ],  
+						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
+					  legendtitle : "Incidence globale du Paludisme"
+					}
+				}
 			]
 		},
 		{
@@ -1419,11 +1478,35 @@ var metaDataBase = {
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [	
-
-				{ fld_name: "FLD1", short_name: "Population totale", long_name: " Population totale", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD2", short_name: "Nombre de cas d'IRA dans la population générale", long_name: "Nombre de cas d'IRA dans la population générale", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD3", short_name: "Incidence d'IRA dans la population générale (‰)", long_name: "Incidence d'IRA dans la population générale (‰)", data_type: "INT", unit: "cas pour 1 000 hbts"}
+			data_fields : [
+				{
+					fld_name: "FLD1",
+					short_name: "Population totale",
+					long_name: " Population totale",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Nombre de cas d'IRA dans la population générale",
+					long_name: "Nombre de cas d'IRA dans la population générale",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD3",
+					short_name: "Incidence d'IRA dans la population générale (‰)",
+					long_name: "Incidence d'IRA dans la population générale (‰)",
+					data_type: "INT",
+					unit: "cas pour 1 000 hbts",
+					renderer: {
+						source: "manual",
+						threshold: [ 50, 75 ],
+						colormap:  [ "#ffcccc", "#ff9966", "#ff0000" ],
+						labelmap:  [ "Moins de 50‰", "50‰ à 75‰", "75‰ et plus" ],
+						legendtitle: "Incidence globale du Paludisme"
+					}
+				}
 			]
 		}
 	]	
@@ -1705,7 +1788,7 @@ function display_atlas_infos_slide(){
 		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
 		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
 		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"},
-		   			{ id: "slide-5", name: "Prélèvements" ,  label : "Comentaire"    ,  Html_content : slides.badge_06  , visible: true , color: "green"}
+		   			{ id: "slide-5", name: "Prélèvements" ,  label : "Comentaire"    ,  Html_content : slides.badge_05  , visible: true , color: "green"}
 		   		]			   
 			},
 			function(){}
@@ -1750,21 +1833,6 @@ function extract_late_datarow(index=0){
 	var n = COVIDATA.length
 	return COVIDATA[n-1-index];
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -2255,6 +2323,22 @@ function init_helper_functions(){
 	 fa_icon = function(ico_name){
 	 	return ( ` <i class="fa fa-${ico_name}" aria-hidden="true"></i> `)
 	 }
+	 
+	 ui_spinner_create = function ( EltID) {
+			var _spinner = Spinners.create('.covid-chart-spinner', {
+				  radius: 22,
+				  dashes: 30,
+				  width: 2.5,
+				  height: 10,
+				  opacity: 1,
+				  padding: 3,
+				  rotation: 600,
+				  color: '#aaaaaa'
+			}).play();
+
+			_spinner.center();
+			return(_spinner)
+	}
 
 /*
 
@@ -3834,25 +3918,12 @@ var navtabController_COVID_UP =  new ui_render_navtabs (
 		]
 	},
 
-		function (info){ }
-		,
+		function (info){ },
 
 		function on_navtabs_load(){
 			// Init data load
-			var covid_spinner = Spinners.create('.opera-loading', {
-				  radius: 22,
-				  dashes: 30,
-				  width: 2.5,
-				  height: 10,
-				  opacity: 1,
-				  padding: 3,
-				  rotation: 1000,
-				  color: '#aaaaaa'
-			}).play();
-			covid_spinner.center();
-
+			var covid_spinner = ui_spinner_create('.covid-chart-spinner')
 			load_COVID_DATA_IF_NEEDED(covid_spinner)
-
 		}
 	)
 
@@ -3904,21 +3975,11 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 
 		function on_navtabs_load(){
 			// Init data load
-			var covid_spinner = Spinners.create('.covid-chart-spinner', {
-				  radius: 22,
-				  dashes: 30,
-				  width: 2.5,
-				  height: 10,
-				  opacity: 1,
-				  padding: 3,
-				  rotation: 600,
-				  color: '#aaaaaa'
-			}).play();
-			covid_spinner.center();
-			
+			var covid_spinner = ui_spinner_create('.covid-chart-spinner')
 			load_COVID_DATA_IF_NEEDED(covid_spinner)
 		}
 	)
+
 
 
 function get_Monography_template_TODO(){ return fake_monography}
@@ -5033,7 +5094,9 @@ function updateMapColors(){
  	vmin = d3.min(mapData, function(d) { return (getValueOfData(d)); });
 	vmax =	d3.max(mapData, function(d) { return (getValueOfData(d)); });
 
-	r = metaData.renderer
+	//If Exists, we get the field renderer, otherwise we use the metatable renderer
+	r = _get_relevant_renderer()
+	
 
 	// le moteur de rendu "auto" doit actualiser son domaine de valeur en fonction du champ actif
 	if (r.source == "auto") {
@@ -5064,6 +5127,25 @@ function updateMapColors(){
 
 	// We call the function to update the legend.
     updateLegend( renderer , true);
+
+    function _get_relevant_renderer(){
+    	var r
+		var rndr_fld = currentMetaField.renderer
+
+		if (rndr_fld === undefined) {
+
+			r = currentMetaTable.renderer
+
+		} else {
+
+			if ( rndr_fld == "default" ) {
+				r = currentMetaTable.renderer
+			} else {
+				r = rndr_fld
+			}
+		} 
+		return (r);    	
+	    }
  }
 
 //Si le Layout est approprié, la mise à jour du tableau de données est enclenchée
@@ -5588,32 +5670,14 @@ var behave_as_mobile_device_on_start_up = false;
 var before_app_initialization = true;
 
 var user_session_manager = new user_connexion_manager_constructor()
-var ENV_VIEW_SIZE = getEnvSize()
+
 
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 //window.onresize = after_window_resized ;
 
 
 
-function getEnvSize(){
-	return {
 
-		browser : {
-			height : $(window).height(),
-			 width : $(window).width()
-		},
-		page :{
-			height : $(document).height(),
-		     width : $(document).width()
-		},
-		screen :{
-			height : window.screen.height,
-		     width : window.screen.width
-		}
-
-	}
-
-}
 
 user_session_manager.boot_app()
 //user_session_manager.start_session();
@@ -5874,190 +5938,6 @@ function user_connexion_manager_constructor(){
 function force_mobile(){
 	return ( behave_as_mobile_device_on_start_up == true )
 }
-
-
-
-/*
-
-function update_covid_badges(){
-
-	var slides = new COVID_BADGES();
-	//alert("update_covid_badges")
-	console.log(slides)
-
-
-
-	var covid_slideController = new ui_render_caroussel( "#card-1", 
-			{
-				id : "slide-covid-figures",
-				default : "slide-0",
-				addCursor : true,
-				addLink : false,
-		   		slides : [
-		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
-		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
-		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
-		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"},
-		   			{ id: "slide-3", name: "Prélèvements" ,  label : "Comentaire"    ,  Html_content : slides.badge_05  , visible: true , color: "white"}
-		   		]			   
-			},
-			function(){}
-	);
-
-	$('#slide-covid-figures').carousel({
-	  interval: 2000,
-	  ride : "carousel"
-	})
-	$('#slide-covid-figures').carousel(1)	
-
-
-	function COVID_BADGES( ){
-
-
-		var d = extract_late_datarow();
-		var d1 = extract_late_datarow(1);
-
-		return {
-			"badge_01" : update_one_badge( { 
-						color_class : "badge-orange-dark", 
-						label : "Cas confirmés (Covid-19)", 
-						value : d.sum_case ,     
-						delta : d.new_case , 	   
-						 date : d.date_raw   
-					}),
-			"badge_02" : update_one_badge( {
-						color_class : "badge-yellow-dark", 
-						label : "Cas actifs (Covid-19)",    
-						value : d.active_case  , 
-						delta : d.active_case - d1.active_case,  
-						 date : d.date_raw   
-					}),
-			"badge_03" : update_one_badge( { 
-				       color_class : "badge-red-dark",	  
-				       label : "Décès (Covid-19)", 		   
-				       value : d.sum_deceased, 	
-				       delta : d.new_deceased, 	
-				        date : d.date_raw   
-				   }),
-			"badge_04" : update_one_badge( { 
-				        color_class : "badge-green-dark",  
-				        label : "Guéris (Covid-19)", 	   
-				        value : d.sum_healed,    
-				        delta : d.new_healed, 		
-				         date : d.date_raw   
-				   }),	
-			"badge_05" : update_one_badge( { 
-				        color_class : "badge-white-dark",  
-				        label : "Prélèvements (Covid-19)", 	   
-				        value : d.sum_sample,    
-				        delta : d.nb_sample, 		
-				         date : d.date_raw   
-				   })
-		 }
-
-		function  update_one_badge( data ){
-			var extended =  ( ENV_VIEW_SIZE.browser.width > 1200 )
-
-			data["symbol"] = function(){return (((this.delta < 0) ? "" : "+" ))}
-			return (Mustache.render(badge_template(extended), data));
-		}	
-
-		function badge_template( extended = true ){
-			var deltas = extended ?  `
-		       <span style="font-weight: 350; font-weight: 500; font-size: 0.6em; padding-bottom: 0.3em;
-		     				line-height: 1;"> 
-		         ( {{symbol}}{{delta}},  <span style="font-weight: 650;  font-size: 0.8em; ">au {{date}} </span> )  
-		       </span>` : "";
-
-			var badge_template = `
-			<div class="card text-center  {{color_class}}"  style="position:relative; height:60px;">
-			    <div class="card-body" style="padding: 0.5em;">
-				     <span style="display: block; font-weight: 500 ;font-size: 0.9em; 
-				     		padding-bottom: 0.3em; line-height: 1;"> 
-				     		{{label}} 
-				     </span>
-				     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
-			               {{value}} ${deltas}
-				 	</span>
-			  </div>
-			</div>`;
-			return(badge_template)
-		}
-	}	
-}
-
-
-function display_atlas_infos_slide(){
-
-	var slides = new ATLAS_BADGES();
-
-	var covid_slideController = new ui_render_caroussel( "#card-2", 
-			{
-				id : "slide-atlas-infos",
-				default : "slide-0",
-				addCursor : true,
-				addLink : false,
-				transition : "fade",
-		   		slides : [
-		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
-		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
-		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
-		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"},
-		   			{ id: "slide-5", name: "Prélèvements" ,  label : "Comentaire"    ,  Html_content : slides.badge_06  , visible: true , color: "green"}
-		   		]			   
-			},
-			function(){}
-	);
-
-	$('#slide-atlas-infos').carousel({
-	  interval: 2000,
-	  ride : "carousel"
-	})	
-
-
-	function ATLAS_BADGES( ){
-
-		return {
-			"badge_01" : _render_cool(`Atlas Santé CI ? ...`),
-			"badge_02" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...les données du RASS passées au moule de la DATAVIZ... </span>`),
-			"badge_03" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...une contribution à la valorisation des statistiques sanitaires...  </span>`),
-			"badge_04" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...un contenu appelé à évoluer regulièrement...</span>`),
-			"badge_05" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...vers une version mobile pour une ubiquité d'accès </div>` )	
-		 }
-
-		function _render_cool(html){
-		 	var template =  `
-				<div class="card text-center align-middle  badge-white-dark "  style="position:relative; height:60px;">
-				    <div class="card-body"  style="padding: 0.1em;">
-					     <span  style="display: inline-block; position: relative;height:100%;font-weight: 500 ;font-size: 1.2em; 
-					     		padding-bottom: 0.3em; line-height: 1;"> 
-					     		${html}
-					     </span>
-					     <span style="display: block; font-weight: 750;  font-size: 1.5em; padding-bottom: 0.3em; line-height: 1;"> 
-				              
-					 	</span>
-				  </div>
-				</div>
-			`;
-			return (template);
-
-		}
-	}	
-}
-
-function extract_late_datarow(index=0){
-	var n = COVIDATA.length
-	return COVIDATA[n-1-index];
-}
-
-
-*/
-
-
-
-
-
-
 
 
 

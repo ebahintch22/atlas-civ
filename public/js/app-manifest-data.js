@@ -131,22 +131,36 @@ var metaDataBase = {
 				color : "RED"
 			},
 			field_selected : default_field_selection,
-			data_fields : [					
-				{ 
-					fld_name : "FLD1",
-					short_name : "COVID-19: Répartition des cas confirmés (au 16 juin 2020)", 
-					long_name : " Nombre de cas confirmés de COVID-19", 
-					data_type :  "INT", 
-					unit : "cas confirmés de COVID-19" 
-				},
-				{ 
-					fld_name : "FLD2",
-					short_name : "Nb de décès dus à la COVID-19", 
-					long_name : " Nombre de décès dus à la COVID-19 ", 
-					data_type :  "INT", 
-					unit : "décès dus à la COVID-19" 
-				}
-			]
+			data_fields : [{
+			 		fld_name: "FLD1",
+			 		short_name: "COVID-19: Répartition des cas confirmés (au 16 juin 2020)",
+			 		long_name: " Nombre de cas confirmés de COVID-19",
+			 		data_type: "INT",
+			 		unit: "cas confirmés de COVID-19",
+			 		renderer: {
+			 			source: "manual",
+			 			threshold: [1, 5, 10, 100, 1000],
+			 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#C22C1C', '#660207'],
+			 			labelmap: ['Aucun cas', "", "Incidence faible", "Incidence Moyenne", "Incidence élevée", "Epicentres"],
+			 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+			 		}
+			 	},
+			 	{
+			 		fld_name: "FLD2",
+			 		short_name: "Nb de décès dus à la COVID-19",
+			 		long_name: "Nombre de décès dus à la COVID-19 ",
+			 		data_type: "INT",
+			 		unit: "décès dus à la COVID-19",
+			 		renderer: {
+			 			source: "manual",
+			 			threshold: [1, 5, 10, 20],
+			 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#660207'],
+			 			labelmap: ['Aucun décès', "1 à 4 décès", "5 à 9 décès", "10 à 19 décès", "plus de 20 décès"],
+			 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. de décès)"
+			 		}
+			 	}
+			 ]
+
 		},
 		{
 			index : 2,
@@ -703,8 +717,8 @@ var metaDataBase = {
 				},
 				{
 					fld_name: "FLD9",
-					short_name: "Couverture en PCV13- 2 (%)",
-					long_name: "Couverture en PCV13- 2 (%)",
+					short_name: "Couverture en PCV13-2 (%)",
+					long_name: "Couverture en PCV13-2 (%)",
 					data_type: "INT",
 					unit: "%"
 				},
@@ -718,7 +732,7 @@ var metaDataBase = {
 				{
 					fld_name: "FLD11",
 					short_name: "Couverture en VPI (%)",
-					long_name: "Couverture en VPI (%)",
+					long_name: "Couverture du vaccin antipoliomyélitique inactivé (%)",
 					data_type: "INT",
 					unit: "%"
 				},
@@ -740,7 +754,7 @@ var metaDataBase = {
 				},
 				{
 					fld_name: "FLD14",
-					short_name: "Couverture en VAT 2+ (%)",
+					short_name: "Couverture en VAT 2+(%)",
 					long_name: "Taux de couverture vaccin tétanos néonatal (VAT 2+)",
 					data_type: "INT",
 					unit: "nombre",
@@ -828,9 +842,33 @@ var metaDataBase = {
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
 			data_fields : [		
-				{ fld_name: "FLD1", short_name: "Population totale", long_name: "Population totale", data_type: "INT", unit: "Habitants"},
-				{ fld_name: "FLD2", short_name: "Nombre total de cas de paludisme confirmés dans la population", long_name: "Nombre total de cas de paludisme confirmés dans la population", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD3", short_name: "Incidence global du paludisme (‰)", long_name: "Incidence du paludisme dans la population générale (‰)", data_type: "INT", unit: "cas confirmés pour 1000 hbts"}
+
+				{
+					fld_name: "FLD1",
+					short_name: "Population totale",
+					long_name: "Population totale",
+					data_type: "INT",
+					unit: "Habitants"
+				}, {
+					fld_name: "FLD2",
+					short_name: "Nombre total de cas de paludisme confirmés dans la population",
+					long_name: "Nombre total de cas de paludisme confirmés dans la population",
+					data_type: "INT",
+					unit: "nombre"
+				}, {
+					fld_name: "FLD3",
+					short_name: "Incidence global du paludisme (‰)",
+					long_name: "Incidence du paludisme dans la population générale (‰)",
+					data_type: "INT",
+					unit: "cas confirmés pour 1000 hbts",
+					renderer : {
+			   			   source : "manual",
+						threshold : [ 100, 200],
+						 colormap : [ '#ffff00' ,  '#f57a00' , '#ff0000' ],  
+						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
+					  legendtitle : "Incidence globale du Paludisme"
+					}
+				}
 			]
 		},
 		{
@@ -869,11 +907,35 @@ var metaDataBase = {
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [	
-
-				{ fld_name: "FLD1", short_name: "Population totale", long_name: " Population totale", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD2", short_name: "Nombre de cas d'IRA dans la population générale", long_name: "Nombre de cas d'IRA dans la population générale", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD3", short_name: "Incidence d'IRA dans la population générale (‰)", long_name: "Incidence d'IRA dans la population générale (‰)", data_type: "INT", unit: "cas pour 1 000 hbts"}
+			data_fields : [
+				{
+					fld_name: "FLD1",
+					short_name: "Population totale",
+					long_name: " Population totale",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Nombre de cas d'IRA dans la population générale",
+					long_name: "Nombre de cas d'IRA dans la population générale",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD3",
+					short_name: "Incidence d'IRA dans la population générale (‰)",
+					long_name: "Incidence d'IRA dans la population générale (‰)",
+					data_type: "INT",
+					unit: "cas pour 1 000 hbts",
+					renderer: {
+						source: "manual",
+						threshold: [ 50, 75 ],
+						colormap:  [ "#ffcccc", "#ff9966", "#ff0000" ],
+						labelmap:  [ "Moins de 50‰", "50‰ à 75‰", "75‰ et plus" ],
+						legendtitle: "Incidence globale du Paludisme"
+					}
+				}
 			]
 		}
 	]	

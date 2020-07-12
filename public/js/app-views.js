@@ -360,25 +360,12 @@ var navtabController_COVID_UP =  new ui_render_navtabs (
 		]
 	},
 
-		function (info){ }
-		,
+		function (info){ },
 
 		function on_navtabs_load(){
 			// Init data load
-			var covid_spinner = Spinners.create('.opera-loading', {
-				  radius: 22,
-				  dashes: 30,
-				  width: 2.5,
-				  height: 10,
-				  opacity: 1,
-				  padding: 3,
-				  rotation: 1000,
-				  color: '#aaaaaa'
-			}).play();
-			covid_spinner.center();
-
+			var covid_spinner = ui_spinner_create('.covid-chart-spinner')
 			load_COVID_DATA_IF_NEEDED(covid_spinner)
-
 		}
 	)
 
@@ -430,21 +417,11 @@ var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
 
 		function on_navtabs_load(){
 			// Init data load
-			var covid_spinner = Spinners.create('.covid-chart-spinner', {
-				  radius: 22,
-				  dashes: 30,
-				  width: 2.5,
-				  height: 10,
-				  opacity: 1,
-				  padding: 3,
-				  rotation: 600,
-				  color: '#aaaaaa'
-			}).play();
-			covid_spinner.center();
-			
+			var covid_spinner = ui_spinner_create('.covid-chart-spinner')
 			load_COVID_DATA_IF_NEEDED(covid_spinner)
 		}
 	)
+
 
 
 function get_Monography_template_TODO(){ return fake_monography}

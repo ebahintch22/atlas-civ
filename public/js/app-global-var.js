@@ -10,7 +10,7 @@ var test_capture_serie = []
 var winResizeTimerID = 0;
 var before_app_initialization = true
 var geo_dataset_is_load = false;
-
+var ENV_VIEW_SIZE = getEnvSize()
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 window.onresize //= after_window_resized ;
 
@@ -114,3 +114,25 @@ var COVID_SPINNER_ARR = [];
 var dataTableController
 var ZOOM_IS_DISABLE = true
 var rass_active_panel = "tab-b" 
+
+
+
+function getEnvSize(){
+	return {
+
+		browser : {
+			height : $(window).height(),
+			 width : $(window).width()
+		},
+		page :{
+			height : $(document).height(),
+		     width : $(document).width()
+		},
+		screen :{
+			height : window.screen.height,
+		     width : window.screen.width
+		}
+
+	}
+
+}

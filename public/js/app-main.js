@@ -434,7 +434,9 @@ function updateMapColors(){
  	vmin = d3.min(mapData, function(d) { return (getValueOfData(d)); });
 	vmax =	d3.max(mapData, function(d) { return (getValueOfData(d)); });
 
-	r = metaData.renderer
+	//If Exists, we get the field renderer, otherwise we use the metatable renderer
+	r = _get_relevant_renderer()
+	
 
 	// le moteur de rendu "auto" doit actualiser son domaine de valeur en fonction du champ actif
 	if (r.source == "auto") {
@@ -465,6 +467,25 @@ function updateMapColors(){
 
 	// We call the function to update the legend.
     updateLegend( renderer , true);
+
+    function _get_relevant_renderer(){
+    	var r
+		var rndr_fld = currentMetaField.renderer
+
+		if (rndr_fld === undefined) {
+
+			r = currentMetaTable.renderer
+
+		} else {
+
+			if ( rndr_fld == "default" ) {
+				r = currentMetaTable.renderer
+			} else {
+				r = rndr_fld
+			}
+		} 
+		return (r);    	
+	    }
  }
 
 //Si le Layout est approprié, la mise à jour du tableau de données est enclenchée

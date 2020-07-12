@@ -139,6 +139,22 @@ function init_helper_functions(){
 	 fa_icon = function(ico_name){
 	 	return ( ` <i class="fa fa-${ico_name}" aria-hidden="true"></i> `)
 	 }
+	 
+	 ui_spinner_create = function ( EltID) {
+			var _spinner = Spinners.create('.covid-chart-spinner', {
+				  radius: 22,
+				  dashes: 30,
+				  width: 2.5,
+				  height: 10,
+				  opacity: 1,
+				  padding: 3,
+				  rotation: 600,
+				  color: '#aaaaaa'
+			}).play();
+
+			_spinner.center();
+			return(_spinner)
+	}
 
 /*
 
