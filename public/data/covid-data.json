@@ -2013,5 +2013,21 @@
  		"remission": 0.521,
  		"letalite": 0.0066,
  		"sum_sample": 76190
+ 	},
+ 	{
+ 		"id": 124,
+ 		"date": "13/07/2020",
+ 		"new_case": 106,
+ 		"new_healed": 156,
+ 		"new_deceased": 0,
+ 		"sum_case": 12872,
+ 		"sum_healed": 6810,
+ 		"sum_deceased": 84,
+ 		"active_case": 5978,
+ 		"nb_sample": 1134,
+ 		"incidence": 0.093,
+ 		"remission": 0.529,
+ 		"letalite": 0.0065,
+ 		"sum_sample": 77324
  	}
  ]
