@@ -1,0 +1,33 @@
+{
+  "name": "atlas-rass-2017",
+  "version": "1.0.0",
+  "description": "Prototype d'un Atlas des indicateurs sanitaires déployé sur le cloud",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "keywords": [
+    "sig-moca",
+    "heroku",
+    "gis specialist",
+    "Bahintchie",
+    "Eric Renaud"
+  ],
+  "author": "Eric Bahintchie Renaud-Côte d'Ivoire -2020 tél: +225 01054954 - ebahintch@gmail.com",
+  "license": "MIT",
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "dotenv": "^8.2.0",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.1",
+    "pg": "^8.2.1"
+  },
+  "engines": {
+    "node": "12.4.x",
+    "npm": "6.9.0"
+  }
+}
+

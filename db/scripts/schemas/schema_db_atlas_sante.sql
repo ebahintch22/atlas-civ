@@ -1,8 +1,5 @@
 
 
-ALTER TABLE public.my_visitors
-    OWNER to devynsalcoibdi;;
-
 CREATE TABLE public.my_visitors
 (
     uuid character varying(50) COLLATE pg_catalog."default" NOT NULL,
