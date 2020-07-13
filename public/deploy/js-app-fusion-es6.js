@@ -1222,7 +1222,7 @@ var metaDataBase = {
 				threshold : [ 80, 92],
 				 colormap : ['#ff0000' , '#ffff00', '#4ce600' ],  
 				 labelmap : ["Insuffisante" , "Moyenne", "Satisfaisante" ],
-			  legendtitle : "Couverture vaccinale (maladie?)"
+			  legendtitle : "Couverture vaccinale ({{health}})"
 			},
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
@@ -1491,7 +1491,7 @@ var metaDataBase = {
 					short_name: "Nombre de cas d'IRA dans la population générale",
 					long_name: "Nombre de cas d'IRA dans la population générale",
 					data_type: "INT",
-					unit: "nombre"
+					unit: "nombre" 
 				},
 				{
 					fld_name: "FLD3",
@@ -1504,7 +1504,7 @@ var metaDataBase = {
 						threshold: [ 50, 75 ],
 						colormap:  [ "#ffcccc", "#ff9966", "#ff0000" ],
 						labelmap:  [ "Moins de 50‰", "50‰ à 75‰", "75‰ et plus" ],
-						legendtitle: "Incidence globale du Paludisme"
+						legendtitle: "Incidence globale de l'IRA"
 					}
 				}
 			]
@@ -5135,11 +5135,13 @@ function updateMapColors(){
 		if (rndr_fld === undefined) {
 
 			r = currentMetaTable.renderer
+			r.legendtitle = currentMetaField.short_name
 
 		} else {
 
 			if ( rndr_fld == "default" ) {
 				r = currentMetaTable.renderer
+				r.legendtitle = currentMetaField.short_name
 			} else {
 				r = rndr_fld
 			}

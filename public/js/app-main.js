@@ -475,11 +475,13 @@ function updateMapColors(){
 		if (rndr_fld === undefined) {
 
 			r = currentMetaTable.renderer
+			r.legendtitle = currentMetaField.short_name
 
 		} else {
 
 			if ( rndr_fld == "default" ) {
 				r = currentMetaTable.renderer
+				r.legendtitle = currentMetaField.short_name
 			} else {
 				r = rndr_fld
 			}

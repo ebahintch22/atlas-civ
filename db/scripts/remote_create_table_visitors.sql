@@ -1,11 +1,8 @@
+-- Table: public.my_visitors
 
-TABLESPACE pg_default;
+-- DROP TABLE public.my_visitors;
 
-ALTER TABLE public.my_visitors
-    OWNER to qpmsllscptmnak;;
-
-
-    CREATE TABLE public.my_visitors
+CREATE TABLE public.my_visitors
 (
     uuid character varying(50) COLLATE pg_catalog."default" NOT NULL,
     login character varying(50) COLLATE pg_catalog."default",
@@ -31,6 +28,8 @@ ALTER TABLE public.my_visitors
     boot_exit character varying(50) COLLATE pg_catalog."default",
     boot_exit_how character varying(50) COLLATE pg_catalog."default",
     boot_exit_why character varying(50) COLLATE pg_catalog."default",
+    user_type character varying(50) COLLATE pg_catalog."default",
+    user_url character varying(50) COLLATE pg_catalog."default",
     CONSTRAINT my_visitors_pkey PRIMARY KEY (uuid)
 )
 WITH (
@@ -39,6 +38,4 @@ WITH (
 TABLESPACE pg_default;
 
 ALTER TABLE public.my_visitors
-    OWNER to postgres;  --or  qpmsllscptmnak  for heroku DATABASE
-
-
+    OWNER to devynsalcoibdi;
