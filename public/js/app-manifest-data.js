@@ -94,7 +94,8 @@ var metaDataBase = {
 		"incidence_IRA_u5_ans",
 		"incidence_IRA_glo",
 		"incidence_anemie",
-		"incidence_coqueluche"
+		"incidence_coqueluche",
+		"deces_notifie_et_causes"
 	],
 	color_palettes : [ 
 			{ name:"YlGnBu"}, 
@@ -937,6 +938,142 @@ var metaDataBase = {
 					}
 				}
 			]
+		}, {
+
+			index : 79,
+			name : "deces_notifie_et_causes", 
+			valid: true,
+			table_num :"Tableau-79",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "79-Décès notifiés par les structures de santé et causes probables",
+			unit: "nombre",
+			article: "de ",
+			path : `${PATH_PREFIX}data/statistics/tab_79_deces_notifie_et_causes.csv`,
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields :[{
+					fld_name: "FLD1",
+					short_name: "Décès liés au Paludisme",
+					long_name: "Décès liés au Paludisme",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Décès liés à la Diarrhée",
+					long_name: "Décès liés à la Diarrhée",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD3",
+					short_name: "Décès liés à l'Anémie",
+					long_name: "Décès liés à l'Anémie",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD4",
+					short_name: "Décès liés au Choléra",
+					long_name: "Décès liés au Choléra",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD5",
+					short_name: "Décès liés à la Fièvre Typhoide",
+					long_name: "Décès liés à la Fièvre Typhoide",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD6",
+					short_name: "Décès liés à la Méningite",
+					long_name: "Décès liés à la Méningite",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD7",
+					short_name: "Décès liés aux IRA",
+					long_name: "Décès liés aux IRA",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD8",
+					short_name: "Décès liés au COMA",
+					long_name: "Décès liés au COMA",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD9",
+					short_name: "Décès liés au VIH/SIDA",
+					long_name: "Décès liés au VIH/SIDA",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD10",
+					short_name: "Décès liés aux AVC",
+					long_name: "Décès liés aux AVC",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD11",
+					short_name: "Morts-Nés",
+					long_name: "Morts-Nés",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD12",
+					short_name: "Décès au bloc opératoire",
+					long_name: "Décès au bloc opératoire",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD13",
+					short_name: "Décès Maternel",
+					long_name: "Décès Maternel",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD14",
+					short_name: "Décès néonatal (entre 0 et 28 jours après naissance)",
+					long_name: "Décès néonatal (entre 0 et 28 jours après naissance)",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD15",
+					short_name: "Autres types de décès",
+					long_name: "Autres types de décès",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD16",
+					short_name: "Total décès",
+					long_name: "Total décès",
+					data_type: "INT",
+					unit: "nombre"
+				}
+			]
+
+
+
+
+
+
+
 		}
 	]	
 };
