@@ -282,7 +282,7 @@ function USER_INTERFACE_update_layout(){
 }
 
 
-var color_helper = Chart.helpers.color
+//var color_helper = Chart.helpers.color
 
 
 

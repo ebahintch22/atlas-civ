@@ -1,6 +1,6 @@
 //globals var déclaration
 //const http_server_exe_mode = false;
-
+var color_helper = Chart.helpers.color
 var navigate = function (path) {
 	  	var current = window.location.href;
 	    window.location.href = current.replace(/#(.*)$/, '') + '#' + path;

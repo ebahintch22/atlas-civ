@@ -936,6 +936,7 @@ var metaDataBase = {
 						source: "manual",
 						threshold: [ 100, 200 ],
 						colormap:  [ "#e5b2e5", "#b266e5", "#9900ff" ],
+						linecolor: "#fff",
 						labelmap:  [ "Moins de 100‰", "100‰ à 200‰", "200‰ et plus" ],
 						legendtitle: "Incidence de l'IRA chez les moins de 5 ans"
 					}

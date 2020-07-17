@@ -29,7 +29,7 @@ function app_start_up(){
 	metaDataBase.orderby_num("index");
 	theme_controller = ui_render_dropdown_inputgroup("#opera-theme-selector-1", {
 		      "prompt": "Choisir un thème",
-		"options" : metaDataBase.table_details,
+		    "options" : metaDataBase.table_details,
 		        "key" : "name",
 		      "label" : "label",
 	      "transform" : { key: "name", label : "label"	},
@@ -452,17 +452,21 @@ function updateMapColors(){
 	}
 
 
-	 var color_mapper = d3.scale.threshold()
+	var color_mapper = d3.scale.threshold()
 		.domain( renderer.threshold )
 		.range(  renderer.colormap );
 
+	var line_color = renderer.linecolor || "#444";
+
+
 	mapFeatures.selectAll('path')
+		.style( "stroke-width", 0.5 )
+		.style( "stroke", line_color)
 		.style('fill', function(d){
 		  var attr_line = dataById[getIdOfFeature(d)]; 
 		  var attr_value = !attr_line ? 0: getValueOfData(attr_line) ;
-
-		  return color_mapper( attr_value );
-	})
+		  	return color_mapper( attr_value );
+	    })
 
 
 	// We call the function to update the legend.

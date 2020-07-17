@@ -1,5 +1,6 @@
 'use strict';
 
+var color_helper = Chart.helpers.color
 
 INIT_NAMED_COLOR_LIST();
 
