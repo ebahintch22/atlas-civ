@@ -779,9 +779,32 @@ var metaDataBase = {
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
 			data_fields : [	
-				{ fld_name: "FLD1", short_name: "Population de 0 à 4 ans", long_name: "Population 0 à 4 ans", data_type: "INT", unit: "Habitants"},
-				{ fld_name: "FLD2", short_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", long_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD3", short_name: "Incidence du paludisme chez les moins de 5 ans (‰)", long_name: "Incidence du paludisme chez les moins de 5 ans (‰)", data_type: "INT", unit: "cas confirmés pour 1 000 hbts"}
+				{
+					fld_name: "FLD1",
+					short_name: "Population de 0 à 4 ans",
+					long_name: "Population 0 à 4 ans",
+					data_type: "INT",
+					unit: "Habitants"
+				}, {
+					fld_name: "FLD2",
+					short_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans",
+					long_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans",
+					data_type: "INT",
+					unit: "nombre"
+				}, {
+					fld_name: "FLD3",
+					short_name: "Incidence du paludisme chez les moins de 5 ans (‰)",
+					long_name: "Incidence du paludisme chez les moins de 5 ans (‰)",
+					data_type: "INT",
+					unit: "cas confirmés pour 1 000 hbts",
+					renderer : {
+			   			   source : "manual",
+						threshold : [ 100, 200],
+						 colormap : ["ffffbf",  "ffff99",  "ffff00"],  
+						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
+					  legendtitle : "Incidence globale du Paludisme"
+					}
+				}			
 			]
 		},
 		{
@@ -1067,12 +1090,6 @@ var metaDataBase = {
 					unit: "nombre"
 				}
 			]
-
-
-
-
-
-
 
 		}
 	]	
