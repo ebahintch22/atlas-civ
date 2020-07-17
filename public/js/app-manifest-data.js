@@ -799,8 +799,8 @@ var metaDataBase = {
 					unit: "cas confirmés pour 1 000 hbts",
 					renderer : {
 			   			   source : "manual",
-						threshold : [ 100, 200],
-						 colormap : ["ffffbf",  "ffff99",  "ffff00"],  
+						threshold : [ 200, 400],
+						 colormap : ["#ffffbf",  "#ffff99",  "#ffff00"],  
 						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
 					  legendtitle : "Incidence globale du Paludisme"
 					}
@@ -887,8 +887,8 @@ var metaDataBase = {
 					unit: "cas confirmés pour 1000 hbts",
 					renderer : {
 			   			   source : "manual",
-						threshold : [ 100, 200],
-						 colormap : [ '#ffff00' ,  '#f57a00' , '#ff0000' ],  
+						threshold : [ 100, 200 ],
+						 colormap :  ["#ffffbf",  "#ffff99",  "#ffff00"],  
 						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
 					  legendtitle : "Incidence globale du Paludisme"
 					}
@@ -904,16 +904,42 @@ var metaDataBase = {
 			label: "38-Infections Respiratoires Aiguës (IRA) chez les moins de 5 ans",
 			unit: "nombre",
 			article: "de ",
-			path : `${PATH_PREFIX}data/statistics/tab_38_Incidence_IRA_under_5.csv`,
+			path : `${PATH_PREFIX}data/statistics/tab_38a_Incidence_IRA_under_5.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [	
-				{ fld_name: "FLD1", short_name: " Population de 0 à 4 ans", long_name: " Population de 0 à 4 ans", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD2", short_name: "Nombre de cas d’IRA chez les Enfants", long_name: "Nombre de cas d’IRA chez les Enfants", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD3", short_name: "Incidence IRA chez les Enfants (‰)", long_name: "Incidence IRA chez les Enfants (‰)", data_type: "INT", unit: "nombre"}
+
+			data_fields: [
+				{
+					fld_name: "FLD1",
+					short_name: " Population de 0 à 4 ans",
+					long_name: " Population de 0 à 4 ans",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Nombre de cas d’IRA chez les Enfants",
+					long_name:  "Nombre de cas d’IRA chez les Enfants",
+					data_type:  "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name:   "FLD3",
+					short_name: "Taux d'incidence IRA chez les Enfants",
+					long_name:  "Taux d'incidence IRA chez les Enfants",
+					data_type:  "INT",
+					unit: "‰",
+					renderer: {
+						source: "manual",
+						threshold: [ 100, 200 ],
+						colormap:  [ "#e5b2e5", "#b266e5", "#9900ff" ],
+						labelmap:  [ "Moins de 100‰", "100‰ à 200‰", "200‰ et plus" ],
+						legendtitle: "Incidence de l'IRA chez les moins de 5 ans"
+					}
+				}
 			]
 		},
 		{
