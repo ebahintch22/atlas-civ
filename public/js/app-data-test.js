@@ -1,6 +1,5 @@
 
 var random_data = get_data()
-
 var my_scale = d3.time.scale().domain([Date.now(), Date.now() + 1000*60*30 ]).range([ 0,random_data.length] )
 
 function get_random_data(){

@@ -5,24 +5,30 @@ var behave_as_mobile_device_on_start_up = false;
 
 var before_app_initialization = true;
 
-var user_session_manager = new user_connexion_manager_constructor()
+var user_session_manager ;
 
 
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 //window.onresize = after_window_resized ;
 
 
+$( document ).ready(function() {
+
+	user_session_manager = new user_connexion_manager_constructor()
+    user_session_manager.boot_app()	
+    
+});
 
 
 
-user_session_manager.boot_app()
 //user_session_manager.start_session();
 
 
 function user_connexion_manager_constructor(){
-	var Infinite_loop_watchdog_max = 10 ;
-	var loop_counter = 0 ;
-	var session_notification_timer;
+	var loop_counter = 0 ; // Flag de détection d'une boucle infinie au niveau du processus d'initialisation
+	var Infinite_loop_watchdog_max = 10 ; // Seuil de détection d'une boucle infinie au niveau du processus d'initialisation
+
+	var session_notification_timer; // Intervalle de temps entre deux émissions successives de notification délai entre l'émission
 	var admin_supervision_timer;
     var storeAgent = new _StorageManager();
     var userBadge;
@@ -43,7 +49,7 @@ function user_connexion_manager_constructor(){
 
     function _boot_app(){
     	
-		exec_infinite_safe(function(){
+		exec_infinite_safe( function(){
 			Ajaxian.post('./visitors/boot_app', user_agent, _start_session, unexpected_Error_handler)
 			loop_counter++;
 		})

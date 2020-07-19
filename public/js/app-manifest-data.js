@@ -822,12 +822,37 @@ var metaDataBase = {
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [	
-				{ fld_name: "FLD1", short_name: "Population de 0 à 4 ans", long_name: "Population de 0 à 4 ans", data_type: "INT", unit: "habitants"},
-				{ fld_name: "FLD2", short_name: "Nombre de cas d'Anémie", long_name: "Nombre de cas d'Anémie", data_type: "INT", unit: "cas"},
-				{ fld_name: "FLD3", short_name: "Incidence Anémie (‰)", long_name: "Incidence Anémie (‰)", data_type: "INT", unit: "cas pour 1 000 hbts"}
+			data_fields :[{
+					fld_name: "FLD1",
+					short_name: "Population de 0 à 4 ans",
+					long_name: "Population de 0 à 4 ans",
+					data_type: "INT",
+					unit: "habitants"
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Nombre de cas d'Anémie",
+					long_name: "Nombre de cas d'Anémie",
+					data_type: "INT",
+					unit: "cas"
+				},
+				{
+					fld_name: "FLD3",
+					short_name: "Incidence anémie (‰)",
+					long_name: "Incidence anémie (‰)",
+					data_type: "INT",
+					unit: "cas pour 1 000 hbts",
+					renderer : {
+			   			   source : "manual",
+						threshold : [ 100, 200 ],
+						 colormap : [  "#fcf9ab",  "#f7be38","#cc5526" ],  
+						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
+					  legendtitle : "Incidence de l’anémie chez les moins de 5 ans"
+					}
+				}
 
 			]
+
 		},
 		{
 			index : 41,
