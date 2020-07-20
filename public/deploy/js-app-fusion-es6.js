@@ -1,6 +1,6 @@
 //globals var déclaration
 //const http_server_exe_mode = false;
-
+var color_helper = Chart.helpers.color
 var navigate = function (path) {
 	  	var current = window.location.href;
 	    window.location.href = current.replace(/#(.*)$/, '') + '#' + path;
@@ -665,7 +665,8 @@ var metaDataBase = {
 		"incidence_IRA_u5_ans",
 		"incidence_IRA_glo",
 		"incidence_anemie",
-		"incidence_coqueluche"
+		"incidence_coqueluche",
+		"deces_notifie_et_causes"
 	],
 	color_palettes : [ 
 			{ name:"YlGnBu"}, 
@@ -1349,9 +1350,32 @@ var metaDataBase = {
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
 			data_fields : [	
-				{ fld_name: "FLD1", short_name: "Population de 0 à 4 ans", long_name: "Population 0 à 4 ans", data_type: "INT", unit: "Habitants"},
-				{ fld_name: "FLD2", short_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", long_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD3", short_name: "Incidence du paludisme chez les moins de 5 ans (‰)", long_name: "Incidence du paludisme chez les moins de 5 ans (‰)", data_type: "INT", unit: "cas confirmés pour 1 000 hbts"}
+				{
+					fld_name: "FLD1",
+					short_name: "Population de 0 à 4 ans",
+					long_name: "Population 0 à 4 ans",
+					data_type: "INT",
+					unit: "Habitants"
+				}, {
+					fld_name: "FLD2",
+					short_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans",
+					long_name: "Nombre total de cas de paludisme confirmés chez les moins de 5 ans",
+					data_type: "INT",
+					unit: "nombre"
+				}, {
+					fld_name: "FLD3",
+					short_name: "Incidence du paludisme chez les moins de 5 ans (‰)",
+					long_name: "Incidence du paludisme chez les moins de 5 ans (‰)",
+					data_type: "INT",
+					unit: "cas confirmés pour 1 000 hbts",
+					renderer : {
+			   			   source : "manual",
+						threshold : [ 200, 400],
+						 colormap : ["#ffffbf",  "#ffff99",  "#ffff00"],  
+						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
+					  legendtitle : "Incidence globale du Paludisme"
+					}
+				}			
 			]
 		},
 		{
@@ -1369,12 +1393,37 @@ var metaDataBase = {
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [	
-				{ fld_name: "FLD1", short_name: "Population de 0 à 4 ans", long_name: "Population de 0 à 4 ans", data_type: "INT", unit: "habitants"},
-				{ fld_name: "FLD2", short_name: "Nombre de cas d'Anémie", long_name: "Nombre de cas d'Anémie", data_type: "INT", unit: "cas"},
-				{ fld_name: "FLD3", short_name: "Incidence Anémie (‰)", long_name: "Incidence Anémie (‰)", data_type: "INT", unit: "cas pour 1 000 hbts"}
+			data_fields :[{
+					fld_name: "FLD1",
+					short_name: "Population de 0 à 4 ans",
+					long_name: "Population de 0 à 4 ans",
+					data_type: "INT",
+					unit: "habitants"
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Nombre de cas d'Anémie",
+					long_name: "Nombre de cas d'Anémie",
+					data_type: "INT",
+					unit: "cas"
+				},
+				{
+					fld_name: "FLD3",
+					short_name: "Incidence anémie (‰)",
+					long_name: "Incidence anémie (‰)",
+					data_type: "INT",
+					unit: "cas pour 1 000 hbts",
+					renderer : {
+			   			   source : "manual",
+						threshold : [ 100, 200 ],
+						 colormap : [  "#fcf9ab",  "#f7be38","#cc5526" ],  
+						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
+					  legendtitle : "Incidence de l’anémie chez les moins de 5 ans"
+					}
+				}
 
 			]
+
 		},
 		{
 			index : 41,
@@ -1434,8 +1483,8 @@ var metaDataBase = {
 					unit: "cas confirmés pour 1000 hbts",
 					renderer : {
 			   			   source : "manual",
-						threshold : [ 100, 200],
-						 colormap : [ '#ffff00' ,  '#f57a00' , '#ff0000' ],  
+						threshold : [ 100, 200 ],
+						 colormap :  ["#ffffbf",  "#ffff99",  "#ffff00"],  
 						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
 					  legendtitle : "Incidence globale du Paludisme"
 					}
@@ -1451,16 +1500,43 @@ var metaDataBase = {
 			label: "38-Infections Respiratoires Aiguës (IRA) chez les moins de 5 ans",
 			unit: "nombre",
 			article: "de ",
-			path : `${PATH_PREFIX}data/statistics/tab_38_Incidence_IRA_under_5.csv`,
+			path : `${PATH_PREFIX}data/statistics/tab_38a_Incidence_IRA_under_5.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [	
-				{ fld_name: "FLD1", short_name: " Population de 0 à 4 ans", long_name: " Population de 0 à 4 ans", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD2", short_name: "Nombre de cas d’IRA chez les Enfants", long_name: "Nombre de cas d’IRA chez les Enfants", data_type: "INT", unit: "nombre"},
-				{ fld_name: "FLD3", short_name: "Incidence IRA chez les Enfants (‰)", long_name: "Incidence IRA chez les Enfants (‰)", data_type: "INT", unit: "nombre"}
+
+			data_fields: [
+				{
+					fld_name: "FLD1",
+					short_name: " Population de 0 à 4 ans",
+					long_name: " Population de 0 à 4 ans",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Nombre de cas d’IRA chez les Enfants",
+					long_name:  "Nombre de cas d’IRA chez les Enfants",
+					data_type:  "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name:   "FLD3",
+					short_name: "Taux d'incidence IRA chez les Enfants",
+					long_name:  "Taux d'incidence IRA chez les Enfants",
+					data_type:  "INT",
+					unit: "‰",
+					renderer: {
+						source: "manual",
+						threshold: [ 100, 200 ],
+						colormap:  [ "#e5b2e5", "#b266e5", "#9900ff" ],
+						linecolor: "#fff",
+						labelmap:  [ "Moins de 100‰", "100‰ à 200‰", "200‰ et plus" ],
+						legendtitle: "Incidence de l'IRA chez les moins de 5 ans"
+					}
+				}
 			]
 		},
 		{
@@ -1508,6 +1584,136 @@ var metaDataBase = {
 					}
 				}
 			]
+		}, {
+
+			index : 79,
+			name : "deces_notifie_et_causes", 
+			valid: true,
+			table_num :"Tableau-79",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "79-Décès notifiés par les structures de santé et causes probables",
+			unit: "nombre",
+			article: "de ",
+			path : `${PATH_PREFIX}data/statistics/tab_79_deces_notifie_et_causes.csv`,
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields :[{
+					fld_name: "FLD1",
+					short_name: "Décès liés au Paludisme",
+					long_name: "Décès liés au Paludisme",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Décès liés à la Diarrhée",
+					long_name: "Décès liés à la Diarrhée",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD3",
+					short_name: "Décès liés à l'Anémie",
+					long_name: "Décès liés à l'Anémie",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD4",
+					short_name: "Décès liés au Choléra",
+					long_name: "Décès liés au Choléra",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD5",
+					short_name: "Décès liés à la Fièvre Typhoide",
+					long_name: "Décès liés à la Fièvre Typhoide",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD6",
+					short_name: "Décès liés à la Méningite",
+					long_name: "Décès liés à la Méningite",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD7",
+					short_name: "Décès liés aux IRA",
+					long_name: "Décès liés aux IRA",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD8",
+					short_name: "Décès liés au COMA",
+					long_name: "Décès liés au COMA",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD9",
+					short_name: "Décès liés au VIH/SIDA",
+					long_name: "Décès liés au VIH/SIDA",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD10",
+					short_name: "Décès liés aux AVC",
+					long_name: "Décès liés aux AVC",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD11",
+					short_name: "Morts-Nés",
+					long_name: "Morts-Nés",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD12",
+					short_name: "Décès au bloc opératoire",
+					long_name: "Décès au bloc opératoire",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD13",
+					short_name: "Décès Maternel",
+					long_name: "Décès Maternel",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD14",
+					short_name: "Décès néonatal (entre 0 et 28 jours après naissance)",
+					long_name: "Décès néonatal (entre 0 et 28 jours après naissance)",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD15",
+					short_name: "Autres types de décès",
+					long_name: "Autres types de décès",
+					data_type: "INT",
+					unit: "nombre"
+				},
+				{
+					fld_name: "FLD16",
+					short_name: "Total décès",
+					long_name: "Total décès",
+					data_type: "INT",
+					unit: "nombre"
+				}
+			]
+
 		}
 	]	
 };
@@ -1614,7 +1820,6 @@ var tmplt_sysinfos = `
     Mustache.parse(tmplt_table_select);
     Mustache.parse(tmplt_sysinfos);
 var random_data = get_data()
-
 var my_scale = d3.time.scale().domain([Date.now(), Date.now() + 1000*60*30 ]).range([ 0,random_data.length] )
 
 function get_random_data(){
@@ -3420,60 +3625,7 @@ function INIT_NAMED_COLOR_LIST(){
 		BLACK:'RGB(0, 0, 0)'
 	}
 }
-
-/*
-var ctx = document.getElementById('myChart').getContext("2d")
-var myChart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL"],
-        datasets: [{
-            label: "Data",
-            borderColor: "#80b6f4",
-            pointBorderColor: "#80b6f4",
-            pointBackgroundColor: "#80b6f4",
-            pointHoverBackgroundColor: "#80b6f4",
-            pointHoverBorderColor: "#80b6f4",
-            pointBorderWidth: 10,
-            pointHoverRadius: 10,
-            pointHoverBorderWidth: 1,
-            pointRadius: 3,
-            fill: false,
-            borderWidth: 4,
-            data: [100, 120, 150, 170, 180, 170, 160]
-        }]
-    },
-    options: {
-        legend: {
-            position: "bottom"
-        },
-        scales: {
-            yAxes: [{
-                ticks: {
-                    fontColor: "rgba(0,0,0,0.5)",
-                    fontStyle: "bold",
-                    beginAtZero: true,
-                    maxTicksLimit: 5,
-                    padding: 20
-                },
-                gridLines: {
-                    drawTicks: false,
-                    display: false
-                }
-}],
-            xAxes: [{
-                gridLines: {
-                    zeroLineColor: "transparent"
-},
-                ticks: {
-                    padding: 20,
-                    fontColor: "rgba(0,0,0,0.5)",
-                    fontStyle: "bold"
-                }
-            }]
-        }
-    }
-});*///@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 function ui_render_caroussel ( _eltID , Cfg , callBack , delay = 1){
 
 	/* Config structure
@@ -4689,7 +4841,7 @@ function app_start_up(){
 	metaDataBase.orderby_num("index");
 	theme_controller = ui_render_dropdown_inputgroup("#opera-theme-selector-1", {
 		      "prompt": "Choisir un thème",
-		"options" : metaDataBase.table_details,
+		    "options" : metaDataBase.table_details,
 		        "key" : "name",
 		      "label" : "label",
 	      "transform" : { key: "name", label : "label"	},
@@ -5112,17 +5264,21 @@ function updateMapColors(){
 	}
 
 
-	 var color_mapper = d3.scale.threshold()
+	var color_mapper = d3.scale.threshold()
 		.domain( renderer.threshold )
 		.range(  renderer.colormap );
 
+	var line_color = renderer.linecolor || "#444";
+
+
 	mapFeatures.selectAll('path')
+		.style( "stroke-width", 0.5 )
+		.style( "stroke", line_color)
 		.style('fill', function(d){
 		  var attr_line = dataById[getIdOfFeature(d)]; 
 		  var attr_value = !attr_line ? 0: getValueOfData(attr_line) ;
-
-		  return color_mapper( attr_value );
-	})
+		  	return color_mapper( attr_value );
+	    })
 
 
 	// We call the function to update the legend.
@@ -5671,24 +5827,30 @@ var behave_as_mobile_device_on_start_up = false;
 
 var before_app_initialization = true;
 
-var user_session_manager = new user_connexion_manager_constructor()
+var user_session_manager ;
 
 
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 //window.onresize = after_window_resized ;
 
 
+$( document ).ready(function() {
+
+	user_session_manager = new user_connexion_manager_constructor()
+    user_session_manager.boot_app()	
+    
+});
 
 
 
-user_session_manager.boot_app()
 //user_session_manager.start_session();
 
 
 function user_connexion_manager_constructor(){
-	var Infinite_loop_watchdog_max = 10 ;
-	var loop_counter = 0 ;
-	var session_notification_timer;
+	var loop_counter = 0 ; // Flag de détection d'une boucle infinie au niveau du processus d'initialisation
+	var Infinite_loop_watchdog_max = 10 ; // Seuil de détection d'une boucle infinie au niveau du processus d'initialisation
+
+	var session_notification_timer; // Intervalle de temps entre deux émissions successives de notification délai entre l'émission
 	var admin_supervision_timer;
     var storeAgent = new _StorageManager();
     var userBadge;
@@ -5709,7 +5871,7 @@ function user_connexion_manager_constructor(){
 
     function _boot_app(){
     	
-		exec_infinite_safe(function(){
+		exec_infinite_safe( function(){
 			Ajaxian.post('./visitors/boot_app', user_agent, _start_session, unexpected_Error_handler)
 			loop_counter++;
 		})
@@ -5948,7 +6110,7 @@ function USER_INTERFACE_update_layout(){
 }
 
 
-var color_helper = Chart.helpers.color
+//var color_helper = Chart.helpers.color
 
 
 
