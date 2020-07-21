@@ -2125,5 +2125,37 @@
  		"remission": 0.593,
  		"letalite": 0.0065,
  		"sum_sample": 83693
+ 	},
+ 	{
+ 		"id": 131,
+ 		"date": "20/07/2020",
+ 		"new_case": 193,
+ 		"new_healed": 293,
+ 		"new_deceased": 0,
+ 		"sum_case": 14312,
+ 		"sum_healed": 8662,
+ 		"sum_deceased": 92,
+ 		"active_case": 5558,
+ 		"nb_sample": 1656,
+ 		"incidence": 0.117,
+ 		"remission": 0.605,
+ 		"letalite": 0.0064,
+ 		"sum_sample": 85349
+ 	},
+ 	{
+ 		"id": 132,
+ 		"date": "21/07/2020",
+ 		"new_case": 219,
+ 		"new_healed": 198,
+ 		"new_deceased": 1,
+ 		"sum_case": 14531,
+ 		"sum_healed": 8860,
+ 		"sum_deceased": 93,
+ 		"active_case": 5578,
+ 		"nb_sample": 1143,
+ 		"incidence": 0.192,
+ 		"remission": 0.610,
+ 		"letalite": 0.0064,
+ 		"sum_sample": 86492
  	}
  ]
