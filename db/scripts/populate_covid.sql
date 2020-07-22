@@ -14,7 +14,7 @@ ALTER TABLE public.covid_records
     registered boolean,
 
     id integer,
-    _date date,
+    date date,
     new_case integer,
     new_healed integer,
     new_deceased integer,
