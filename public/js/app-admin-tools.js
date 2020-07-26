@@ -28,8 +28,6 @@
             },
 
             updateStats : function(){
-
-
             },
 
             clearlog : function(){
@@ -46,6 +44,7 @@
                     __dtable_loadData(data);
                 }
             },
+
             date_format : _date
         }
 

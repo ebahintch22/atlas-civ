@@ -440,7 +440,9 @@ router.post('/connected',  function(req, res, next) {
 	var action = "new visitor"
 	var auth = req.body;
 
-	db.query( `SELECT *, $1 as url_access FROM my_visitors ` ,  [ ACCESS_URL.base ], 
+
+
+	db.query( `SELECT *, $1 as url_access FROM my_visitors WHERE (created_on >= $2 AND created_on <= $3 ) ORDER BY created_on ` ,  [ ACCESS_URL.base, "2020-05-05", "2020-07-23"], 
 		function(err, dbResult){
 			if (err) { 
 				Watchdog.app_notify({ uuid : usrBadge.uuid, when: date_now(), req: action,  res : "failure",  comments: "Database System Error" });
@@ -487,6 +489,7 @@ function qualify_user( str){
 		"/visitors" : "DEFAULT",
 		"/guest-acf/visitors" : "ACF-GUEST",
 		"/guest-unicef/visitors" : "UNICEF-GUEST",
+		"/guest-gtx/visitors" : "BNETD-CIGN",
 		"/guest-cepici/visitors" : "CEPICI"
 	}
 	return user_classes[str]
