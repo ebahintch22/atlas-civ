@@ -76,8 +76,9 @@
 	    <script src="../js/app-platform-detect.js"  type="text/javascript" ></script>
 		<script src="../vendors/ua-parser/ua-parser-min.js" type="text/javascript" ></script>
 
-	    <script src="../js/app-admin-acf-tools.js" charset="utf-8"></script>
+	    <script src="../js/app-admin-gtx-tools.js" charset="utf-8"></script>
 	    <script src="../js/app-admin-standard-tools.js" charset="utf-8"></script>
+
 
 	</head>
 
@@ -132,7 +133,7 @@
 
 
 
-			<div class="row">
+			<div class="row visible-regular">
 
 				<div class="col-lg-4 no-padding"  id="card-0" style="padding:1px;top: 0px;
 				       bottom: 2px; font-family: 'Arial Black'; 
@@ -141,7 +142,7 @@
 					background-color:#444;">
 					  <div class="card-body text-center" style=" -webkit-text-stroke-width: 0.03em; 
 					        -webkit-text-stroke-color: #ec740d; 
-					        background-image: #444 /*url('./images/atlas-sante-banner.jpeg')*/; 
+					        background-image:  #444 /*url('./images/atlas-sante-banner.jpeg')*/; 
 					        color:#fff; padding:0px; top: 0px;" >
 					     Atlas Santé <sub style="font-size: 0.45em; font-weight: 750; "> CÔTE D'IVOIRE</sub> 
 					  </div>
@@ -155,7 +156,7 @@
 
 		
 			<!-- SELECT CONTROLLER FOR THEMATIC DIMENSION AND SPATIAL LEVEL-->
-			<div class="row">
+			<div class="row visible-regular">
 				<div class="col-md-6 no-padding" >
 					<nav class="navbar navbar-light bg-light" style="height: 35px; padding: 2px 8px 2px 8px;">
 						<div id="opera-theme-selector-1" class="input-group input-group-sm mb-3" style="margin: 0px 0px 2px 0px;"></div>
@@ -172,7 +173,7 @@
 
 
 
-			<div class="row" style= "bottom: 20px;">
+			<div class="row visible-regular" style= "bottom: 20px;">
 				
 				<div id="RASS-pane" class="col-xl-7 no-padding ">
 					<div class="row" style= "bottom: 20px; padding: 0px 15px;">
@@ -220,7 +221,7 @@
 
 
 
-			<div class="row fixed-bottom"  style="height: 7vh ; background-color: #444; color:#aaa; font-size: 1.5vh; padding: 0.2vh 3vh;">
+			<div id="app-footer-banner" class="row fixed-bottom hidden"  style="height: 7vh ; background-color: #444; color:#aaa; font-size: 1.5vh; padding: 0.2vh 3vh;">
 
 			    <div class="col-lg-2" > 
 			    	<div class="d-none d-xl-block"> 
@@ -259,7 +260,6 @@
 			    </div> 
 
 			</div>
-
 	</div>
 
 	<script src="../vendors/director/1.2.6/director.min.js" type="text/javascript"></script>

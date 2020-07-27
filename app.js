@@ -35,6 +35,7 @@ app.use('/users', usersRouter);
 
 app.use('/visitors', visitorRouter);//socketRouter
 app.use('/guest-acf/visitors', visitorRouter);//socketRouter
+app.use('/guest-gtx/visitors', visitorRouter);//socketRouter
 
 
 app.use('/buyers'  , buyerRouter);
