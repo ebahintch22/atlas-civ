@@ -173,9 +173,12 @@
                 return(col_arr)
 
                 function set_as_date( data, type, row ){
-                    //if (type === "display" || type === "filter" ){
+                    if (type === "display" ){
                         return ( _date.date_str(data))
-                    //}
+                    } 
+                    else if ( type === "filter"){
+                        return (data)
+                    }
                 }
             }
         }
