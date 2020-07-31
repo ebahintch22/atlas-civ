@@ -173,6 +173,7 @@
                 return(col_arr)
 
                 function set_as_date( data, type, row ){
+                    opera_console.addLog(data, "warning")
                     if (type === "display" ){
                         return ( _date.date_str(data))
                     } 
