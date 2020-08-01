@@ -89,6 +89,8 @@ var metaDataBase = {
 		"std",
 		"covid-19",
 		"covid-19-june16",
+		"taux_frequentation",
+		"effectif_consultant",
 		"paludisme_u5_ans",
 		"paludisme_glo",
 		"incidence_IRA_u5_ans",
@@ -463,7 +465,6 @@ var metaDataBase = {
 				"region_sante" , 
 				"district_sante"
 			],
-			adminlevels: [ "region", "district"],
 			label: "45-Maladies sexuellement transmissibles",
 			unit: "cas déclaré(s)",
 			article: "de ",
@@ -522,7 +523,6 @@ var metaDataBase = {
 			valid: false,
 			table_num :"Tableau-14",
 			layerList : [ "region_sante" , "district_sante"],
-			adminlevels: [ "region", "district"],
 			label: "xxxxxx",
 			unit: "nombre",
 			article: "de ",
@@ -545,7 +545,6 @@ var metaDataBase = {
 			valid: false,
 			layerList : [ "region_sante" , "district_sante"],
 			table_num :"Tableau-15",
-			adminlevels: [ "region", "district"],
 			label: "xxxxxx",
 			unit: "nombre",
 			article: "de ",
@@ -570,7 +569,6 @@ var metaDataBase = {
 			valid: false,
 			table_num :"Tableau-16",
 			layerList : [ "region_sante" , "district_sante"],
-			adminlevels: [ "region", "district"],
 			label: "xxxxxx",
 			unit: "nombre",
 			article: "de ",
@@ -589,51 +587,137 @@ var metaDataBase = {
 
 		{
 			index : 17,
-			name : "xxxxxxxxxxxxxxxxx", 
-			valid: false,
+			name : "taux_frequentation", 
+			valid: true,
 			table_num :"Tableau-17",
 			layerList : [ "region_sante" , "district_sante"],
-			adminlevels: [ "region", "district"],
-			label: "xxxxxx",
+			label: "17-Taux de fréquentation par type d’établissement",
 			unit: "nombre",
 			article: "de ",
-			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
+			path : `${PATH_PREFIX}data/statistics/tab_17_taux_frequentation.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'cyan']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [					
-				{ fld_name : "FLD1", short_name : "Population totale 2017", long_name : "Population totale 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD2", short_name : "Total Consultations ESPC 2017", long_name : "Total Consultations ESPC 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD3", short_name : "Taux de frequentation ESPC", long_name : "Taux de frequentation ESPC", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD4", short_name : "Nombre total de consultation HR (CHR&HG) 2017", long_name : "Nombre total de consultation HR (CHR&HG) 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD5", short_name : "Taux de frequentation HR (HG&CHR) 2017 (%)", long_name : "Taux de frequentation HR (HG&CHR) 2017 (%)", data_type :  "INT", unit : "nombre" }
+			data_fields : [		
+				{
+					fld_name: "FLD1",
+					short_name: "Population totale 2017",
+					long_name: "Population totale 2017",
+					data_type: "INT",
+					unit: "nombre"
+				}, {
+					fld_name: "FLD2",
+					short_name: "Total Consultations ESPC 2017",
+					long_name: "Total Consultations ESPC 2017",
+					data_type: "INT",
+					unit: "consultations"
+				}, {
+					fld_name: "FLD3",
+					short_name: "Taux de frequentation ESPC(%)",
+					long_name: "Taux de frequentation ESPC(%)",
+					data_type: "INT",
+					unit: "% des consultations",
+					renderer: {
+						source: "manual",
+						threshold: [  20, 35, 50, 65 ],
+						colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
+						linecolor: "#fff",
+						labelmap:  [ "0-10%", ">10 - 150%", ">15 - 20%" , ">20-30%", ">30 - 100%"  ],
+						legendtitle: "Taux de frequentation ESPC(%)"
+					}
+				}, {
+					fld_name: "FLD4",
+					short_name: "Nombre total de consultation HR (CHR&HG) 2017",
+					long_name: "Nombre total de consultation HR (CHR&HG) 2017",
+					data_type: "INT",
+					unit: "consultations"
+				}, {
+					fld_name: "FLD5",
+					short_name: "Taux de frequentation HR (HG & CHR) 2017 (%)",
+					long_name: "Taux de frequentation HR (HG & CHR) 2017 (%)",
+					data_type: "INT",
+					unit: "% des consultations",
+					renderer: {
+						source: "manual",
+						threshold: [  5, 10, 15, 20 ],
+						colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
+						linecolor: "#fff",
+						labelmap:  [ "0-5%", ">5 - 10%", ">10 - 25%" , ">15-20%", ">20 - 100%"  ],
+						legendtitle: "Taux de frequentation HR (HG & CHR)(%)"
+					}
+				}
 			]
 		},
 		{
 			index : 18,
-			name : "xxxxxxxxxxxxxxxxx", 
-			valid: false,
+			name : "effectif_consultant", 
+			valid: true,
 			table_num :"Tableau-18",
 			layerList : [ "region_sante" , "district_sante"],
-			adminlevels: [ "region", "district"],
-			label: "xxxxxx",
+			label: "18-Répartition des consultants",
 			unit: "nombre",
 			article: "de ",
-			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
+			path : `${PATH_PREFIX}data/statistics/tab_18_effectif_consultant.csv`,
 			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [					
-				{ fld_name : "FLD1", short_name : "Nombre total de consultants ESPC", long_name : "Nombre total de consultants ESPC", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD2", short_name : "Nombre Total Consultants HG et CHR", long_name : "Nombre Total Consultants HG et CHR", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD3", short_name : "Nombre Total Consultants EPN/CHU", long_name : "Nombre Total Consultants EPN/CHU", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD4", short_name : "Total Consultants", long_name : "Total Consultants ", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD5", short_name : "Proportion Consultants ESPC (%)", long_name : "Proportion Consultants ESPC (%)", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD6", short_name : "Proportion Consultants HG & CHR (%)", long_name : "Proportion Consultants HG & CHR (%)", data_type :  "INT", unit : "nombre" }
-			]
+			data_fields : [
+			 	{
+			 		fld_name: "FLD1",
+			 		short_name: "Nombre total de consultants ESPC",
+			 		long_name: "Nombre total de consultants ESPC",
+			 		data_type: "INT",
+			 		unit: "consultants"
+			 	},
+			 	{
+			 		fld_name: "FLD2",
+			 		short_name: "Nombre Total Consultants HG et CHR",
+			 		long_name: "Nombre Total Consultants HG et CHR",
+			 		data_type: "INT",
+			 		unit: "consultants"
+			 	},
+			 	{
+			 		fld_name: "FLD3",
+			 		short_name: "Total Consultants",
+			 		long_name: "Total Consultants",
+			 		data_type: "INT",
+			 		unit: "consultants"
+			 	},
+			 	{
+			 		fld_name: "FLD4",
+			 		short_name: "Proportion Consultants ESPC (%)",
+			 		long_name: "Proportion Consultants ESPC (%)",
+			 		data_type: "INT",
+			 		unit: "%",
+			 		renderer: {
+						source: "manual",
+						threshold: [  20, 30, 40, 50 ],
+						colormap:  ['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'] ,
+						linecolor: "#fff",
+						labelmap:  [ "0-60%", ">60 - 70%", ">70 - 80%" , ">80 - 90%", ">90 - 100%"  ],
+						legendtitle: "Proportion Consultants ESPC (%)"
+					}
+			 	},
+			 	{
+			 		fld_name: "FLD5",
+			 		short_name: "Proportion Consultants HG & CHR (%)",
+			 		long_name: "Proportion Consultants HG & CHR (%)",
+			 		data_type: "INT",
+			 		unit: "%",
+			 		renderer: {
+						source: "manual",
+						threshold: [  10, 15, 20, 30 ],
+						colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
+						linecolor: "#fff",
+						labelmap:  [ "0-10%", ">10 - 15%", ">15 - 20%" , ">20-30%", ">30 - 100%"  ],
+						legendtitle: "Proportion Consultants HG & CHR (%)"
+					}
+			 	}
+			 ]
 		},
 		{
 			index : 33,
