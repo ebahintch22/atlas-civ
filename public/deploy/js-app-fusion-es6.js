@@ -660,6 +660,7 @@ var metaDataBase = {
 		"std",
 		"covid-19",
 		"covid-19-june16",
+		"taux_frequentation_service_sante",
 		"taux_frequentation",
 		"effectif_consultant",
 		"paludisme_u5_ans",
@@ -1136,24 +1137,50 @@ var metaDataBase = {
 
 		{
 			index : 16,
-			name : "xxxxxxxxxxxxxxxxx", 
-			valid: false,
+			name : "taux_frequentation_service_sante", 
+			valid: true,
 			table_num :"Tableau-16",
 			layerList : [ "region_sante" , "district_sante"],
-			label: "xxxxxx",
+			label: "16-Taux de fréquentation des services de santé",
 			unit: "nombre",
 			article: "de ",
-			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
+			path : `${PATH_PREFIX}data/statistics/tab_16_taux_frequentation_service_sante.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
-			renderer : get_renderer( 5 , [] , ['white', 'black']),
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [	
-				{ fld_name : "FLD1", short_name : "Population totale", long_name : " Population totale", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD2", short_name : "Nombre de Consultations 2017", long_name : "Nombre de Consultations 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD3", short_name : "Taux de fréquentation 2017 (%)", long_name : "Taux de fréquentation 2017 (%)", data_type :  "INT", unit : "nombre" }
-			]
+			data_fields :  [
+				{
+			 		fld_name: "FLD1",
+			 		short_name: "Population totale",
+			 		long_name: " Population totale",
+			 		data_type: "INT",
+			 		unit: "nombre"
+			 	},
+			 	{
+			 		fld_name: "FLD2",
+			 		short_name: "Nombre de Consultations",
+			 		long_name: "Nombre de Consultations",
+			 		data_type: "INT",
+			 		unit: "Consultations"
+			 	},
+			 	{
+			 		fld_name: "FLD3",
+			 		short_name: "Taux de fréquentation (%)",
+			 		long_name: "Taux de fréquentation (%)",
+			 		data_type: "INT",
+			 		unit: "%",				
+			 		renderer: {
+						source: "manual",
+						threshold: [  30, 40, 50, 60, 70, ],
+						colormap:  ["#ffffff","#ccccff","#9999ff","#6666ff","#3333ff","#0000ff"],
+						linecolor: "#fff",
+						labelmap:  [ "0-5%", ">5 - 10%", ">10 - 25%" , ">15-20%", ">20 - 100%" ,"+70%" ],
+						legendtitle: "Taux de frequentation HR (HG & CHR)(%)"
+					}
+			 	}
+			 ]
 		},
 
 		{
@@ -1192,7 +1219,7 @@ var metaDataBase = {
 					unit: "% des consultations",
 					renderer: {
 						source: "manual",
-						threshold: [  10, 15, 20, 30 ],
+						threshold: [  20, 35, 50, 65 ],
 						colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
 						linecolor: "#fff",
 						labelmap:  [ "0-10%", ">10 - 150%", ">15 - 20%" , ">20-30%", ">30 - 100%"  ],
@@ -1242,7 +1269,14 @@ var metaDataBase = {
 			 		short_name: "Nombre total de consultants ESPC",
 			 		long_name: "Nombre total de consultants ESPC",
 			 		data_type: "INT",
-			 		unit: "consultants"
+			 		unit: "consultants",
+			 		renderer : {
+						source: "manual",
+						threshold: [  20, 30, 40, 50 ],			 			
+			 			colormap : ['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'],
+						labelmap:  [ "0%-20%", "60% - 70%", "70% - 80%" , "80% - 90%", "90% - 100%" ],
+						legendtitle: "Densité de population (Habitant/km²)"
+			 		}
 			 	},
 			 	{
 			 		fld_name: "FLD2",
@@ -1269,7 +1303,7 @@ var metaDataBase = {
 						threshold: [  20, 30, 40, 50 ],
 						colormap:  ['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'] ,
 						linecolor: "#fff",
-						labelmap:  [ "0-60%", ">60 - 70%", ">70 - 80%" , ">80 - 90%", ">90 - 100%"  ],
+						labelmap:  [ "0%-20%", "60% - 70%", "70% - 80%" , "80% - 90%", "90% - 100%" ],
 						legendtitle: "Proportion Consultants ESPC (%)"
 					}
 			 	},
