@@ -534,14 +534,22 @@ var metaDataBase = {
 					data_type: "INT",
 					unit: "consultants",	
 			 		renderer: {
-			 			default: {
-								source: "manual",
-								threshold: [200000, 400000, 600000, 800000, 1000000 ],
-								colormap:  ['#feebe2','#fcc5c0','#fa9fb5','#f768a1','#c51b8a','#7a0177'],
-								linecolor: "#fff",
-								labelmap:  [ "moins de 200m", "200m-400m", "400m-600m" , "600m-800m" , "800m-1000m", "1000m et plus" ],
-								legendtitle: "Nbr total de Consultants ESPC"
-						}
+			 			"default": {
+							source: "manual",
+							threshold: [ 200000, 400000, 600000, 800000, 1000000 ],
+							colormap:  ['#feebe2','#fcc5c0','#fa9fb5','#f768a1','#c51b8a','#7a0177'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 200m", "200m-400m", "400m-600m" , "600m-800m" , "800m-1000m", "1000m et plus" ],
+							legendtitle: "Nbr total de Consultants ESPC"
+						},
+			 			"district_sante": {
+							source: "manual",
+							threshold: [ 30000, 50000, 100000, 150000, 300000 ],
+							colormap:  ['#feebe2','#fcc5c0','#fa9fb5','#f768a1','#c51b8a','#7a0177'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 30m", "30m-50m", "50m-100m" , "100m-150m" , "150m-300m", "300m et plus" ],
+							legendtitle: "Nbr total de Consultants ESPC"
+						}						
 					}
 				},
 				{
@@ -568,7 +576,15 @@ var metaDataBase = {
 					data_type: "INT",
 					unit: "Consultants",					
 			 		renderer: {
-		 			default: {
+		 				"district_sante": {
+							source: "manual",
+							threshold: [5000, 25000, 50000, 100000, 150000 ],
+							colormap:  ['#feebe2','#fcc5c0','#fa9fb5','#f768a1','#c51b8a','#7a0177'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 5m", "5m-25m", "25m-50m" , "50m-100m" , "100m-150m", "150m et plus" ],
+							legendtitle: "Nbr total de Consultants ESPC"
+				 		}, 
+				 		"default": {
 							source: "manual",
 							threshold: [50000, 100000, 200000, 300000, 400000 ],
 							colormap:  ['#feebe2','#fcc5c0','#fa9fb5','#f768a1','#c51b8a','#7a0177'],

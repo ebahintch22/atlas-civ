@@ -660,6 +660,7 @@ var metaDataBase = {
 		"std",
 		"covid-19",
 		"covid-19-june16",
+		"taux_util_serv_sante_par_etablissmnt",
 		"taux_frequentation_service_sante",
 		"taux_frequentation",
 		"effectif_consultant",
@@ -687,7 +688,7 @@ var metaDataBase = {
 			valid: true,
 			table_num : "Tableau-98",			
 			layerList : [  "district_sante", "region_sante" ],
-			label: "1- Incidence nationale de la COVID-19 (Carto actualisée au 16/06/2020)",
+			label: "01- Incidence nationale de la COVID-19 (Carto actualisée au 16/06/2020)",
 			unit: "nombre de cas",
 			article: "de ",
 			path : `${PATH_PREFIX}data/statistics/tab_98_covid_june16.csv`,
@@ -706,18 +707,21 @@ var metaDataBase = {
 				color : "RED"
 			},
 			field_selected : default_field_selection,
-			data_fields : [{
+			data_fields : [
+				{
 			 		fld_name: "FLD1",
 			 		short_name: "COVID-19: Répartition des cas confirmés (au 16 juin 2020)",
 			 		long_name: " Nombre de cas confirmés de COVID-19",
 			 		data_type: "INT",
 			 		unit: "cas confirmés de COVID-19",
 			 		renderer: {
-			 			source: "manual",
-			 			threshold: [1, 5, 10, 100, 1000],
-			 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#C22C1C', '#660207'],
-			 			labelmap: ['Aucun cas', "", "Incidence faible", "Incidence Moyenne", "Incidence élevée", "Epicentres"],
-			 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+			 			default: {
+				 			source: "manual",
+				 			threshold: [1, 5, 10, 100, 1000],
+				 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#C22C1C', '#660207'],
+				 			labelmap: ['Aucun cas', "", "Incidence faible", "Incidence Moyenne", "Incidence élevée", "Epicentres"],
+				 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+				 		}
 			 		}
 			 	},
 			 	{
@@ -727,11 +731,13 @@ var metaDataBase = {
 			 		data_type: "INT",
 			 		unit: "décès dus à la COVID-19",
 			 		renderer: {
-			 			source: "manual",
-			 			threshold: [1, 5, 10, 20],
-			 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#660207'],
-			 			labelmap: ['Aucun décès', "1 à 4 décès", "5 à 9 décès", "10 à 19 décès", "plus de 20 décès"],
-			 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. de décès)"
+			 			default: {
+				 			source: "manual",
+				 			threshold: [1, 5, 10, 20],
+				 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#660207'],
+				 			labelmap: ['Aucun décès', "1 à 4 décès", "5 à 9 décès", "10 à 19 décès", "plus de 20 décès"],
+				 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. de décès)"
+				 		}
 			 		}
 			 	}
 			 ]
@@ -775,7 +781,7 @@ var metaDataBase = {
 			name : "demographic",
 			layerList : [  "district_sante", "region_sante" ],
 			table_num :"Tableau-DD",
-			label: "2- Données de population (2017)",
+			label: "02- Données de population (2017)",
 			unit: "population",
 			article: "de ",
 			path : `${PATH_PREFIX}data/statistics/tab_01_demography.csv`,
@@ -802,7 +808,7 @@ var metaDataBase = {
 			name: "human_ressource",
 			layerList : [  "district_sante", "region_sante" ],
 			table_num :"Tableau-5",
-			label: "3- Ressources des systèmes de santé - Personnel",
+			label: "03- Ressources des systèmes de santé - Personnel",
 			unit: "effectif",
 			article: "d'",
 			path : `${PATH_PREFIX}data/statistics/tab_05_human_res.csv`,
@@ -833,7 +839,7 @@ var metaDataBase = {
 			name : "ratio_prestataire_pop", 
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau 6",
-			label: "4- Ratio Prestataires de soins - Population",
+			label: "04- Ratio Prestataires de soins - Population",
 			unit: "nombre",
 			article: "de ",
 			path : `${PATH_PREFIX}data/statistics/tab_06_ratio_prestataire_pop.csv`,
@@ -857,7 +863,7 @@ var metaDataBase = {
 			name : "repartition_etabliss_sante", 
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-7",
-			label: "5- Ressources des systèmes de santé - Etablissements",
+			label: "05- Ressources des systèmes de santé - Etablissements",
 			unit: "nombre",
 			article: "de ",
 			path : `${PATH_PREFIX}data/statistics/tab_07_repartition_etabliss_sante.csv`,
@@ -889,7 +895,7 @@ var metaDataBase = {
 			name : "ratio_hrsn_espc_pop", 
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-8",
-			label: "6- Ratio établissements de santé/Population",
+			label: "06- Ratio établissements de santé/Population",
 			unit: "nombre",
 			article: "de ",
 			path : `${PATH_PREFIX}data/statistics/tab_08_ratio_hrsn_espc_pop.csv`,
@@ -911,7 +917,7 @@ var metaDataBase = {
 			name : "other_material", 
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-9",
-			label: "7- Autres ressources materielles (2017)",
+			label: "07- Autres ressources materielles (2017)",
 			unit: "nombre",
 			article: "de ",
 			path : `${PATH_PREFIX}data/statistics/tab_09_other_material.csv`,
@@ -935,7 +941,7 @@ var metaDataBase = {
 			name : "tech_platform", 
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-10",
-			label: "8- Plateaux techniques et équipements (2017)",
+			label: "08- Plateaux techniques et équipements (2017)",
 			unit: "nombre",
 			article: "de ",
 			path : `${PATH_PREFIX}data/statistics/tab_10_tech_platform.csv`,
@@ -965,7 +971,7 @@ var metaDataBase = {
 			name : "ratio_ambulance_structure_sante", 
 			table_num :"Tableau-11",
 			layerList : [ "region_sante" , "district_sante"],
-			label: "9- Ratio ambulance par nombre de structure de soin (tab 11)",
+			label: "09- Ratio ambulance par nombre de structure de soin (tab 11)",
 			unit: "nombre",
 			article: "de ",
 			path : `${PATH_PREFIX}data/statistics/tab_11_ratio_ambulance_structure_sante.csv`,
@@ -989,7 +995,7 @@ var metaDataBase = {
 			layerList : [ "region_sante" , "district_sante"],
 			table_num :"Tableau-12",
 			adminlevels: [ "district","region" ],
-			label: "9- Répartition géographique des dépôts/banques de sang (tab. 12)",
+			label: "12- Répartition géographique des dépôts/banques de sang (tab. 12)",
 			unit: "nombre",
 			article: "de ",
 			path : `${PATH_PREFIX}data/statistics/tab_12_repartition_structure_transfusion.csv`,
@@ -1004,7 +1010,6 @@ var metaDataBase = {
 				{ fld_name : "FLD3", short_name : "Nombre de dépôts/Banques de sang", long_name : "Nombre de dépôts/Banques de sang", data_type :  "INT", unit : "nombre" }
 			]
 		},
-
 		{
 			index : 12,
 			valid: false,
@@ -1029,67 +1034,6 @@ var metaDataBase = {
 			]
 		},	
 		{
-			index : 45,
-			name: "std",
-			valid: false,
-			table_num :"Tableau-45",
-			layerList : [ 
-				"region_sante" , 
-				"district_sante"
-			],
-			label: "45-Maladies sexuellement transmissibles",
-			unit: "cas déclaré(s)",
-			article: "de ",
-			path : `${PATH_PREFIX}data/statistics/tab_45_std.csv`,
-			source: "Ministère de la Santé et de l’Hygiène Publique",
-			data_parser : DEFAULT_PARSER,
-			renderer : get_renderer( 5 , [] , ['white', 'blue']),
-			color_palette: "Purples",
-			field_selected : default_field_selection,			
-		    data_fields : [
-				{ "fld_name" : "FLD1",  "short_name" : " 10-14 ans (F)" , "long_name" : " 10-14 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD2",  "short_name" : " 10-14 ans (M)" , "long_name" : " 10-14 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD3",  "short_name" : " 15-24 ans (F)" , "long_name" : " 15-24 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD4",  "short_name" : " 15-24 ans (M)" , "long_name" : " 15-24 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD5",  "short_name" : " 25-49 ans (F)" , "long_name" : " 25-49 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD6",  "short_name" : " 25-49 ans (M)" , "long_name" : " 25-49 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD7",  "short_name" : " 50 ans et plus (F)" , "long_name" : " 50 ans et plus (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD8",  "short_name" : " 50 ans et plus (M)" , "long_name" : " 50 ans et plus (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD9",  "short_name" : " Total cas d’écoulement génital " , "long_name" : " Total de cas d’écoulement génital (urétral /vaginal) diagnostiqués"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD10", "short_name" : " 10-14 ans (F)" , "long_name" : " 10-14 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD11", "short_name" : " 10-14 ans (M)" , "long_name" : " 10-14 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD12", "short_name" : " 15-24 ans (F)" , "long_name" : " 15-24 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD13", "short_name" : " 15-24 ans (M)" , "long_name" : " 15-24 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD14", "short_name" : " 25-49 ans (F)" , "long_name" : " 25-49 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD15", "short_name" : " 25-49 ans (M)" , "long_name" : " 25-49 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD16", "short_name" : " 50 ans et plus (F)" , "long_name" : " 50 ans et plus (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD17", "short_name" : " 50 ans et plus (M)" , "long_name" : " 50 ans et plus (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD18", "short_name" : " Total cas d’ulcération génitale" , "long_name" : " Total de cas d’ulcération génitale et/ou bubon diagnostiqués"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD19", "short_name" : " 10-14 ans (F)" , "long_name" : " 10-14 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD20", "short_name" : " 10-14 ans (M)" , "long_name" : " 10-14 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD21", "short_name" : " 15-24 ans (F)" , "long_name" : " 15-24 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD22", "short_name" : " 15-24 ans (M)" , "long_name" : " 15-24 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD23", "short_name" : " 25-49 ans (F)" , "long_name" : " 25-49 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD24", "short_name" : " 25-49 ans (M)" , "long_name" : " 25-49 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD25", "short_name" : " 50 ans et plus (F)" , "long_name" : " 50 ans et plus (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD26", "short_name" : " 50 ans et plus (M)" , "long_name" : " 50 ans et plus (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD27", "short_name" : " Total cas de douleurs testiculaires ou pelviennes" , "long_name" : " Total de cas de douleurs testiculaires/abdominales basses (pelviennes) diagnostiqués"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD28", "short_name" : " 10-14 ans (F)" , "long_name" : " 10-14 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD29", "short_name" : " 10-14 ans (M)" , "long_name" : " 10-14 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD30", "short_name" : " 15-24 ans (F)" , "long_name" : " 15-24 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD31", "short_name" : " 15-24 ans (M)" , "long_name" : " 15-24 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD32", "short_name" : " 25-49 ans (F)" , "long_name" : " 25-49 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD33", "short_name" : " 25-49 ans (M)" , "long_name" : " 25-49 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD34", "short_name" : " 50 ans et plus (F)" , "long_name" : " 50 ans et plus (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD35", "short_name" : " 50 ans et plus (M)" , "long_name" : " 50 ans et plus (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD36", "short_name" : " Total cas de condylome" , "long_name" : " Total de cas de condylome diagnostiqués"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD37", "short_name" : " Total cas d'IST Adultes (2017)" , "long_name" : " Nombre total des cas d'IST chez les Adultes 2017"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD38", "short_name" : " Nb total cas de conjonctivite du nouveau-né (F)" , "long_name" : " Nombre total de cas de  conjonctivite du nouveau-né diagnostiqués (Enfant 0-28 jours ) (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
-				{ "fld_name" : "FLD39", "short_name" : " Nb total de cas de conjonctivite (M)" , "long_name" : " Nombre total de cas de conjonctivite du nouveau-né diagnostiqués (Enfant 0-28 jours ) (M)"  , "data_type" : "INT", unit: "Nombre de cas"}
-			]	    
-        },
-
-		{
 			index : 14,
 			name: "xxxxxxxxxxxxxxxxx", 
 			valid: false,
@@ -1104,37 +1048,142 @@ var metaDataBase = {
 			renderer : get_renderer( 5 , [] , ['white', 'yellow']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [	
-				{ fld_name : "FLD1", short_name : "Population totale 2017", long_name : "Population totale 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD2", short_name : "Nombre total de Consultants 2017", long_name : "Nombre total de Consultants 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD3", short_name : "Taux d'utilisation 2017(%)", long_name : "Taux d'utilisation 2017(%)", data_type :  "INT", unit : "nombre" }
-			]
+			data_fields :[
+				{
+			 		fld_name: "FLD1",
+			 		short_name: "Population totale 2017",
+			 		long_name: "Population totale 2017",
+			 		data_type: "INT",
+			 		unit: "nombre"
+			 	},
+			 	{
+			 		fld_name: "FLD2",
+			 		short_name: "Nombre total de Consultants 2017",
+			 		long_name: "Nombre total de Consultants 2017",
+			 		data_type: "INT",
+			 		unit: "nombre"
+			 	},
+			 	{
+			 		fld_name: "FLD3",
+			 		short_name: "Taux d'utilisation 2017(%)",
+			 		long_name: "Taux d'utilisation 2017(%)",
+			 		data_type: "INT",
+			 		unit: "nombre"
+			 	}
+			 ]
 		},
+
+
 
 		{
 			index : 15,
-			name : "xxxxxxxxxxxxxxxxx", 
-			valid: false,
+			name : "taux_util_serv_sante_par_etablissmnt", 
+			valid: true,
 			layerList : [ "region_sante" , "district_sante"],
 			table_num :"Tableau-15",
-			label: "xxxxxx",
+			label: "15-Taux d’utilisation des services de santé par type d’établissement",
 			unit: "nombre",
 			article: "de ",
-			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
+			path : `${PATH_PREFIX}data/statistics/tab_15_taux_util_serv_sante_par_etablissmnt.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [	
-				{ fld_name : "FLD1", short_name : "Population totale 2017", long_name : "Population totale 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD2", short_name : "Nombre total de Consultants ESPC 2017", long_name : "Nombre total de Consultants ESPC 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD3", short_name : "Taux d'utilisation ESPC 2017 (%)", long_name : "Taux d'utilisation ESPC 2017 (%)", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD4", short_name : "Nombre total de Consultants Hopitaux de reference (HG & CHR) 2017", long_name : "Nombre total de Consultants Hopitaux de reference (HG & CHR) 2017", data_type :  "INT", unit : "nombre" },
-				{ fld_name : "FLD5", short_name : "Taux d'utilisation HR (HG&2017 (%)", long_name : "Taux d'utilisation HR (HG&2017 (%)", data_type :  "INT", unit : "nombre" }
+			data_fields : 	[
+				{
+					fld_name: "FLD1",
+					short_name: "Population totale 2017",
+					long_name: "Population totale 2017",
+					data_type: "INT",
+					unit: "Habitants"
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Nbr total de Consultants ESPC",
+					long_name: "Nombre total de Consultants dans les établissements Sanitaires de Premier Contact",
+					data_type: "INT",
+					unit: "consultants",	
+			 		renderer: {
+			 			"default": {
+							source: "manual",
+							threshold: [ 200000, 400000, 600000, 800000, 1000000 ],
+							colormap:  ['#feebe2','#fcc5c0','#fa9fb5','#f768a1','#c51b8a','#7a0177'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 200m", "200m-400m", "400m-600m" , "600m-800m" , "800m-1000m", "1000m et plus" ],
+							legendtitle: "Nbr total de Consultants ESPC"
+						},
+			 			"district_sante": {
+							source: "manual",
+							threshold: [ 30000, 50000, 100000, 150000, 300000 ],
+							colormap:  ['#feebe2','#fcc5c0','#fa9fb5','#f768a1','#c51b8a','#7a0177'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 30m", "30m-50m", "50m-100m" , "100m-150m" , "150m-300m", "300m et plus" ],
+							legendtitle: "Nbr total de Consultants ESPC"
+						}						
+					}
+				},
+				{
+					fld_name: "FLD3",
+					short_name: "Taux d'utilisation ESPC (%)",
+					long_name: "Taux d'utilisation des Etablissements Sanitaires de Premier Contact (%)",
+					data_type: "INT",
+					unit: "%",	
+			 		renderer: {
+			 			default: {
+							source: "manual",
+							threshold: [ 30, 35, 40, 45, 50],
+							colormap:  ['#ffffb2','#fed976','#feb24c','#fd8d3c','#f03b20','#bd0026'],
+							linecolor: "#fff",
+							labelmap:  [ "0-30%", "30-35%", "35-40%" , "40-45%" , "45-50%", "50% et plus" ],
+							legendtitle: "Taux d'utilisation ESPC (%)"
+				 		}
+			 		}
+				},
+				{
+					fld_name: "FLD4",
+					short_name: "Nombre total de Consultants en HR (HG & CHR)",
+					long_name: "Nombre total de Consultants Hopitaux de référence (HG & CHR)",
+					data_type: "INT",
+					unit: "Consultants",					
+			 		renderer: {
+		 				"district_sante": {
+							source: "manual",
+							threshold: [5000, 25000, 50000, 100000, 150000 ],
+							colormap:  ['#feebe2','#fcc5c0','#fa9fb5','#f768a1','#c51b8a','#7a0177'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 5m", "5m-25m", "25m-50m" , "50m-100m" , "100m-150m", "150m et plus" ],
+							legendtitle: "Nbr total de Consultants ESPC"
+				 		}, 
+				 		"default": {
+							source: "manual",
+							threshold: [50000, 100000, 200000, 300000, 400000 ],
+							colormap:  ['#feebe2','#fcc5c0','#fa9fb5','#f768a1','#c51b8a','#7a0177'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 40m", "40m-100m", "100m-200m" , "200m-300m" , "300m-400m", "400m et plus" ],
+							legendtitle: "Nbr total de Consultants ESPC"
+				 		}
+			 		}
+				},
+				{
+					fld_name: "FLD5",
+					short_name: "Taux d'utilisation HR (HG & CHR)(%)",
+					long_name:  "Taux d'utilisation HR (HG & CHR)(%)",
+					data_type: "INT",
+					unit: "%",	
+			 		renderer: {
+			 			default: {
+							source: "manual",
+							threshold: [ 5, 7.5, 10, 12, 16 ],
+							colormap:  ["#ffffff","#ccccff","#9999ff","#6666ff","#3333ff","#09098e"],
+							linecolor: "#fff",
+							labelmap:  [ "0-5%", "5-10%", "10%-12%" , "12-14%" , "14-16%", "16% et plus" ],
+							legendtitle: "Taux de frequentation HR (HG & CHR)(%)"
+				 		}
+			 		}
+				}
 			]
 		},
-
 		{
 			index : 16,
 			name : "taux_frequentation_service_sante", 
@@ -1156,7 +1205,7 @@ var metaDataBase = {
 			 		short_name: "Population totale",
 			 		long_name: " Population totale",
 			 		data_type: "INT",
-			 		unit: "nombre"
+			 		unit: "Habitant"
 			 	},
 			 	{
 			 		fld_name: "FLD2",
@@ -1167,18 +1216,20 @@ var metaDataBase = {
 			 	},
 			 	{
 			 		fld_name: "FLD3",
-			 		short_name: "Taux de fréquentation (%)",
+			 		short_name: "Taux de fréquentation des service de santé (%)",
 			 		long_name: "Taux de fréquentation (%)",
 			 		data_type: "INT",
 			 		unit: "%",				
 			 		renderer: {
-						source: "manual",
-						threshold: [  30, 40, 50, 60, 70, ],
-						colormap:  ["#ffffff","#ccccff","#9999ff","#6666ff","#3333ff","#0000ff"],
-						linecolor: "#fff",
-						labelmap:  [ "0-5%", ">5 - 10%", ">10 - 25%" , ">15-20%", ">20 - 100%" ,"+70%" ],
-						legendtitle: "Taux de frequentation HR (HG & CHR)(%)"
-					}
+			 			default: {
+							source: "manual",
+							threshold: [  30, 40, 50, 60, 70, ],
+							colormap:  ["#ffffff","#ccccff","#9999ff","#6666ff","#3333ff","#0000ff"],
+							linecolor: "#fff",
+							labelmap:  [ "0-30%", ">30 - 40%", ">40 - 50%" , ">50-60%", ">60 - 70%" ,"+70%" ],
+							legendtitle: "Taux de frequentation HR (HG & CHR)(%)"
+				 		}
+			 		}
 			 	}
 			 ]
 		},
@@ -1201,14 +1252,14 @@ var metaDataBase = {
 			data_fields : [		
 				{
 					fld_name: "FLD1",
-					short_name: "Population totale 2017",
-					long_name: "Population totale 2017",
+					short_name: "Population totale",
+					long_name: "Population totale",
 					data_type: "INT",
-					unit: "nombre"
+					unit: "habitants"
 				}, {
 					fld_name: "FLD2",
-					short_name: "Total Consultations ESPC 2017",
-					long_name: "Total Consultations ESPC 2017",
+					short_name: "Total Consultations ESPC",
+					long_name: "Total Consultations ESPC",
 					data_type: "INT",
 					unit: "consultations"
 				}, {
@@ -1217,34 +1268,38 @@ var metaDataBase = {
 					long_name: "Taux de frequentation ESPC(%)",
 					data_type: "INT",
 					unit: "% des consultations",
-					renderer: {
-						source: "manual",
-						threshold: [  20, 35, 50, 65 ],
-						colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
-						linecolor: "#fff",
-						labelmap:  [ "0-10%", ">10 - 150%", ">15 - 20%" , ">20-30%", ">30 - 100%"  ],
-						legendtitle: "Taux de frequentation ESPC(%)"
-					}
+			 		renderer: {
+			 			default: {
+								source: "manual",
+								threshold: [  20, 35, 50, 65 ],
+								colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
+								linecolor: "#fff",
+								labelmap:  [ "0-20%", ">20 - 35%", ">35 - 50%" , ">50-65%", ">60 - 100%"  ],
+								legendtitle: "Taux de frequentation ESPC(%)"
+				 		}
+			 		}
 				}, {
 					fld_name: "FLD4",
-					short_name: "Nombre total de consultation HR (CHR&HG) 2017",
-					long_name: "Nombre total de consultation HR (CHR&HG) 2017",
+					short_name: "Nombre total de consultation HR (CHR & HG)",
+					long_name: "Nombre total de consultation HR (CHR & HG)",
 					data_type: "INT",
 					unit: "consultations"
 				}, {
 					fld_name: "FLD5",
-					short_name: "Taux de frequentation HR (HG & CHR) 2017 (%)",
-					long_name: "Taux de frequentation HR (HG & CHR) 2017 (%)",
+					short_name: "Taux de frequentation HR (HG & CHR)(%)",
+					long_name: "Taux de frequentation HR (HG & CHR)(%)",
 					data_type: "INT",
 					unit: "% des consultations",
-					renderer: {
-						source: "manual",
-						threshold: [  5, 10, 15, 20 ],
-						colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
-						linecolor: "#fff",
-						labelmap:  [ "0-5%", ">5 - 10%", ">10 - 25%" , ">15-20%", ">20 - 100%"  ],
-						legendtitle: "Taux de frequentation HR (HG & CHR)(%)"
-					}
+			 		renderer: {
+			 			default: {
+							source: "manual",
+							threshold: [  5, 10, 15, 20 ],
+							colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
+							linecolor: "#fff",
+							labelmap:  [ "0-5%", ">5 - 10%", ">10 - 25%" , ">15-20%", ">20 - 100%"  ],
+							legendtitle: "Taux de frequentation HR (HG & CHR)(%)"
+				 		}
+			 		}
 				}
 			]
 		},
@@ -1299,13 +1354,15 @@ var metaDataBase = {
 			 		data_type: "INT",
 			 		unit: "%",
 			 		renderer: {
-						source: "manual",
-						threshold: [  20, 30, 40, 50 ],
-						colormap:  ['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'] ,
-						linecolor: "#fff",
-						labelmap:  [ "0%-20%", "60% - 70%", "70% - 80%" , "80% - 90%", "90% - 100%" ],
-						legendtitle: "Proportion Consultants ESPC (%)"
-					}
+			 			default: {
+							source: "manual",
+							threshold: [  20, 30, 40, 50 ],
+							colormap:  ['#ffffb2','#fecc5c','#fd8d3c','#f03b20','#bd0026'] ,
+							linecolor: "#fff",
+							labelmap:  [ "0%-20%", "60% - 70%", "70% - 80%" , "80% - 90%", "90% - 100%" ],
+							legendtitle: "Proportion Consultants ESPC (%)"
+				 		}
+			 		}
 			 	},
 			 	{
 			 		fld_name: "FLD5",
@@ -1314,16 +1371,20 @@ var metaDataBase = {
 			 		data_type: "INT",
 			 		unit: "%",
 			 		renderer: {
-						source: "manual",
-						threshold: [  10, 15, 20, 30 ],
-						colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
-						linecolor: "#fff",
-						labelmap:  [ "0-10%", ">10 - 15%", ">15 - 20%" , ">20-30%", ">30 - 100%"  ],
-						legendtitle: "Proportion Consultants HG & CHR (%)"
-					}
+			 			default: {
+							source: "manual",
+							threshold: [  10, 15, 20, 30 ],
+							colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
+							linecolor: "#fff",
+							labelmap:  [ "0-10%", ">10 - 15%", ">15 - 20%" , ">20-30%", ">30 - 100%"  ],
+							legendtitle: "Proportion Consultants HG & CHR (%)"
+				 		}
+			 		}
 			 	}
 			 ]
 		},
+
+
 		{
 			index : 33,
 			name : "couverture_vaccinale", 
@@ -1502,7 +1563,7 @@ var metaDataBase = {
 			valid: true,
 			table_num :"Tableau-40",
 			layerList : [ "region_sante" , "district_sante"],
-			label: "40- incidence de l'anémie",
+			label: "40-Incidence de l'anémie",
 			unit: "nombre",
 			article: "de ",
 			path : `${PATH_PREFIX}data/statistics/tab_40_incidence_anemie.csv`,
@@ -1541,7 +1602,6 @@ var metaDataBase = {
 				}
 
 			]
-
 		},
 		{
 			index : 41,
@@ -1636,14 +1696,14 @@ var metaDataBase = {
 				{
 					fld_name: "FLD2",
 					short_name: "Nombre de cas d’IRA chez les Enfants",
-					long_name:  "Nombre de cas d’IRA chez les Enfants",
+					long_name:  "Nombre de cas d’infections respiratoires aiguës chez les Enfants",
 					data_type:  "INT",
 					unit: "nombre"
 				},
 				{
 					fld_name:   "FLD3",
 					short_name: "Taux d'incidence IRA chez les Enfants",
-					long_name:  "Taux d'incidence IRA chez les Enfants",
+					long_name:  "Taux d'incidence d’infections respiratoires aiguës chez les Enfants",
 					data_type:  "INT",
 					unit: "‰",
 					renderer: {
@@ -1683,14 +1743,14 @@ var metaDataBase = {
 				{
 					fld_name: "FLD2",
 					short_name: "Nombre de cas d'IRA dans la population générale",
-					long_name: "Nombre de cas d'IRA dans la population générale",
+					long_name: "Nombre de cas d’infections respiratoires aiguës dans la population générale",
 					data_type: "INT",
 					unit: "nombre" 
 				},
 				{
 					fld_name: "FLD3",
 					short_name: "Incidence d'IRA dans la population générale (‰)",
-					long_name: "Incidence d'IRA dans la population générale (‰)",
+					long_name: "Incidence d’infections respiratoires aiguës dans la population générale (‰)",
 					data_type: "INT",
 					unit: "cas pour 1 000 hbts",
 					renderer: {
@@ -1702,7 +1762,68 @@ var metaDataBase = {
 					}
 				}
 			]
-		}, {
+		}, 
+		{
+			index : 45,
+			name: "std",
+			valid: false,
+			table_num :"Tableau-45",
+			layerList : [ 
+				"region_sante" , 
+				"district_sante"
+			],
+			label: "45-Maladies sexuellement transmissibles",
+			unit: "cas déclaré(s)",
+			article: "de ",
+			path : `${PATH_PREFIX}data/statistics/tab_45_std.csv`,
+			source: "Ministère de la Santé et de l’Hygiène Publique",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "Purples",
+			field_selected : default_field_selection,			
+		    data_fields : [
+				{ "fld_name" : "FLD1",  "short_name" : " 10-14 ans (F)" , "long_name" : " 10-14 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD2",  "short_name" : " 10-14 ans (M)" , "long_name" : " 10-14 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD3",  "short_name" : " 15-24 ans (F)" , "long_name" : " 15-24 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD4",  "short_name" : " 15-24 ans (M)" , "long_name" : " 15-24 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD5",  "short_name" : " 25-49 ans (F)" , "long_name" : " 25-49 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD6",  "short_name" : " 25-49 ans (M)" , "long_name" : " 25-49 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD7",  "short_name" : " 50 ans et plus (F)" , "long_name" : " 50 ans et plus (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD8",  "short_name" : " 50 ans et plus (M)" , "long_name" : " 50 ans et plus (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD9",  "short_name" : " Total cas d’écoulement génital " , "long_name" : " Total de cas d’écoulement génital (urétral /vaginal) diagnostiqués"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD10", "short_name" : " 10-14 ans (F)" , "long_name" : " 10-14 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD11", "short_name" : " 10-14 ans (M)" , "long_name" : " 10-14 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD12", "short_name" : " 15-24 ans (F)" , "long_name" : " 15-24 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD13", "short_name" : " 15-24 ans (M)" , "long_name" : " 15-24 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD14", "short_name" : " 25-49 ans (F)" , "long_name" : " 25-49 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD15", "short_name" : " 25-49 ans (M)" , "long_name" : " 25-49 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD16", "short_name" : " 50 ans et plus (F)" , "long_name" : " 50 ans et plus (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD17", "short_name" : " 50 ans et plus (M)" , "long_name" : " 50 ans et plus (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD18", "short_name" : " Total cas d’ulcération génitale" , "long_name" : " Total de cas d’ulcération génitale et/ou bubon diagnostiqués"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD19", "short_name" : " 10-14 ans (F)" , "long_name" : " 10-14 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD20", "short_name" : " 10-14 ans (M)" , "long_name" : " 10-14 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD21", "short_name" : " 15-24 ans (F)" , "long_name" : " 15-24 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD22", "short_name" : " 15-24 ans (M)" , "long_name" : " 15-24 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD23", "short_name" : " 25-49 ans (F)" , "long_name" : " 25-49 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD24", "short_name" : " 25-49 ans (M)" , "long_name" : " 25-49 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD25", "short_name" : " 50 ans et plus (F)" , "long_name" : " 50 ans et plus (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD26", "short_name" : " 50 ans et plus (M)" , "long_name" : " 50 ans et plus (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD27", "short_name" : " Total cas de douleurs testiculaires ou pelviennes" , "long_name" : " Total de cas de douleurs testiculaires/abdominales basses (pelviennes) diagnostiqués"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD28", "short_name" : " 10-14 ans (F)" , "long_name" : " 10-14 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD29", "short_name" : " 10-14 ans (M)" , "long_name" : " 10-14 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD30", "short_name" : " 15-24 ans (F)" , "long_name" : " 15-24 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD31", "short_name" : " 15-24 ans (M)" , "long_name" : " 15-24 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD32", "short_name" : " 25-49 ans (F)" , "long_name" : " 25-49 ans (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD33", "short_name" : " 25-49 ans (M)" , "long_name" : " 25-49 ans (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD34", "short_name" : " 50 ans et plus (F)" , "long_name" : " 50 ans et plus (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD35", "short_name" : " 50 ans et plus (M)" , "long_name" : " 50 ans et plus (M)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD36", "short_name" : " Total cas de condylome" , "long_name" : " Total de cas de condylome diagnostiqués"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD37", "short_name" : " Total cas d'IST Adultes (2017)" , "long_name" : " Nombre total des cas d'IST chez les Adultes 2017"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD38", "short_name" : " Nb total cas de conjonctivite du nouveau-né (F)" , "long_name" : " Nombre total de cas de  conjonctivite du nouveau-né diagnostiqués (Enfant 0-28 jours ) (F)"  , "data_type" : "INT", unit: "Nombre de cas"},
+				{ "fld_name" : "FLD39", "short_name" : " Nb total de cas de conjonctivite (M)" , "long_name" : " Nombre total de cas de conjonctivite du nouveau-né diagnostiqués (Enfant 0-28 jours ) (M)"  , "data_type" : "INT", unit: "Nombre de cas"}
+			]	    
+        },
+		{
 
 			index : 79,
 			name : "deces_notifie_et_causes", 
@@ -5378,16 +5499,13 @@ function updateMapColors(){
 	// Par principe, le moteur de rendu "manual" doit pas être modifié;
 		renderer = r
 		metaData.renderer_interpolated = r;
-
 	}
-
 
 	var color_mapper = d3.scale.threshold()
 		.domain( renderer.threshold )
 		.range(  renderer.colormap );
 
 	var line_color = renderer.linecolor || "#444";
-
 
 	mapFeatures.selectAll('path')
 		.style( "stroke-width", 0.5 )
@@ -5405,6 +5523,7 @@ function updateMapColors(){
     function _get_relevant_renderer(){
     	var r
 		var rndr_fld = currentMetaField.renderer
+		var rnd_key
 
 		if (rndr_fld === undefined) {
 
@@ -5417,7 +5536,12 @@ function updateMapColors(){
 				r = currentMetaTable.renderer
 				r.legendtitle = currentMetaField.short_name
 			} else {
-				r = rndr_fld
+				//We use a field level renderer : we check if render depend on Spatial_layer
+				rnd_key = (rndr_fld[ currentMetaGeo.name] === undefined)? 
+									"default" : 
+							currentMetaGeo.name
+				          r = rndr_fld[rnd_key]
+
 			}
 		} 
 		return (r);    	

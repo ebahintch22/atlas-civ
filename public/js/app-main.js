@@ -448,16 +448,13 @@ function updateMapColors(){
 	// Par principe, le moteur de rendu "manual" doit pas être modifié;
 		renderer = r
 		metaData.renderer_interpolated = r;
-
 	}
-
 
 	var color_mapper = d3.scale.threshold()
 		.domain( renderer.threshold )
 		.range(  renderer.colormap );
 
 	var line_color = renderer.linecolor || "#444";
-
 
 	mapFeatures.selectAll('path')
 		.style( "stroke-width", 0.5 )
@@ -475,6 +472,7 @@ function updateMapColors(){
     function _get_relevant_renderer(){
     	var r
 		var rndr_fld = currentMetaField.renderer
+		var rnd_key
 
 		if (rndr_fld === undefined) {
 
@@ -487,7 +485,12 @@ function updateMapColors(){
 				r = currentMetaTable.renderer
 				r.legendtitle = currentMetaField.short_name
 			} else {
-				r = rndr_fld.default
+				//We use a field level renderer : we check if render depend on Spatial_layer
+				rnd_key = (rndr_fld[ currentMetaGeo.name] === undefined)? 
+									"default" : 
+							currentMetaGeo.name
+				          r = rndr_fld[rnd_key]
+
 			}
 		} 
 		return (r);    	
