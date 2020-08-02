@@ -487,7 +487,7 @@ function updateMapColors(){
 				r = currentMetaTable.renderer
 				r.legendtitle = currentMetaField.short_name
 			} else {
-				r = rndr_fld
+				r = rndr_fld.default
 			}
 		} 
 		return (r);    	
