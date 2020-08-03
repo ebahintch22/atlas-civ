@@ -89,6 +89,7 @@ var metaDataBase = {
 		"std",
 		"covid-19",
 		"covid-19-june16",
+		"geographic_accessibility",
 		"taux_util_serv_sante_par_etablissmnt",
 		"taux_frequentation_service_sante",
 		"taux_frequentation",
@@ -101,6 +102,13 @@ var metaDataBase = {
 		"incidence_coqueluche",
 		"deces_notifie_et_causes"
 	],
+	tables_promoted : [
+		"covid-19-june16",
+		"geographic_accessibility",
+		"taux_util_serv_sante_par_etablissmnt",
+		"taux_frequentation_service_sante",
+		"taux_frequentation"
+	],	
 	color_palettes : [ 
 			{ name:"YlGnBu"}, 
 			{ name:"YlOrRd"}, 
@@ -124,11 +132,13 @@ var metaDataBase = {
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : {
-				   source : "manual",
-				threshold : [ 1, 5, 10, 100, 1000],
-				 colormap : ['#ffffff' , '#fcf285', '#F6B20D' , '#CC5526', '#C22C1C' , '#660207'],  
-				 labelmap : ['Aucun cas' , "", "Incidence faible", "Incidence Moyenne" , "Incidence élevée", "Epicentres"],
-			  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+				default : {
+					   source : "manual",
+					threshold : [ 1, 5, 10, 100, 1000],
+					 colormap : ['#ffffff' , '#fcf285', '#F6B20D' , '#CC5526', '#C22C1C' , '#660207'],  
+					 labelmap : ['Aucun cas' , "", "Incidence faible", "Incidence Moyenne" , "Incidence élevée", "Epicentres"],
+				  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+				}
 			},
 			layout : "COVID",
 			color_palette: "YlOrRd",
@@ -463,6 +473,60 @@ var metaDataBase = {
 			]
 		},	
 		{
+			index : 13,
+			name: "geographic_accessibility", 
+			valid: true,
+			table_num :"Tableau-13",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "13-Accessibilité Géographique 2017",
+			unit: "%",
+			article: "de ",
+			path : `${PATH_PREFIX}data/statistics/tab_13_geographic_accessibility.csv`,
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : {
+	 			"default": {
+					source: "manual",
+					threshold: [ 10, 20, 40, 60, 80 ],
+					colormap:  ['#ffffb2','#fed976','#feb24c','#fd8d3c','#f03b20','#bd0026'],
+					linecolor: "#fff",
+					labelmap:  [ "moins de 10%", "10-20%", "20-40%", "40-60%" , "60-80%" ,  "80% et plus" ],
+					legendtitle: "Population au délà de 5 km d'un CS (%)"
+				}
+			},
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields :[
+				{
+					fld_name: "FLD1",
+					short_name: "Population à moins de 5 km d'un CS (%)",
+					long_name: "Population à moins de 5 km d'un centre de santé (%)",
+					data_type: "INT",
+					unit: "%"
+				}, {
+					fld_name: "FLD2",
+					short_name: "Population entre 5 et 15 km d'un CS (%)",
+					long_name: "Population entre 5 et 15 km d'un centre de santé (%)",
+					data_type: "INT",
+					unit: "%"
+				}, {
+					fld_name: "FLD3",
+					short_name: "Population au délà de 15 km d'un CS (%)",
+					long_name: "Population au délà de 15 km d'un centre de santé (%)",
+					data_type: "INT",
+					unit: "%"
+				}, {
+					fld_name: "FLD4",
+					short_name: "Population au délà de 5 km d'un CS (%)",
+					long_name: "Population au délà de 5 km d'un centre de santé (%)",
+					data_type: "INT",
+					unit: "%",
+					renderer : "default"
+				}	
+			 ]
+		},
+
+		{
 			index : 14,
 			name: "xxxxxxxxxxxxxxxxx", 
 			valid: false,
@@ -501,7 +565,6 @@ var metaDataBase = {
 			 	}
 			 ]
 		},
-
 
 
 		{
@@ -827,11 +890,13 @@ var metaDataBase = {
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : {
+				default : {
 				   source : "manual",
 				threshold : [ 80, 92],
 				 colormap : ['#ff0000' , '#ffff00', '#4ce600' ],  
 				 labelmap : ["Insuffisante" , "Moyenne", "Satisfaisante" ],
 			  legendtitle : "Couverture vaccinale ({{health}})"
+				}
 			},
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,

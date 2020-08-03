@@ -439,9 +439,11 @@ function updateMapColors(){
 	
 
 	// le moteur de rendu "auto" doit actualiser son domaine de valeur en fonction du champ actif
+	// il est forcement le moteur par defaut car la classification étant établie automatiquement
+	// il est valable pour toutes les niveaux d'échelle
 	if (r.source == "auto") {
 
-		renderer = get_renderer( r.count, [ (1 + vmin ) , vmax ] , r.color_range )
+		renderer = get_renderer( r.count, [ (1 + vmin ) , vmax ] , r.color_range )["default"]
 		metaData.renderer_interpolated = renderer;
 
 	} else {
@@ -470,30 +472,40 @@ function updateMapColors(){
     updateLegend( renderer , true);
 
     function _get_relevant_renderer(){
-    	var r
+    	var rndr_mtable, r
 		var rndr_fld = currentMetaField.renderer
 		var rnd_key
 
 		if (rndr_fld === undefined) {
 
-			r = currentMetaTable.renderer
-			r.legendtitle = currentMetaField.short_name
+			rndr_mtable = currentMetaTable.renderer
+			rnd_key = select_render_key(rndr_mtable)  
+
+			r = rndr_mtable[rnd_key];		
+			r.legendtitle = currentMetaField.short_name ;
 
 		} else {
 
 			if ( rndr_fld == "default" ) {
-				r = currentMetaTable.renderer
+
+				rndr_mtable = currentMetaTable.renderer
+				rnd_key = select_render_key(rndr_mtable) 
+
+				r = rndr_mtable[ rnd_key ]
 				r.legendtitle = currentMetaField.short_name
+
 			} else {
 				//We use a field level renderer : we check if render depend on Spatial_layer
-				rnd_key = (rndr_fld[ currentMetaGeo.name] === undefined)? 
-									"default" : 
-							currentMetaGeo.name
-				          r = rndr_fld[rnd_key]
-
+				rnd_key = select_render_key(rndr_fld)  
+		        r = rndr_fld[rnd_key]
 			}
 		} 
-		return (r);    	
+
+			return (r);    	
+	    }
+
+	    function select_render_key( in_rndr){
+	    	return ( (in_rndr[ currentMetaGeo.name] === undefined)? "default" : currentMetaGeo.name )
 	    }
  }
 

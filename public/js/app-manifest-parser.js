@@ -5,13 +5,15 @@ var default_field_selection = function(){return (this.fld_name === "FLD1")? 'sel
 function get_renderer ( count, value_range, color_range, labelmap = []){
 	var v = value_range
 	return {
-		      count : count,
- 		  threshold : (v.length==0)? v : get_value_range(count, value_range[0], value_range[1] ),
- 		   colormap : get_color_range(count, color_range[0], color_range[1]),
- 		value_range : array_copy(value_range),
- 		color_range : array_copy(color_range),
- 		   labelmap : array_copy(labelmap),
- 		     source : "auto"
+	    default : {
+			      count : count,
+	 		  threshold : (v.length==0)? v : get_value_range(count, value_range[0], value_range[1] ),
+	 		   colormap : get_color_range(count, color_range[0], color_range[1]),
+	 		value_range : array_copy(value_range),
+	 		color_range : array_copy(color_range),
+	 		   labelmap : array_copy(labelmap),
+	 		     source : "auto"	    	
+	    }
 	}
 
 	function get_color_range ( count, start = "#ffffff", end = "#000000"){

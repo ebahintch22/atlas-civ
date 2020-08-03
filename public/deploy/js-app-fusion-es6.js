@@ -493,13 +493,15 @@ var default_field_selection = function(){return (this.fld_name === "FLD1")? 'sel
 function get_renderer ( count, value_range, color_range, labelmap = []){
 	var v = value_range
 	return {
-		      count : count,
- 		  threshold : (v.length==0)? v : get_value_range(count, value_range[0], value_range[1] ),
- 		   colormap : get_color_range(count, color_range[0], color_range[1]),
- 		value_range : array_copy(value_range),
- 		color_range : array_copy(color_range),
- 		   labelmap : array_copy(labelmap),
- 		     source : "auto"
+	    default : {
+			      count : count,
+	 		  threshold : (v.length==0)? v : get_value_range(count, value_range[0], value_range[1] ),
+	 		   colormap : get_color_range(count, color_range[0], color_range[1]),
+	 		value_range : array_copy(value_range),
+	 		color_range : array_copy(color_range),
+	 		   labelmap : array_copy(labelmap),
+	 		     source : "auto"	    	
+	    }
 	}
 
 	function get_color_range ( count, start = "#ffffff", end = "#000000"){
@@ -660,6 +662,7 @@ var metaDataBase = {
 		"std",
 		"covid-19",
 		"covid-19-june16",
+		"geographic_accessibility",
 		"taux_util_serv_sante_par_etablissmnt",
 		"taux_frequentation_service_sante",
 		"taux_frequentation",
@@ -695,11 +698,13 @@ var metaDataBase = {
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : {
-				   source : "manual",
-				threshold : [ 1, 5, 10, 100, 1000],
-				 colormap : ['#ffffff' , '#fcf285', '#F6B20D' , '#CC5526', '#C22C1C' , '#660207'],  
-				 labelmap : ['Aucun cas' , "", "Incidence faible", "Incidence Moyenne" , "Incidence élevée", "Epicentres"],
-			  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+				default : {
+					   source : "manual",
+					threshold : [ 1, 5, 10, 100, 1000],
+					 colormap : ['#ffffff' , '#fcf285', '#F6B20D' , '#CC5526', '#C22C1C' , '#660207'],  
+					 labelmap : ['Aucun cas' , "", "Incidence faible", "Incidence Moyenne" , "Incidence élevée", "Epicentres"],
+				  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+				}
 			},
 			layout : "COVID",
 			color_palette: "YlOrRd",
@@ -1034,6 +1039,60 @@ var metaDataBase = {
 			]
 		},	
 		{
+			index : 13,
+			name: "geographic_accessibility", 
+			valid: true,
+			table_num :"Tableau-13",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "13-Accessibilité Géographique 2017",
+			unit: "%",
+			article: "de ",
+			path : `${PATH_PREFIX}data/statistics/tab_13_geographic_accessibility.csv`,
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : {
+	 			"default": {
+					source: "manual",
+					threshold: [ 10, 20, 40, 60, 80 ],
+					colormap:  ['#ffffb2','#fed976','#feb24c','#fd8d3c','#f03b20','#bd0026'],
+					linecolor: "#fff",
+					labelmap:  [ "moins de 10%", "10-20%", "20-40%", "40-60%" , "60-80%" ,  "80% et plus" ],
+					legendtitle: "Population au délà de 5 km d'un CS (%)"
+				}
+			},
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields :[
+				{
+					fld_name: "FLD1",
+					short_name: "Population à moins de 5 km d'un CS (%)",
+					long_name: "Population à moins de 5 km d'un centre de santé (%)",
+					data_type: "INT",
+					unit: "%"
+				}, {
+					fld_name: "FLD2",
+					short_name: "Population entre 5 et 15 km d'un CS (%)",
+					long_name: "Population entre 5 et 15 km d'un centre de santé (%)",
+					data_type: "INT",
+					unit: "%"
+				}, {
+					fld_name: "FLD3",
+					short_name: "Population au délà de 15 km d'un CS (%)",
+					long_name: "Population au délà de 15 km d'un centre de santé (%)",
+					data_type: "INT",
+					unit: "%"
+				}, {
+					fld_name: "FLD4",
+					short_name: "Population au délà de 5 km d'un CS (%)",
+					long_name: "Population au délà de 5 km d'un centre de santé (%)",
+					data_type: "INT",
+					unit: "%",
+					renderer : "default"
+				}	
+			 ]
+		},
+
+		{
 			index : 14,
 			name: "xxxxxxxxxxxxxxxxx", 
 			valid: false,
@@ -1072,7 +1131,6 @@ var metaDataBase = {
 			 	}
 			 ]
 		},
-
 
 
 		{
@@ -1398,11 +1456,13 @@ var metaDataBase = {
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : {
+				default : {
 				   source : "manual",
 				threshold : [ 80, 92],
 				 colormap : ['#ff0000' , '#ffff00', '#4ce600' ],  
 				 labelmap : ["Insuffisante" , "Moyenne", "Satisfaisante" ],
 			  legendtitle : "Couverture vaccinale ({{health}})"
+				}
 			},
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
@@ -5490,9 +5550,11 @@ function updateMapColors(){
 	
 
 	// le moteur de rendu "auto" doit actualiser son domaine de valeur en fonction du champ actif
+	// il est forcement le moteur par defaut car la classification étant établie automatiquement
+	// il est valable pour toutes les niveaux d'échelle
 	if (r.source == "auto") {
 
-		renderer = get_renderer( r.count, [ (1 + vmin ) , vmax ] , r.color_range )
+		renderer = get_renderer( r.count, [ (1 + vmin ) , vmax ] , r.color_range )["default"]
 		metaData.renderer_interpolated = renderer;
 
 	} else {
@@ -5521,30 +5583,40 @@ function updateMapColors(){
     updateLegend( renderer , true);
 
     function _get_relevant_renderer(){
-    	var r
+    	var rndr_mtable, r
 		var rndr_fld = currentMetaField.renderer
 		var rnd_key
 
 		if (rndr_fld === undefined) {
 
-			r = currentMetaTable.renderer
-			r.legendtitle = currentMetaField.short_name
+			rndr_mtable = currentMetaTable.renderer
+			rnd_key = select_render_key(rndr_mtable)  
+
+			r = rndr_mtable[rnd_key];		
+			r.legendtitle = currentMetaField.short_name ;
 
 		} else {
 
 			if ( rndr_fld == "default" ) {
-				r = currentMetaTable.renderer
+
+				rndr_mtable = currentMetaTable.renderer
+				rnd_key = select_render_key(rndr_mtable) 
+
+				r = rndr_mtable[ rnd_key ]
 				r.legendtitle = currentMetaField.short_name
+
 			} else {
 				//We use a field level renderer : we check if render depend on Spatial_layer
-				rnd_key = (rndr_fld[ currentMetaGeo.name] === undefined)? 
-									"default" : 
-							currentMetaGeo.name
-				          r = rndr_fld[rnd_key]
-
+				rnd_key = select_render_key(rndr_fld)  
+		        r = rndr_fld[rnd_key]
 			}
 		} 
-		return (r);    	
+
+			return (r);    	
+	    }
+
+	    function select_render_key( in_rndr){
+	    	return ( (in_rndr[ currentMetaGeo.name] === undefined)? "default" : currentMetaGeo.name )
 	    }
  }
 
