@@ -1109,7 +1109,7 @@ var metaDataBase = {
 			label: "14-Taux d'utilisation des services de santé",
 			unit: "nombre",
 			article: "de ",
-			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
+			path : `${PATH_PREFIX}data/statistics/tab_14_taux_util_serv_sante.csv`,
 			source: "DIIS/INS",
 			data_parser : DEFAULT_PARSER,
 			renderer : get_renderer( 5 , [] , ['white', 'yellow']),
