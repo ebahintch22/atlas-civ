@@ -90,6 +90,7 @@ var metaDataBase = {
 		"covid-19",
 		"covid-19-june16",
 		"geographic_accessibility",
+		"taux_utilisation_serv_sante",
 		"taux_util_serv_sante_par_etablissmnt",
 		"taux_frequentation_service_sante",
 		"taux_frequentation",
@@ -528,11 +529,11 @@ var metaDataBase = {
 
 		{
 			index : 14,
-			name: "xxxxxxxxxxxxxxxxx", 
-			valid: false,
+			name: "taux_utilisation_serv_sante", 
+			valid: true,
 			table_num :"Tableau-14",
 			layerList : [ "region_sante" , "district_sante"],
-			label: "xxxxxx",
+			label: "14-Taux d'utilisation des services de santé",
 			unit: "nombre",
 			article: "de ",
 			path : `${PATH_PREFIX}data/statistics/tab_xx_axxxxxxx.csv`,
@@ -547,21 +548,21 @@ var metaDataBase = {
 			 		short_name: "Population totale 2017",
 			 		long_name: "Population totale 2017",
 			 		data_type: "INT",
-			 		unit: "nombre"
+			 		unit: "habitants"
 			 	},
 			 	{
 			 		fld_name: "FLD2",
-			 		short_name: "Nombre total de Consultants 2017",
-			 		long_name: "Nombre total de Consultants 2017",
+			 		short_name: "Nbre total de Consultants",
+			 		long_name: "Nombre total de Consultants",
 			 		data_type: "INT",
-			 		unit: "nombre"
+			 		unit: "consultants"
 			 	},
 			 	{
 			 		fld_name: "FLD3",
-			 		short_name: "Taux d'utilisation 2017(%)",
-			 		long_name: "Taux d'utilisation 2017(%)",
+			 		short_name: "Taux d'utilisation(%)",
+			 		long_name: "Taux d'utilisation(%)",
 			 		data_type: "INT",
-			 		unit: "nombre"
+			 		unit: "%"
 			 	}
 			 ]
 		},
