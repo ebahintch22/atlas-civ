@@ -723,8 +723,8 @@ var metaDataBase = {
 			data_fields : [
 				{
 			 		fld_name: "FLD1",
-			 		short_name: "COVID-19: Répartition des cas confirmés (au 16 juin 2020)",
-			 		long_name: " Nombre de cas confirmés de COVID-19",
+			 		short_name: " Nombre de cas confirmés de COVID-19",
+			 		long_name: "COVID-19: Répartition des cas confirmés (au 16 juin 2020)",
 			 		data_type: "INT",
 			 		unit: "cas confirmés de COVID-19",
 			 		renderer: {
@@ -740,7 +740,7 @@ var metaDataBase = {
 			 	{
 			 		fld_name: "FLD2",
 			 		short_name: "Nb de décès dus à la COVID-19",
-			 		long_name: "Nombre de décès dus à la COVID-19 ",
+			 		long_name: "Nombre de décès dus à la COVID-19 (au 16 juin 2020)",
 			 		data_type: "INT",
 			 		unit: "décès dus à la COVID-19",
 			 		renderer: {
@@ -804,23 +804,96 @@ var metaDataBase = {
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
 			data_fields : [
-				{ fld_name: "FLD1", short_name: "Population totale 2017", long_name: "Population totale 2017", data_type: "INT", unit: "habitants"},
-				{ fld_name: "FLD2", short_name: "Population 0 à 11 mois", long_name: "Population 0 à 11 mois", data_type: "INT", unit: "habitants"},
-				{ fld_name: "FLD3", short_name: "Population 0 à 4 ans", long_name: "Population 0 à 4 ans", data_type: "INT", unit: "habitants"},
-				{ fld_name: "FLD4", short_name: "Population de moins de 15 ans", long_name: "Population de moins de 15 ans", data_type: "INT", unit: "habitants"},
-				{ fld_name: "FLD5", short_name: "Population de 15 ans et plus", long_name: "Population de 15 ans et plus", data_type: "INT", unit: "habitants"},
-				{ fld_name: "FLD6", short_name: "Nb. de femmes en âge de procréer", long_name: "Femme en âge de procréer", data_type: "INT", unit: "FAP"},
-				{ fld_name: "FLD7", short_name: "Nb. de grossesses attendues", long_name: "Grossesses attendues", data_type: "INT", unit: "grossesses attendues"},
-				{ fld_name: "FLD8", short_name: "Nb. de naissances attendues", long_name: "Naissances attendues", data_type: "INT", unit: "naissances attendues"},
-				{ fld_name: "FLD9", short_name: "Nb. de Complications obstétricales attendues", long_name: "Complications obstétricales attendues", data_type: "INT", unit: "cas de complication attendus"}
+				{
+					fld_name: "FLD1",
+					short_name: "Population totale 2017",
+					long_name: "Population totale 2017",
+					data_type: "INT",
+					unit: "habitants",
+					renderer : {
+			 			"default": {
+							source: "manual",
+							threshold: [ 500000, 1000000, 1500000, 2000000, 3000000 ],
+							colormap:   ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 500m", "500-400m", "1000-1500m" , "1500-2000m" , "2000-3000m", "3000m et plus" ],
+							legendtitle: "Population totale 2017 par Région"
+						},
+			 			"district_sante": {
+							source: "manual",
+							threshold: [ 50000, 100000, 200000, 500000, 1000000 ],
+							colormap:  ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 50m", "50-100m", "100-200m" , "200-500m" , "500-1000m", "1000m et +" ],
+							legendtitle: "Population totale 2017 par district"
+						}						
+					}
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Population 0 à 11 mois",
+					long_name: "Population 0 à 11 mois",
+					data_type: "INT",
+					unit: "habitants"
+				},
+				{
+					fld_name: "FLD3",
+					short_name: "Population 0 à 4 ans",
+					long_name: "Population 0 à 4 ans",
+					data_type: "INT",
+					unit: "habitants"
+				},
+				{
+					fld_name: "FLD4",
+					short_name: "Population de moins de 15 ans",
+					long_name: "Population de moins de 15 ans",
+					data_type: "INT",
+					unit: "habitants"
+				},
+				{
+					fld_name: "FLD5",
+					short_name: "Population de 15 ans et plus",
+					long_name: "Population de 15 ans et plus",
+					data_type: "INT",
+					unit: "habitants"
+				},
+				{
+					fld_name: "FLD6",
+					short_name: "Nb. de femmes en âge de procréer",
+					long_name: "Femme en âge de procréer",
+					data_type: "INT",
+					unit: "FAP"
+				},
+				{
+					fld_name: "FLD7",
+					short_name: "Nb. de grossesses attendues",
+					long_name: "Grossesses attendues",
+					data_type: "INT",
+					unit: "grossesses attendues"
+				},
+				{
+					fld_name: "FLD8",
+					short_name: "Nb. de naissances attendues",
+					long_name: "Naissances attendues",
+					data_type: "INT",
+					unit: "naissances attendues"
+				},
+				{
+					fld_name: "FLD9",
+					short_name: "Nb. de Complications obstétricales attendues",
+					long_name: "Complications obstétricales attendues",
+					data_type: "INT",
+					unit: "cas de complication attendus"
+				}
 			]
+
 		},
 		{
 			index : 4,
 			valid: true,
-			name: "human_ressource",
+			name: "03_human_ressource",
 			layerList : [  "district_sante", "region_sante" ],
-			table_num :"Tableau-5",
+			table_num :"Tableau-3",
 			label: "03- Ressources des systèmes de santé - Personnel",
 			unit: "effectif",
 			article: "d'",
@@ -849,7 +922,7 @@ var metaDataBase = {
 		{
 			index : 5,
 			valid: true,
-			name : "ratio_prestataire_pop", 
+			name : "04_ratio_prestataire_pop", 
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau 6",
 			label: "04- Ratio Prestataires de soins - Population",
@@ -1121,21 +1194,67 @@ var metaDataBase = {
 			 		short_name: "Population totale 2017",
 			 		long_name: "Population totale 2017",
 			 		data_type: "INT",
-			 		unit: "habitants"
+			 		unit: "habitants",
+			 		renderer: {
+			 			"default": {
+							source: "manual",
+							threshold: [ 500000, 1000000, 1500000, 2000000, 3000000 ],
+							colormap:   ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 500m", "500-400m", "1000-1500m" , "1500-2000m" , "2000-3000m", "3000m et plus" ],
+							legendtitle: "Population totale 2017 par Région"
+						},
+			 			"district_sante": {
+							source: "manual",
+							threshold: [ 50000, 100000, 200000, 500000, 1000000 ],
+							colormap:  ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 50m", "50-100m", "100-200m" , "200-500m" , "500-1000m", "1000m et +" ],
+							legendtitle: "Population totale 2017 par district"
+						}						
+					}
 			 	},
 			 	{
 			 		fld_name: "FLD2",
 			 		short_name: "Nbre total de Consultants",
 			 		long_name: "Nombre total de Consultants",
 			 		data_type: "INT",
-			 		unit: "consultants"
+			 		unit: "consultants",
+			 		renderer: {
+			 			"default": {
+							source: "manual",
+							threshold: [ 200000, 500000, 750000, 1000000, 1500000 ],
+							colormap:   ['#f6eff7','#d0d1e6','#a6bddb','#67a9cf','#1c9099','#016c59'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 200m", "200-500m", "500-750m" , "750-1000m" , "1000-1500m", "1500m et plus" ],
+							legendtitle: "Nombre total de Consultants"
+						},
+			 			"district_sante": {
+							source: "manual",
+							threshold: [ 20000, 50000, 100000, 200000, 400000 ],
+							colormap:  ['#f6eff7','#d0d1e6','#a6bddb','#67a9cf','#1c9099','#016c59'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 20m", "20-50m" ,"50-100m",  "100-200m" , "200-400m", "400m et +" ],
+							legendtitle: "Nombre total de Consultants"
+						}						
+					}
 			 	},
 			 	{
 			 		fld_name: "FLD3",
 			 		short_name: "Taux d'utilisation(%)",
 			 		long_name: "Taux d'utilisation(%)",
 			 		data_type: "INT",
-			 		unit: "%"
+			 		unit: "%",
+			 		renderer: {
+			 			"default": {
+							source: "manual",
+							threshold:  [ 10, 20, 40, 60, 80],
+							colormap:   ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
+							linecolor: "#fff",
+							labelmap:  [ "moins de 500m", "500-400m", "1000-1500m" , "1500-2000m" , "2000-3000m", "3000m et plus" ],
+							legendtitle: "Taux d'utilisation des services de santé"
+						}					
+					}
 			 	}
 			 ]
 		},
@@ -1241,7 +1360,7 @@ var metaDataBase = {
 			 			default: {
 							source: "manual",
 							threshold: [ 5, 7.5, 10, 12, 16 ],
-							colormap:  ["#ffffff","#ccccff","#9999ff","#6666ff","#3333ff","#09098e"],
+							colormap:  ["#ccccff","#9999ff","#7777ff","#5555ff","#3333ff","#1111ee"],
 							linecolor: "#fff",
 							labelmap:  [ "0-5%", "5-10%", "10%-12%" , "12-14%" , "14-16%", "16% et plus" ],
 							legendtitle: "Taux de frequentation HR (HG & CHR)(%)"

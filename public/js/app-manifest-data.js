@@ -150,8 +150,8 @@ var metaDataBase = {
 			data_fields : [
 				{
 			 		fld_name: "FLD1",
-			 		short_name: "COVID-19: Répartition des cas confirmés (au 16 juin 2020)",
-			 		long_name: " Nombre de cas confirmés de COVID-19",
+			 		short_name: " Nombre de cas confirmés de COVID-19",
+			 		long_name: "COVID-19: Répartition des cas confirmés (au 16 juin 2020)",
 			 		data_type: "INT",
 			 		unit: "cas confirmés de COVID-19",
 			 		renderer: {
@@ -167,7 +167,7 @@ var metaDataBase = {
 			 	{
 			 		fld_name: "FLD2",
 			 		short_name: "Nb de décès dus à la COVID-19",
-			 		long_name: "Nombre de décès dus à la COVID-19 ",
+			 		long_name: "Nombre de décès dus à la COVID-19 (au 16 juin 2020)",
 			 		data_type: "INT",
 			 		unit: "décès dus à la COVID-19",
 			 		renderer: {
@@ -787,7 +787,7 @@ var metaDataBase = {
 			 			default: {
 							source: "manual",
 							threshold: [ 5, 7.5, 10, 12, 16 ],
-							colormap:  ["#ffffff","#ccccff","#9999ff","#6666ff","#3333ff","#09098e"],
+							colormap:  ["#ccccff","#9999ff","#7777ff","#5555ff","#3333ff","#1111ee"],
 							linecolor: "#fff",
 							labelmap:  [ "0-5%", "5-10%", "10%-12%" , "12-14%" , "14-16%", "16% et plus" ],
 							legendtitle: "Taux de frequentation HR (HG & CHR)(%)"
