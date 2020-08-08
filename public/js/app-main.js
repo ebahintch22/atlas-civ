@@ -36,6 +36,10 @@ function app_start_up(){
 	         "filter" : function(d){return (d.valid)}
 	}, function(_info){
 		Activate_thematic_section( _info.key , false)
+		if ( navtabController_RASS != undefined ){
+			navtabController_RASS.show_tab( "tab-aa");
+		}
+		
 	})
 
 
