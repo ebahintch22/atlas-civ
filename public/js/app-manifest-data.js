@@ -110,6 +110,54 @@ var metaDataBase = {
 		"taux_frequentation_service_sante",
 		"taux_frequentation"
 	],	
+	classes : [
+		{
+			name : "class1 name",
+			children : [
+				"tech_platform",
+				"ratio_ambulance_structure_sante",
+				"repartition_struct_transfusion",
+				"std",
+				"covid-19",
+				"covid-19-june16",
+				"geographic_accessibility",
+				"taux_utilisation_serv_sante"
+			]
+		},
+		{
+			name : "class2 name",
+			children : [
+				"taux_util_serv_sante_par_etablissmnt",
+				"taux_frequentation_service_sante",
+				"taux_frequentation",
+				"effectif_consultant",
+				"paludisme_u5_ans",
+				"paludisme_glo",
+				"incidence_IRA_u5_ans",
+				"incidence_IRA_glo",
+				"incidence_anemie",
+				"incidence_coqueluche",
+				"deces_notifie_et_causes"
+			]
+		},		
+		{
+			name : "class3 name",
+			children : [
+				"taux_util_serv_sante_par_etablissmnt",
+				"taux_frequentation_service_sante",
+				"taux_frequentation",
+				"effectif_consultant",
+				"paludisme_u5_ans",
+				"paludisme_glo",
+				"incidence_IRA_u5_ans",
+				"incidence_IRA_glo",
+				"incidence_anemie",
+				"incidence_coqueluche",
+				"deces_notifie_et_causes"
+			]
+		}
+	],
+
 	color_palettes : [ 
 			{ name:"YlGnBu"}, 
 			{ name:"YlOrRd"}, 
@@ -1014,6 +1062,7 @@ var metaDataBase = {
 				   source : "manual",
 				threshold : [ 80, 92],
 				 colormap : ['#ff0000' , '#ffff00', '#4ce600' ],  
+				 linecolor: "#888",
 				 labelmap : ["Insuffisante" , "Moyenne", "Satisfaisante" ],
 			  legendtitle : "Couverture vaccinale ({{health}})"
 				}
@@ -1165,6 +1214,7 @@ var metaDataBase = {
 			   			   source : "manual",
 						threshold : [ 200, 400],
 						 colormap : ["#ffffbf",  "#ffff99",  "#ffff00"],  
+						 linecolor: "#aaa",
 						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
 					  legendtitle : "Incidence globale du Paludisme"
 					}
