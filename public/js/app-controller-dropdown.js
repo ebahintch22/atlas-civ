@@ -71,9 +71,6 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 
 		var componentHtml = Mustache.render( template_drop_downn ,  menu_data );
 
-		console.log( "@@@=======>> DATASET FOR OPTIONS : " + toJSON(menu_data)   );
-		console.log( "@@@=======>> HTML CODE FOR OPTIONS : " + componentHtml );
-
 		d3.select(`${_eltID}`).html(componentHtml );
 		bind_Selector();
 
