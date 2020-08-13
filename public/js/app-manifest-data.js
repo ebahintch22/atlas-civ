@@ -94,6 +94,7 @@ var metaDataBase = {
 		"taux_util_serv_sante_par_etablissmnt",
 		"taux_frequentation_service_sante",
 		"taux_frequentation",
+		"nombre_consultations",
 		"effectif_consultant",
 		"paludisme_u5_ans",
 		"paludisme_glo",
@@ -171,6 +172,7 @@ var metaDataBase = {
 		{
 			index : 1,
 			name : "covid-19-june16", 
+			group: "SPECIAL",
 			valid: true,
 			table_num : "Tableau-98",			
 			layerList : [  "district_sante", "region_sante" ],
@@ -233,7 +235,8 @@ var metaDataBase = {
 		},
 		{
 			index : 2,
-			name : "covid-19", 
+			name : "covid-19", 			
+			group: "SPECIAL",
 			valid: false,
 			table_num : "Tableau-99",			
 			layerList : [ "region_admin", "district_admin" ],
@@ -267,6 +270,7 @@ var metaDataBase = {
 			index : 3,
 			valid: true,
 			name : "demographic",
+			group: "DEMOGRAPHIE",
 			layerList : [  "district_sante", "region_sante" ],
 			table_num :"Tableau-DD",
 			label: "02- Données de population (2017)",
@@ -367,6 +371,7 @@ var metaDataBase = {
 			index : 4,
 			valid: true,
 			name: "03_human_ressource",
+			group: "RESSOURCES EN SANTE",
 			layerList : [  "district_sante", "region_sante" ],
 			table_num :"Tableau-3",
 			label: "03- Ressources des systèmes de santé - Personnel",
@@ -398,6 +403,7 @@ var metaDataBase = {
 			index : 5,
 			valid: true,
 			name : "04_ratio_prestataire_pop", 
+			group: "RESSOURCES EN SANTE",
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau 6",
 			label: "04- Ratio Prestataires de soins - Population",
@@ -422,6 +428,7 @@ var metaDataBase = {
 			index : 6,
 			valid: true,
 			name : "repartition_etabliss_sante", 
+			group: "RESSOURCES EN SANTE",
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-7",
 			label: "05- Ressources des systèmes de santé - Etablissements",
@@ -454,6 +461,7 @@ var metaDataBase = {
 			index : 7,
 			valid: true,
 			name : "ratio_hrsn_espc_pop", 
+			group: "RESSOURCES EN SANTE",
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-8",
 			label: "06- Ratio établissements de santé/Population",
@@ -476,6 +484,7 @@ var metaDataBase = {
 			index : 8,
 			valid: true,
 			name : "other_material", 
+			group: "RESSOURCES EN SANTE",
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-9",
 			label: "07- Autres ressources materielles (2017)",
@@ -500,6 +509,7 @@ var metaDataBase = {
 			index : 9,
 			valid: true,
 			name : "tech_platform", 
+			group: "RESSOURCES EN SANTE",
 			layerList :  [ "district_sante", "region_sante"],
 			table_num :"Tableau-10",
 			label: "08- Plateaux techniques et équipements (2017)",
@@ -530,6 +540,7 @@ var metaDataBase = {
 			index : 10,
 			valid: true,
 			name : "ratio_ambulance_structure_sante", 
+			group: "RESSOURCES EN SANTE",
 			table_num :"Tableau-11",
 			layerList : [ "region_sante" , "district_sante"],
 			label: "09- Ratio ambulance par nombre de structure de soin (tab 11)",
@@ -553,6 +564,7 @@ var metaDataBase = {
 			index : 11,
 			valid: false,
 			name : "repartition_struct_transfusion", 
+			group: "RESSOURCES EN SANTE",
 			layerList : [ "region_sante" , "district_sante"],
 			table_num :"Tableau-12",
 			adminlevels: [ "district","region" ],
@@ -575,6 +587,7 @@ var metaDataBase = {
 			index : 12,
 			valid: false,
 			name : "xxxxxxxxxxxxxxxxx", 
+			group: "Général",
 			table_num :"Tableau-13",
 			layerList : [ "region_sante" , "district_sante"],
 			adminlevels: [ "region", "district"],
@@ -597,6 +610,7 @@ var metaDataBase = {
 		{
 			index : 13,
 			name: "geographic_accessibility", 
+			group: "SOINS CURATIFS",
 			valid: true,
 			table_num :"Tableau-13",
 			layerList : [ "region_sante" , "district_sante"],
@@ -651,6 +665,7 @@ var metaDataBase = {
 		{
 			index : 14,
 			name: "taux_utilisation_serv_sante", 
+			group: "SOINS CURATIFS",
 			valid: true,
 			table_num :"Tableau-14",
 			layerList : [ "region_sante" , "district_sante"],
@@ -738,6 +753,7 @@ var metaDataBase = {
 		{
 			index : 15,
 			name : "taux_util_serv_sante_par_etablissmnt", 
+			group: "SOINS CURATIFS",
 			valid: true,
 			layerList : [ "region_sante" , "district_sante"],
 			table_num :"Tableau-15",
@@ -847,6 +863,7 @@ var metaDataBase = {
 		{
 			index : 16,
 			name : "taux_frequentation_service_sante", 
+			group: "SOINS CURATIFS",
 			valid: true,
 			table_num :"Tableau-16",
 			layerList : [ "region_sante" , "district_sante"],
@@ -897,6 +914,7 @@ var metaDataBase = {
 		{
 			index : 17,
 			name : "taux_frequentation", 
+			group: "SOINS CURATIFS",
 			valid: true,
 			table_num :"Tableau-17",
 			layerList : [ "region_sante" , "district_sante"],
@@ -966,6 +984,7 @@ var metaDataBase = {
 		{
 			index : 18,
 			name : "effectif_consultant", 
+			group: "SOINS CURATIFS",
 			valid: true,
 			table_num :"Tableau-18",
 			layerList : [ "region_sante" , "district_sante"],
@@ -1043,11 +1062,61 @@ var metaDataBase = {
 			 	}
 			 ]
 		},
-
+		{
+			index : 19,
+			name : "nombre_consultations", 
+			group: "SOINS CURATIFS",
+			valid: true,
+			table_num :"Tableau-19",
+			layerList : [ "region_sante" , "district_sante"],
+			label: "19-Nombre de consultations",
+			unit: "consultations",
+			article: "de ",
+			path : `${PATH_PREFIX}data/statistics/tab_19_nombre_consultations.csv`,
+			source: "DIIS/INS",
+			data_parser : DEFAULT_PARSER,
+			renderer : get_renderer( 5 , [] , ['white', 'blue']),
+			color_palette: "YlGnBu",
+			field_selected : default_field_selection,
+			data_fields : [
+				{
+					fld_name: "FLD1",
+					short_name: " Nombre total de Consultations ESPC",
+					long_name: " Nombre total de Consultations ESPC",
+					data_type: "INT",
+					unit: "nombre"
+				}, {
+					fld_name: "FLD2",
+					short_name: "Total Consultations HG et CHR",
+					long_name: "Total Consultations HG et CHR",
+					data_type: "INT",
+					unit: "nombre"
+				}, {
+					fld_name: "FLD3",
+					short_name: "Total Consultations (%)",
+					long_name: "Total Consultations (%)",
+					data_type: "INT",
+					unit: "nombre"
+				}, {
+					fld_name: "FLD4",
+					short_name: "Consultations ESPC(%)",
+					long_name: "Consultations ESPC(%)",
+					data_type: "INT",
+					unit: "nombre"
+				}, {
+					fld_name: "FLD5",
+					short_name: "Consultation HG & CHR",
+					long_name: "Consultation HG & CHR",
+					data_type: "INT",
+					unit: "nombre"
+				}
+			]
+		},
 
 		{
 			index : 33,
 			name : "couverture_vaccinale", 
+			group: "SOINS PREVENTIFS ET PROMOTIONNELS",
 			valid: true,
 			table_num :"Tableau-33",
 			layerList : [ "region_sante" , "district_sante"],
@@ -1179,6 +1248,7 @@ var metaDataBase = {
 		{
 			index : 39,
 			name : "paludisme_u5_ans", 
+			group: "MORBIDITE ET MORTALITE",
 			valid: true,
 			table_num :"Tableau-39",
 			layerList : [ "region_sante" , "district_sante"],
@@ -1224,6 +1294,7 @@ var metaDataBase = {
 		{
 			index : 40,
 			name : "incidence_anemie", 
+			group: "MORBIDITE ET MORTALITE",
 			valid: true,
 			table_num :"Tableau-40",
 			layerList : [ "region_sante" , "district_sante"],
@@ -1270,6 +1341,7 @@ var metaDataBase = {
 		{
 			index : 41,
 			name : "incidence_coqueluche", 
+			group: "MORBIDITE ET MORTALITE",
 			valid: true,
 			table_num :"Tableau-41",
 			layerList : [ "region_sante" , "district_sante"],
@@ -1291,6 +1363,7 @@ var metaDataBase = {
 		{
 			index : 42,
 			name : "paludisme_glo", 
+			group: "MORBIDITE ET MORTALITE",
 			valid: true,
 			table_num :"Tableau-42",
 			layerList : [ "region_sante" , "district_sante"],
@@ -1336,6 +1409,7 @@ var metaDataBase = {
 		{
 			index : 38,
 			name : "incidence_IRA_u5_ans", 
+			group: "MORBIDITE ET MORTALITE",
 			valid: true,
 			table_num :"Tableau-38",
 			layerList : [ "region_sante" , "district_sante"],
@@ -1384,6 +1458,7 @@ var metaDataBase = {
 		{
 			index : 43,
 			name : "incidence_IRA_glo", 
+			group: "MORBIDITE ET MORTALITE",
 			valid: true,
 			table_num :"Tableau-43",
 			layerList : [ "region_sante" , "district_sante"],
@@ -1430,6 +1505,7 @@ var metaDataBase = {
 		{
 			index : 45,
 			name: "std",
+			group: "MORBIDITE ET MORTALITE",
 			valid: false,
 			table_num :"Tableau-45",
 			layerList : [ 
@@ -1491,6 +1567,7 @@ var metaDataBase = {
 
 			index : 79,
 			name : "deces_notifie_et_causes", 
+			group: "MORBIDITE ET MORTALITE",
 			valid: true,
 			table_num :"Tableau-79",
 			layerList : [ "region_sante" , "district_sante"],

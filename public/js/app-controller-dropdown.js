@@ -7,13 +7,21 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 			      aria-haspopup="true" aria-expanded="false"> ${Cfg.prompt} :</button>
 			    <div class="dropdown-menu">
 				    {{#option_list}}
-						<a class="dropdown-item"  data-key="{{key}}" data-label="{{label}}"
-						style="line-height:1.2em; padding: 1px 4px; font-size:0.8rem;" href="#"> {{ label }} </a>
+				    	{{{section}}}
 					{{/option_list}}
 			    </div>
 			</div>
 		  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="">
 		 `;
+
+	var sub_template_category = `			    
+			<h6 class="dropdown-header" style="color: #11b5dd; padding: 4px 8px 2px 8px; "  > {{header}}  </h6>
+			{{#option_list}}			
+				<a class="dropdown-item"  data-key="{{key}}" data-label="{{label}}" 
+				  style="line-height:1.2em; padding: 1px 4px; font-size:0.8rem;"   href="#"> {{label}} </a>
+			{{/option_list}}
+		`;
+
 
 
 	var data = Cfg ;
@@ -25,7 +33,8 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 
     return {
     	update_view: function(key){
-    		console.log(" _eltID " + _eltID )
+    		
+    		
    			var _info = $(`${_eltID}  a[data-key="${key}"]`)[0].dataset;
     		$(`${ _eltID} > input.form-control`).val( _info.label );
     	},
@@ -36,26 +45,58 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 
     function __refresh_options( options ){
 		//filtrer la liste d'options
-		console.log("Control name :" + Cfg.prompt)
-		console.log(options)
-		data.option_list  =  is_function( filter_func ) ? 
-				data.option_list = options.filter( filter_func ) : 
-				                                          options
 
-		//Transformer (reformattage) de la liste d'options
-		data.option_list = is_function( transform_func ) ?
-			data.option_list = data.option_list.map( transform_func ) :
-			data.option_list.map( function(d){
-			d.key = d[Cfg.transform.key]
-			d.label = d[Cfg.transform.label]
-			return (d)
-			}) 
+		var menu_data = {};
+		var nested_data ;
 
-		var componentHtml = Mustache.render( template_drop_downn ,  data );
+		if (!is_missing_value( Cfg.class_field)) {
+		//Un champ de classification est fourni : on procèd à une classification explicite
+			nested_data = d3.nest()
+								.key( function(d){ return d[Cfg.class_field] })
+								.entries( options )
+		
+			menu_data.option_list = nested_data
+			.map( 
+				function (d){
+				  var options = d.values
+				  return ( { "section" : __render_section( options, d.key )  })
+				}
+			)
+
+		} else {
+			//Aucun champ de classification : alors on considère une classe virtuelle sous laquelle les toutes options seront regroupées
+			menu_data.option_list = [  { "section": __render_section( options, Cfg.prompt ) } ];
+		}
+
+
+		var componentHtml = Mustache.render( template_drop_downn ,  menu_data );
+
+		console.log( "@@@=======>> DATASET FOR OPTIONS : " + toJSON(menu_data)   );
+		console.log( "@@@=======>> HTML CODE FOR OPTIONS : " + componentHtml );
+
 		d3.select(`${_eltID}`).html(componentHtml );
 		bind_Selector();
 
 	}
+
+	function __render_section( options, group_label ) {
+		var data = {};
+		
+		data.header = group_label
+		data.option_list  =  is_function( filter_func ) ? options.filter( filter_func ) : options
+		//Transformer (reformattage) de la liste d'options
+		data.option_list = is_function( transform_func ) ?
+			data.option_list.map( transform_func ) :
+			data.option_list.map( 
+				function(d){
+					d.key = d[Cfg.transform.key]
+					d.label = d[Cfg.transform.label]
+					return (d)
+				}
+			) 
+		return ( Mustache.render( sub_template_category ,  data ));
+	}
+
 
 	function bind_Selector(){
 
@@ -73,5 +114,8 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 
 	function is_function(f){
 	    return (Object.prototype.toString.call(f) == '[object Function]') 
+	}
+	function is_missing_value(in_value){
+		return ( in_value == undefined || in_value == null || in_value == "")
 	}
 }

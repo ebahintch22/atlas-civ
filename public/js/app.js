@@ -50,7 +50,7 @@ function user_connexion_manager_constructor(){
     function _boot_app(){
     	
 		exec_infinite_safe( function(){
-			Ajaxian.post('./visitors/boot_app', user_agent, _start_session, unexpected_Error_handler)
+			Ajaxian.post( './visitors/boot_app', user_agent, _start_session, unexpected_Error_handler)
 			loop_counter++;
 		})
     }

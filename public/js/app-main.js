@@ -29,9 +29,10 @@ function app_start_up(){
 	metaDataBase.orderby_num("index");
 	theme_controller = ui_render_dropdown_inputgroup("#opera-theme-selector-1", {
 		      "prompt": "Choisir un thème",
-		    "options" : metaDataBase.table_details,
+		    "options" : metaDataBase.table_details.filter(function(d){ return(d.valid)}),
 		        "key" : "name",
 		      "label" : "label",
+		"class_field" : "group",
 	      "transform" : { key: "name", label : "label"	},
 	         "filter" : function(d){return (d.valid)}
 	}, function(_info){
