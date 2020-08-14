@@ -36,6 +36,7 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
     		
     		
    			var _info = $(`${_eltID}  a[data-key="${key}"]`)[0].dataset;
+   			$(`${_eltID}  a[data-key="${key}"]`).addClass("active");
     		$(`${ _eltID} > input.form-control`).val( _info.label );
     	},
     	refresh_options : function(options) {
@@ -104,6 +105,9 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 					_data = evt.currentTarget.dataset,
 					_info = { "key": _data.key, "label": _data.label};
 					$(`${ _eltID} > input.form-control`).val(_info.label);
+
+					$( `${ _eltID} .dropdown-item.active`).removeClass("active")
+					_elt.addClass("active");
 					callBack( _info );
 			}
 		})			

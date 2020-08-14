@@ -1142,7 +1142,7 @@ var metaDataBase = {
 					   source : "manual",
 					threshold : [ 80, 92],
 					 colormap : ['#ff0000' , '#ffff00', '#4ce600' ],  
-					 linecolor: "#888",
+					 linecolor: "#eee",
 					 labelmap : ["Insuffisante" , "Moyenne", "Satisfaisante" ],
 				  legendtitle : "Couverture vaccinale ({{health}})"
 				}

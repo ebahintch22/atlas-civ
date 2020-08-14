@@ -499,7 +499,7 @@ function get_renderer ( count, value_range, color_range, labelmap = []){
 	 		value_range : array_copy(value_range),
 	 		color_range : array_copy(color_range),
 	 		   labelmap : array_copy(labelmap),
-	 		  linecolor : "#fff",
+	 		  linecolor : "#ddd",
 	 		     source : "auto"	    	
 	    }
 	}
@@ -1715,7 +1715,7 @@ var metaDataBase = {
 					   source : "manual",
 					threshold : [ 80, 92],
 					 colormap : ['#ff0000' , '#ffff00', '#4ce600' ],  
-					 linecolor: "#888",
+					 linecolor: "#eee",
 					 labelmap : ["Insuffisante" , "Moyenne", "Satisfaisante" ],
 				  legendtitle : "Couverture vaccinale ({{health}})"
 				}
@@ -3448,6 +3448,7 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
     		
     		
    			var _info = $(`${_eltID}  a[data-key="${key}"]`)[0].dataset;
+   			$(`${_eltID}  a[data-key="${key}"]`).addClass("active");
     		$(`${ _eltID} > input.form-control`).val( _info.label );
     	},
     	refresh_options : function(options) {
@@ -3516,6 +3517,9 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 					_data = evt.currentTarget.dataset,
 					_info = { "key": _data.key, "label": _data.label};
 					$(`${ _eltID} > input.form-control`).val(_info.label);
+
+					$( `${ _eltID} .dropdown-item.active`).removeClass("active")
+					_elt.addClass("active");
 					callBack( _info );
 			}
 		})			
