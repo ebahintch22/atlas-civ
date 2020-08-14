@@ -41,8 +41,8 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 				label: field.long_name,
 				type : "bar",
 				field: field.fld_name, 
-				backgroundColor: "ORANGE" ,
-				borderColor: 'ORANGE',
+				backgroundColor: "DODGERBLUE" ,
+				borderColor: 'DODGERBLUE',
 				yAxisID : 'y-axis-1' 
 		   }
 		],
@@ -150,6 +150,11 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 
 				return r
 			}
+		},
+		show_spinner : function( isVisible ){
+			var useless = (isVisible) ? 	
+			     $("#chart-canvas-rass-spinner").removeClass("hidden") : 
+			     $("#chart-canvas-rass-spinner").addClass("hidden") ;			
 		}	
 	}
     //***********************************************************************
@@ -186,6 +191,7 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 
 	function compare_numbers(a,b){ return(b[field.fld_name] - a[field.fld_name] ) }
 	function update_chart(){}
+
 }	
 
 

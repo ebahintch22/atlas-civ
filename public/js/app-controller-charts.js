@@ -114,7 +114,7 @@ function create_Chart_ex( data_struct , elt_id, Cfg ){
 					label: chart.label,
 					type : chart.type ,
 					yAxisID : chart.yAxisID,
-					backgroundColor : get_color(chart.backgroundColor, 0.45),
+					backgroundColor : get_color(chart.backgroundColor, 0.85),
 					borderColor : get_color( chart.borderColor, 0.99),
 					borderWidth : ( chart.type == "bar")? 1 : (chart.borderWidth? chart.borderWidth : 1),
 					fill : (chart.type == "line") ? false : true ,

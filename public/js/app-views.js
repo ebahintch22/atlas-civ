@@ -162,7 +162,7 @@ var navtabController_RASS = new ui_render_navtabs(
 					<div id="wrapper-pane" class="col-sm-12 no-padding"  >
 					  	<div  id="RASS-ROW-TOP" class="row" style= "padding: 0px 15px;">
 					  		<div class="col-sm-12 no-padding"  >
-								 ${get_chart_container( "chart-canvas-rass" , 600, 250 ,'96%', '35vh')}	
+								 ${get_chart_container( "chart-canvas-rass" , 600, 250 ,'96%', '35vh', true)}	
 					  		</div>
 					  	</div>
 					  	<div  id="RASS-ROW-BOTTOM" class="row"  style= "padding: 0px 15px;">

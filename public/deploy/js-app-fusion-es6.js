@@ -14,7 +14,7 @@ var ENV_VIEW_SIZE = getEnvSize()
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 window.onresize //= after_window_resized ;
 
-var initialTable = "covid-19-june16" // "covid-19" ;//   "covid-19" //" "covid-19"; //demographic" ;//;"demographic"
+var initialTable = "geographic_accessibility"  //"covid-19-june16" // "covid-19" ;//   "covid-19" //" "covid-19"; //demographic" ;//;"demographic"
 var initialKey = "FLD1";
     
 var currentTable;
@@ -2942,12 +2942,23 @@ function get_data(){
 		 )
 }
 init_helper_functions()
-function get_chart_container( canvas_id, width, height, x_width, x_height ){
+function get_chart_container( canvas_id, width, height, x_width, x_height, addSpinner=false ){
+
+	var spinner_subTemplate = `			
+			<div id="${canvas_id}-spinner" class="opera-loading"   
+					style="position: absolute; padding-top:10%; top:0px; left:0px ; width:100%; height: 100%; background-color: #fff;opacity:0.65;" >
+				<div class="text-center">
+				  <div class="spinner-border" role="status">
+				    <span class="sr-only">Loading...</span>
+				  </div>
+				</div>
+			</div>`;
+
 	var template = 	`
 
 		<div class="chart-container" style="position: relative; width: ${x_width} ; height: ${x_height}; ">
-			<div class="opera-loading"></div>
 			<canvas id="${canvas_id}" width="${width}" height="${height}"> 	</canvas>
+			${ addSpinner ? spinner_subTemplate : ""}
 		</div>`
 	return template ;
 }
@@ -3448,9 +3459,6 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 
 		var componentHtml = Mustache.render( template_drop_downn ,  menu_data );
 
-		console.log( "@@@=======>> DATASET FOR OPTIONS : " + toJSON(menu_data)   );
-		console.log( "@@@=======>> HTML CODE FOR OPTIONS : " + componentHtml );
-
 		d3.select(`${_eltID}`).html(componentHtml );
 		bind_Selector();
 
@@ -3762,7 +3770,7 @@ function create_Chart_ex( data_struct , elt_id, Cfg ){
 					label: chart.label,
 					type : chart.type ,
 					yAxisID : chart.yAxisID,
-					backgroundColor : get_color(chart.backgroundColor, 0.45),
+					backgroundColor : get_color(chart.backgroundColor, 0.85),
 					borderColor : get_color( chart.borderColor, 0.99),
 					borderWidth : ( chart.type == "bar")? 1 : (chart.borderWidth? chart.borderWidth : 1),
 					fill : (chart.type == "line") ? false : true ,
@@ -4469,7 +4477,7 @@ var navtabController_RASS = new ui_render_navtabs(
 					<div id="wrapper-pane" class="col-sm-12 no-padding"  >
 					  	<div  id="RASS-ROW-TOP" class="row" style= "padding: 0px 15px;">
 					  		<div class="col-sm-12 no-padding"  >
-								 ${get_chart_container( "chart-canvas-rass" , 600, 250 ,'96%', '35vh')}	
+								 ${get_chart_container( "chart-canvas-rass" , 600, 250 ,'96%', '35vh', true)}	
 					  		</div>
 					  	</div>
 					  	<div  id="RASS-ROW-BOTTOM" class="row"  style= "padding: 0px 15px;">
@@ -5067,8 +5075,8 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 				label: field.long_name,
 				type : "bar",
 				field: field.fld_name, 
-				backgroundColor: "ORANGE" ,
-				borderColor: 'ORANGE',
+				backgroundColor: "DODGERBLUE" ,
+				borderColor: 'DODGERBLUE',
 				yAxisID : 'y-axis-1' 
 		   }
 		],
@@ -5176,6 +5184,11 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 
 				return r
 			}
+		},
+		show_spinner : function( isVisible ){
+			var useless = (isVisible) ? 	
+			     $("#chart-canvas-rass-spinner").removeClass("hidden") : 
+			     $("#chart-canvas-rass-spinner").addClass("hidden") ;			
 		}	
 	}
     //***********************************************************************
@@ -5212,6 +5225,7 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 
 	function compare_numbers(a,b){ return(b[field.fld_name] - a[field.fld_name] ) }
 	function update_chart(){}
+
 }	
 
 
@@ -5553,6 +5567,7 @@ function create_or_update_spatialLayer_selectList( data ){
 
 
 function Activate_thematic_section(frame_name){
+	if (chartController_rass != undefined) chartController_rass.show_spinner(true)
 	load_dataframe(frame_name, 
 
 		function(metaData){	
@@ -6207,9 +6222,10 @@ function updateGraphic(){
 		if (!chartController_rass){
 			
 			chartController_rass = build_RASS_chart_component( metadata , metafield, mapData, metageo)
+			chartController_rass.show_spinner(false);
 		
 		} else  {
-
+			chartController_rass.show_spinner(false)
 			chartController_rass.setParams(metadata , metafield, mapData, metageo);
 			chartController_rass.updateChart({
 				duration: 1500,

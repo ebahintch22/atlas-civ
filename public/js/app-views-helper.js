@@ -1,11 +1,22 @@
 
 init_helper_functions()
-function get_chart_container( canvas_id, width, height, x_width, x_height ){
+function get_chart_container( canvas_id, width, height, x_width, x_height, addSpinner=false ){
+
+	var spinner_subTemplate = `			
+			<div id="${canvas_id}-spinner" class="opera-loading"   
+					style="position: absolute; padding-top:10%; top:0px; left:0px ; width:100%; height: 100%; background-color: #fff;opacity:0.65;" >
+				<div class="text-center">
+				  <div class="spinner-border" role="status">
+				    <span class="sr-only">Loading...</span>
+				  </div>
+				</div>
+			</div>`;
+
 	var template = 	`
 
 		<div class="chart-container" style="position: relative; width: ${x_width} ; height: ${x_height}; ">
-			<div class="opera-loading"></div>
 			<canvas id="${canvas_id}" width="${width}" height="${height}"> 	</canvas>
+			${ addSpinner ? spinner_subTemplate : ""}
 		</div>`
 	return template ;
 }

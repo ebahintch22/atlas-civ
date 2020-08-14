@@ -144,6 +144,7 @@ function create_or_update_spatialLayer_selectList( data ){
 
 
 function Activate_thematic_section(frame_name){
+	if (chartController_rass != undefined) chartController_rass.show_spinner(true)
 	load_dataframe(frame_name, 
 
 		function(metaData){	
@@ -798,9 +799,10 @@ function updateGraphic(){
 		if (!chartController_rass){
 			
 			chartController_rass = build_RASS_chart_component( metadata , metafield, mapData, metageo)
+			chartController_rass.show_spinner(false);
 		
 		} else  {
-
+			chartController_rass.show_spinner(false)
 			chartController_rass.setParams(metadata , metafield, mapData, metageo);
 			chartController_rass.updateChart({
 				duration: 1500,
