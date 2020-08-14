@@ -499,6 +499,7 @@ function get_renderer ( count, value_range, color_range, labelmap = []){
 	 		value_range : array_copy(value_range),
 	 		color_range : array_copy(color_range),
 	 		   labelmap : array_copy(labelmap),
+	 		  linecolor : "#fff",
 	 		     source : "auto"	    	
 	    }
 	}
@@ -1520,12 +1521,12 @@ var metaDataBase = {
 					unit: "% des consultations",
 			 		renderer: {
 			 			default: {
-								source: "manual",
-								threshold: [  20, 35, 50, 65 ],
-								colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
-								linecolor: "#fff",
-								labelmap:  [ "0-20%", ">20 - 35%", ">35 - 50%" , ">50-65%", ">60 - 100%"  ],
-								legendtitle: "Taux de frequentation ESPC(%)"
+							source: "manual",
+							threshold: [  20, 35, 50, 65 ],
+							colormap:  ['#edf8fb','#b2e2e2','#66c2a4','#2ca25f','#006d2c'],
+							linecolor: "#fff",
+							labelmap:  [ "0-20%", ">20 - 35%", ">35 - 50%" , ">50-65%", ">60 - 100%"  ],
+							legendtitle: "Taux de frequentation ESPC(%)"
 				 		}
 			 		}
 				}, {
@@ -1577,11 +1578,22 @@ var metaDataBase = {
 			 		data_type: "INT",
 			 		unit: "consultants",
 			 		renderer : {
-						source: "manual",
-						threshold: [  20, 30, 40, 50 ],			 			
-			 			colormap : ['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'],
-						labelmap:  [ "0%-20%", "60% - 70%", "70% - 80%" , "80% - 90%", "90% - 100%" ],
-						legendtitle: "Densité de population (Habitant/km²)"
+			 			default: {
+							source: "manual",
+							threshold: [  250000, 500000, 750000, 1000000 ],			 			
+				 			colormap : ['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'],
+				 			linecolor: "#fff",
+							labelmap:  [ "0-250m", "250-500m", "500- 750m" , "750-1000m", "1M et +" ],
+							legendtitle: "Population 2017"
+						},
+			 			"district_sante": {
+							source: "manual",
+							threshold: [  250000, 500000, 750000, 1000000 ],			 			
+				 			colormap : ['#eff3ff','#bdd7e7','#6baed6','#3182bd','#08519c'],
+				 			linecolor: "#fff",
+							labelmap:  [ "0-250m", "250-500m", "500- 750m" , "750-1000m", "1M et +" ],
+							legendtitle: "Population 2017"
+						}
 			 		}
 			 	},
 			 	{
@@ -1700,12 +1712,12 @@ var metaDataBase = {
 			data_parser : DEFAULT_PARSER,
 			renderer : {
 				default : {
-				   source : "manual",
-				threshold : [ 80, 92],
-				 colormap : ['#ff0000' , '#ffff00', '#4ce600' ],  
-				 linecolor: "#888",
-				 labelmap : ["Insuffisante" , "Moyenne", "Satisfaisante" ],
-			  legendtitle : "Couverture vaccinale ({{health}})"
+					   source : "manual",
+					threshold : [ 80, 92],
+					 colormap : ['#ff0000' , '#ffff00', '#4ce600' ],  
+					 linecolor: "#888",
+					 labelmap : ["Insuffisante" , "Moyenne", "Satisfaisante" ],
+				  legendtitle : "Couverture vaccinale ({{health}})"
 				}
 			},
 			color_palette: "YlGnBu",
@@ -1853,12 +1865,14 @@ var metaDataBase = {
 					data_type: "INT",
 					unit: "cas confirmés pour 1 000 hbts",
 					renderer : {
-			   			   source : "manual",
-						threshold : [ 200, 400],
-						 colormap : ["#ffffbf",  "#ffff99",  "#ffff00"],  
-						 linecolor: "#aaa",
-						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
-					  legendtitle : "Incidence globale du Paludisme"
+						default : {
+				   			   source : "manual",
+							threshold : [ 200, 400],
+							 colormap : ["#ffffbf",  "#ffff99",  "#ffff00"],  
+							 linecolor: "#aaa",
+							 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
+						  legendtitle : "Incidence globale du Paludisme"
+						}						
 					}
 				}			
 			]
@@ -1900,14 +1914,15 @@ var metaDataBase = {
 					data_type: "INT",
 					unit: "cas pour 1 000 hbts",
 					renderer : {
-			   			   source : "manual",
-						threshold : [ 100, 200 ],
-						 colormap : [  "#fcf9ab",  "#f7be38","#cc5526" ],  
-						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
-					  legendtitle : "Incidence de l’anémie chez les moins de 5 ans"
+						default : {
+				   			   source : "manual",
+							threshold : [ 100, 200 ],
+							 colormap : [  "#fcf9ab",  "#f7be38","#cc5526" ],  
+							 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
+						  legendtitle : "Incidence de l’anémie chez les moins de 5 ans"
+						}
 					}
 				}
-
 			]
 		},
 		{
@@ -1969,11 +1984,13 @@ var metaDataBase = {
 					data_type: "INT",
 					unit: "cas confirmés pour 1000 hbts",
 					renderer : {
-			   			   source : "manual",
-						threshold : [ 100, 200 ],
-						 colormap :  ["#ffffbf",  "#ffff99",  "#ffff00"],  
-						 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
-					  legendtitle : "Incidence globale du Paludisme"
+						default : {
+			   			       source : "manual",
+							threshold : [ 100, 200 ],
+							 colormap :  ["#ffffbf",  "#ffff99",  "#ffff00"],  
+							 labelmap : ["Moins de 100‰" , "100‰ à 200‰", "201‰ et plus" ],
+						  legendtitle : "Incidence globale du Paludisme"
+						}						
 					}
 				}
 			]
@@ -2017,12 +2034,16 @@ var metaDataBase = {
 					data_type:  "INT",
 					unit: "‰",
 					renderer: {
-						source: "manual",
-						threshold: [ 100, 200 ],
-						colormap:  [ "#e5b2e5", "#b266e5", "#9900ff" ],
-						linecolor: "#fff",
-						labelmap:  [ "Moins de 100‰", "100‰ à 200‰", "200‰ et plus" ],
-						legendtitle: "Incidence de l'IRA chez les moins de 5 ans"
+						default : {
+							source: "manual",
+							threshold: [ 100, 200 ],
+							colormap:  [ "#e5b2e5", "#b266e5", "#9900ff" ],
+							linecolor: "#fff",
+							labelmap:  [ "Moins de 100‰", "100‰ à 200‰", "200‰ et plus" ],
+							legendtitle: "Incidence de l'IRA chez les moins de 5 ans"
+
+						}
+
 					}
 				}
 			]
@@ -2065,11 +2086,13 @@ var metaDataBase = {
 					data_type: "INT",
 					unit: "cas pour 1 000 hbts",
 					renderer: {
-						source: "manual",
-						threshold: [ 50, 75 ],
-						colormap:  [ "#ffcccc", "#ff9966", "#ff0000" ],
-						labelmap:  [ "Moins de 50‰", "50‰ à 75‰", "75‰ et plus" ],
-						legendtitle: "Incidence globale de l'IRA"
+						default : {
+							source: "manual",
+							threshold: [ 50, 75 ],
+							colormap:  [ "#ffcccc", "#ff9966", "#ff0000" ],
+							labelmap:  [ "Moins de 50‰", "50‰ à 75‰", "75‰ et plus" ],
+							legendtitle: "Incidence globale de l'IRA"							
+						}
 					}
 				}
 			]

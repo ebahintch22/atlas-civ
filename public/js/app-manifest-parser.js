@@ -12,6 +12,7 @@ function get_renderer ( count, value_range, color_range, labelmap = []){
 	 		value_range : array_copy(value_range),
 	 		color_range : array_copy(color_range),
 	 		   labelmap : array_copy(labelmap),
+	 		  linecolor : "#fff",
 	 		     source : "auto"	    	
 	    }
 	}
