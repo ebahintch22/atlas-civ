@@ -1,7 +1,9 @@
 
 init_helper_functions()
 function get_chart_container( canvas_id, width, height, x_width, x_height, addSpinner=false ){
-
+/*
+	14/08/20 : added spinner curtain template
+*/
 	var spinner_subTemplate = `			
 			<div id="${canvas_id}-spinner" class="opera-loading"   
 					style="position: absolute; padding-top:10%; top:0px; left:0px ; width:100%; height: 100%; background-color: #fff;opacity:0.65;" >

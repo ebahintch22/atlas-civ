@@ -134,5 +134,4 @@ function getEnvSize(){
 		}
 
 	}
-
 }

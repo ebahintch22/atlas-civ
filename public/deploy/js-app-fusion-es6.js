@@ -134,7 +134,6 @@ function getEnvSize(){
 		}
 
 	}
-
 } Ajaxian = new function (){
 
     return {
@@ -2943,7 +2942,9 @@ function get_data(){
 }
 init_helper_functions()
 function get_chart_container( canvas_id, width, height, x_width, x_height, addSpinner=false ){
-
+/*
+	14/08/20 : added spinner curtain template
+*/
 	var spinner_subTemplate = `			
 			<div id="${canvas_id}-spinner" class="opera-loading"   
 					style="position: absolute; padding-top:10%; top:0px; left:0px ; width:100%; height: 100%; background-color: #fff;opacity:0.65;" >
@@ -5567,7 +5568,9 @@ function create_or_update_spatialLayer_selectList( data ){
 
 
 function Activate_thematic_section(frame_name){
-	if (chartController_rass != undefined) chartController_rass.show_spinner(true)
+	if (chartController_rass != undefined) chartController_rass.show_spinner(true);
+	show_map_spinner( true);	
+
 	load_dataframe(frame_name, 
 
 		function(metaData){	
@@ -5637,6 +5640,7 @@ function after_selectLayer_Changed(inLayerKeY){
 	
 	var geo_dataset = get_spatialLayer(inLayerKeY)
 
+	show_map_spinner(true);
 	get_geoData( geo_dataset.name  , geo_dataset.path, function( error, features){
 
 		dataById = stats_table_set[inLayerKeY];
@@ -5856,6 +5860,12 @@ function MAP_overlay_draw( feature_arr ){
         	.attr('d' , function(d) {return path(d)})
 }
 
+function show_map_spinner( isVisible) {
+	var useless = (isVisible) ? 	
+	     $("#map-spinner").removeClass("hidden") : 
+	     $("#map-spinner").addClass("hidden") ;			
+}
+
 function updateMapColors(){
  	
  	var vmin , vmax , metaData = currentMetaTable, class_count, r, renderer
@@ -5899,6 +5909,7 @@ function updateMapColors(){
 
 	// We call the function to update the legend.
     updateLegend( renderer , true);
+    show_map_spinner(false);
 
     function _get_relevant_renderer(){
     	var rndr_mtable, r
