@@ -23,7 +23,7 @@ var currentKey;
 var currentMetaField ;
 var currentGeodataset;
 var currentMetaGeo;
-
+var currentSelectStyle = "reddish"; // variable String référençcant l'un des styles prédéfinis pour les entité spatiales sélectionnées
 	 
 var currentDetailTemplate;
 
@@ -761,7 +761,8 @@ var metaDataBase = {
 					threshold : [ 1, 5, 10, 100, 1000],
 					 colormap : ['#ffffff' , '#fcf285', '#F6B20D' , '#CC5526', '#C22C1C' , '#660207'],  
 					 labelmap : ['Aucun cas' , "", "Incidence faible", "Incidence Moyenne" , "Incidence élevée", "Epicentres"],
-				  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+				  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)",
+				 select_style : "blueish"
 				}
 			},
 			layout : "COVID",
@@ -783,7 +784,8 @@ var metaDataBase = {
 				 			threshold: [1, 5, 10, 100, 1000],
 				 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#C22C1C', '#660207'],
 				 			labelmap: ['Aucun cas', "", "Incidence faible", "Incidence Moyenne", "Incidence élevée", "Epicentres"],
-				 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+				 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. cas confirmés)",
+				 			select_style : "blueish"
 				 		}
 			 		}
 			 	},
@@ -799,7 +801,8 @@ var metaDataBase = {
 				 			threshold: [1, 5, 10, 20],
 				 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#660207'],
 				 			labelmap: ['Aucun décès', "1 à 4 décès", "5 à 9 décès", "10 à 19 décès", "plus de 20 décès"],
-				 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. de décès)"
+				 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. de décès)",
+				 			select_style : "blueish"
 				 		}
 			 		}
 			 	}
@@ -869,7 +872,8 @@ var metaDataBase = {
 							colormap:   ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
 							linecolor: "#fff",
 							labelmap:  [ "moins de 500m", "500-400m", "1000-1500m" , "1500-2000m" , "2000-3000m", "3000m et plus" ],
-							legendtitle: "Population totale 2017 par Région"
+							legendtitle: "Population totale 2017 par Région",
+				 			select_style : "blueish"
 						},
 			 			"district_sante": {
 							source: "manual",
@@ -877,7 +881,8 @@ var metaDataBase = {
 							colormap:  ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
 							linecolor: "#fff",
 							labelmap:  [ "moins de 50m", "50-100m", "100-200m" , "200-500m" , "500-1000m", "1000m et +" ],
-							legendtitle: "Population totale 2017 par district"
+							legendtitle: "Population totale 2017 par district",
+				 			select_style : "blueish"
 						}						
 					}
 				},
@@ -3446,7 +3451,6 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
     return {
     	update_view: function(key){
     		
-    		
    			var _info = $(`${_eltID}  a[data-key="${key}"]`)[0].dataset;
    			$(`${_eltID}  a[data-key="${key}"]`).addClass("active");
     		$(`${ _eltID} > input.form-control`).val( _info.label );
@@ -3833,17 +3837,33 @@ function create_Chart_ex( data_struct , elt_id, Cfg ){
                 labels: {
                    fontColor: Cfg.fontColors.legend
                 }
-   			}
+   			},
+		   hover : {
+		       intersect : true, 
+		       mode : "index"
+		   },
+   			onClick : (Cfg.onClick == undefined) ? undefined : __onClick
 	    }
 	}
 
 	//var CHART_CONFIG = JSON.stringify(chart_configurator)
 	//console.log("\n\n\nLOW CONFIG ::---------------------------->>> " + CHART_CONFIG + "\n\n")
 	//opera_console.log(CHART_CONFIG)
-
 	var ctx = document.getElementById(elt_id);
 	var myChart = new Chart(ctx, chart_configurator)
 	return myChart
+
+
+    function __onClick(evt){
+		var items = this.getElementAtEvent(evt);
+		if (items.length == 0) return
+		
+		var item = items[0];
+		Cfg.onClick({
+			"@datasetIndex": item._datasetIndex,
+		    "@index": item._index
+		})
+	}
 
 }
 
@@ -5063,7 +5083,7 @@ function get_opera_console_template_TODO(){ return opera_console_tmpl }  //  Tem
 */	
 	
 
-function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
+function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, onClickcallBack ){
 	// A structure to detect any change on datatable or key in 
 	// order to trigger accordingy updates to inner data 
 	//struct to refresh chart
@@ -5108,7 +5128,17 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 				yAxisID : 'y-axis-1' 
 		   }
 		],
-		fontColors : CHART_FONT_COLORS["rass"]
+		fontColors : CHART_FONT_COLORS["rass"],
+
+		onClick : function(indexes){
+			/*
+			{
+				"@datasetIndex": item._datasetIndex,
+			    "@index": item._index
+			}
+			*/
+			onClickcallBack( data_struct, indexes);
+		} 
 	});
 
 	return {
@@ -5551,6 +5581,7 @@ function notify_application_readiness(){
 }
 
 function create_or_update_key_selectList( data ){
+
 	if (keyController == undefined ){
 
 		keyController  = ui_render_dropdown_inputgroup("#opera-variablekey-selector-3", {
@@ -5578,7 +5609,7 @@ function create_or_update_spatialLayer_selectList( data ){
 		   	    "options" : data,
 			        "key" : "name",
 			      "label" : "label",
-		      "transform" : null,
+		      "transform" : { key: "name", label : "label"	},
 		         "filter" : null
 		}, 
 		function after_key_selected(_info){
@@ -5607,10 +5638,12 @@ function Activate_thematic_section(frame_name){
 			toogle_layout(metaData)
          
 			layer_arr = extractLayerObjects( metaDataBase.geo_datasets, metaData.layerList, "name");
-			layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" );
-			
+			console.log(layer_arr)
+			create_or_update_spatialLayer_selectList( layer_arr )
+			//layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" );
 
-			key_controller = create_or_update_key_selectList( metaData.data_fields )	
+
+			create_or_update_key_selectList( metaData.data_fields )	
 			keyController.update_view("FLD1");
 
 			currentKey = "FLD1";	// get (refactoring: allow to be read from metabase section and ...
@@ -5627,7 +5660,7 @@ function Activate_thematic_section(frame_name){
 			});
 
 			//create_histogram_object();
-			layer_controller.update_view( metaData.layerList[0] );
+			spatialLayerController.update_view( metaData.layerList[0] );
 			after_selectLayer_Changed( metaData.layerList[0] ); 
 
 			if ( before_app_initialization ) 	notify_application_readiness()
@@ -5852,24 +5885,27 @@ function preload_geoDataSet(features){
 			.on( 'click'       , after_feature_clicked );	// When a feature is clicked, show the details of it.
 }
 
-function after_feature_clicked(d){
-	MAP_overlay_draw([d])
-	clicked(d)
+function after_feature_clicked(f){
+	MAP_overlay_draw([f])
+	clicked(f)
+}
+
+function MAP_find_feature( feat_code  ){
+	var f = currentGeodataset.features.find( function(d){
+		return( d.properties[currentMetaGeo.idfield] == feat_code )
+	});
+	return (f)
 }
 
 function MAP_zoom_on_feature(feat_code , action_code){
-	
-     opera_console.addLog(` The metaGeo objet is : ${toJSON(currentMetaGeo) }  <br>
-     	Searching Feature found on criteria =====>> " +
-        d.properties[ ${currentMetaGeo.idfield} ] == ${feat_code} "`
-     )
-	var f = currentGeodataset.features.find( function(d){
-		return( d.properties[currentMetaGeo.idfield] == feat_code )
-	})
+	/*
+		action_code :
+		  1 : xxxxxxxxxxxxxx
+		  0 : xxxxxxxxxxxxxx
+	*/
+	var f  = MAP_find_feature(feat_code)
 	if (f){
 		after_feature_clicked(f)
-		//MAP_overlay_draw([f])
-		//clicked(f)
 	} 
 }
 
@@ -5885,7 +5921,9 @@ function MAP_overlay_draw( feature_arr ){
         	//.attr('class', 'selected-feature-centered')
         	.attr('pointer-events', 'none')
         	.attr('d' , function(d) {return path(d)})
+        	.attr('class' ,  `selected selected-${currentSelectStyle}`)
 }
+
 
 function show_map_spinner( isVisible) {
 	var useless = (isVisible) ? 	
@@ -5923,6 +5961,7 @@ function updateMapColors(){
 		.range(  renderer.colormap );
 
 	var line_color = renderer.linecolor || "#444";
+	currentSelectStyle = renderer.select_style || "redish"
 
 	mapFeatures.selectAll('path')
 		.style( "stroke-width", 0.5 )
@@ -6011,7 +6050,6 @@ function update_dataTableView( metadata ){
 		var feature_code = row["CODE"];
 		MAP_zoom_on_feature(  feature_code , -1  )
 	}
-	
 }
 
 
@@ -6259,7 +6297,28 @@ function updateGraphic(){
 
 		if (!chartController_rass){
 			
-			chartController_rass = build_RASS_chart_component( metadata , metafield, mapData, metageo)
+			chartController_rass = build_RASS_chart_component( 
+				metadata , metafield, mapData, metageo,
+				function( data , indexes){
+					/*
+						{
+							"@datasetIndex": item._datasetIndex,
+						    "@index": item._index
+						}
+					*/
+
+					var index = indexes["@index"];
+					var feat_code = data.raw[index]["CODE"];
+
+					var f = MAP_find_feature(feat_code)
+					MAP_overlay_draw([f])
+
+					//alert(index)
+					console.log( feat_code )
+					//console.log(data)
+				}
+			)
+
 			chartController_rass.show_spinner(false);
 		
 		} else  {

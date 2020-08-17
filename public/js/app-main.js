@@ -404,9 +404,9 @@ function preload_geoDataSet(features){
 			.on( 'click'       , after_feature_clicked );	// When a feature is clicked, show the details of it.
 }
 
-function after_feature_clicked(d){
-	MAP_overlay_draw([d])
-	clicked(d)
+function after_feature_clicked(f){
+	MAP_overlay_draw([f])
+	clicked(f)
 }
 
 function MAP_find_feature( feat_code  ){
@@ -422,14 +422,6 @@ function MAP_zoom_on_feature(feat_code , action_code){
 		  1 : xxxxxxxxxxxxxx
 		  0 : xxxxxxxxxxxxxx
 	*/
-    /* opera_console.addLog(` The metaGeo objet is : ${toJSON(currentMetaGeo) }  <br>
-     	Searching Feature found on criteria =====>> " +
-        d.properties[ ${currentMetaGeo.idfield} ] == ${feat_code} "`
-     )*/
-	/*var f = currentGeodataset.features.find( function(d){
-		return( d.properties[currentMetaGeo.idfield] == feat_code )
-	})*/
-
 	var f  = MAP_find_feature(feat_code)
 	if (f){
 		after_feature_clicked(f)
@@ -448,7 +440,9 @@ function MAP_overlay_draw( feature_arr ){
         	//.attr('class', 'selected-feature-centered')
         	.attr('pointer-events', 'none')
         	.attr('d' , function(d) {return path(d)})
+        	.attr('class' ,  `selected selected-${currentSelectStyle}`)
 }
+
 
 function show_map_spinner( isVisible) {
 	var useless = (isVisible) ? 	
@@ -486,6 +480,7 @@ function updateMapColors(){
 		.range(  renderer.colormap );
 
 	var line_color = renderer.linecolor || "#444";
+	currentSelectStyle = renderer.select_style || "redish"
 
 	mapFeatures.selectAll('path')
 		.style( "stroke-width", 0.5 )
@@ -574,7 +569,6 @@ function update_dataTableView( metadata ){
 		var feature_code = row["CODE"];
 		MAP_zoom_on_feature(  feature_code , -1  )
 	}
-	
 }
 
 
@@ -833,12 +827,14 @@ function updateGraphic(){
 					*/
 
 					var index = indexes["@index"];
-					var feature_code = data.raw[index]["CODE"];
+					var feat_code = data.raw[index]["CODE"];
 
+					var f = MAP_find_feature(feat_code)
+					MAP_overlay_draw([f])
 
 					//alert(index)
-					console.log( row_code )
-					console.log(data)
+					console.log( feat_code )
+					//console.log(data)
 				}
 			)
 

@@ -188,7 +188,8 @@ var metaDataBase = {
 					threshold : [ 1, 5, 10, 100, 1000],
 					 colormap : ['#ffffff' , '#fcf285', '#F6B20D' , '#CC5526', '#C22C1C' , '#660207'],  
 					 labelmap : ['Aucun cas' , "", "Incidence faible", "Incidence Moyenne" , "Incidence élevée", "Epicentres"],
-				  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+				  legendtitle : "Incidence  de la maladie à Covid-19 (nb. cas confirmés)",
+				 select_style : "blueish"
 				}
 			},
 			layout : "COVID",
@@ -210,7 +211,8 @@ var metaDataBase = {
 				 			threshold: [1, 5, 10, 100, 1000],
 				 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#C22C1C', '#660207'],
 				 			labelmap: ['Aucun cas', "", "Incidence faible", "Incidence Moyenne", "Incidence élevée", "Epicentres"],
-				 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. cas confirmés)"
+				 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. cas confirmés)",
+				 			select_style : "blueish"
 				 		}
 			 		}
 			 	},
@@ -226,7 +228,8 @@ var metaDataBase = {
 				 			threshold: [1, 5, 10, 20],
 				 			colormap: ['#ffffff', '#fcf285', '#F6B20D', '#CC5526', '#660207'],
 				 			labelmap: ['Aucun décès', "1 à 4 décès", "5 à 9 décès", "10 à 19 décès", "plus de 20 décès"],
-				 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. de décès)"
+				 			legendtitle: "Incidence  de la maladie à Covid-19 (nb. de décès)",
+				 			select_style : "blueish"
 				 		}
 			 		}
 			 	}
@@ -296,7 +299,8 @@ var metaDataBase = {
 							colormap:   ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
 							linecolor: "#fff",
 							labelmap:  [ "moins de 500m", "500-400m", "1000-1500m" , "1500-2000m" , "2000-3000m", "3000m et plus" ],
-							legendtitle: "Population totale 2017 par Région"
+							legendtitle: "Population totale 2017 par Région",
+				 			select_style : "blueish"
 						},
 			 			"district_sante": {
 							source: "manual",
@@ -304,7 +308,8 @@ var metaDataBase = {
 							colormap:  ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
 							linecolor: "#fff",
 							labelmap:  [ "moins de 50m", "50-100m", "100-200m" , "200-500m" , "500-1000m", "1000m et +" ],
-							legendtitle: "Population totale 2017 par district"
+							legendtitle: "Population totale 2017 par district",
+				 			select_style : "blueish"
 						}						
 					}
 				},

@@ -23,7 +23,7 @@ var currentKey;
 var currentMetaField ;
 var currentGeodataset;
 var currentMetaGeo;
-
+var currentSelectStyle = "reddish"; // variable String référençcant l'un des styles prédéfinis pour les entité spatiales sélectionnées
 	 
 var currentDetailTemplate;
 

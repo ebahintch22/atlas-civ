@@ -252,13 +252,32 @@ path.selected-feature-centered  {
 }
 
 path.selected-feature  {
-	fill : none;
-	stroke: red;
-	stroke-width: 1px;
-	opacity: 1;
+	fill : white;
+	stroke: yellow;
+	stroke-width: 3px;
+	opacity: 0.5;
 }
 
 rect.rect-background{ 
 	fill: #ddd;
 	stroke:none;
+ }
+
+ path.selected-reddish {
+	fill : red;
+	stroke: red;
+ }
+
+ path.selected-blueish {
+	fill : blue;
+	stroke: blue;
+ }
+ path.selected-greenish {
+	fill : green;
+	stroke: green;
+ }
+
+ path.selected {
+	stroke-width: 3px;
+	opacity: 0.5;
  }
