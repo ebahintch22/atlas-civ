@@ -1,7 +1,7 @@
 	
 	
 
-function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
+function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, onClickcallBack ){
 	// A structure to detect any change on datatable or key in 
 	// order to trigger accordingy updates to inner data 
 	//struct to refresh chart
@@ -46,7 +46,17 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo ){
 				yAxisID : 'y-axis-1' 
 		   }
 		],
-		fontColors : CHART_FONT_COLORS["rass"]
+		fontColors : CHART_FONT_COLORS["rass"],
+
+		onClick : function(indexes){
+			/*
+			{
+				"@datasetIndex": item._datasetIndex,
+			    "@index": item._index
+			}
+			*/
+			onClickcallBack( data_struct, indexes);
+		} 
 	});
 
 	return {

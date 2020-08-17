@@ -34,7 +34,6 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
     return {
     	update_view: function(key){
     		
-    		
    			var _info = $(`${_eltID}  a[data-key="${key}"]`)[0].dataset;
    			$(`${_eltID}  a[data-key="${key}"]`).addClass("active");
     		$(`${ _eltID} > input.form-control`).val( _info.label );

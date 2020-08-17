@@ -100,6 +100,7 @@ function notify_application_readiness(){
 }
 
 function create_or_update_key_selectList( data ){
+
 	if (keyController == undefined ){
 
 		keyController  = ui_render_dropdown_inputgroup("#opera-variablekey-selector-3", {
@@ -127,7 +128,7 @@ function create_or_update_spatialLayer_selectList( data ){
 		   	    "options" : data,
 			        "key" : "name",
 			      "label" : "label",
-		      "transform" : null,
+		      "transform" : { key: "name", label : "label"	},
 		         "filter" : null
 		}, 
 		function after_key_selected(_info){
@@ -156,10 +157,12 @@ function Activate_thematic_section(frame_name){
 			toogle_layout(metaData)
          
 			layer_arr = extractLayerObjects( metaDataBase.geo_datasets, metaData.layerList, "name");
-			layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" );
-			
+			console.log(layer_arr)
+			create_or_update_spatialLayer_selectList( layer_arr )
+			//layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" );
 
-			key_controller = create_or_update_key_selectList( metaData.data_fields )	
+
+			create_or_update_key_selectList( metaData.data_fields )	
 			keyController.update_view("FLD1");
 
 			currentKey = "FLD1";	// get (refactoring: allow to be read from metabase section and ...
@@ -176,7 +179,7 @@ function Activate_thematic_section(frame_name){
 			});
 
 			//create_histogram_object();
-			layer_controller.update_view( metaData.layerList[0] );
+			spatialLayerController.update_view( metaData.layerList[0] );
 			after_selectLayer_Changed( metaData.layerList[0] ); 
 
 			if ( before_app_initialization ) 	notify_application_readiness()
@@ -406,19 +409,30 @@ function after_feature_clicked(d){
 	clicked(d)
 }
 
-function MAP_zoom_on_feature(feat_code , action_code){
-	
-     opera_console.addLog(` The metaGeo objet is : ${toJSON(currentMetaGeo) }  <br>
-     	Searching Feature found on criteria =====>> " +
-        d.properties[ ${currentMetaGeo.idfield} ] == ${feat_code} "`
-     )
+function MAP_find_feature( feat_code  ){
 	var f = currentGeodataset.features.find( function(d){
 		return( d.properties[currentMetaGeo.idfield] == feat_code )
-	})
+	});
+	return (f)
+}
+
+function MAP_zoom_on_feature(feat_code , action_code){
+	/*
+		action_code :
+		  1 : xxxxxxxxxxxxxx
+		  0 : xxxxxxxxxxxxxx
+	*/
+    /* opera_console.addLog(` The metaGeo objet is : ${toJSON(currentMetaGeo) }  <br>
+     	Searching Feature found on criteria =====>> " +
+        d.properties[ ${currentMetaGeo.idfield} ] == ${feat_code} "`
+     )*/
+	/*var f = currentGeodataset.features.find( function(d){
+		return( d.properties[currentMetaGeo.idfield] == feat_code )
+	})*/
+
+	var f  = MAP_find_feature(feat_code)
 	if (f){
 		after_feature_clicked(f)
-		//MAP_overlay_draw([f])
-		//clicked(f)
 	} 
 }
 
@@ -808,7 +822,26 @@ function updateGraphic(){
 
 		if (!chartController_rass){
 			
-			chartController_rass = build_RASS_chart_component( metadata , metafield, mapData, metageo)
+			chartController_rass = build_RASS_chart_component( 
+				metadata , metafield, mapData, metageo,
+				function( data , indexes){
+					/*
+						{
+							"@datasetIndex": item._datasetIndex,
+						    "@index": item._index
+						}
+					*/
+
+					var index = indexes["@index"];
+					var feature_code = data.raw[index]["CODE"];
+
+
+					//alert(index)
+					console.log( row_code )
+					console.log(data)
+				}
+			)
+
 			chartController_rass.show_spinner(false);
 		
 		} else  {

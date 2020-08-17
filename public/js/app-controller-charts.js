@@ -149,17 +149,33 @@ function create_Chart_ex( data_struct , elt_id, Cfg ){
                 labels: {
                    fontColor: Cfg.fontColors.legend
                 }
-   			}
+   			},
+		   hover : {
+		       intersect : true, 
+		       mode : "index"
+		   },
+   			onClick : (Cfg.onClick == undefined) ? undefined : __onClick
 	    }
 	}
 
 	//var CHART_CONFIG = JSON.stringify(chart_configurator)
 	//console.log("\n\n\nLOW CONFIG ::---------------------------->>> " + CHART_CONFIG + "\n\n")
 	//opera_console.log(CHART_CONFIG)
-
 	var ctx = document.getElementById(elt_id);
 	var myChart = new Chart(ctx, chart_configurator)
 	return myChart
+
+
+    function __onClick(evt){
+		var items = this.getElementAtEvent(evt);
+		if (items.length == 0) return
+		
+		var item = items[0];
+		Cfg.onClick({
+			"@datasetIndex": item._datasetIndex,
+		    "@index": item._index
+		})
+	}
 
 }
 
