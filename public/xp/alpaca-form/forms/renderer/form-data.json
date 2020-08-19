@@ -1,0 +1,39 @@
+ [
+    {
+        "legendtitle": "Population totale 2017 par Région",
+        "select_style": "blueish",
+        "linecolor": "#fff",
+        "classes": [
+            {
+                "value": 0,
+                "color": "#ffffd4",
+                "label": "moins de 500m"
+            },
+            {
+                "value": 500000,
+                "color": "#fee391",
+                "label": "500-400m"
+            },
+            {
+                "value": 1000000,
+                "color": "#fec44f",
+                "label": "1000-1500m"
+            },
+            {
+                "value": 1500000,
+                "color": "#fe9929",
+                "label": "1500-2000m"
+            },
+            {
+                "value": 2000000,
+                "color": "#d95f0e",
+                "label": "2000-3000m"
+            },
+            {
+                "value": 3000000,
+                "color": "#993404",
+                "label": "3000m et plus"
+            }
+        ]
+    }
+]

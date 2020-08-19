@@ -1,0 +1,70 @@
+{
+    "type": "object",
+    "title": "Définition d'un moteur de rendu",
+    "description": "The root schema comprises the entire JSON document.",
+    "default": {},
+    "required": [
+        "legendtitle",
+        "select_style",
+        "linecolor",
+        "classes"
+    ],
+    "properties": {
+        "legendtitle": {
+            "type": "string",
+            "title": "Titre de la légende",
+            "default" : "TITRE DE LEGENDE"
+        },
+        "select_style": {
+            "type": "string",
+            "title": "Style des entités sélectionées",
+            "enum": ["reddish", "blueish", "greenish", "yellowish"]
+        },
+        "linecolor": {
+            "type": "string",
+            "title": "Couleur de bordure"
+        },
+
+        "classes": {
+            "type": "array",
+            "title": "Classes de symboles",
+            "default": [],
+            "items" : {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "$id": "#/properties/items/items/anyOf/0/properties/value",
+                        "type": "integer",
+                        "title": "The value schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": 0,
+                        "examples": [
+                            0
+                        ]
+                    },
+                    "color": {
+                        "$id": "#/properties/items/items/anyOf/0/properties/color",
+                        "type": "string",
+                        "title": "The color schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "#ffffd4"
+                        ]
+                    },
+                    "label": {
+                        "$id": "#/properties/items/items/anyOf/0/properties/label",
+                        "type": "string",
+                        "title": "The label schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "moins de 500m"
+                        ]
+                    }
+                }
+            }
+
+        }
+    }
+}

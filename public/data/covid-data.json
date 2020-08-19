@@ -2589,5 +2589,21 @@
  		"remission": 0.808,
  		"letalite": 0.0064,
  		"sum_sample": 114360
+ 	},
+ 	{
+ 		"id": 160,
+ 		"date": "18/08/2020",
+ 		"new_case": 43,
+ 		"new_healed": 196,
+ 		"new_deceased": 0,
+ 		"sum_case": 17150,
+ 		"sum_healed": 14027,
+ 		"sum_deceased": 110,
+ 		"active_case": 3013,
+ 		"nb_sample": 918,
+ 		"incidence": 0.047,
+ 		"remission": 0.818,
+ 		"letalite": 0.0064,
+ 		"sum_sample": 115278
  	}
  ]

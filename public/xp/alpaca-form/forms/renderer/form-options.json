@@ -1,0 +1,40 @@
+{
+	
+
+	"view" : {
+		"locale": "fr_FR"
+	},
+
+	"fields": {
+		"select_style" : {
+			"type" : "string",
+			"label" : "Style pour les élements sélectionnés"
+		},		
+		"linecolor" : {
+			"type" : "color",
+			"label" : "Couleur de bordure"
+		},
+
+		"classes" : {
+			"toolbarSticky" : true,
+			"toolPosition" : "bottom",
+			"items" : {
+				"fields" : {
+					"value" : {
+						"type" : "integer",
+						"label": "Valeur"
+					},
+					"color": {
+						"label" : "couleur de fond",
+						"type"  : "color"
+					},
+					"label": {
+						"type" : "string",
+						"label" : "Libellé"
+					}
+				}
+			}
+		}
+
+	}
+}
