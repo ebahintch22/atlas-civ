@@ -32,35 +32,17 @@
             "items" : {
                 "type": "object",
                 "properties": {
-                    "value": {
-                        "$id": "#/properties/items/items/anyOf/0/properties/value",
-                        "type": "integer",
-                        "title": "The value schema",
-                        "description": "An explanation about the purpose of this instance.",
-                        "default": 0,
-                        "examples": [
-                            0
-                        ]
+                    "cvalue": {
+                        "type": "number",
+                        "title": "The value schema"
                     },
-                    "color": {
-                        "$id": "#/properties/items/items/anyOf/0/properties/color",
+                    "ccolor": {
                         "type": "string",
-                        "title": "The color schema",
-                        "description": "An explanation about the purpose of this instance.",
-                        "default": "",
-                        "examples": [
-                            "#ffffd4"
-                        ]
+                        "title": "The color schema"
                     },
-                    "label": {
-                        "$id": "#/properties/items/items/anyOf/0/properties/label",
+                    "clabel": {
                         "type": "string",
-                        "title": "The label schema",
-                        "description": "An explanation about the purpose of this instance.",
-                        "default": "",
-                        "examples": [
-                            "moins de 500m"
-                        ]
+                        "title": "The label schema"
                     }
                 }
             }

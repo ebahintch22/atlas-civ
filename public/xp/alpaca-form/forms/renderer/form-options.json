@@ -1,13 +1,12 @@
 {
 	
-
 	"view" : {
 		"locale": "fr_FR"
 	},
 
 	"fields": {
 		"select_style" : {
-			"type" : "string",
+			"type" : "select",
 			"label" : "Style pour les élements sélectionnés"
 		},		
 		"linecolor" : {
@@ -20,16 +19,15 @@
 			"toolPosition" : "bottom",
 			"items" : {
 				"fields" : {
-					"value" : {
-						"type" : "integer",
+					"cvalue" : {
 						"label": "Valeur"
 					},
-					"color": {
-						"label" : "couleur de fond",
-						"type"  : "color"
+					"ccolor": {
+						"type"  : "color",
+						"label" : "couleur de fond"
 					},
-					"label": {
-						"type" : "string",
+					"clabel": {
+						"type" : "text",
 						"label" : "Libellé"
 					}
 				}

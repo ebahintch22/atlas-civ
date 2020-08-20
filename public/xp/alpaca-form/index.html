@@ -63,7 +63,17 @@
 
 		       "dataSource" : "./forms/renderer/form-data.json",
 		    "optionsSource" : "./forms/renderer/form-options.json",
-		     "schemaSource" : "./forms/renderer/form-schema.json"
+		     "schemaSource" : "./forms/renderer/form-schema.json",
+		        "postRender": function(control) {
+			        var showColorFn = function() {
+			            $("#color1").remove();
+			            $(control.getFieldEl()).after("<div id='color1'>The selected color is: " + control.getValue() + "</div>");
+			        };
+			        control.on("change", function() {
+			            showColorFn();
+			        });
+			        showColorFn();
+			    }
 
 		});
 
