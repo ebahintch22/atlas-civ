@@ -50,21 +50,52 @@
 
 	<!-- dependencies (jquery, handlebars and bootstrap) -->
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+
 	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
+
 	<link type="text/css" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet"/>
 	<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="../../vendors/spectrum-colorpicker/spectrum.js"></script>
+    <script type="text/javascript" src="../../vendors/spectrum-colorpicker/i18n/jquery.spectrum-fr.js"></script>
+	<link   href="../../vendors/spectrum-colorpicker/spectrum.css" type="text/css" rel="stylesheet"/>
+
 	<link   href="//cdn.jsdelivr.net/npm/alpaca@1.5.27/dist/alpaca/bootstrap/alpaca.min.css" type="text/css" rel="stylesheet"/>
 	<script src="//cdn.jsdelivr.net/npm/alpaca@1.5.27/dist/alpaca/bootstrap/alpaca.min.js" type="text/javascript" ></script>
+
+
 	 
 	<!-- alpaca -->
 	<script type="text/javascript">
 
+		$("#form1").alpaca({
+			 "data": "#0077ff",
+		    "schema": {
+		        "type": "string"
+		    },
+		    "options": {
+		        "type": "color",
+		    },
+		    "postRender": function(control) {
+		        var showColorFn = function() {
+		            $("#color1").remove();
+		            $(control.getFieldEl()).after("<div id='color1'>The selected color is: " + control.getValue() + "</div>");
+		        };
+		        control.on("change", function() {
+		            showColorFn();
+		        });
+		        showColorFn();
+		    }
+		});
+
+		/*
 		$("#form1").alpaca({
 
 		       "dataSource" : "./forms/renderer/form-data.json",
 		    "optionsSource" : "./forms/renderer/form-options.json",
 		     "schemaSource" : "./forms/renderer/form-schema.json",
 		        "postRender": function(control) {
+
 			        var showColorFn = function() {
 			            $("#color1").remove();
 			            $(control.getFieldEl()).after("<div id='color1'>The selected color is: " + control.getValue() + "</div>");
@@ -75,7 +106,7 @@
 			        showColorFn();
 			    }
 
-		});
+		});*/
 
 	</script>	
 
