@@ -142,17 +142,14 @@
 
                 var col_arr =  [
 
-                    {"data": "login", "title": "Pseudo" },
-                    {"data": "user_type", "title": "Type Utilisateur" },
+                    {"data": "last_conn_ended_at" , "title": "Dernière visite (Fin)", "render" : set_as_date },
                     {"data": "user_url", "title": "Url d'accès" },
                     {"data": "firstname", "title": "Prénoms" },
                     {"data": "lastname" , "title": "Nom" },
                     {"data": "conn_count" , "title": "Nb Visite" },
-                    {"data": "created_on" , "title": "Créé le" , "render" : set_as_date },
-                    {"data": "last_conn_started_at" , "title": "Dernière visite (début)", "render" : set_as_date },
-                    {"data": "last_conn_ended_at" , "title": "Dernière visite (Fin)", "render" : set_as_date },
                     {"data": "ua_browser_name" , "title": "Browser (nom)" },
                     {"data": "ua_browser_version" , "title": "Browser (Ver)" },
+                    {"data": "user_type", "title": "Type Utilisateur" },
                     {"data": "ua_engine_name" , "title": "Moteur rendu" },
                     {"data": "ua_engine_version" , "title": "Moteur rendu (ver)" },
                     {"data": "ua_os_name" , "title": "OS" },
@@ -166,6 +163,9 @@
                     {"data": "ua_cpu_architecture" , "title": "Architect CPU" },
                     {"data": "boot_exit" , "title": "Résultat init." },
                     {"data": "boot_exit_how" , "title": "Fin (comment)" },
+                    {"data": "login", "title": "Pseudo" },
+                    {"data": "last_conn_started_at" , "title": "Dernière visite (début)", "render" : set_as_date },
+                    {"data": "created_on" , "title": "Créé le" , "render" : set_as_date },
                     {"data": "boot_exit_why" , "title": "Fin (raison)"  }
 
                 ]
