@@ -14,7 +14,7 @@
 			"label" : "Couleur de bordure"
 		},
 
-		"classes" : {
+		"legendClasses" : {
 			"toolbarSticky" : true,
 			"toolPosition" : "bottom",
 			"items" : {

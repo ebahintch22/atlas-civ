@@ -3,7 +3,7 @@
         "legendtitle": "Population totale 2017 par Région",
         "select_style": "blueish",
         "linecolor": "#fff",
-        "classes": [
+        "legendClasses": [
             {
                 "cvalue": 0,
                 "ccolor": "#ffffd4",

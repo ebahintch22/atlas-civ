@@ -1,0 +1,42 @@
+
+{
+    
+    "view" : {
+        "locale": "fr_FR",
+        "parent": "bootstrap-edit",
+        "globalTemplate": "#form-template"
+    },
+
+    "fields": {
+        "legendtitle" : {
+            "type" : "select",
+            "label" : "Style pour les élements sélectionnés"
+        }, 
+        "select_style" : {
+            "type" : "select",
+            "label" : "Style pour les élements sélectionnés"
+        },      
+        "linecolor" : {
+            "type" : "color",
+            "label" : "Couleur de bordure"
+        },
+
+        "legendClasses" : {
+            "toolbarSticky" : true,
+            "toolPosition" : "bottom",
+            "fields" : {
+                "cvalue" : {
+                    "label": "Valeur"
+                },
+                "ccolor": {
+                    "type"  : "color",
+                    "label" : "couleur de fond"
+                },
+                "clabel": {
+                    "type" : "text",
+                    "label" : "Libellé"
+                }
+            }
+        }
+    }
+}
