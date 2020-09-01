@@ -1,11 +1,7 @@
 
 {
     
-    "view" : {
-        "locale": "fr_FR",
-        "parent": "bootstrap-edit",
-        "globalTemplate": "#form-template"
-    },
+
 
     "fields": {
         "legendtitle" : {
