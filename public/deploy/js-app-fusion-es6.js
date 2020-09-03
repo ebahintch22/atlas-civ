@@ -650,7 +650,7 @@ var metaDataBase = {
 		}	
 	],	
 	tables : [
-		"demographic",
+		"02_demographic",
 		"human_ressource",
 		"ratio_prestataire_pop",
 		"repartition_etabliss_sante",
@@ -845,7 +845,7 @@ var metaDataBase = {
 		{
 			index : 3,
 			valid: true,
-			name : "demographic",
+			name : "02_demographic",
 			group: "DEMOGRAPHIE",
 			layerList : [  "district_sante", "region_sante" ],
 			table_num :"Tableau-DD",
@@ -1649,7 +1649,7 @@ var metaDataBase = {
 				 		}
 			 		}
 			 	}
-			 ]
+			]
 		},
 		{
 			index : 19,
@@ -1673,31 +1673,31 @@ var metaDataBase = {
 					short_name: " Nombre total de Consultations ESPC",
 					long_name: " Nombre total de Consultations ESPC",
 					data_type: "INT",
-					unit: "nombre"
+					unit: "consultations"
 				}, {
 					fld_name: "FLD2",
 					short_name: "Total Consultations HG et CHR",
 					long_name: "Total Consultations HG et CHR",
 					data_type: "INT",
-					unit: "nombre"
+					unit: "consultations"
 				}, {
 					fld_name: "FLD3",
 					short_name: "Total Consultations (%)",
 					long_name: "Total Consultations (%)",
 					data_type: "INT",
-					unit: "nombre"
+					unit: "consultations"
 				}, {
 					fld_name: "FLD4",
 					short_name: "Consultations ESPC(%)",
 					long_name: "Consultations ESPC(%)",
 					data_type: "INT",
-					unit: "nombre"
+					unit: "consultations"
 				}, {
 					fld_name: "FLD5",
 					short_name: "Consultation HG & CHR",
 					long_name: "Consultation HG & CHR",
 					data_type: "INT",
-					unit: "nombre"
+					unit: "consultations"
 				}
 			]
 		},
