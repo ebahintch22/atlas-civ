@@ -8,5 +8,5 @@ git add .
 git status
 git commit -am "ASCIV September 2020"
 git push heroku master
-call ./go-local.bat
+call go-local.bat
 
