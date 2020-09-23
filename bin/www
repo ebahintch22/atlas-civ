@@ -23,6 +23,32 @@ global.OPERA = {
    buffer_check_function : null
 }
 
+global.DATE_FORMATTER = (function(){
+    var format_short = new global.Intl.DateTimeFormat( "fr-FR" ,
+      {
+         year : "numeric",
+        month : "2-digit",
+          day : "2-digit"
+      }
+    );
+    var format_long = new global.Intl.DateTimeFormat( "fr-FR" , 
+      {
+        weekday : "long",
+           year : "numeric",
+          month : "2-digit",
+            day : "2-digit"
+      }
+    );
+    return {
+      short: function(in_date){
+        return format_short.format( in_date )
+      },
+      long : function(in_date){
+        return format_long.format( in_date )
+      }
+    }
+})()
+
 OPERA.buffer_check_timer =  setInterval(Watchdog.check_buffer_func, OPERA.Delays.bufferCheck)
 /**
  * Get port from environment and store in Express.

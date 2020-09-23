@@ -110,10 +110,38 @@ var legendControllervar ;
 var COVIDATA = null;
 var COVIDATA_STATUS = "UNLOAD";
 var COVID_SPINNER_ARR = [];
+var COVIDATA_ACCESS_MODE = "database"
 
 var dataTableController
 var ZOOM_IS_DISABLE = true
 var rass_active_panel = "tab-b" 
+
+var DATE_FORMATTER = (function(){
+
+	var format_short = new window.Intl.DateTimeFormat( "fr-FR" ,
+		{
+			 year : "numeric",
+			month : "2-digit",
+			  day : "2-digit"
+		}
+	);
+	var format_long = new window.Intl.DateTimeFormat( "fr-FR" , 
+		{
+			weekday : "long",
+			   year : "numeric",
+			  month : "2-digit",
+			    day : "2-digit"
+		}
+	);
+	return {
+		short: function(in_date){
+			return format_short.format( in_date )
+		},
+		long : function(in_date){
+			return format_long.format( in_date )
+		}
+	}
+})()
 
 
 
@@ -178,7 +206,7 @@ function getEnvSize(){
   }
 
 
-function detect_client(){
+//Usagefunction detect_client(){
 
     var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;// Opera 8.0+
     var isFirefox = typeof InstallTrigger !== 'undefined';// Firefox 1.0+
@@ -246,7 +274,7 @@ function detect_client(){
                 var formatter = new window.Intl.DateTimeFormat( lang, opts);
 
                 return {
-                    date : function (n){ return( formatter.format(n) )},
+                    date : function(n){ return( formatter.format(n) )},
                     date_str : function(n){ return( formatter.format(new Date(n)))}
                 }
   
@@ -317,6 +345,7 @@ function detect_client(){
 	var parseTime, timeParse;
 	set_time_config();
 
+
 	function fileLoad_JSON( name, path, callBack){
 	    d3.json( path , function(error, data) {
 
@@ -341,11 +370,53 @@ function detect_client(){
                     d.letalite = +d.letalite * 100;
 	            
 	        });
-            //console.log(data)
+
 	        callBack(data);
 	        return data;          
 	    })
 	}
+
+
+
+    function fileLoad_PGSQL( name, URL, callBack){
+
+        Ajaxian.read( 
+            URL, 
+            function(data){
+
+                data.sort(function(a, b) {
+                    return a.ref_date - b.ref_date;
+                });   
+
+                data.forEach(function(d) {
+                        var tmp_date =  Date.parse(d.ref_date);
+
+                        d.date_raw = DATE_FORMATTER.short(d.ref_date);
+                            d.date = d.ref_date;
+                        d.new_case = +d.new_case;
+                      d.new_healed = +d.new_healed;
+                    d.new_deceased = +d.new_deceased;
+                        d.sum_case = +d.sum_case;
+                      d.sum_healed = +d.sum_healed;
+                    d.sum_deceased = +d.sum_deceased;
+                     d.active_case = + d.sum_case - d.sum_healed - d.sum_deceased;
+                       d.nb_sample = +d.nb_sample;
+                      d.sum_sample = +d.sum_sample;
+                       d.incidence = +d.incidence_rate * 100;
+                       d.remission = +d.remission_rate * 100;
+                        d.letalite = +d.letality_rate * 100;
+                    
+                });
+
+                callBack(data)
+            },
+
+            function( xhr, ajaxOptions, thrownError ){
+
+            }
+        )
+    }
+
 
 
     function fileLoad_CSV( name, path, onSuccessCallBack, onFailCallBack){
@@ -2417,7 +2488,7 @@ function get_random_data(){
 
 
 
-function load_COVID_DATA_IF_NEEDED( the_spinner ){
+function load_COVID_DATA_IF_NEEDED___( the_spinner ){
 
 	COVID_SPINNER_ARR.push( the_spinner )
 
@@ -2427,6 +2498,29 @@ function load_COVID_DATA_IF_NEEDED( the_spinner ){
 		fileLoad_JSON( 
 			"Données épidémiologique sur le COVID-19", PATH_PREFIX + "data/covid-data.json", 
 			function(data) {
+
+		        data.sort(function(a, b) {
+		            return parseTime(a.date) - parseTime(b.date);
+		        });                 
+		        data.forEach(function(d) {
+
+	                    d.date_raw = d.date;
+	                        d.date = parseTime(d.date);
+		                d.new_case = +d.new_case;
+		              d.new_healed = +d.new_healed;
+		            d.new_deceased = +d.new_deceased;
+		                d.sum_case = +d.sum_case;
+		              d.sum_healed = +d.sum_healed;
+		            d.sum_deceased = +d.sum_deceased;
+		             d.active_case = + d.sum_case - d.sum_healed - d.sum_deceased;
+	                   d.nb_sample = +d.nb_sample;
+	                  d.sum_sample = +d.sum_sample;
+	                   d.incidence = +d.incidence * 100;
+	                   d.remission = +d.remission * 100;
+	                    d.letalite = +d.letalite * 100;
+		            
+		        });
+
 
 				COVIDATA = data;
 				update_covid_badges();
@@ -2446,6 +2540,40 @@ function load_COVID_DATA_IF_NEEDED( the_spinner ){
 	}
 }
 
+
+function load_COVID_DATA_IF_NEEDED( the_spinner){
+	
+	var load_function_abstraction = ( COVIDATA_ACCESS_MODE == "file")? fileLoad_JSON : fileLoad_PGSQL
+	var COVID_PATH_Or_URL = ( COVIDATA_ACCESS_MODE == "file")? PATH_PREFIX + "data/covid-data.json" : "covid/get_records"
+
+
+	COVID_SPINNER_ARR.push( the_spinner )
+
+	if ( COVIDATA_STATUS != "UNLOAD") return (COVIDATA_STATUS)
+	if ( COVIDATA == null) {
+		COVIDATA_STATUS = "LOADING"
+		load_function_abstraction( 
+			"Données épidémiologique sur le COVID-19", 
+			COVID_PATH_Or_URL , 
+			function( data) {
+
+				COVIDATA = data;
+				update_covid_badges();
+				display_atlas_infos_slide();
+				build_COVID_chart_component(  data );
+				COVIDATA_STATUS = "LOAD-ENDED";
+
+				COVID_SPINNER_ARR.forEach( function (spin){
+					spin.remove()
+				}) ;
+				Spinners.removeDetached();
+		    }, 
+		    function(error){
+				alert("erreur " + error)
+			}
+		);			
+	}		
+}
 
 
 
@@ -2484,7 +2612,7 @@ function update_covid_badges(){
 	function COVID_BADGES( ){
 
 
-		var d = extract_late_datarow();
+		var d  = extract_late_datarow();
 		var d1 = extract_late_datarow(1);
 
 		return {
@@ -2588,7 +2716,7 @@ function display_atlas_infos_slide(){
 	function ATLAS_BADGES( ){
 		return {
 			"badge_01" : _render_cool(`Atlas Santé CI ? ...`),
-			"badge_02" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...les données du RASS passées au moule de la DATAVIZ... </span>`),
+			"badge_02" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...les données du RASS passées au moule de la DataViz... </span>`),
 			"badge_03" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...une contribution à la valorisation des statistiques sanitaires...  </span>`),
 			"badge_04" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...un contenu appelé à évoluer regulièrement...</span>`),
 			"badge_05" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...vers une version mobile pour une ubiquité d'accès </div>` )	
@@ -2627,346 +2755,34 @@ function extract_late_datarow(index=0){
 function get_data(){
 	return (
 	 [{
- 	"alive": 52,
- 	"iddle": 17
- }, {
- 	"alive": 53,
- 	"iddle": 17
- }, {
- 	"alive": 71,
- 	"iddle": 13
- }, {
- 	"alive": 88,
- 	"iddle": 12
- }, {
- 	"alive": 138,
- 	"iddle": 11
- }, {
- 	"alive": 171,
- 	"iddle": 11
- }, {
- 	"alive": 208,
- 	"iddle": 10
- }, {
- 	"alive": 258,
- 	"iddle": 10
- }, {
- 	"alive": 305,
- 	"iddle": 10
- }, {
- 	"alive": 344,
- 	"iddle": 9
- }, {
- 	"alive": 370,
- 	"iddle": 9
- }, {
- 	"alive": 382,
- 	"iddle": 9
- }, {
- 	"alive": 385,
- 	"iddle": 9
- }, {
- 	"alive": 385,
- 	"iddle": 9
- }, {
- 	"alive": 381,
- 	"iddle": 9
- }, {
- 	"alive": 374,
- 	"iddle": 9
- }, {
- 	"alive": 363,
- 	"iddle": 10
- }, {
- 	"alive": 352,
- 	"iddle": 10
- }, {
- 	"alive": 343,
- 	"iddle": 10
- }, {
- 	"alive": 335,
- 	"iddle": 10
- }, {
- 	"alive": 329,
- 	"iddle": 10
- }, {
- 	"alive": 323,
- 	"iddle": 10
- }, {
- 	"alive": 320,
- 	"iddle": 10
- }, {
- 	"alive": 318,
- 	"iddle": 10
- }, {
- 	"alive": 316,
- 	"iddle": 11
- }, {
- 	"alive": 316,
- 	"iddle": 11
- }, {
- 	"alive": 316,
- 	"iddle": 11
- }, {
- 	"alive": 316,
- 	"iddle": 11
- }, {
- 	"alive": 316,
- 	"iddle": 11
- }, {
- 	"alive": 318,
- 	"iddle": 11
- }, {
- 	"alive": 322,
- 	"iddle": 11
- }, {
- 	"alive": 332,
- 	"iddle": 11
- }, {
- 	"alive": 338,
- 	"iddle": 11
- }, {
- 	"alive": 345,
- 	"iddle": 11
- }, {
- 	"alive": 347,
- 	"iddle": 11
- }, {
- 	"alive": 347,
- 	"iddle": 11
- }, {
- 	"alive": 345,
- 	"iddle": 11
- }, {
- 	"alive": 337,
- 	"iddle": 11
- }, {
- 	"alive": 326,
- 	"iddle": 11
- }, {
- 	"alive": 317,
- 	"iddle": 11
- }, {
- 	"alive": 308,
- 	"iddle": 11
- }, {
- 	"alive": 299,
- 	"iddle": 12
- }, {
- 	"alive": 297,
- 	"iddle": 12
- }, {
- 	"alive": 296,
- 	"iddle": 12
- }, {
- 	"alive": 296,
- 	"iddle": 12
- }, {
- 	"alive": 298,
- 	"iddle": 12
- }, {
- 	"alive": 300,
- 	"iddle": 12
- }, {
- 	"alive": 303,
- 	"iddle": 12
- }, {
- 	"alive": 305,
- 	"iddle": 12
- }, {
- 	"alive": 308,
- 	"iddle": 12
- }, {
- 	"alive": 308,
- 	"iddle": 12
- }, {
- 	"alive": 308,
- 	"iddle": 12
- }, {
- 	"alive": 306,
- 	"iddle": 12
- }, {
- 	"alive": 304,
- 	"iddle": 12
- }, {
- 	"alive": 300,
- 	"iddle": 12
- }, {
- 	"alive": 298,
- 	"iddle": 12
- }, {
- 	"alive": 297,
- 	"iddle": 13
- }, {
- 	"alive": 295,
- 	"iddle": 13
- }, {
- 	"alive": 295,
- 	"iddle": 13
- }, {
- 	"alive": 295,
- 	"iddle": 13
- }, {
- 	"alive": 295,
- 	"iddle": 13
- }, {
- 	"alive": 297,
- 	"iddle": 13
- }, {
- 	"alive": 300,
- 	"iddle": 13
- }, {
- 	"alive": 302,
- 	"iddle": 13
- }, {
- 	"alive": 303,
- 	"iddle": 13
- }, {
- 	"alive": 304,
- 	"iddle": 13
- }, {
- 	"alive": 304,
- 	"iddle": 13
- }, {
- 	"alive": 303,
- 	"iddle": 13
- }, {
- 	"alive": 299,
- 	"iddle": 13
- }, {
- 	"alive": 293,
- 	"iddle": 14
- }, {
- 	"alive": 284,
- 	"iddle": 14
- }, {
- 	"alive": 276,
- 	"iddle": 14
- }, {
- 	"alive": 272,
- 	"iddle": 14
- }, {
- 	"alive": 270,
- 	"iddle": 14
- }, {
- 	"alive": 268,
- 	"iddle": 14
- }, {
- 	"alive": 268,
- 	"iddle": 14
- }, {
- 	"alive": 268,
- 	"iddle": 14
- }, {
- 	"alive": 268,
- 	"iddle": 14
- }, {
- 	"alive": 271,
- 	"iddle": 14
- }, {
- 	"alive": 276,
- 	"iddle": 14
- }, {
- 	"alive": 280,
- 	"iddle": 14
- }, {
- 	"alive": 281,
- 	"iddle": 14
- }, {
- 	"alive": 281,
- 	"iddle": 14
- }, {
- 	"alive": 279,
- 	"iddle": 14
- }, {
- 	"alive": 278,
- 	"iddle": 14
- }, {
- 	"alive": 277,
- 	"iddle": 14
- }, {
- 	"alive": 276,
- 	"iddle": 14
- }, {
- 	"alive": 276,
- 	"iddle": 14
- }, {
- 	"alive": 276,
- 	"iddle": 14
- }, {
- 	"alive": 276,
- 	"iddle": 15
- }, {
- 	"alive": 276,
- 	"iddle": 15
- }, {
- 	"alive": 276,
- 	"iddle": 15
- }, {
- 	"alive": 276,
- 	"iddle": 15
- }, {
- 	"alive": 276,
- 	"iddle": 15
- }, {
- 	"alive": 276,
- 	"iddle": 15
- }, {
- 	"alive": 276,
- 	"iddle": 15
- }, {
- 	"alive": 276,
- 	"iddle": 15
- }, {
- 	"alive": 276,
- 	"iddle": 15
- }, {
- 	"alive": 276,
- 	"iddle": 15
- }, {
- 	"alive": 276,
- 	"iddle": 15
- }, {
- 	"alive": 273,
- 	"iddle": 16
- }, {
- 	"alive": 272,
- 	"iddle": 16
- }, {
- 	"alive": 271,
- 	"iddle": 16
- }, {
- 	"alive": 270,
- 	"iddle": 16
- }, {
- 	"alive": 270,
- 	"iddle": 16
- }, {
- 	"alive": 270,
- 	"iddle": 16
- }, {
- 	"alive": 270,
- 	"iddle": 16
- }, {
- 	"alive": 270,
- 	"iddle": 16
- }, {
- 	"alive": 270,
- 	"iddle": 17
- }, {
- 	"alive": 169,
- 	"iddle": 13
- }, {
- 	"alive": 171,
- 	"iddle": 13
- }, {
- 	"alive": 173,
- 	"iddle": 14
- }, {
- 	"alive": 176,
- 	"iddle": 14
- }]
-		 )
+	 	"alive": 52,
+	 	"iddle": 17
+	 }, {
+	 	"alive": 270,
+	 	"iddle": 16
+	 }, {
+	 	"alive": 270,
+	 	"iddle": 16
+	 }, {
+	 	"alive": 270,
+	 	"iddle": 16
+	 }, {
+	 	"alive": 270,
+	 	"iddle": 17
+	 }, {
+	 	"alive": 169,
+	 	"iddle": 13
+	 }, {
+	 	"alive": 171,
+	 	"iddle": 13
+	 }, {
+	 	"alive": 173,
+	 	"iddle": 14
+	 }, {
+	 	"alive": 176,
+	 	"iddle": 14
+	 }]
+	)
 }
 init_helper_functions()
 function get_chart_container( canvas_id, width, height, x_width, x_height, addSpinner=false ){
@@ -3379,9 +3195,9 @@ function ui_render_navtabs ( _eltID , Cfg , callBack ,  callBack_onLoad , delay 
 		var data = Cfg
 		data.tabs = data.tabs.filter(function(d){return(d.visible)});
 		data.tabs = Cfg.tabs.map( function(d){
-			d["active"] = (d.id == data.default)? "active" : "";
+			d["active"]   = (d.id == data.default)? "active" : "";
 			d["selected"] = (d.id == data.default)? "true" : "false";
-			d["disable"] = (d.enabled == false)? "disabled" : "";
+			d["disable"]  = (d.enabled == false)? "disabled" : "";
 			return (d)
 		});
 

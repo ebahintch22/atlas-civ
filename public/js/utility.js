@@ -66,7 +66,7 @@ function detect_client(){
                 var formatter = new window.Intl.DateTimeFormat( lang, opts);
 
                 return {
-                    date : function (n){ return( formatter.format(n) )},
+                    date : function(n){ return( formatter.format(n) )},
                     date_str : function(n){ return( formatter.format(new Date(n)))}
                 }
   
@@ -137,6 +137,7 @@ function detect_client(){
 	var parseTime, timeParse;
 	set_time_config();
 
+
 	function fileLoad_JSON( name, path, callBack){
 	    d3.json( path , function(error, data) {
 
@@ -161,11 +162,53 @@ function detect_client(){
                     d.letalite = +d.letalite * 100;
 	            
 	        });
-            //console.log(data)
+
 	        callBack(data);
 	        return data;          
 	    })
 	}
+
+
+
+    function fileLoad_PGSQL( name, URL, callBack){
+
+        Ajaxian.read( 
+            URL, 
+            function(data){
+
+                data.sort(function(a, b) {
+                    return a.ref_date - b.ref_date;
+                });   
+
+                data.forEach(function(d) {
+                        var tmp_date =  Date.parse(d.ref_date);
+
+                        d.date_raw = DATE_FORMATTER.short(d.ref_date);
+                            d.date = d.ref_date;
+                        d.new_case = +d.new_case;
+                      d.new_healed = +d.new_healed;
+                    d.new_deceased = +d.new_deceased;
+                        d.sum_case = +d.sum_case;
+                      d.sum_healed = +d.sum_healed;
+                    d.sum_deceased = +d.sum_deceased;
+                     d.active_case = + d.sum_case - d.sum_healed - d.sum_deceased;
+                       d.nb_sample = +d.nb_sample;
+                      d.sum_sample = +d.sum_sample;
+                       d.incidence = +d.incidence_rate * 100;
+                       d.remission = +d.remission_rate * 100;
+                        d.letalite = +d.letality_rate * 100;
+                    
+                });
+
+                callBack(data)
+            },
+
+            function( xhr, ajaxOptions, thrownError ){
+
+            }
+        )
+    }
+
 
 
     function fileLoad_CSV( name, path, onSuccessCallBack, onFailCallBack){

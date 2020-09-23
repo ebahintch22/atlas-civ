@@ -7,7 +7,7 @@ function date_now(){
 module.exports = {
     check_buffer_func : function(){
 	/*
-  check buffer to detect :
+  		check buffer to detect :
       - iddle session : (now - last notification time) > idletimeout
 	*/
 	var currentTime = date_now();

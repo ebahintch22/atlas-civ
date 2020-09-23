@@ -12,6 +12,7 @@ var usersRouter = require('./routes/users');
 //var socketRouter = require('./socket/api-socket');
 var buyerRouter = require('./routes/buyers');
 var visitorRouter = require('./routes/visitors');
+var covidRouter = require('./routes/covid');
 
 if (!global.OPERA_DATA_BUS) { global.OPERA_DATA_BUS = []}
 
@@ -37,6 +38,7 @@ app.use('/visitors', visitorRouter);//socketRouter
 app.use('/guest-acf/visitors', visitorRouter);//socketRouter
 app.use('/guest-gtx/visitors', visitorRouter);//socketRouter
 
+app.use('/covid', covidRouter);//socketRouter
 
 app.use('/buyers'  , buyerRouter);
 

@@ -455,6 +455,20 @@ router.post('/connected',  function(req, res, next) {
 })
 
 
+router.get('/connected',  function(req, res, next) {
+	//Confirm that local storage is implemented but no key found 
+	// So we confirm the temp key produce during boot request
+
+	db.query( `SELECT *, $1 as url_access FROM my_visitors order by last_conn_ended_at ` ,  [ ACCESS_URL.base], 
+		function(err, dbResult){
+			if (err) { 
+				return next(err)
+			}
+	    res.send( dbResult.rows )  	
+	})
+})
+
+
 
 
 /* Notify user alive  */

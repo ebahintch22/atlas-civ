@@ -110,10 +110,38 @@ var legendControllervar ;
 var COVIDATA = null;
 var COVIDATA_STATUS = "UNLOAD";
 var COVID_SPINNER_ARR = [];
+var COVIDATA_ACCESS_MODE = "database"
 
 var dataTableController
 var ZOOM_IS_DISABLE = true
 var rass_active_panel = "tab-b" 
+
+var DATE_FORMATTER = (function(){
+
+	var format_short = new window.Intl.DateTimeFormat( "fr-FR" ,
+		{
+			 year : "numeric",
+			month : "2-digit",
+			  day : "2-digit"
+		}
+	);
+	var format_long = new window.Intl.DateTimeFormat( "fr-FR" , 
+		{
+			weekday : "long",
+			   year : "numeric",
+			  month : "2-digit",
+			    day : "2-digit"
+		}
+	);
+	return {
+		short: function(in_date){
+			return format_short.format( in_date )
+		},
+		long : function(in_date){
+			return format_long.format( in_date )
+		}
+	}
+})()
 
 
 

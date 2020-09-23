@@ -1967,7 +1967,7 @@
  		"sum_sample": 70354
  	},
  	{
- 		"id": 121,
+ 		"id": 122,
  		"date": "10/07/2020",
  		"new_case": 302,
  		"new_healed": 328,
@@ -1983,7 +1983,7 @@
  		"sum_sample": 72539
  	},
  	{
- 		"id": 122,
+ 		"id": 123,
  		"date": "11/07/2020",
  		"new_case": 391,
  		"new_healed": 277,
@@ -1999,7 +1999,7 @@
  		"sum_sample": 74820
  	},
  	{
- 		"id": 123,
+ 		"id": 124,
  		"date": "12/07/2020",
  		"new_case": 323,
  		"new_healed": 297,
@@ -2015,7 +2015,7 @@
  		"sum_sample": 76190
  	},
  	{
- 		"id": 124,
+ 		"id": 125,
  		"date": "13/07/2020",
  		"new_case": 106,
  		"new_healed": 156,
@@ -2031,7 +2031,7 @@
  		"sum_sample": 77324
  	},
  	{
- 		"id": 125,
+ 		"id": 126,
  		"date": "14/07/2020",
  		"new_case": 165,
  		"new_healed": 98,
@@ -2047,7 +2047,7 @@
  		"sum_sample": 78006
  	},
  	{
- 		"id": 126,
+ 		"id": 127,
  		"date": "15/07/2020",
  		"new_case": 366,
  		"new_healed": 238,
@@ -2063,7 +2063,7 @@
  		"sum_sample": 79835
  	},
  	{
- 		"id": 127,
+ 		"id": 128,
  		"date": "16/07/2020",
  		"new_case": 151,
  		"new_healed": 217,
@@ -2079,7 +2079,7 @@
  		"sum_sample": 80573
  	},
  	{
- 		"id": 128,
+ 		"id": 129,
  		"date": "17/07/2020",
  		"new_case": 142,
  		"new_healed": 244,
@@ -2095,7 +2095,7 @@
  		"sum_sample": 81319
  	},
  	{
- 		"id": 129,
+ 		"id": 130,
  		"date": "18/07/2020",
  		"new_case": 216,
  		"new_healed": 393,
@@ -2111,7 +2111,7 @@
  		"sum_sample": 82556
  	},
  	{
- 		"id": 130,
+ 		"id": 131,
  		"date": "19/07/2020",
  		"new_case": 207,
  		"new_healed": 366,
@@ -2127,7 +2127,7 @@
  		"sum_sample": 83693
  	},
  	{
- 		"id": 131,
+ 		"id": 132,
  		"date": "20/07/2020",
  		"new_case": 193,
  		"new_healed": 293,
@@ -2143,7 +2143,7 @@
  		"sum_sample": 85349
  	},
  	{
- 		"id": 132,
+ 		"id": 133,
  		"date": "21/07/2020",
  		"new_case": 219,
  		"new_healed": 198,
@@ -2159,7 +2159,7 @@
  		"sum_sample": 86492
  	},
  	{
- 		"id": 133,
+ 		"id": 134,
  		"date": "22/07/2020",
  		"new_case": 202,
  		"new_healed": 138,
@@ -2175,7 +2175,7 @@
  		"sum_sample": 87623
  	},
  	{
- 		"id": 134,
+ 		"id": 135,
  		"date": "23/07/2020",
  		"new_case": 268,
  		"new_healed": 287,
@@ -2191,7 +2191,7 @@
  		"sum_sample": 89860
  	},
  	{
- 		"id": 135,
+ 		"id": 136,
  		"date": "24/07/2020",
  		"new_case": 252,
  		"new_healed": 217,
@@ -2207,7 +2207,7 @@
  		"sum_sample": 91595
  	},
  	{
- 		"id": 136,
+ 		"id": 137,
  		"date": "25/07/2020",
  		"new_case": 241,
  		"new_healed": 381,
@@ -2223,7 +2223,7 @@
  		"sum_sample": 93599
  	},
  	{
- 		"id": 137,
+ 		"id": 138,
  		"date": "26/07/2020",
  		"new_case": 102,
  		"new_healed": 298,
@@ -2239,7 +2239,7 @@
  		"sum_sample": 95046
  	},
  	{
- 		"id": 138,
+ 		"id": 139,
  		"date": "27/07/2020",
  		"new_case": 59,
  		"new_healed": 183,
@@ -2255,7 +2255,7 @@
  		"sum_sample": 96037
  	},
  	{
- 		"id": 139,
+ 		"id": 140,
  		"date": "28/07/2020",
  		"new_case": 58,
  		"new_healed": 176,
@@ -2271,7 +2271,7 @@
  		"sum_sample": 96708
  	},
  	{
- 		"id": 140,
+ 		"id": 141,
  		"date": "29/07/2020",
  		"new_case": 100,
  		"new_healed": 256,
@@ -2287,7 +2287,7 @@
  		"sum_sample": 97954
  	},
  	{
- 		"id": 141,
+ 		"id": 142,
  		"date": "30/07/2020",
  		"new_case": 165,
  		"new_healed": 367,
@@ -2303,7 +2303,7 @@
  		"sum_sample": 99674
  	},
  	{
- 		"id": 142,
+ 		"id": 143,
  		"date": "31/07/2020",
  		"new_case": 69,
  		"new_healed": 268,
@@ -2319,7 +2319,7 @@
  		"sum_sample": 100625
  	},
  	{
- 		"id": 143,
+ 		"id": 144,
  		"date": "01/08/2020",
  		"new_case": 62,
  		"new_healed": 322,
@@ -2335,7 +2335,7 @@
  		"sum_sample": 101523
  	},
  	{
- 		"id": 144,
+ 		"id": 145,
  		"date": "02/08/2020",
  		"new_case": 73,
  		"new_healed": 51,
@@ -2351,7 +2351,7 @@
  		"sum_sample": 102625
  	},
  	{
- 		"id": 145,
+ 		"id": 146,
  		"date": "03/08/2020",
  		"new_case": 38,
  		"new_healed": 86,
@@ -2367,7 +2367,7 @@
  		"sum_sample": 103052
  	},
  	{
- 		"id": 146,
+ 		"id": 147,
  		"date": "04/08/2020",
  		"new_case": 73,
  		"new_healed": 68,
@@ -2383,7 +2383,7 @@
  		"sum_sample": 103564
  	},
  	{
- 		"id": 147,
+ 		"id": 148,
  		"date": "05/08/2020",
  		"new_case": 56,
  		"new_healed": 236,
@@ -2399,7 +2399,7 @@
  		"sum_sample": 104324
  	},
  	{
- 		"id": 148,
+ 		"id": 149,
  		"date": "06/08/2020",
  		"new_case": 98,
  		"new_healed": 293,
@@ -2415,7 +2415,7 @@
  		"sum_sample": 105524
  	},
  	{
- 		"id": 149,
+ 		"id": 150,
  		"date": "07/08/2020",
  		"new_case": 77,
  		"new_healed": 318,
@@ -2431,7 +2431,7 @@
  		"sum_sample": 106448
  	},
  	{
- 		"id": 150,
+ 		"id": 151,
  		"date": "08/08/2020",
  		"new_case": 96,
  		"new_healed": 91,
@@ -2447,7 +2447,7 @@
  		"sum_sample": 107693
  	},
  	{
- 		"id": 151,
+ 		"id": 152,
  		"date": "09/08/2020",
  		"new_case": 95,
  		"new_healed": 33,
@@ -2463,7 +2463,7 @@
  		"sum_sample": 108802
  	},
  	{
- 		"id": 152,
+ 		"id": 153,
  		"date": "10/08/2020",
  		"new_case": 83,
  		"new_healed": 126,
@@ -2479,7 +2479,7 @@
  		"sum_sample": 109617
  	},
  	{
- 		"id": 153,
+ 		"id": 154,
  		"date": "11/08/2020",
  		"new_case": 49,
  		"new_healed": 269,
@@ -2495,7 +2495,7 @@
  		"sum_sample": 110299
  	},
  	{
- 		"id": 154,
+ 		"id": 155,
  		"date": "12/08/2020",
  		"new_case": 16,
  		"new_healed": 108,
@@ -2511,7 +2511,7 @@
  		"sum_sample": 110551
  	},
  	{
- 		"id": 155,
+ 		"id": 156,
  		"date": "13/08/2020",
  		"new_case": 26,
  		"new_healed": 96,
@@ -2527,7 +2527,7 @@
  		"sum_sample": 111072
  	},
  	{
- 		"id": 156,
+ 		"id": 157,
  		"date": "14/08/2020",
  		"new_case": 46,
  		"new_healed": 196,
@@ -2543,7 +2543,7 @@
  		"sum_sample": 112001
  	},
  	{
- 		"id": 157,
+ 		"id": 158,
  		"date": "15/08/2020",
  		"new_case": 63,
  		"new_healed": 38,
@@ -2559,7 +2559,7 @@
  		"sum_sample": 112871
  	},
  	{
- 		"id": 158,
+ 		"id": 159,
  		"date": "16/08/2020",
  		"new_case": 33,
  		"new_healed": 188,
@@ -2575,7 +2575,7 @@
  		"sum_sample": 113328
  	},
  	{
- 		"id": 159,
+ 		"id": 160,
  		"date": "17/08/2020",
  		"new_case": 76,
  		"new_healed": 43,
@@ -2591,7 +2591,7 @@
  		"sum_sample": 114360
  	},
  	{
- 		"id": 160,
+ 		"id": 161,
  		"date": "18/08/2020",
  		"new_case": 43,
  		"new_healed": 193,
@@ -2607,7 +2607,7 @@
  		"sum_sample": 115278
  	},
  	{
- 		"id": 161,
+ 		"id": 162,
  		"date": "19/08/2020",
  		"new_case": 82,
  		"new_healed": 239,
@@ -2623,7 +2623,7 @@
  		"sum_sample": 116725
  	},
  	{
- 		"id": 162,
+ 		"id": 163,
  		"date": "20/08/2020",
  		"new_case": 17,
  		"new_healed": 189,
@@ -2639,7 +2639,7 @@
  		"sum_sample": 117055
  	},
  	{
- 		"id": 163,
+ 		"id": 164,
  		"date": "21/08/2020",
  		"new_case": 61,
  		"new_healed": 209,
@@ -2655,7 +2655,7 @@
  		"sum_sample": 118005
  	},
  	{
- 		"id": 164,
+ 		"id": 165,
  		"date": "22/08/2020",
  		"new_case": 64,
  		"new_healed": 286,
@@ -2671,7 +2671,7 @@
  		"sum_sample": 119106
  	},
  	{
- 		"id": 165,
+ 		"id": 166,
  		"date": "23/08/2020",
  		"new_case": 97,
  		"new_healed": 195,
@@ -2687,7 +2687,7 @@
  		"sum_sample": 120239
  	},
  	{
- 		"id": 166,
+ 		"id": 167,
  		"date": "24/08/2020",
  		"new_case": 35,
  		"new_healed": 332,
@@ -2703,7 +2703,7 @@
  		"sum_sample": 121226
  	},
  	{
- 		"id": 167,
+ 		"id": 168,
  		"date": "25/08/2020",
  		"new_case": 56,
  		"new_healed": 275,
@@ -2719,7 +2719,7 @@
  		"sum_sample": 122019
  	},
  	{
- 		"id": 168,
+ 		"id": 169,
  		"date": "26/08/2020",
  		"new_case": 41,
  		"new_healed": 33,
@@ -2735,7 +2735,7 @@
  		"sum_sample": 122915
  	},
  	{
- 		"id": 169,
+ 		"id": 170,
  		"date": "27/08/2020",
  		"new_case": 99,
  		"new_healed": 198,
@@ -2751,7 +2751,7 @@
  		"sum_sample": 123997
  	},
  	{
- 		"id": 170,
+ 		"id": 171,
  		"date": "28/08/2020",
  		"new_case": 95,
  		"new_healed": 176,
@@ -2767,7 +2767,7 @@
  		"sum_sample": 125025
  	},
  	{
- 		"id": 171,
+ 		"id": 172,
  		"date": "29/08/2020",
  		"new_case": 96,
  		"new_healed": 125,
@@ -2783,7 +2783,7 @@
  		"sum_sample": 125912
  	},
  	{
- 		"id": 172,
+ 		"id": 173,
  		"date": "30/08/2020",
  		"new_case": 55,
  		"new_healed": 113,
@@ -2799,7 +2799,7 @@
  		"sum_sample": 126492
  	},
  	{
- 		"id": 173,
+ 		"id": 174,
  		"date": "31/08/2020",
  		"new_case": 119,
  		"new_healed": 146,
@@ -2815,7 +2815,7 @@
  		"sum_sample": 127744
  	},
  	{
- 		"id": 174,
+ 		"id": 175,
  		"date": "01/09/2020",
  		"new_case": 36,
  		"new_healed": 115,
@@ -2831,7 +2831,7 @@
  		"sum_sample": 128127
  	},
  	{
- 		"id": 175,
+ 		"id": 176,
  		"date": "02/09/2020",
  		"new_case": 58,
  		"new_healed": 119,
@@ -2847,7 +2847,7 @@
  		"sum_sample": 129065
  	},
  	{
- 		"id": 176,
+ 		"id": 177,
  		"date": "03/09/2020",
  		"new_case": 47,
  		"new_healed": 112,
@@ -2863,7 +2863,7 @@
  		"sum_sample": 129986
  	},
  	{
- 		"id": 177,
+ 		"id": 178,
  		"date": "04/09/2020",
  		"new_case": 61,
  		"new_healed": 117,
@@ -2879,7 +2879,7 @@
  		"sum_sample": 131090
  	},
  	{
- 		"id": 178,
+ 		"id": 179,
  		"date": "05/09/2020",
  		"new_case": 203,
  		"new_healed": 161,
@@ -2895,7 +2895,7 @@
  		"sum_sample": 132120
  	},
  	{
- 		"id": 179,
+ 		"id": 180,
  		"date": "06/09/2020",
  		"new_case": 116,
  		"new_healed": 149,
@@ -2911,7 +2911,7 @@
  		"sum_sample": 133117
  	},
  	{
- 		"id": 180,
+ 		"id": 181,
  		"date": "07/09/2020",
  		"new_case": 113,
  		"new_healed": 127,
@@ -2927,7 +2927,7 @@
  		"sum_sample": 133876
  	},
  	{
- 		"id": 181,
+ 		"id": 182,
  		"date": "08/09/2020",
  		"new_case": 77,
  		"new_healed": 89,
@@ -2943,7 +2943,7 @@
  		"sum_sample": 134368
  	},
  	{
- 		"id": 182,
+ 		"id": 183,
  		"date": "09/09/2020",
  		"new_case": 37,
  		"new_healed": 82,
@@ -2959,7 +2959,7 @@
  		"sum_sample": 135532
  	},
  	{
- 		"id": 183,
+ 		"id": 184,
  		"date": "10/09/2020",
  		"new_case": 54,
  		"new_healed": 114,
@@ -2975,7 +2975,7 @@
  		"sum_sample": 137012
  	},
  	{
- 		"id": 184,
+ 		"id": 185,
  		"date": "11/09/2020",
  		"new_case": 47,
  		"new_healed": 76,
@@ -2991,7 +2991,7 @@
  		"sum_sample": 138797
  	},
  	{
- 		"id": 185,
+ 		"id": 186,
  		"date": "12/09/2020",
  		"new_case": 71,
  		"new_healed": 85,
@@ -3007,7 +3007,7 @@
  		"sum_sample": 140553
  	},
  	{
- 		"id": 186,
+ 		"id": 187,
  		"date": "13/09/2020",
  		"new_case": 26,
  		"new_healed": 67,
@@ -3021,5 +3021,149 @@
  		"remission": 0.953,
  		"letalite": 0.0063,
  		"sum_sample": 141339
+ 	},
+ 	{
+ 		"id": 188,
+ 		"date": "14/09/2020",
+ 		"new_case": 53,
+ 		"new_healed": 62,
+ 		"new_deceased": 0,
+ 		"sum_case": 19066,
+ 		"sum_healed": 18174,
+ 		"sum_deceased": 120,
+ 		"active_case": 772,
+ 		"nb_sample": 1413,
+ 		"incidence": 0.038,
+ 		"remission": 0.953,
+ 		"letalite": 0.0063,
+ 		"sum_sample": 142752
+ 	},
+ 	{
+ 		"id": 189,
+ 		"date": "15/09/2020",
+ 		"new_case": 34,
+ 		"new_healed": 54,
+ 		"new_deceased": 0,
+ 		"sum_case": 19100,
+ 		"sum_healed": 18228,
+ 		"sum_deceased": 120,
+ 		"active_case": 752,
+ 		"nb_sample": 1098,
+ 		"incidence": 0.031,
+ 		"remission": 0.954,
+ 		"letalite": 0.0063,
+ 		"sum_sample": 143850
+ 	},
+ 	{
+ 		"id": 190,
+ 		"date": "16/09/2020",
+ 		"new_case": 32,
+ 		"new_healed": 61,
+ 		"new_deceased": 0,
+ 		"sum_case": 19132,
+ 		"sum_healed": 18289,
+ 		"sum_deceased": 120,
+ 		"active_case": 723,
+ 		"nb_sample": 1553,
+ 		"incidence": 0.021,
+ 		"remission": 0.956,
+ 		"letalite": 0.0063,
+ 		"sum_sample": 145403
+ 	},
+ 	{
+ 		"id": 191,
+ 		"date": "17/09/2020",
+ 		"new_case": 26,
+ 		"new_healed": 41,
+ 		"new_deceased": 0,
+ 		"sum_case": 19158,
+ 		"sum_healed": 18330,
+ 		"sum_deceased": 120,
+ 		"active_case": 708,
+ 		"nb_sample": 1253,
+ 		"incidence": 0.021,
+ 		"remission": 0.957,
+ 		"letalite": 0.0063,
+ 		"sum_sample": 146656
+ 	},
+ 	{
+ 		"id": 192,
+ 		"date": "18/09/2020",
+ 		"new_case": 42,
+ 		"new_healed": 62,
+ 		"new_deceased": 0,
+ 		"sum_case": 19200,
+ 		"sum_healed": 18392,
+ 		"sum_deceased": 120,
+ 		"active_case": 688,
+ 		"nb_sample": 688,
+ 		"incidence": 0.061,
+ 		"remission": 0.958,
+ 		"letalite": 0.0063,
+ 		"sum_sample": 147344
+ 	},
+ 	{
+ 		"id": 193,
+ 		"date": "19/09/2020",
+ 		"new_case": 69,
+ 		"new_healed": 68,
+ 		"new_deceased": 0,
+ 		"sum_case": 19269,
+ 		"sum_healed": 18460,
+ 		"sum_deceased": 120,
+ 		"active_case": 689,
+ 		"nb_sample": 1689,
+ 		"incidence": 0.041,
+ 		"remission": 0.958,
+ 		"letalite": 0.0062,
+ 		"sum_sample": 149033
+ 	},
+ 	{
+ 		"id": 194,
+ 		"date": "20/09/2020",
+ 		"new_case": 51,
+ 		"new_healed": 74,
+ 		"new_deceased": 0,
+ 		"sum_case": 19320,
+ 		"sum_healed": 18534,
+ 		"sum_deceased": 120,
+ 		"active_case": 666,
+ 		"nb_sample": 1881,
+ 		"incidence": 0.027,
+ 		"remission": 0.959,
+ 		"letalite": 0.0062,
+ 		"sum_sample": 150914
+ 	},
+ 	{
+ 		"id": 195,
+ 		"date": "21/09/2020",
+ 		"new_case": 7,
+ 		"new_healed": 96,
+ 		"new_deceased": 0,
+ 		"sum_case": 19327,
+ 		"sum_healed": 18630,
+ 		"sum_deceased": 120,
+ 		"active_case": 577,
+ 		"nb_sample": 155,
+ 		"incidence": 0.045,
+ 		"remission": 0.964,
+ 		"letalite": 0.0062,
+ 		"sum_sample": 151069
+ 	},
+ 	{
+ 		"id": 196,
+ 		"date": "22/09/2020",
+ 		"new_case": 16,
+ 		"new_healed": 52,
+ 		"new_deceased": 0,
+ 		"sum_case": 19343,
+ 		"sum_healed": 18682,
+ 		"sum_deceased": 120,
+ 		"active_case": 541,
+ 		"nb_sample": 546,
+ 		"incidence": 0.029,
+ 		"remission": 0.966,
+ 		"letalite": 0.0062,
+ 		"sum_sample": 151615
  	}
  ]

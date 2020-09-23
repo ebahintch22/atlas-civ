@@ -41,9 +41,9 @@ function ui_render_navtabs ( _eltID , Cfg , callBack ,  callBack_onLoad , delay 
 		var data = Cfg
 		data.tabs = data.tabs.filter(function(d){return(d.visible)});
 		data.tabs = Cfg.tabs.map( function(d){
-			d["active"] = (d.id == data.default)? "active" : "";
+			d["active"]   = (d.id == data.default)? "active" : "";
 			d["selected"] = (d.id == data.default)? "true" : "false";
-			d["disable"] = (d.enabled == false)? "disabled" : "";
+			d["disable"]  = (d.enabled == false)? "disabled" : "";
 			return (d)
 		});
 
