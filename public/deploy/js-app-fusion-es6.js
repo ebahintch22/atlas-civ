@@ -162,7 +162,9 @@ function getEnvSize(){
 		}
 
 	}
-} Ajaxian = new function (){
+} 
+
+Ajaxian = new function (){
 
     return {
 
@@ -206,7 +208,8 @@ function getEnvSize(){
   }
 
 
-//Usagefunction detect_client(){
+//Usage
+function detect_client(){
 
     var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;// Opera 8.0+
     var isFirefox = typeof InstallTrigger !== 'undefined';// Firefox 1.0+

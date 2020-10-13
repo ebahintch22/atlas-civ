@@ -1,7 +1,7 @@
 
 const drawerWidth = 240;
 
-const useStyles_dashboard = makeStyles((theme) => ({
+const useStyles_app = makeStyles((theme) => ({
     root: {
       display: 'flex',
     },
@@ -80,25 +80,12 @@ const useStyles_dashboard = makeStyles((theme) => ({
     },
   }));
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 
-
-
-function Dashboard() {
-  const classes = useStyles_dashboard();
+function App() {
+  const classes = useStyles_app();
   const [open, setOpen] = React.useState(true);
+
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -159,58 +146,25 @@ function Dashboard() {
 
         <div className={classes.appBarSpacer} />
         <Container maxWidth="lg" className={classes.container}>
+
           <Grid container spacing={1}>
-            {/* Chart */}
-            <Grid item xs={12} md={8} lg={9}>
-              <Paper className={fixedHeightPaper}>
-                <Chart />
-              </Paper>
-            </Grid>
-            {/* Recent Deposits */}
-            <Grid item xs={12} md={4} lg={3}>
-              <Paper className={fixedHeightPaper}>
-                <Deposits />
-              </Paper>
-            </Grid>
-
-
-          {/* Covid Records Data */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <CovidRecords />
-              </Paper>
-            </Grid>
-
-            {/* Recent Users Record */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                <UserRecords />
-              </Paper>
-            </Grid>
-
-
-            {/* Recent Orders */}
-            <Grid item xs={12}>
-                <Paper className={classes.paper}>
-                  <Orders />
-                </Paper>
-            </Grid>
-
-            {/* Recent Sortable Tables */}
-            <Grid item xs={12}>
-              <Paper className={classes.paper}>
-                  <Ogis_Table
-                      dataSource={Env["EnhancedTable"].dataSource} 
-                      visualAttrib={Env["EnhancedTable"].visualAttrib}
-                   />
-              </Paper>
-            </Grid>
-
-
+              <Fade>
+                  <RouterSwitch>
+                      <Route exact path="/covidrecord"   component={ogis_table_wrapper} />
+                      <Route exact path="/charts"        component={chart_wrapper} />
+                      <Route exact path="/users"         component={user_wrapper} />
+                      <Route exact path="/recentorders"   component={order_wrapper} />
+                      <Route exact path="/recentdeposit" component={deposit_wrapper} />
+                      <Route exact path="/admin"         component={user_wrapper} />
+                      <Route component={NoMatchPage} />
+                  </RouterSwitch>
+              </Fade>
           </Grid>
-          <Box pt={4}>
-            <Copyright />
-          </Box>
+
+            <Box pt={4}>
+                <Copyright />
+            </Box>
+
         </Container>
       </main>
     </div>
@@ -218,4 +172,81 @@ function Dashboard() {
   );
 }
 
-/*   columnDefs, dataSource  */
+//
+const ogis_table_wrapper = () => {
+  const classes = useStyles_app();
+    return ( 
+        
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+              <Ogis_Table
+                  dataSource={Env["EnhancedTable"].dataSource} 
+                  visualAttrib={Env["EnhancedTable"].visualAttrib}
+               />
+          </Paper>
+        </Grid>
+    )
+}
+
+
+const order_wrapper = () => {
+  const classes = useStyles_app();
+  return ( 
+    <Grid item xs={12}>
+        <Paper className={classes.paper}>
+          <Orders />
+        </Paper>
+    </Grid>
+  )
+}
+
+
+const user_wrapper = () => {
+  const classes = useStyles_app();
+  return (  
+    <Grid item xs={12}>
+      <Paper className={classes.paper}>
+        <UserRecords />
+      </Paper>
+    </Grid>
+  )      
+}
+
+const covidrecord_wrapper = () => {
+    const classes = useStyles_app();
+
+  return (
+      <Grid item xs={12}>
+        <Paper className={classes.paper}>
+          <CovidRecords />
+        </Paper>
+      </Grid>
+  )  
+}
+
+
+const chart_wrapper = () => {
+  const classes = useStyles_app();
+  const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+  return(
+      <Grid item xs={12} md={8} lg={9}>
+        <Paper className={fixedHeightPaper}>
+          <Chart />
+        </Paper>
+      </Grid>
+  )   
+}
+
+  
+
+const deposit_wrapper = () => {
+    const classes = useStyles_app();
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+    return (
+      <Grid item xs={12} md={4} lg={3}>
+        <Paper className={fixedHeightPaper}>
+          <Deposits />
+        </Paper>
+      </Grid>
+    )  
+}

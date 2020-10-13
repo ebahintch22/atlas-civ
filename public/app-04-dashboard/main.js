@@ -1,6 +1,5 @@
 
 ReactDOM.render(
     <Dashboard />,
-
-  document.querySelector('#root'),
+  	document.querySelector('#root'),
 );

@@ -44,7 +44,7 @@ const mainListItems = (
 
 const secondaryListItems = (
   <div>
-    <ListSubheader inset>Saved reports</ListSubheader>
+    <ListSubheader inset> Saved reports </ListSubheader>
     <ListItem button>
       <ListItemIcon>
         <AssignmentIcon />

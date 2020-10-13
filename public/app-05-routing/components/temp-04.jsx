@@ -59,7 +59,6 @@ Env["Table-Header"] = (function(){
     }));
 
     return { useToolbarStyles, headCells }
-
 })()
 
 

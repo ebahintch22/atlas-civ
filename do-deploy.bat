@@ -1,6 +1,6 @@
 
 cd ./public
-call go-js-app.bat
+rem call go-js-app.bat
 call go-remote-pgfree.bat
 cd ..
 git status
