@@ -2,44 +2,15 @@
 function Ogis_Table( props ) {
 
   const env = Env["EnhancedTable"] ;
-  const { metadata, visualAttrib, rest_api_get } = props;
-
-  const visibleColumns = metadata.headCells.filter(function(col){ return col.isVisible });
-
-
+  const { dataSource, visualAttrib } = props
 
   const classes = env.useStyles();
-  const [order, setOrder] = React.useState(  metadata.defaults.order );
-  const [orderBy, setOrderBy] = React.useState( metadata.defaults.orderField  );
+  const [order, setOrder] = React.useState(  dataSource.defaults.order );
+  const [orderBy, setOrderBy] = React.useState( dataSource.defaults.orderField  );
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(true);
+  const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-
-  const [error, setError] = React.useState(null);
-  const [isLoaded, setIsLoaded] = React.useState(false);
-  const [items, setItems] = React.useState([]);
-
-  React.useEffect(() => {
-    fetch( rest_api_get)
-      .then(res => res.json())
-      .then(
-        (result) => {
-          setIsLoaded(true);
-          setItems(result.rows);
-        },
-
-        (error) => {
-          setIsLoaded(true);
-          setError(error);
-        }
-      )
-  }, [])
-
-
-
-
 
   const handleRequestSort = (event, property) => {
 
@@ -51,7 +22,7 @@ function Ogis_Table( props ) {
 
   const handleSelectAllClick = (event) => {
       if (event.target.checked) {
-          const newSelecteds = items.map((n) => n.emp_id);
+          const newSelecteds = dataSource.rows.map((n) => n.id);
           setSelected(newSelecteds);
           return;
       }
@@ -97,7 +68,7 @@ function Ogis_Table( props ) {
 
   const isSelected = (name) => selected.indexOf(name) !== -1;
 
-  const emptyRows = rowsPerPage - Math.min(rowsPerPage, items.length - page * rowsPerPage);
+  const emptyRows = rowsPerPage - Math.min(rowsPerPage, dataSource.rows.length - page * rowsPerPage);
 
   return (
     <div className={classes.root}>
@@ -113,27 +84,27 @@ function Ogis_Table( props ) {
             aria-label={"enhanced table"}
           >
             <Ogis_TableHead
-                headCells={visibleColumns}
+                headCells={dataSource.headCells}
                 classes={classes}
                 numSelected={selected.length}
                 order={order}
                 orderBy={orderBy}
                 onSelectAllClick={handleSelectAllClick}
                 onRequestSort={handleRequestSort}
-                rowCount={items.length}
+                rowCount={dataSource.rows.length}
             />
 
             <TableBody>
-              {stableSort( items, getComparator(order, orderBy))
+              {stableSort( dataSource.rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.emp_id);
+                  const isItemSelected = isSelected(row.id);
                   const labelId = `enhanced-table-checkbox-${index}`;
 
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.emp_id)}
+                      onClick={(event) => handleClick(event, row.id)}
                       role={"checkbox"}
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -148,7 +119,7 @@ function Ogis_Table( props ) {
                         </TableCell>
 
                         {
-                            visibleColumns.map(( col, index) => (
+                            dataSource.headCells.map(( col, index) => (
                                 <TableCell align={col.numeric ? 'right' : 'left'} key={index} >  {row[col.id]} </TableCell>
                             ))
                         }
@@ -167,7 +138,7 @@ function Ogis_Table( props ) {
         <TablePagination
           rowsPerPageOptions={[5, 10, 25 , { label:"Tous les lignes", value: -1 }]}
           component={"div"}
-          count={items.length}
+          count={dataSource.rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={handleChangePage}

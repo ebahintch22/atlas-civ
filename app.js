@@ -14,6 +14,9 @@ var buyerRouter = require('./routes/buyers');
 var visitorRouter = require('./routes/visitors');
 var covidRouter = require('./routes/covid');
 
+//Payroll Models
+var employeeRouter = require('./routes/employees');
+
 if (!global.OPERA_DATA_BUS) { global.OPERA_DATA_BUS = []}
 
 var app = express();
@@ -39,8 +42,9 @@ app.use('/guest-acf/visitors', visitorRouter);//socketRouter
 app.use('/guest-gtx/visitors', visitorRouter);//socketRouter
 
 app.use('/covid', covidRouter);//socketRouter
-
 app.use('/buyers'  , buyerRouter);
+
+app.use('/payroll/employees'  , employeeRouter );
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

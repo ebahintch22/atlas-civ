@@ -35,7 +35,7 @@ function stableSort(array, comparator) {
 
 Env["Table-Header"] = (function(){
 
-    const headCells = Env["EnhancedTable"].dataSource.headCells
+    //const headCells = Env["EnhancedTable"].dataSource.headCells
 
 
     const useToolbarStyles = makeStyles((theme) => ({
@@ -58,7 +58,7 @@ Env["Table-Header"] = (function(){
       },
     }));
 
-    return { useToolbarStyles, headCells }
+    return { useToolbarStyles }
 })()
 
 

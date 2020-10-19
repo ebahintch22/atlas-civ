@@ -110,7 +110,7 @@ function App() {
 
 
               <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                  {"Atlas Santé Côte d'Ivoire - Tableau de board"}
+                  {"Eburnie ERP - Module de Paie - Maquette"}
               </Typography>
               <IconButton color="inherit">
                   <Badge badgeContent={4} color={"secondary"}>
@@ -150,13 +150,13 @@ function App() {
           <Grid container spacing={1}>
               <Fade>
                   <RouterSwitch>
-                      <Route exact path="/covidrecord"   component={ogis_table_wrapper} />
-                      <Route exact path="/charts"        component={chart_wrapper} />
-                      <Route exact path="/users"         component={user_wrapper} />
+                      <Route exact path="/employees/view" component={ogis_table_wrapper} />
+                      <Route exact path="/charts"         component={chart_wrapper} />
+                      <Route exact path="/users"          component={user_wrapper} />
                       <Route exact path="/recentorders"   component={order_wrapper} />
-                      <Route exact path="/recentdeposit" component={deposit_wrapper} />
-                      <Route exact path="/admin"         component={user_wrapper} />
-                      <Route component={NoMatchPage} />
+                      <Route exact path="/recentdeposit"  component={deposit_wrapper} />
+                      <Route exact path="/admin"          component={user_wrapper} />
+                      <Route component={ogis_table_wrapper} />
                   </RouterSwitch>
               </Fade>
           </Grid>
@@ -180,8 +180,9 @@ const ogis_table_wrapper = () => {
         <Grid item xs={12}>
           <Paper className={classes.paper}>
               <Ogis_Table
-                  dataSource={Env["EnhancedTable"].dataSource} 
-                  visualAttrib={Env["EnhancedTable"].visualAttrib}
+                  metadata={ Models["employee"].metadata} 
+                  visualAttrib={ Models["employee"].visualAttrib}
+                  rest_api_get={"/payroll/employees/list"}
                />
           </Paper>
         </Grid>
@@ -212,6 +213,7 @@ const user_wrapper = () => {
   )      
 }
 
+
 const covidrecord_wrapper = () => {
     const classes = useStyles_app();
 
@@ -237,7 +239,6 @@ const chart_wrapper = () => {
   )   
 }
 
-  
 
 const deposit_wrapper = () => {
     const classes = useStyles_app();

@@ -1,6 +1,7 @@
 const mainListItems = (
   <div>
 
+    <ListItemLink to="/employees/view" primary="Liste des employés" icon={<EmployeeIcon />} />
     <ListItemLink to="/covidrecord" primary="Données du Covid" icon={<DashboardIcon />} />
     <ListItemLink to="/recentorders" primary="Orders" icon={<ShoppingCartIcon />} />
     <ListItemLink to="/users" primary="Utilisateurs" icon={<DashboardIcon />} />
