@@ -8,14 +8,18 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var preloadRouter = require('./routes/app-loader');
 
-//var socketRouter = require('./socket/api-socket');
 var buyerRouter = require('./routes/buyers');
 var visitorRouter = require('./routes/visitors');
 var covidRouter = require('./routes/covid');
 
 //Payroll Models
 var employeeRouter = require('./routes/employees');
+
+
+
+
 
 if (!global.OPERA_DATA_BUS) { global.OPERA_DATA_BUS = []}
 
@@ -32,6 +36,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+app.use('/admin-civ-123', preloadRouter);
+app.use('/civ', preloadRouter);
 app.use('/', indexRouter);
 
 app.use('/users', usersRouter);
@@ -39,6 +45,7 @@ app.use('/users', usersRouter);
 
 app.use('/visitors', visitorRouter);//socketRouter
 app.use('/guest-acf/visitors', visitorRouter);//socketRouter
+app.use('/civ/visitors', visitorRouter);//socketRouter
 app.use('/guest-gtx/visitors', visitorRouter);//socketRouter
 
 app.use('/covid', covidRouter);//socketRouter

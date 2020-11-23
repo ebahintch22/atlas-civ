@@ -53,7 +53,6 @@ OPERA.buffer_check_timer =  setInterval(Watchdog.check_buffer_func, OPERA.Delays
 /**
  * Get port from environment and store in Express.
  */
-
 var port = normalizePort(process.env.PORT || '3002');
 app.set('port', port);
 

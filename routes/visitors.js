@@ -505,6 +505,7 @@ function qualify_user( str){
 		"/guest-acf/visitors" : "ACF-GUEST",
 		"/guest-unicef/visitors" : "UNICEF-GUEST",
 		"/guest-gtx/visitors" : "BNETD-CIGN",
+		"/civ/visitors" : "UN WFP-VACANCY",
 		"/guest-cepici/visitors" : "CEPICI"
 	}
 	return user_classes[str]
