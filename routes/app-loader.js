@@ -30,12 +30,18 @@ router.get('/', function(req, res, next) {
 	switch(ACCESS_URL.base){
 
 		case "/sante" : 
-		 	res.sendFile( 'sante/index-admin-mode.html', options); 
+		 	res.sendFile( 'index-admin-mode.html', {
+				root: path.join(__dirname, '../starter/sante')
+			}); 
 		 	break;
 
+
 		case "/economie" : 
-		 	res.sendFile( 'economie/index-admin-mode.html', options); 
+		 	res.sendFile( 'index-admin-mode.html', {
+				root: path.join(__dirname, '../starter/economie')
+			}); 
 		 	break;
+
 
 		case "/preloader" : 
 		 	res.sendFile( 'index.html', options); 
@@ -50,7 +56,6 @@ router.get('/', function(req, res, next) {
 		 	break;
 
 		case "/admin-civ-123" :
-			console.log("SERVING FILE index-admin-mode-DEUD-52KZ-8C9X.html");
 		 	res.sendFile( 'index-admin-mode-DEUD-52KZ-8C9X.html', { root: path.join(__dirname, '../public')}); 
 		 	break;	
 
