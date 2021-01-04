@@ -779,6 +779,7 @@ function generate_statistic_tables_ex(data , parser){
 	// So far we do support  only 2 levels; code maybe broken if the number of level grow
 	// as expected with Atlas REEA.
 
+
 	var LEVEL   = parser.class_field, 
 	    CODE    = parser.id_field,
 
@@ -790,10 +791,16 @@ function generate_statistic_tables_ex(data , parser){
 
 	//console.log("-----------------------------> parser")
 	//console.log(parser)
+
 	var tmp_data = d3.nest().key(function(d) { return d[LEVEL]; }).rollup(function(d) { return d; }).map(data);
 
-	table_1 = d3.nest().key(function(d) { return d.CODE; }).rollup(function(d) { return d[0]; }).map( tmp_data[CLASS_1] );
-	table_2 = d3.nest().key(function(d) { return d.CODE; }).rollup(function(d) { return d[0]; }).map( tmp_data[CLASS_2] );
+	console.log(tmp_data)
+
+	table_1 = d3.nest().key(function(d) { return d[CODE]; }).rollup(function(d) { return d[0]; }).map( tmp_data[ CLASS_1 ] );
+	table_2 = d3.nest().key(function(d) { return d[CODE]; }).rollup(function(d) { return d[0]; }).map( tmp_data[ CLASS_2 ] );
+
+	console.log(table_1)
+	console.log(table_2)
 
 	var  _RSP = {}
 	     _RSP[ LYR_1 ] = table_1

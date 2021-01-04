@@ -29,6 +29,14 @@ router.get('/', function(req, res, next) {
 
 	switch(ACCESS_URL.base){
 
+		case "/sante" : 
+		 	res.sendFile( 'sante/index-admin-mode.html', options); 
+		 	break;
+
+		case "/economie" : 
+		 	res.sendFile( 'economie/index-admin-mode.html', options); 
+		 	break;
+
 		case "/preloader" : 
 		 	res.sendFile( 'index.html', options); 
 		 	break;
