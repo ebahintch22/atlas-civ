@@ -13,30 +13,6 @@ router.use( function(req, res, next) {
 	next();
 })
 
-/*
-router.get('/', function(req, res, next) {
-  var options = {
-  	root: path.join(__dirname, '../public')
-  }
-  res.sendFile( 'index.html', options);
-});*/
-
-/*
-router.get('/', function(req, res, next) {
-	console.log("Héhéhéhéhéhéh =>" + ACCESS_URL.base)
-
-	switch( ACCESS_URL.base ){
-
-		case "/economie-6e448f82-644e-4c4f-8f53-1bcd3a70ea49" : 
-		 	res.sendFile( 'index-admin-mode.html', {
-				root: path.join(__dirname, '../starter/economie')
-			}); 
-		 	break;
-
-		default: 
-		 	next();
-	}
-});*/
 
 
 
