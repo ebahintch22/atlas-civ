@@ -6,6 +6,8 @@ var ACCESS_URL = {};
 
 router.use( function(req, res, next) {
 	console.log( "Base URL is " + req.baseUrl)
+	console.log( "Original URL is " + req.originalUrl)
+
 	ACCESS_URL.base = req.baseUrl;
 	ACCESS_URL.original = req.originalUrl;
 	next();
@@ -17,6 +19,23 @@ router.get('/', function(req, res, next) {
   	root: path.join(__dirname, '../public')
   }
   res.sendFile( 'index.html', options);
+});*/
+
+/*
+router.get('/', function(req, res, next) {
+	console.log("Héhéhéhéhéhéh =>" + ACCESS_URL.base)
+
+	switch( ACCESS_URL.base ){
+
+		case "/economie-6e448f82-644e-4c4f-8f53-1bcd3a70ea49" : 
+		 	res.sendFile( 'index-admin-mode.html', {
+				root: path.join(__dirname, '../starter/economie')
+			}); 
+		 	break;
+
+		default: 
+		 	next();
+	}
 });*/
 
 
@@ -36,7 +55,7 @@ router.get('/', function(req, res, next) {
 		 	break;
 
 
-		case "/economie" : 
+		case "/economie-6e448f82-644e-4c4f-8f53-1bcd3a70ea49" : 
 		 	res.sendFile( 'index-admin-mode.html', {
 				root: path.join(__dirname, '../starter/economie')
 			}); 
@@ -55,17 +74,14 @@ router.get('/', function(req, res, next) {
 		 	res.sendFile( 'index.html', { root: path.join(__dirname, '../public')}); 
 		 	break;
 
-		case "/admin-civ-123" :
-		 	res.sendFile( 'index-admin-mode-DEUD-52KZ-8C9X.html', { root: path.join(__dirname, '../public')}); 
-		 	break;	
-
 		default: 
 		 	next();
-
 	}
-  
-
 });
+
+
+
+/*
 
 router.get('/unit-test', function(req, res, next) {
 
@@ -74,7 +90,7 @@ router.get('/unit-test', function(req, res, next) {
   }
   res.sendFile( 'index.html', options);
 
-});
+});*/
 
 
 router.get('/get_env', function(req, res, next) {
