@@ -14,7 +14,7 @@ var ENV_VIEW_SIZE = getEnvSize()
 // We add a listener to the browser window, calling updateLegend when the window is resized.
 window.onresize //= after_window_resized ;
 
-var initialTable = "geographic_accessibility"  
+var initialTable = "MUST_BE_SET_IN_THE_MODULE_SPECIFIC_MANIFEST"  
 var initialKey = "FLD1";
     
 var currentTable;

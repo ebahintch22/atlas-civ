@@ -129,7 +129,7 @@ var sante_datasets =  [
 							threshold: [ 500000, 1000000, 1500000, 2000000, 3000000 ],
 							colormap:   ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
 							linecolor: "#fff",
-							labelmap:  [ "moins de 500m", "500-400m", "1000-1500m" , "1500-2000m" , "2000-3000m", "3000m et plus" ],
+							labelmap:  [ "moins de 500k", "500-400k", "1000-1500k" , "1500-2000k" , "2000-3000k", "3000k et plus" ],
 							legendtitle: "Population totale 2017 par Région",
 				 			select_style : "blueish"
 						},
@@ -138,7 +138,7 @@ var sante_datasets =  [
 							threshold: [ 50000, 100000, 200000, 500000, 1000000 ],
 							colormap:  ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
 							linecolor: "#fff",
-							labelmap:  [ "moins de 50m", "50-100m", "100-200m" , "200-500m" , "500-1000m", "1000m et +" ],
+							labelmap:  [ "moins de 50k", "50-100k", "100-200k" , "200-500k" , "500-1000k", "1000k et +" ],
 							legendtitle: "Population totale 2017 par district",
 				 			select_style : "blueish"
 						}						
@@ -1556,3 +1556,5 @@ var sante_datasets =  [
 	]	
 //tab_1012_motif_service.csv
 Array.prototype.push.apply(metaDataBase.table_details, sante_datasets );
+
+metaDataBase.MODULE_SPECIFIC =  ATLAS_SANTE_SETTINGS

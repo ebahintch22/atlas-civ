@@ -110,8 +110,13 @@ function detect_client(){
     var UTIL = (function(){
         var _Number = new Intl.NumberFormat();
         return {
-            format_number : function(nombre){
-                return( _Number.format(nombre))
+            format_number : function(nombre , standard = true){
+                if (standard ) {
+                    return( (nombre).toLocaleString())
+                }
+                 else {
+                    return( _Number.format(nombre))
+               }
             },
             format_number_in_object : function(obj){
                 var f_obj = {}

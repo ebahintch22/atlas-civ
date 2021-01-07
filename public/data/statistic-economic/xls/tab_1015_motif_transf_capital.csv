@@ -1,0 +1,113 @@
+CODE,ADM_NAME,CONTINENT,LEVEL,FLD1,FLD3,FLD4,FLD5,FLD6
+ZA,Afrique Du Sud,Afrique,CTR,246027258,246027258,0,0,0
+AL,Albania,Europe,CTR,0,0,0,0,0
+DZ,Algerie,Afrique,CTR,0,0,0,0,0
+DE,Allemagne,Europe,CTR,229879708,3,229879708,3,0,0,0
+AD,Andorre,Europe,CTR,0,0,0,0,0
+AR,Argentine,Amérique,CTR,0,0,0,0,0
+AM,Armenie,Asie,CTR,0,0,0,0,0
+AU,Australie,Océanie,CTR,10535530,10535530,0,0,0
+AT,Autriche,Europe,CTR,0,0,0,0,0
+BB,Barbados,Amérique,CTR,0,0,0,0,0
+BE,Belgique,Europe,CTR,91321664,64,91321664,64,0,0,0
+BW,Botswana,Afrique,CTR,0,0,0,0,0
+BR,Bresil,Amérique,CTR,0,0,0,0,0
+BG,Bulgarie,Europe,CTR,0,0,0,0,0
+BI,Burundi,Afrique,CTR,10000000,0,0,0,10000000
+CM,Cameroun,Afrique,CTR,1987615,1987615,0,0,0
+CA,Canada,Amérique,CTR,38446682,26246682,0,0,12200000
+CV,Cap Vert,Afrique,CTR,0,0,0,0,0
+CF,Centrafrique,Afrique,CTR,0,0,0,0,0
+CL,Chili,Amérique,CTR,0,0,0,0,0
+CN,Chine,Asie,CTR,79760473,79760473,0,0,0
+CY,Chypre,Asie,CTR,17702967,17702967,0,0,0
+CO,Colombie,Amérique,CTR,0,0,0,0,0
+KM,Comores,Afrique,CTR,725488,725488,0,0,0
+KR,Corée Du Sud,Asie,CTR,0,0,0,0,0
+HR,Croatie,Europe,CTR,0,0,0,0,0
+CU,Cuba,Amérique,CTR,1092600,1092600,0,0,0
+DK,Danemark,Europe,CTR,92157975,92157975,0,0,0
+DJ,Djibouti,Afrique,CTR,506600,506600,0,0,0
+DM,Dominica,Amérique,CTR,0,0,0,0,0
+EG,Egypte,Afrique,CTR,0,0,0,0,0
+AE,Emirats Arabes Unis,Asie,CTR,967051982,967051982,0,0,0
+ES,Espagne,Europe,CTR,21968524,21968524,0,0,0
+EE,Estonie,Europe,CTR,852744,1,852744,1,0,0,0
+US,Etats-Unis,Amérique,CTR,587917428,565847358,0,0,13482540
+ET,Ethiopie,Afrique,CTR,0,0,0,0,0
+FI,Finlande,Europe,CTR,156112846,156112846,0,0,0
+FR,France,Europe,CTR,3551587409,3458602849,86986851,4816494,1181215
+GA,Gabon,Afrique,CTR,32566527,32566527,0,0,0
+GM,Gambie,Afrique,CTR,9934454,0,0,0,9934454
+GH,Ghana,Afrique,CTR,40514542,1230562,0,0,39283980
+GR,Grèce,Europe,CTR,984300,984300,0,0,0
+GN,Guinée   ,Afrique,CTR,31440449,0,0,0,31440449
+GY,Guyana,Amérique,CTR,0,0,0,0,0
+HT,Haiti,Amérique,CTR,0,0,0,0,0
+HK,Hong Kong,Asie,CTR,63373974,0,63373974,0,0
+HU,Hongrie,Europe,CTR,0,0,0,0,0
+IN,Inde,Asie,CTR,111285728,111285728,0,0,0
+ID,Indonesie,Asie,CTR,0,0,0,0,0
+IQ,Irak,Asie,CTR,947420,947420,0,0,0
+IE,Irlande,Europe,CTR,324368016,324368016,0,0,0
+IL,Israël,Asie,CTR,7809650,7809650,0,0,0
+IT,Italie,Europe,CTR,32806130,32806130,0,0,0
+JP,Japon,Asie,CTR,16612295,3092923,13519372,0,0
+JO,Jordanie,Asie,CTR,0,0,0,0,0
+KE,Kenya,Afrique,CTR,105170094,42053179,0,0,63116915
+LV,Lettonie,Europe,CTR,1508701,1508701,0,0,0
+LB,Liban,Asie,CTR,98602720,98602720,0,0,0
+LR,Liberia,Afrique,CTR,7675617,0,0,0,7675617
+LT,Lituanie,Europe,CTR,15087011,15087011,0,0,0
+LU,Luxembourg,Europe,CTR,7228391,7228391,0,0,0
+MK,Macédoine Du Nord,Europe,CTR,0,0,0,0,0
+MG,Madagascar,Afrique,CTR,0,0,0,0,0
+MY,Malaisie,Asie,CTR,6868260,6868260,0,0,0
+MW,Malawi,Afrique,CTR,0,0,0,0,0
+MV,Maldives,Asie,CTR,0,0,0,0,0
+MT,Malte,Europe,CTR,95477085,83,95477085,83,0,0,0
+MA,Maroc,Afrique,CTR,556146737,556146737,0,0,0
+MU,Maurice ,Afrique,CTR,425326143,425326143,0,0,0
+MR,Mauritanie,Afrique,CTR,97901400,97901400,0,0,0
+MZ,Mozanbique,Afrique,CTR,0,0,0,0,0
+NA,Namibie,Afrique,CTR,0,0,0,0,0
+NP,Nepal,Asie,CTR,0,0,0,0,0
+NG,Nigeria,Afrique,CTR,14024122,14024122,0,0,0
+NO,Norvege,Europe,CTR,0,0,0,0,0
+NZ,Nouvelle-Zélande,Océanie,CTR,0,0,0,0,0
+UG,Ouganda,Afrique,CTR,0,0,0,0,0
+PK,Pakistan,Asie,CTR,0,0,0,0,0
+PA,Panama,Amérique,CTR,0,0,0,0,0
+NL,Pays-Bas,Europe,CTR,440123009,440123009,0,0,0
+PE,Perou,Amérique,CTR,0,0,0,0,0
+PH,Philippines,Asie,CTR,0,0,0,0,0
+PL,Pologne,Europe,CTR,0,0,0,0,0
+PT,Portugal,Europe,CTR,4965595,4965595,0,0,0
+CD,République Démocratique Du Congo,Afrique,CTR,77870984,70595699,0,0,7275285
+DO,Republique Dominicaine,Amérique,CTR,0,0,0,0,0
+CG,République Du Congo,Afrique,CTR,0,0,0,0,0
+CZ,République Tchèque,Europe,CTR,0,0,0,0,0
+RO,Roumanie,Europe,CTR,0,0,0,0,0
+GB,Royaume-Uni,Europe,CTR,1224047136,1219367112,0,4680024,0
+RU,Russie,Europe,CTR,26795208,56,26795208,56,0,0,0
+RW,Rwanda,Afrique,CTR,49520786,0,0,0,49520786
+SC,Seychelles,Afrique,CTR,0,0,0,0,0
+SL,Sierra Leone,Afrique,CTR,5700481,0,0,0,5700481
+SG,Singapour ,Asie,CTR,0,0,0,0,0
+SK,Slovaquie,Europe,CTR,0,0,0,0,0
+SI,Slovénie,Europe,CTR,0,0,0,0,0
+SE,Suède,Europe,CTR,27472004,27472004,0,0,0
+CH,Suisse,Europe,CTR,324079344,308979319,15100025,0,0
+TW,Taïwan,Asie,CTR,0,0,0,0,0
+TZ,Tanzanie,Afrique,CTR,32964463,0,0,0,32964463
+TD,Tchad,Afrique,CTR,0,0,0,0,0
+TN,Tunisie,Afrique,CTR,152398111,8,152398111,8,0,0,0
+TR,Turquie,Asie,CTR,909020,909020,0,0,0
+VN,Vietnam,Asie,CTR,0,0,0,0,0
+ZM,Zambie,Afrique,CTR,0,0,0,0,0
+ZW,Zimbabwe,Afrique,CTR,694500,694500,0,0,0
+AFR,Afrique,Afrique,CTN,1899096372,1642183942,0,0,256912430
+AME,Amérique,Amérique,CTN,652944700,627262160,0,0,25682540
+ASI,Asie,Asie,CTN,1370924489,1294031143,76893346,0,0
+EUR,Europe,Europe,CTN,6670738702,6557974093,102086876,9496518,1181215
+OCE,Océanie,Océanie,CTN,10535530,10535530,0,0,0

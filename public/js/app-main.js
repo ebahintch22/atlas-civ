@@ -5,7 +5,6 @@ function app_start_up(){
 	opera_console.addLog( toJSON(user_agent ) );
 
 	var zoom = d3.behavior.zoom().scaleExtent([1, 15])
-
 				.on('zoom', doZoom);
 				svg.call(zoom);
 
@@ -694,6 +693,11 @@ function getIdOfFeature(f) {
 	return f.properties[idfield];
 }
 
+function getNameOfFeature(f) {
+	//console.log(f.properties.code);
+	var  namefield = currentMetaGeo.labelField
+	return f.properties[namefield];
+}
 
 /**
  * Show a tooltip with the name of the feature.
@@ -701,14 +705,24 @@ function getIdOfFeature(f) {
  * @param {object} f - A GeoJSON Feature object.
  */
 function showTooltip(f) {
+	var _show_featureSetName = metaDataBase.MODULE_SPECIFIC ? metaDataBase.MODULE_SPECIFIC.tooltips.show_featureset_name : true;
+
 	var id = getIdOfFeature(f);// Get the ID of the feature.
+	var name = getNameOfFeature(f);// Get the Label/name of the feature.
+
 	var d = dataById[id];// Use the ID to get the data entry.
-	//console.log(dataById)
-	var value = d[currentKey];
+	
+	var feat_data_value = d? 
+				UTIL.format_number(d[currentKey], false) : 
+				"Pas de données";
+				
+	var feat_name = d? d.ADM_NAME : getNameOfFeature(f);
+
 	//delay_console(d);
 
-	var tooltips_text = `
-		<span>${currentMetaGeo.names.value}</span><br>
+	/*var tooltips_text = `
+		${ _show_featureSetName ? `<span>${currentMetaGeo.names.value}</span><br>` : ``}
+		
 		<span style="font-size:11px; color: #111;">
 			 ${d.ADM_NAME} 
 		</span><hr style="height: 1px; margin: 1px">
@@ -716,9 +730,22 @@ function showTooltip(f) {
 			 ${ UTIL.format_number(value)} 
 		</span>
 		<span>${currentMetaField.unit}
-		</span>`
+		</span>`*/
 
-	var place_name = d? tooltips_text : "Région sanitaire Inconnue";
+	var tooltips_text = `
+		${ _show_featureSetName ? `<span>${currentMetaGeo.names.value}</span><br>` : ``}
+		
+		<span style="font-size:11px; color: #111;">
+			 ${ feat_name} 
+		</span><hr style="height: 1px; margin: 1px">
+		<span style="font-family: consolas ;font-size:14px; color: red;">
+			 ${feat_data_value} 
+		</span>
+		<span>${ d? currentMetaField.unit : `` } </span>`
+
+
+
+	var place_name = d? tooltips_text : tooltips_text ; //"Région sanitaire Inconnue";
 	// Get the current mouse position (as integer)
 	var mouse = d3.mouse(d3.select('#map').node()).map(
 	 		function(d) { return parseInt(d); }
@@ -726,7 +753,6 @@ function showTooltip(f) {
 
 	 // Calculate  the absolute  left  and  top  offsets  of the tooltip. If the
 	 // mouse is close to the right border of the map, show the tooltip on the left.
-	 
 	 var left =mouse[0] + 5 // Math.min(width - 4 * place_name.length, mouse[0] + 5);
 	 var top = mouse[1] + 15;
 
