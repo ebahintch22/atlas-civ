@@ -219,7 +219,16 @@ function after_selectLayer_Changed(inLayerKeY){
 	var geo_dataset = get_spatialLayer(inLayerKeY)
 
 	show_map_spinner(true);
+	//Check if geodataset is available in the GeoCAche
+	var features_Cached = geoCache_find(geo_dataset.name)
+
 	get_geoData( geo_dataset.name  , geo_dataset.path, function( error, features){
+		
+		if (error) {
+			alert(`Erreur lors du chargement de la couche : " ${geo_dataset.path}" ${error} `)
+			return null
+		}
+
 
 		dataById = stats_table_set[inLayerKeY];
 		dataKeyVal = stats_table_set[inLayerKeY + "_raw"];
@@ -234,7 +243,7 @@ function after_selectLayer_Changed(inLayerKeY){
 		preload_geoDataSet(features);
 
 		after_selectKey_Changed(currentKey);
-	});
+	}, features_Cached);
 }
 
 function get_statsData( name, path, callBack){
@@ -249,12 +258,40 @@ function get_statsData( name, path, callBack){
 			callBack(data);
 	}
 }
+function geoCache_find(dataset_name){
+	if ( GEO_CACHE.geoJsonDataSets[dataset_name]) {
+		var features = GEO_CACHE.geoJsonDataSets[dataset_name]
+		return (features);
+	} else {
+		return null
+	}
+}
+function geoCache_save(dataset_name, features){
+	features = GEO_CACHE.geoJsonDataSets[dataset_name] = features
+}
 
-function get_geoData(name, path, callBack){
-	if (http_server_exe_mode) { // server http (local ou distant) actif
+function get_geoData(name, path, callBack, featCached = null ){
+
+
+	if ( featCached) {
+		callBack( null, featCached);
+	}
+
+	else if (http_server_exe_mode) { // server http (local ou distant) actif
+		
 		d3.json(path, function( error, features){
-			callBack(error, features);
+			if (error) {
+				
+				callBack(error, null)
+
+			} else {
+
+				callBack( null, features);
+				geoCache_save( name, features )
+			}
+			
 		});
+		
 	} else {
 		var features = find_geodata_from_memory(name);
 			callBack(null, features);
@@ -300,6 +337,7 @@ function  get_missing_fields (in_data, searchFields){
 }
 
 function load_dataframe(frame_name, callBack,  errCallBack){
+	
 
 	var newframe = metaDataBase.table_details.find(function(frame){ return frame.name === frame_name});
     //currentMetaTable = (!newframe)? currentMetaTable : newframe;

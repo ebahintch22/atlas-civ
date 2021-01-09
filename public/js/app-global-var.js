@@ -107,6 +107,11 @@ var chartController_admin;
 var chartController_rass;
 var legendControllervar ;
 
+//Structure de MEMOISATION DES DONNEES
+var GEO_CACHE = {}
+    GEO_CACHE.geoJsonDataSets={};
+
+
 var COVIDATA = null;
 var COVIDATA_STATUS = "UNLOAD";
 var COVID_SPINNER_ARR = [];
