@@ -75,7 +75,9 @@ router.post('new_record', function(req, res, next){
 		}
 	)
 })
-
+function date_now(){
+	return( new Date().toISOString().replace(/T/, ' ').replace(/\..+/, '') )
+}
 
 module.exports = router;
 
