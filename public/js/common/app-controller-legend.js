@@ -53,7 +53,7 @@ function generate_legend( dom_elt, Cfg ){
 			 .orient("bottom")
 			 .tickSize(Cfg.tickSize)
 			 .tickFormat(function(d) {
-				return formatNumber(d);
+				return UTIL.format_number(d, false);
 			});
 		//end section
 		if (Cfg.colorscale.start && Cfg.colorscale.end){

@@ -31,6 +31,7 @@ var stats_table_set
 var dataById = d3.map();
 var dataKeyVal ;
 var mapData;
+var CharDataLimit = 10;
 
 var DARKROUGE = "#550000" , 
 	VERT = "#63d617", 
@@ -118,6 +119,7 @@ var COVID_SPINNER_ARR = [];
 var COVIDATA_ACCESS_MODE = "database"
 
 var dataTableController
+var CONNEXION_MANAGER_ENABLED = false
 var ZOOM_IS_DISABLE = true
 var rass_active_panel = "tab-b" 
 

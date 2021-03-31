@@ -1,7 +1,7 @@
 	
 	
 
-function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, onClickcallBack ){
+function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, onClickcallBack , inLimit){
 	// A structure to detect any change on datatable or key in 
 	// order to trigger accordingy updates to inner data 
 	//struct to refresh chart
@@ -9,7 +9,8 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 
 	var metadata = inMetadata ,
 		field    = inField, 
-		metageo  = inMetageo
+		metageo  = inMetageo,
+		tranform = null
 
 	var stamps = {
 		table : "empty", 
@@ -17,7 +18,11 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 	   geolyr : "empty"
 	}
 
-	var data_struct =  update_data_structure(inData)   
+	var data_struct =  update_data_structure(inData, inLimit)   
+
+
+	var transform = update_tick_transform (field);
+
 
 	var myChart = create_Chart_ex( data_struct, "chart-canvas-rass", {
 
@@ -27,13 +32,16 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 		"y-axis-1" : {
 			display : true,
 			position : "left",
-			labelString : field.short_name
+			labelString : field.YLabelCustom,
+			transform : transform
+
 		},
 
 		"y-axis-2" : {
 			display : false,
 			position : "right",
-			labelString : "Nombre de cas"
+			labelString : "Nombre de cas",
+			transform : transform
 		},
 
 		charts : [
@@ -66,18 +74,21 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 		explain : function(){
 			return myChart
 		},
-		setParams : function( inMetadata ,inField, newdata, inMetageo){
+		setParams : function( inMetadata ,inField, newdata, inMetageo, inLimit = null){
 			//1: after Key changed : 
+			//         Update tick function needed : YES (because the field may use transform function) 
 			//         Update key : sort data and labels arrays - 
 			//         reuse raw data ? : YES
 			//         reuse geo data ? : YES
 			//2: after Thematic-table changed : (NB: in this version we change the geodata)
+			//         Update tick function needed : YES (because the field may use transform function) 
 			//		   reuse raw data ? : NO (RAW data is update by définition )
 			//         reuse geo data ? : NO (RAW data is update , but this would be contexte-depndent in future )
 			//         Updata Key : sort data and label arrays
 			//		   
 			//
 			//3: after Level changed : 
+			//         Update tick function needed : YES (because the field may use transform function) 
 			//		   Update RAW Data : Generate 
 			//         Update GEODATA  : 
 			//         Updata Key : Sort data and label arr
@@ -95,14 +106,20 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 
 				case "key-changed" :
 					//alert(" Case : 1 " + eventname)
-					new_struct = update_data_structure(data_struct.raw)
+					new_struct = update_data_structure(data_struct.raw, inLimit)
 
 					myChart.data.datasets[0].data = new_struct.data;
 					myChart.data.datasets[0].label = field.long_name;
 					myChart.data.labels = new_struct.labels;
+
+					 
+					transform = update_tick_transform(field)
+					myChart.options.scales.yAxes[0].scaleLabel.labelString = transform.title 
+        			myChart.options.scales.yAxes[0].ticks.callback =transform.callback
+
 					myChart.options.scales.xAxes[0].ticks.min = new_struct.min;
 					myChart.options.scales.xAxes[0].ticks.max = new_struct.max;
-					myChart.options.scales.yAxes[0].scaleLabel.labelString = field.short_name
+					//myChart.options.scales.yAxes[0].scaleLabel.labelString = field.YLabelCustom || field.short_name
 					myChart.options.title.text =  `${ metadata.label } par ${ metageo.names.value }`
 
 					//objectPath( myChart.data.datasets[0], "data" , new_struct.data)
@@ -116,14 +133,18 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 				case "data-theme-changed" :
 					//alert(" Case : 2 " + eventname)
 
-					new_struct = update_data_structure(newdata)	
+					new_struct = update_data_structure(newdata, inLimit)	
+
+					transform = update_tick_transform(field)
+					myChart.options.scales.yAxes[0].scaleLabel.labelString = transform.title 
+        			myChart.options.scales.yAxes[0].ticks.callback = transform.callback
 
 					myChart.data.datasets[0].data = new_struct.data;
 					myChart.data.datasets[0].label = field.long_name;
 					myChart.data.labels = new_struct.labels;
 					myChart.options.scales.xAxes[0].ticks.min = new_struct.min;
 					myChart.options.scales.xAxes[0].ticks.max = new_struct.max;	
-					myChart.options.scales.yAxes[0].scaleLabel.labelString = field.short_name
+					//myChart.options.scales.yAxes[0].scaleLabel.labelString = field.YLabelCustom || field.short_name
 					myChart.options.title.text =  `${ metadata.label } par ${ metageo.names.value }`
 					data_struct = new_struct;
 				break;
@@ -132,14 +153,18 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 				case "layer-changed" :
 					//alert(" Case : 3 " + eventname)
 
-					new_struct = update_data_structure(newdata)	
+					new_struct = update_data_structure(newdata, inLimit)	
+
+					transform = update_tick_transform(field)
+					myChart.options.scales.yAxes[0].scaleLabel.labelString = transform.title 
+        			myChart.options.scales.yAxes[0].ticks.callback = transform.callback
 
 					myChart.data.datasets[0].data = new_struct.data;
 					myChart.data.datasets[0].label = field.long_name;
 					myChart.data.labels = new_struct.labels;
 					myChart.options.scales.xAxes[0].ticks.min = new_struct.min;
 					myChart.options.scales.xAxes[0].ticks.max = new_struct.max;	
-					myChart.options.scales.yAxes[0].scaleLabel.labelString = field.short_name
+					//myChart.options.scales.yAxes[0].scaleLabel.labelString = field.YLabelCustom || field.short_name
 					myChart.options.title.text = `${ metadata.label } par ${ metageo.names.value }`;
 					data_struct = new_struct;
 
@@ -147,6 +172,12 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 
 
 			}
+
+			alertify.message(JSON.stringify({
+				"Scale title" : transform.title,
+				"Field key" : field.long_name
+			}), 0);
+
 
 			function detect_changes(){
 				var r = null
@@ -168,19 +199,28 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 		}	
 	}
     //***********************************************************************
-	function update_data_structure(inData){
+	function update_data_structure(inData, inLimit = null){
 		var data 
 		var parser = metadata.data_parser, 
 		    a,b,c,d
 
+		data = inData.map(function(d){return (d)})
+
+		//apply data limit if relevant
+		if (inLimit != null) {
+
+			data = data.sort(compare_numbers).slice(0, inLimit)
+
+		}
+
 		if ( stamps.table != metadata.name ){
 			 stamps.table = metadata.name
 
-			 data = inData.map(function(d){return (d)})
+			// data = inData.map(function(d){return (d)})
 			 data.sort( compare_numbers )
 
 		} else if (stamps.field != field.fld_name){
-			data = inData
+			//data = inData
 			stamps.field = field.fld_name
 			 data.sort( compare_numbers )
 		}
@@ -200,8 +240,30 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 	}
 
 	function compare_numbers(a,b){ return(b[field.fld_name] - a[field.fld_name] ) }
+	
 	function update_chart(){}
 
+	function update_tick_transform(field){
+		var title 
+		var cbFunc
+
+		if (!field.transform) {
+			title = field.short_name
+			scaleFactor = 1
+		} else {
+			title = field.transform.YLabelCustom
+			scaleFactor = field.transform.scaleFactor
+		}
+
+		cbFunc = function(value, index, values){
+    				return UTIL.format_number(value/scaleFactor, false)
+    			}
+
+        return {
+        	callback : cbFunc ,
+        	title : title
+        }
+	}
 }	
 
 

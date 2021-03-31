@@ -41,10 +41,7 @@ function app_start_up(){
 		}
 		
 	})
-
-
 	//theme_controller = ui_render_ThematicSelectList_Component_ex( metaDataBase.table_details , "#opera-theme-selector-1");
-
 
 	theme_controller.update_view(initialTable)
 	Activate_thematic_section(initialTable);	//activate the default dataframe 
@@ -55,6 +52,9 @@ function app_start_up(){
     
 }
 
+function app_start_aborted(){
+   //todo lancer une UI indiquant l'echec du chargement
+}
 
 function bind_layout_reset_to_windowResize(){
 
@@ -168,7 +168,7 @@ function Activate_thematic_section(frame_name){
 			currentMetaTable = metaData ;	
 		
 			update_color_palette(metaData.color_palette); //set the current color palette to that of the metaTable
-			update_dataTableView(metaData)
+			
 
 			//update the property window html template to the new table columnset					
 			tmplt_rowDescription = ui_updateTemplate_details({
@@ -180,8 +180,12 @@ function Activate_thematic_section(frame_name){
 			//create_histogram_object();
 			spatialLayerController.update_view( metaData.layerList[0] );
 			after_selectLayer_Changed( metaData.layerList[0] ); 
+			console.log( metaData )
 
 			if ( before_app_initialization ) 	notify_application_readiness()
+
+			//update_dataTableView(metaData, currentMetaGeo)
+
 
 		}, 
 
@@ -192,6 +196,7 @@ function Activate_thematic_section(frame_name){
 }
 
 function toogle_layout(metadata){
+
 	if (metadata.layout == "COVID"){
 		d3.select("#COVID-pane").classed( "hidden" , false)
 		d3.select("#RASS-pane").classed( "hidden" , true)
@@ -214,13 +219,14 @@ function toogle_layout(metadata){
  	 }
  }
 
-function after_selectLayer_Changed(inLayerKeY){
+function after_selectLayer_Changed( inLayerKeY ){
 	
 	var geo_dataset = get_spatialLayer(inLayerKeY)
 
 	show_map_spinner(true);
 	//Check if geodataset is available in the GeoCAche
 	var features_Cached = geoCache_find(geo_dataset.name)
+	currentMetaGeo = geo_dataset;
 
 	get_geoData( geo_dataset.name  , geo_dataset.path, function( error, features){
 		
@@ -229,7 +235,6 @@ function after_selectLayer_Changed(inLayerKeY){
 			return null
 		}
 
-
 		dataById = stats_table_set[inLayerKeY];
 		dataKeyVal = stats_table_set[inLayerKeY + "_raw"];
 		mapData = dataKeyVal ;
@@ -237,12 +242,12 @@ function after_selectLayer_Changed(inLayerKeY){
 		geo_dataset_is_load = true;
 
 		currentKey = currentKey? currentKey : "FLD1"
-		currentMetaGeo = geo_dataset;
 		
-		update_dataTableView(currentMetaTable);
+		
+		update_dataTableView(currentMetaTable , currentMetaGeo, true);
 		preload_geoDataSet(features);
 
-		after_selectKey_Changed(currentKey);
+		after_selectKey_Changed(currentKey , currentMetaGeo );
 	}, features_Cached);
 }
 
@@ -572,13 +577,19 @@ function updateMapColors(){
  }
 
 //Si le Layout est approprié, la mise à jour du tableau de données est enclenchée
-function update_dataTableView( metadata ){
+function update_dataTableView( metadata , metageo, geoLyrChanged = false ){
 	var _generateCol_HTML_TAG = false
 	if ( metadata.layout !=  "COVID" ) {
 		//Generate IF NOT EXISTS the datatable column definition for the metadata
 		metadata.dt = metadata.dt || {}
-		metadata.dt.colArray = metadata.dt.colArray || generate_colArray(metadata)	
 
+		console.log(metageo)
+
+		if (geoLyrChanged) metadata.dt.colArray = generate_colArray(metadata , metageo) //generate new columns when layer changed
+
+		metadata.dt.colArray = metadata.dt.colArray || generate_colArray(metadata , metageo)	
+
+		//Build the dataTableController if needed
 		dataTableController = dataTableController || 
 		new ui_render_dataTable( "#dttable_container", 
 			{
@@ -592,7 +603,8 @@ function update_dataTableView( metadata ){
 			_generateCol_HTML_TAG
 		)
 
-		if (  dataTableController.reloadNeeded()  ){
+		if (  dataTableController.reloadNeeded(geoLyrChanged)  ){
+			console.log(metadata.dt.colArray)
 			dataTableController.reloadData( metadata.dt.colArray , mapData )
 		}
 	}
@@ -888,7 +900,7 @@ function updateGraphic(){
 		if (!chartController_rass){
 			
 			chartController_rass = build_RASS_chart_component( 
-				metadata , metafield, mapData, metageo,
+				metadata , metafield, mapData, metageo, 
 				function( data , indexes){
 					/*
 						{
@@ -896,7 +908,6 @@ function updateGraphic(){
 						    "@index": item._index
 						}
 					*/
-
 					var index = indexes["@index"];
 					var feat_code = data.raw[index]["CODE"];
 
@@ -906,14 +917,15 @@ function updateGraphic(){
 					//alert(index)
 					console.log( feat_code )
 					//console.log(data)
-				}
+				},
+				CharDataLimit
 			)
 
 			chartController_rass.show_spinner(false);
 		
 		} else  {
 			chartController_rass.show_spinner(false)
-			chartController_rass.setParams(metadata , metafield, mapData, metageo);
+			chartController_rass.setParams(metadata , metafield, mapData, metageo, CharDataLimit);
 			chartController_rass.updateChart({
 				duration: 1500,
 				easing : 'linear'
@@ -1135,7 +1147,6 @@ function bind_Scale_Selector(){
 				$("#current_admin_level").val(_info.label);
 				do_action(_info.key);
 		}
-
 	})	
 	function do_action(){
 

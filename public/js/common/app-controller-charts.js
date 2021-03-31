@@ -23,8 +23,9 @@
 		var time_pattern = "DD/MM/YYYY";
 		var label_list = in_data.map(function (d){ return (d[ Cfg.label_field]) } ) ;
 
-		Cfg.label_min = label_list[0]
-		Cfg.label_max = label_list[label_list.length -1]
+		Cfg.label_min = label_list[0];
+		Cfg.label_max = label_list[label_list.length -1];
+		Cfg.elementId = elt_id;
 
     	var chart_configurator = {
 
@@ -92,15 +93,14 @@
 
 
 
-
-function create_Chart_ex( data_struct , elt_id, Cfg ){
+function create_Chart_ex( data_struct , elt_id, Cfg, verbose = false ){
 	
 	var dateFormat = d3.time.format("%d-%m-%Y");
 	var time_pattern = "DD/MM/YYYY";
 
 	Cfg.label_min = data_struct.min;
 	Cfg.label_max = data_struct.max;
-
+	Cfg.elementId = elt_id;
 	var CHART_CONFIG = JSON.stringify(Cfg)
 	//console.log("HIGHLEVEL CONFIG ::---------------------------->>> " +CHART_CONFIG)
 	//opera_console.log("HIGHLEVEL CONFIG ::---------------------------->>> " + CHART_CONFIG)
@@ -139,7 +139,17 @@ function create_Chart_ex( data_struct , elt_id, Cfg ){
 				bodyFontColor : '#555',
 				borderWidth : 1,
 				cornerRadius : 2,
-				borderColor : get_color( "RED", 0.99),		
+				borderColor : get_color( "RED", 0.99),
+				callbacks : {
+					label: function( tooltipItem, data ){
+	                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+	                    if (label) label += ': ';
+	                    
+	                    label += UTIL.format_number(tooltipItem.yLabel, false);
+	                    return label;						
+					}
+				}
 			},
 	        scales: {
 	            xAxes: generate_xAxes_section(Cfg),		        	
@@ -154,7 +164,7 @@ function create_Chart_ex( data_struct , elt_id, Cfg ){
 		       intersect : true, 
 		       mode : "index"
 		   },
-   			onClick : (Cfg.onClick == undefined) ? undefined : __onClick
+   			onClick : ( Cfg.onClick == undefined ) ? undefined : __onClick
 	    }
 	}
 
@@ -176,22 +186,21 @@ function create_Chart_ex( data_struct , elt_id, Cfg ){
 		    "@index": item._index
 		})
 	}
-
 }
 
 
-    function generate_yAxes_section(Cfg){
+    function generate_yAxes_section(Cfg, verbose = false){
     	//Génère la section de l'objet options relatives aux axes Yaxis
     	var axes_def = [];
     	var no_yAxis = true;
   
  		[ "y-axis-1" , "y-axis-2" ].forEach(function(axis_name){
  			if (Cfg[axis_name])	{
- 				axes_def.push( new_yAxis( Cfg[axis_name], axis_name ) )
+ 				axes_def.push( new_yAxis( Cfg[axis_name], axis_name, Cfg.elementId, verbose ) )
  				no_yAxis = false
  			}
  		})
-
+ 		//If neither "y-axis-1" nor  "y-axis-2" are defined then add
  		if (axes_def.length == 0 ){
  			axes_def.push({
 	       		id: "y-axis-1",
@@ -214,8 +223,16 @@ function create_Chart_ex( data_struct , elt_id, Cfg ){
 
  		return (axes_def)
 
-    	function new_yAxis( axe, axe_id ){
-    		return {
+    	function new_yAxis( axe, axe_id, elementId, verbose ){
+
+    		var def_callback = function(value, index, values){ return(value)}
+
+            if (verbose) {
+            	//var msgtext = `Création d'un nouvel axe  ${axe_id}  pour le chart  ${elementId} `
+            	//alertify.message("Création d'un nouvel axe " + axe_id + " pour le chart " + elementId , 0)
+            }
+            console.log( "Axe " + elementId + " : " + JSON.stringify(axe) )
+    		var rslt = {
         		id: axe_id,
         		display: axe.display,
         		position: axe.position,
@@ -226,13 +243,18 @@ function create_Chart_ex( data_struct , elt_id, Cfg ){
                 ticks: {
                     beginAtZero: false,
                       fontColor: Cfg.fontColors.axis,
+	                   callback: axe.transform ?  axe.transform.callback : def_callback                
                 },
                 scaleLabel : {
                 	display: true,
-                	labelString : axe.labelString ? axe.labelString : "Title axe y1",
+                	labelString : axe.transform ? axe.transform.title : axe.labelString ,
                 	  fontColor : Cfg.fontColors.scaleLabel
                 }
 			}
+
+			
+
+			return rslt
     	}
     }
 
@@ -253,15 +275,17 @@ function create_Chart_ex( data_struct , elt_id, Cfg ){
                 	source: "auto",
                 	autoSkip: false,
                 	autoSkipPadding: 0,
-                	maxRotation: 90,
+                	maxRotation: 65,
                 	minRotation: 60, 
                 	fontColor: Cfg.fontColors.axis,
-                	fontSize: 9,
+                	fontSize: 12,
 					fontFamily: "Univers Condensed,arial",
 					callback: function(value, index, values){
 						return(truncateString(value, 15))
 					}
-                }
+                },
+
+                offset: true
             },
     		"COVID" :  {
             	gridLines : {

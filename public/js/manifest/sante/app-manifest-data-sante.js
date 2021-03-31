@@ -357,20 +357,112 @@ var sante_datasets =  [
 			renderer : get_renderer( 5 , [] , ['white', 'blue']),
 			color_palette: "YlGnBu",
 			field_selected : default_field_selection,
-			data_fields : [
-				{ fld_name: "FLD1",  short_name: "Nb total labo. d'analyse", long_name: "Nombre de laboratoires d'analyse existants", data_type: "INT", unit: "laboratoire(s)"},
-				{ fld_name: "FLD2",  short_name: "Nb labo. d'analyse fonctionnels", long_name: "Nombre de laboratoires d'analyse fonctionnels", data_type: "INT", unit: "laboratoire(s)"},
-				{ fld_name: "FLD3",  short_name: "Nb labo. d'analyse non Fonctionnels", long_name: "Nombre de laboratoires d'analyse non fonctionnels", data_type: "INT", unit: "laboratoire(s)"},
-				{ fld_name: "FLD4",  short_name: "Nb total blocs Opér.", long_name: "Nombre de blocs opératoires existant", data_type: "INT", unit: "bloc(s)"},
-				{ fld_name: "FLD5",  short_name: "Nb blocs Opér. fonctionnels", long_name: "Nombre de blocs opératoires fonctionnels", data_type: "INT", unit: "bloc(s)"},
-				{ fld_name: "FLD6",  short_name: "Nb blocs Opér. non fonctionnels", long_name: "Nombre de blocs opératoires non fonctionnels", data_type: "INT", unit: "blocs opératoire(s)"},
-				{ fld_name: "FLD7",  short_name: "Nb total de services radio.", long_name: "Nombre de services de radiologie existants", data_type: "INT", unit: "service(s)"},
-				{ fld_name: "FLD8",  short_name: "Nb services radio fonctionnels", long_name: "Nombre de services de radiologie fonctionnels", data_type: "INT", unit: "service(s)"},
-				{ fld_name: "FLD9",  short_name: "Nb service radio non fonctionnels", long_name: "Nombre de services de radiologie non fonctionnels", data_type: "INT", unit: "service(s)"},
-				{ fld_name: "FLD10", short_name: "Nb total Cab dentaires", long_name: "Nombre de cabinets dentaires existant", data_type: "INT", unit: "Nombre de cabinets"},
-				{ fld_name: "FLD11", short_name: "Nb cab dentaires fonctionnels", long_name: "Nombre de cabinets dentaires onctionnels", data_type: "INT", unit: "Cabinet(s)"},
-				{ fld_name: "FLD12", short_name: "Nb cab dentaires non fonctionnels ", long_name: "Nombre de cabinets dentaires non fonctionnels ", data_type: "INT", unit: "cabinet(s)"}
+			data_fields : [{
+					fld_name: "FLD1",
+					short_name: "Nb total labo. d'analyse",
+					long_name: "Nombre de laboratoires d'analyse existants",
+					data_type: "INT",
+					unit: "laboratoire(s)",
+					renderer : {
+			 			"default": {
+							source: "manual",
+							threshold: [ 1, 3, 5, 10, 15 ],
+							colormap:   ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
+							linecolor: "#fff",
+							labelmap:  [ "Aucun", "1 à 2", "3 à 4" , "5 à 9" , "10 à 14", "15 et plus" ],
+							legendtitle: "Population totale 2017 par Région",
+				 			select_style : "blueish"
+						},
+			 			"region_sante": {
+							source: "manual",
+							threshold: [ 1, 10, 20, 30, 50 ],
+							colormap:  ['#ffffd4','#fee391','#fec44f','#fe9929','#d95f0e','#993404'],
+							linecolor: "#fff",
+							labelmap:  [ "Aucun", "1 à 9", "10 à 19" , "20 à 29" , "30 à 49", "50 et +" ],
+							legendtitle: "Population totale 2017 par district",
+				 			select_style : "blueish"
+						}						
+					}
+				},
+				{
+					fld_name: "FLD2",
+					short_name: "Nb labo. d'analyse fonctionnels",
+					long_name: "Nombre de laboratoires d'analyse fonctionnels",
+					data_type: "INT",
+					unit: "laboratoire(s)"
+				},
+				{
+					fld_name: "FLD3",
+					short_name: "Nb labo. d'analyse non Fonctionnels",
+					long_name: "Nombre de laboratoires d'analyse non fonctionnels",
+					data_type: "INT",
+					unit: "laboratoire(s)"
+				},
+				{
+					fld_name: "FLD4",
+					short_name: "Nb total blocs Opér.",
+					long_name: "Nombre de blocs opératoires existant",
+					data_type: "INT",
+					unit: "bloc(s)"
+				},
+				{
+					fld_name: "FLD5",
+					short_name: "Nb blocs Opér. fonctionnels",
+					long_name: "Nombre de blocs opératoires fonctionnels",
+					data_type: "INT",
+					unit: "bloc(s)"
+				},
+				{
+					fld_name: "FLD6",
+					short_name: "Nb blocs Opér. non fonctionnels",
+					long_name: "Nombre de blocs opératoires non fonctionnels",
+					data_type: "INT",
+					unit: "blocs opératoire(s)"
+				},
+				{
+					fld_name: "FLD7",
+					short_name: "Nb total de services radio.",
+					long_name: "Nombre de services de radiologie existants",
+					data_type: "INT",
+					unit: "service(s)"
+				},
+				{
+					fld_name: "FLD8",
+					short_name: "Nb services radio fonctionnels",
+					long_name: "Nombre de services de radiologie fonctionnels",
+					data_type: "INT",
+					unit: "service(s)"
+				},
+				{
+					fld_name: "FLD9",
+					short_name: "Nb service radio non fonctionnels",
+					long_name: "Nombre de services de radiologie non fonctionnels",
+					data_type: "INT",
+					unit: "service(s)"
+				},
+				{
+					fld_name: "FLD10",
+					short_name: "Nb total Cab dentaires",
+					long_name: "Nombre de cabinets dentaires existant",
+					data_type: "INT",
+					unit: "Nombre de cabinets"
+				},
+				{
+					fld_name: "FLD11",
+					short_name: "Nb cab dentaires fonctionnels",
+					long_name: "Nombre de cabinets dentaires onctionnels",
+					data_type: "INT",
+					unit: "Cabinet(s)"
+				},
+				{
+					fld_name: "FLD12",
+					short_name: "Nb cab dentaires non fonctionnels ",
+					long_name: "Nombre de cabinets dentaires non fonctionnels ",
+					data_type: "INT",
+					unit: "cabinet(s)"
+				}
 			]
+
 		},
 		{
 			index : 10,

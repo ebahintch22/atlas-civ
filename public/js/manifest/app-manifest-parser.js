@@ -38,16 +38,27 @@ function get_renderer ( count, value_range, color_range, labelmap = []){
 }
 
 
-function generate_colArray( metadata){
+function generate_colArray( metadata , metageo){
    //Build the for the current stats table the definition column to provide to dataTable
    var data_fields = metadata.data_fields;
+   var object_name = metadata.object_name
    var  column_arr  = [
         { "data": "CODE", "title" : "Code" },
-        { "data": "ADM_NAME", "title": "Circonscription" }
+        { "data": "ADM_NAME", "title": metageo.names.value }
     ]
 
-    column_arr = data_fields.reduce( function( accu , d){
-            accu.push({"data": d.fld_name , "title" : d.short_name })
+    column_arr = data_fields.reduce( function( accu , fld){
+    		
+    		var col_def = {"data": fld.fld_name , "title" : fld.short_name }
+
+    		if (fld.format_as == "number"){
+    			col_def.render = function(data, type, row){
+    				if (type=="display")	return (UTIL.format_number( data , false))
+    				return data
+    			}
+    		}
+
+            accu.push( col_def )
             return accu
     },  column_arr );
     return(column_arr)

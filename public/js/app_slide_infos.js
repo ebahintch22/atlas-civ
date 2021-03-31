@@ -17,6 +17,58 @@ function get_random_data(){
 
 
 
+function load_COVID_DATA_IF_NEEDED___( the_spinner ){
+
+	COVID_SPINNER_ARR.push( the_spinner )
+
+	if ( COVIDATA_STATUS != "UNLOAD") return (COVIDATA_STATUS)
+	if ( COVIDATA == null) {
+		COVIDATA_STATUS = "LOADING"
+		fileLoad_JSON( 
+			"Données épidémiologique sur le COVID-19", PATH_PREFIX + "data/covid-data.json", 
+			function(data) {
+
+		        data.sort(function(a, b) {
+		            return parseTime(a.date) - parseTime(b.date);
+		        });                 
+		        data.forEach(function(d) {
+
+	                    d.date_raw = d.date;
+	                        d.date = parseTime(d.date);
+		                d.new_case = +d.new_case;
+		              d.new_healed = +d.new_healed;
+		            d.new_deceased = +d.new_deceased;
+		                d.sum_case = +d.sum_case;
+		              d.sum_healed = +d.sum_healed;
+		            d.sum_deceased = +d.sum_deceased;
+		             d.active_case = + d.sum_case - d.sum_healed - d.sum_deceased;
+	                   d.nb_sample = +d.nb_sample;
+	                  d.sum_sample = +d.sum_sample;
+	                   d.incidence = +d.incidence * 100;
+	                   d.remission = +d.remission * 100;
+	                    d.letalite = +d.letalite * 100;
+		            
+		        });
+
+
+				COVIDATA = data;
+				update_covid_badges();
+				display_atlas_infos_slide();
+				build_COVID_chart_component(  data );
+				COVIDATA_STATUS = "LOAD-ENDED";
+
+				COVID_SPINNER_ARR.forEach( function (spin){
+					spin.remove()
+				}) ;
+				Spinners.removeDetached();
+		    }, 
+		    function(error){
+				alert("erreur " + error)
+			}
+		);			
+	}
+}
+
 
 function load_COVID_DATA_IF_NEEDED( the_spinner){
 	
@@ -162,9 +214,6 @@ function update_covid_badges(){
 }
 
 
-
-
-
 function display_atlas_infos_slide(){
 
 	var slides = new ATLAS_BADGES();
@@ -177,10 +226,11 @@ function display_atlas_infos_slide(){
 				addLink : false,
 				transition : "fade",
 		   		slides : [
-		   			{ id: "slide-0", name: "Cas confirmés" , label : "slide-1"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
-		   			{ id: "slide-1", name: "Cas actifs"    , label : "slide-2" 	  ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
-		   			{ id: "slide-2", name: "Décès" , 		 label : "slide-3"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
-		   			{ id: "slide-3", name: "Guéris" , 		 label : "slide-4"    ,  Html_content : slides.badge_04  , visible: true , color: "green"}
+		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
+		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
+		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
+		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"},
+		   			{ id: "slide-5", name: "Prélèvements" ,  label : "Comentaire"    ,  Html_content : slides.badge_05  , visible: true , color: "green"}
 		   		]			   
 			},
 			function(){}
@@ -194,10 +244,11 @@ function display_atlas_infos_slide(){
 
 	function ATLAS_BADGES( ){
 		return {
-			"badge_01" : _render_cool(`<span> Atlas Eco CI, </span> <br> <span> pourquoi? </span>`),
-			"badge_02" : _render_cool(`<span> Atlas Eco CI, </span> <br> <span> les données financières passées au moule de la DataViz... </span>`),
-			"badge_03" : _render_cool(`<span> Atlas Eco CI, </span> <br> <span> une contribution à la valorisation des statistiques financières...  </span>`),
-			"badge_04" : _render_cool(`<span> Atlas Eco CI, </span> <br> <span> un contenu et des fonctionnalités adaptables à vos besoins...</span>`)
+			"badge_01" : _render_cool(`Atlas Santé CI ? ...`),
+			"badge_02" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...les données du RASS passées au moule de la DataViz... </span>`),
+			"badge_03" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...une contribution à la valorisation des statistiques sanitaires...  </span>`),
+			"badge_04" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...un contenu appelé à évoluer regulièrement...</span>`),
+			"badge_05" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...vers une version mobile pour une ubiquité d'accès </div>` )	
 		 }
 
 		function _render_cool(html){

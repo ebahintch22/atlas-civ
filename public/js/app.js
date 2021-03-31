@@ -14,8 +14,15 @@ var user_session_manager ;
 
 $( document ).ready(function() {
 
-	user_session_manager = new user_connexion_manager_constructor()
-    user_session_manager.boot_app()	
+	if ( CONNEXION_MANAGER_ENABLED ){
+
+		user_session_manager = new user_connexion_manager_constructor()
+	    user_session_manager.boot_app()	
+
+	} else {
+
+		APP_START_NOW (null)
+	}
     
 });
 
@@ -148,16 +155,25 @@ function user_connexion_manager_constructor(){
 			loop_counter++;
 		})
 		
-
 		
 	}
 
+	/*
 	function APP_START_NOW( data ){
-		if ( data.appIsReady) {
+		//demarrer l'application sans gestion des connexions
+		if (data == null){
+			app_start_up()
+		}
+
+		//démarrer l'application avec gestion des connexions
+		else if ( data.appIsReady) {
 			app_start_up();
 			start_session_notifier(data);				
 		}
-	}
+		else {
+			app_start_aborted();
+		}
+	}*/
 
 	function UserBadge_restore_Or_recreate(data){
 
@@ -318,3 +334,18 @@ function show_address_to_mobile_users(){
 
 }
 
+function APP_START_NOW( data ){
+	//demarrer l'application sans gestion des connexions
+	if (data == null){
+		app_start_up()
+	}
+
+	//démarrer l'application avec gestion des connexions
+	else if ( data.appIsReady) {
+		app_start_up();
+		start_session_notifier(data);				
+	}
+	else {
+		app_start_aborted();
+	}
+}

@@ -176,12 +176,7 @@
                     opera_console.addLog(data, "warning")
 
                     return ( _date.date_str(data))
-                    /*if (type === "display" ){
-                        return ( _date.date_str(data))
-                    } 
-                    else if ( type === "filter"){
-                        return (data)
-                    }*/
+
                 }
             }
         }

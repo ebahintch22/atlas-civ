@@ -79,8 +79,8 @@ var metaDataBase = {
 			id : "layer-5",
 			name : "world_countries",
 			names : {
-				value : "Pays du monde",
-				 many : "Pays du monde",
+				value : "Pays",
+				 many : "Pays",
 				 abbr : "Pays"
 			},
 			label : "Découpage mondial en pays (240)",
@@ -92,8 +92,8 @@ var metaDataBase = {
 			id : "layer-6",
 			name : "world_continents",
 			names : {
-				value : "Continent du monde",
-				 many : "Continents monde",
+				value : "Continent",
+				 many : "Continents",
 				 abbr : "Continents"
 			},
 			label : "Découpage mondial en continent (5)",

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Prototype d'un Atlas des indicateurs sanitaires déployé en LOCAL",
   "private": true,
+  
   "scripts": {
     "start": "nodemon ./bin/www"
   },
