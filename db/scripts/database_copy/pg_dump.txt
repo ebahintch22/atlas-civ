@@ -1,0 +1,103 @@
+pg_dump exporte une base de données dans un fichier texte ou dans d'autres
+formats.
+
+Usage :
+  pg_dump [OPTION]... [NOMBASE]
+
+Options générales :
+  -f, --file=NOMFICHIER        nom du fichier ou du répertoire en sortie
+  -F, --format=c|d|t|p         format du fichier de sortie (personnalisé,
+                               répertoire, tar, texte (par défaut))
+  -j, --jobs=NUMERO            utilise ce nombre de jobs en parallèle pour
+                               la sauvegarde
+  -v, --verbose                mode verbeux
+  -V, --version              affiche la version puis quitte
+  -Z, --compress=0-9           niveau de compression pour les formats
+                               compressés
+  --lock-wait-timeout=DÉLAI    échec après l'attente du DÉLAI pour un verrou
+                               de table
+  --no-sync                    n'attend pas que les modifications soient proprement écrites sur disque
+  -?, --help                 affiche cette aide puis quitte
+
+Options contrôlant le contenu en sortie :
+  -a, --data-only              sauvegarde uniquement les données, pas le
+                               schéma
+  -b, --blobs                  inclut les « Large Objects » dans la
+                               sauvegarde
+  -B, --no-blobs              exclut les « Large Objects » dans la
+                               sauvegarde
+  -c, --clean                  nettoie/supprime les objets de la base de
+                               données avant de les créer
+  -C, --create                 inclut les commandes de création de la base
+                               dans la sauvegarde
+  -E, --encoding=ENCODAGE      sauvegarde les données dans l'encodage
+                               ENCODAGE
+  -n, --schema=SCHÉMA          sauvegarde uniquement le schéma indiqué
+  -N, --exclude-schema=SCHÉMA  ne sauvegarde pas le schéma indiqué
+  -o, --oids                   inclut les OID dans la sauvegarde
+  -O, --no-owner               ne sauvegarde pas les propriétaires des
+                               objets lors de l'utilisation du format texte
+  -s, --schema-only            sauvegarde uniquement la structure, pas les
+                               données
+  -S, --superuser=NOM          indique le nom du super-utilisateur à
+                               utiliser avec le format texte
+  -t, --table=TABLE            sauvegarde uniquement la table indiquée
+  -T, --exclude-table=TABLE    ne sauvegarde pas la table indiquée
+  -x, --no-privileges          ne sauvegarde pas les droits sur les objets
+  --binary-upgrade             à n'utiliser que par les outils de mise à
+                               jour seulement
+  --column-inserts             sauvegarde les données avec des commandes
+                               INSERT en précisant les noms des colonnes
+  --disable-dollar-quoting     désactive l'utilisation des guillemets
+                               dollar dans le but de respecter le standard
+                               SQL en matière de guillemets
+  --disable-triggers           désactive les triggers en mode de restauration
+                               des données seules
+  --enable-row-security        active la sécurité niveau ligne (et donc\n
+                               sauvegarde uniquement le contenu visible par\n
+                               cet utilisateur)
+  --exclude-table-data=TABLE   ne sauvegarde pas la table indiquée
+  --if-exists                  utilise IF EXISTS lors de la suppression des objets
+  --inserts                    sauvegarde les données avec des instructions
+                               INSERT plutôt que COPY
+  --load-via-partition-root    charger les partitions via la table racine
+  --no-comments                ne sauvegarde pas les commentaires
+  --no-publications            ne sauvegarde pas les publications
+  --no-security-labels         ne sauvegarde pas les affectations de labels de
+                               sécurité
+  --no-subscriptions           ne sauvegarde pas les souscriptions
+  --no-synchronized-snapshots  n'utilise pas de snapshots synchronisés pour les jobs en parallèle
+  --no-tablespaces             ne sauvegarde pas les affectations de
+                               tablespaces
+  --no-unlogged-table-data     ne sauvegarde pas les données des tables non
+                               journalisées
+  --quote-all-identifiers      met entre guillemets tous les identifiants
+                               même s'il ne s'agit pas de mots clés
+  --section=SECTION            sauvegarde la section indiquée (pre-data, data
+                               ou post-data)
+  --serializable-deferrable    attend jusqu'à ce que la sauvegarde puisse
+                               s'exécuter sans anomalies
+  --snapshot=SNAPSHOT          utilise l'image donnée pour la sauvegarde
+  --strict-names                 requiert que le motifs de table et/ou schéma
+                                 correspondent à au moins une entité de chaque
+  --use-set-session-authorization
+                               utilise les commandes SET SESSION AUTHORIZATION
+                               au lieu des commandes ALTER OWNER pour
+                               modifier les propriétaires
+
+Options de connexion :
+  -d, --dbname=NOMBASE      base de données à sauvegarder
+  -h, --host=NOMHÔTE           hôte du serveur de bases de données ou
+                               répertoire des sockets
+  -p, --port=PORT              numéro de port du serveur de bases de
+                               données
+  -U, --username=NOM           se connecter avec cet utilisateur
+  -w, --no-password            ne demande jamais le mot de passe
+  -W, --password               force la demande du mot de passe (par
+                               défaut)
+  --role=NOMROLE               exécute SET ROLE avant la sauvegarde
+
+Si aucune base de données n'est indiquée, la valeur de la variable
+d'environnement PGDATABASE est alors utilisée.
+
+Rapporter les bogues à <pgsql-bugs@postgresql.org>.

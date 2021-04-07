@@ -2,6 +2,30 @@
 
 function app_start_up(){
 
+	if ( APP_START_UNIT_TEST_MODE ){
+		notify_application_readiness()
+		start_unit_test()
+		return null
+	}
+
+	//Préparer les elements  HTML devant contenir les caroussel en entête
+	include_badge_container( APP_REGISTRY.ui_badge );
+
+	if (APP_REGISTRY.modules.module_def["COVID"]) {
+
+		EXE_IF_COVID_DATA_LOAD(null, function (data){
+			create_navTabControllers_COVID(data);
+			build_COVID_chart_component(  data );
+			load_covid_caroussel("#card-1")
+		})
+
+	} 
+
+	create_navTabController_RASS();
+	create_navTabController_ADMIN();
+	load_standard_caroussel("#card-2")
+
+
 	opera_console.addLog( toJSON(user_agent ) );
 
 	var zoom = d3.behavior.zoom().scaleExtent([1, 15])
@@ -52,9 +76,11 @@ function app_start_up(){
     
 }
 
+
 function app_start_aborted(){
    //todo lancer une UI indiquant l'echec du chargement
 }
+
 
 function bind_layout_reset_to_windowResize(){
 

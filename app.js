@@ -39,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/sante', preloadRouter);
 app.use('/economie-6e448f82-644e-4c4f-8f53-1bcd3a70ea49', preloadRouter);
 app.use('/admin-civ-123', preloadRouter);
+app.use('/xprience', preloadRouter);
 app.use('/', indexRouter);
 
 app.use('/users', usersRouter);

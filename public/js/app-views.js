@@ -1,49 +1,6 @@
 var include_button_input , upcoming_function // helper function variables
 
 
-function ui_render_spatialLayerSelectList_component( layer_data_arr, _eltID ){
-	var template_theme_selector = `
-			 <div class="input-group-prepend">
-			    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-			      aria-haspopup="true" aria-expanded="false"> Niveau géographique :</button>
-			    <div class="dropdown-menu">
-				    {{#layer_arr}}
-						<a class="dropdown-item"  data-key="{{name}}" data-label="{{label}}"
-						style="line-height:1.2em; padding: 1px 4px; font-size:0.8rem;" href="#"> {{ label }} </a>
-					{{/layer_arr}}
-			    </div>
-			</div>
-		  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="">
-		 `;
-
-	var data = layer_data_arr ;
-	var componentHtml = Mustache.render( template_theme_selector , { "layer_arr": data});
-	d3.select(`${_eltID}`).html(componentHtml );
-	bind_Selector();
-
-    return {
-    	update_view: function(theme){
-   			var _info = $(`${_eltID}  a[data-key="${theme}"]`)[0].dataset;
-    		$(`${ _eltID} > input.form-control`).val( _info.label );
-    	}
-    }
-
-	function bind_Selector(){
-
-		$( `${ _eltID} .dropdown-item` ).on({
-
-			"click": function(evt){
-				var _elt = $(this),  
-					_data = evt.currentTarget.dataset,
-					_info = { "key": _data.key, "label": _data.label};
-					$(`${ _eltID} > input.form-control`).val(_info.label);
-					after_selectLayer_Changed( _info.key );
-			}
-		})			
-	}
-}
-
-
 
 
 
@@ -133,122 +90,151 @@ var func_start_supervision = function(that, eltID){
 	    $(`#${eltID}`).html( !state ?  `${fa_icon("play")} Démarrer superviseur` :`${fa_icon("stop")} Arrêter Superviseur`) 
 }  
 
-var fake_historic = get_random_data()
+
 var func_start_traffic_monitoring = function( that, eltID ){
 	user_session_manager.supervisor("traffic" , 
 		{
 			 eventtype:"new-data" , 
-			 data: fake_historic, 
+			 data: get_random_data(), 
 			 from: null, 
 			 to: null 
 		}
 	)
+	function get_random_data(){
+
+		return ( random_data.map(function( d,i){	
+			d.id = i;
+			d.when = my_scale.invert(i);
+			d.alive = Math.round( d.alive *0.065);
+			d.iddle = Math.round( d.iddle *0.3);
+			d.total = d.alive + d.iddle ; 
+			return (d);
+			})	
+		)
+	}
 }
 
 //alert ( "IS_ADMIN_SESSION = " + IS_ADMIN_SESSION)
-
-var navtabController_RASS = new ui_render_navtabs( 
-	   "#RASS-NAV-TAB-CONTAINER", {
-		id : "nav-tab-01",
-		default : "tab-aa",	
-		nav_position : "top" ,  
-		color_theme  : "light",
-		tabs : [
-			{ 
-				id: "tab-aa", 
-				name: "table-graphics" , 
-				label : "Tableau/Graphique", 
-				html_content : `
-					<div id="wrapper-pane" class="col-sm-12 no-padding"  >
-					  	<div  id="RASS-ROW-TOP" class="row" style= "padding: 0px 15px;">
-					  		<div class="col-sm-12 no-padding"  >
-								 ${get_chart_container( "chart-canvas-rass" , 600, 250 ,'96%', '35vh', true)}	
-					  		</div>
-					  	</div>
-					  	<div  id="RASS-ROW-BOTTOM" class="row"  style= "padding: 0px 15px;">
-						  	<div  class="col-sm-12 no-padding"  >
-								 <div id="dttable_container"  style="margin:10px; padding: 10px;">  </div>		
-					  		</div>		  		
-					  	</div>
-					</div>` ,
-				enabled : true,
-				visible : true
-			},
-			{ 
-				id: "tab-a", 
-				name: "graphics" , 
-				label : "Graphiques", 
-				html_content : get_chart_container( "@chart-canvas-rass" , 600, 250 ,'96%', '35vh') ,
-				enabled : true,
-				visible : false
-			},
-			{ 
-				id: "tab-b", 
-				name: "table" ,    
-				label : "Vue tabulaire" , 
-				html_content : ` <div id="@dttable_container"  style="margin:10px; padding: 10px;">  </div>`,
-				enabled : true,
-				visible : false
-			},
-			{ 
-				id: "tab-c", 
-				name: "monography" , 
-				label : "Monographies", 
-				html_content : get_Monography_template_TODO()  ,
-				enabled : true,
-				visible : false
-			},
-			{ 
-				id: "tab-d", 
-				name: "about_us" , 
-				label : "Qui-sommes nous?", 
-				html_content :  `<div id="caroussel_container"  style="position:relative; height:300px; margin:10px; padding: 10px;">  </div> `, //   get_ourReferences_template_TODO() ,
-				enabled : true,
-				visible : IS_ADMIN_SESSION
-			},
-			{ 
-				id: "tab-e", 
-				name: "sys_console" , 
-				label : "Administration", 
-				html_content : ` <div id="ADMIN-TAB-WRAPPER" style="background-color: #fff; 
-				                  position:relative; height: 70vh;"> </div>`,
-				enabled : true,
-				visible : IS_ADMIN_SESSION
-			}
-		]
-    },
-    function(info){
-    	/* ACTION TO TRIGGER WHEN TABS CHANGED*/
-    	
-    	switch(info.tabname){
-
-    		case "table-graphics" : 
-    			// Align datatable columns ::
-    			 setTimeout( function(){ dataTableController.adjustColumns() }, 500 )
-
-    		case "graphics" :
-    			rass_active_panel = "tab-a" ;
-    			break;
-
-    		case "table" :
-    			rass_active_panel = "tab-b" ;
-    			break;
-
-    		default: 
-    	} 
-    },
-
-	function on_navtabs_load(){
-		// Init data load
-	}
-)
-
-
 var color_data = {
 	colors : object_to_array(chartColors)
 }
 
-var navAdminController = new ui_render_navtabs(
+var navtabController_RASS 
+var navAdminController 
+var navtabController_COVID_UP
+var navtabController_COVID_BOTTOM
+
+
+function create_navTabController_RASS(){
+
+	navtabController_RASS = new ui_render_navtabs( 
+		   "#RASS-NAV-TAB-CONTAINER", {
+			id : "nav-tab-01",
+			default : "tab-aa",	
+			nav_position : "top" ,  
+			color_theme  : "light",
+			tabs : [
+				{ 
+					id: "tab-aa", 
+					name: "table-graphics" , 
+					label : "Tableau/Graphique", 
+					html_content : `
+						<div id="wrapper-pane" class="col-sm-12 no-padding"  >
+						  	<div  id="RASS-ROW-TOP" class="row" style= "padding: 0px 15px;">
+						  		<div class="col-sm-12 no-padding"  >
+									 ${get_chart_container( "chart-canvas-rass" , 600, 250 ,'96%', '35vh', true)}	
+						  		</div>
+						  	</div>
+						  	<div  id="RASS-ROW-BOTTOM" class="row"  style= "padding: 0px 15px;">
+							  	<div  class="col-sm-12 no-padding"  >
+									 <div id="dttable_container"  style="margin:10px; padding: 10px;">  </div>		
+						  		</div>		  		
+						  	</div>
+						</div>` ,
+					enabled : true,
+					visible : true
+				},
+				{ 
+					id: "tab-a", 
+					name: "graphics" , 
+					label : "Graphiques", 
+					html_content : get_chart_container( "@chart-canvas-rass" , 600, 250 ,'96%', '35vh') ,
+					enabled : true,
+					visible : false
+				},
+				{ 
+					id: "tab-b", 
+					name: "table" ,    
+					label : "Vue tabulaire" , 
+					html_content : ` <div id="@dttable_container"  style="margin:10px; padding: 10px;">  </div>`,
+					enabled : true,
+					visible : false
+				},
+				{ 
+					id: "tab-c", 
+					name: "monography" , 
+					label : "Monographies", 
+					html_content : get_Monography_template_TODO()  ,
+					enabled : true,
+					visible : false
+				},
+				{ 
+					id: "tab-d", 
+					name: "about_us" , 
+					label : "Qui-sommes nous?", 
+					html_content :  `<div id="caroussel_container"  style="position:relative; height:300px; margin:10px; padding: 10px;">  </div> `, //   get_ourReferences_template_TODO() ,
+					enabled : true,
+					visible : IS_ADMIN_SESSION
+				},
+				{ 
+					id: "tab-e", 
+					name: "sys_console" , 
+					label : "Administration", 
+					html_content : ` <div id="ADMIN-TAB-WRAPPER" style="background-color: #fff; 
+					                  position:relative; height: 70vh;"> </div>`,
+					enabled : true,
+					visible : IS_ADMIN_SESSION
+				},
+				{ 
+					id: "tab-f", 
+					name: "dev_testing" , 
+					label : "Developpement", 
+					html_content : get_chart_container_augmented( "@chart-canvas-rass-test" , 600, 250 ,'96%', '35vh'),
+					enabled : true,
+					visible : true
+				}
+			]
+	    },
+	    function(info){
+	    	/* ACTION TO TRIGGER WHEN TABS CHANGED*/
+	    	
+	    	switch(info.tabname){
+
+	    		case "table-graphics" : 
+	    			// Align datatable columns ::
+	    			 setTimeout( function(){ dataTableController.adjustColumns() }, 500 )
+
+	    		case "graphics" :
+	    			rass_active_panel = "tab-a" ;
+	    			break;
+
+	    		case "table" :
+	    			rass_active_panel = "tab-b" ;
+	    			break;
+
+	    		default: 
+	    	} 
+	    },
+
+		function on_navtabs_load(){
+			// Init data load
+		}
+	)
+}
+
+
+function create_navTabController_ADMIN(){
+	navAdminController = new ui_render_navtabs(
 	"#ADMIN-TAB-WRAPPER", {
 	id : "admin-tabs",
 	default : "admin-tab-02",
@@ -318,111 +304,157 @@ var navAdminController = new ui_render_navtabs(
 	function on_navtabs_load(){
 		// Init data load
 	}
-)
+    )
+}
 
 
+function create_navTabControllers_COVID(data){
 
-var navtabController_COVID_UP =  new ui_render_navtabs (
+		navtabController_COVID_UP =  new ui_render_navtabs ("#COVID-NAV-TAB-UP", {
+				
+					 id : "rstuw-1",
+				default : "covid-tab-up-01",
+		   nav_position : "top",
+		   color_theme  : "dark",
+		  spinner_class : "covid-spinner",
 
-		"#COVID-NAV-TAB-UP", {
-		
-			 id : "rstuw-1",
-		default : "covid-tab-up-01",
-   nav_position : "top",
-   color_theme  : "dark",
-  spinner_class : "covid-spinner",
-
-		   tabs : [
-			{
-				id : "covid-tab-up-01",
-				name : "indicators",
-				label : "indicateurs de suivi",
-				html_content :  `${ get_chart_container( "covid-canvas-up-1" , 650, 300 ,'95%', '35vh')}`,
-				enabled : true,
-				visible : true
-			}, 
-			{
-				id : "covid-tab-up-02",
-				name : "indicators_daily",
-				label : "Indicateurs journaliers",
-				html_content : `${ get_chart_container( "covid-canvas-up-2" , 650, 300 ,'95%', '35vh')}`,
-				enabled : true,
-				visible : true
+				   tabs : [
+					{
+						id : "covid-tab-up-01",
+						name : "indicators",
+						label : "indicateurs de suivi",
+						html_content :  `${ get_chart_container( "covid-canvas-up-1" , 650, 300 ,'95%', '35vh')}`,
+						enabled : true,
+						visible : true
+					}, 
+					{
+						id : "covid-tab-up-02",
+						name : "indicators_daily",
+						label : "Indicateurs journaliers",
+						html_content : `${ get_chart_container( "covid-canvas-up-2" , 650, 300 ,'95%', '35vh')}`,
+						enabled : true,
+						visible : true
+					},
+					{ 
+						id: "covid-tab-up-03", 
+						name: "confirmed_cases_sum" , 
+						label : "Cumul des cas confirmés", 
+						html_content : `${ get_chart_container( "covid-canvas-up-3" , 650, 300 ,'95%', '35vh')}`,
+						enabled : true,
+						visible : true
+					}
+				]
 			},
-			{ 
-				id: "covid-tab-up-03", 
-				name: "confirmed_cases_sum" , 
-				label : "Cumul des cas confirmés", 
-				html_content : `${ get_chart_container( "covid-canvas-up-3" , 650, 300 ,'95%', '35vh')}`,
-				enabled : true,
-				visible : true
-			}
-		]
-	},
 
-		function (info){ },
+				function (info){ },
 
-		function on_navtabs_load(){
-			// Init data load
-			var covid_spinner = ui_spinner_create('.covid-chart-spinner')
-			load_COVID_DATA_IF_NEEDED(covid_spinner)
-		}
-	)
-
-var navtabController_COVID_BOTTOM =  new ui_render_navtabs (
-
-		"#COVID-NAV-TAB-BOTTOM", {
-		
-		          id : "rstuow-2",
-	         default : "covid-tab-bottom-01",
-	    nav_position : "top",
-	    color_theme  : "dark",
-	   spinner_class : "covid-spinner",
-       	      tabs : [
-				{
-					id : "covid-tab-bottom-01",
-					name : "indicators",
-					label : "Taux d'incidence quotidien",
-					html_content :  `${get_chart_container( "covid-canvas-bottom-1" , 650, 300 ,'95%', '35vh')}`,
-					enabled : true,
-				    visible : true
-				}, 
-				{
-					id : "covid-tab-bottom-02",
-					name : "indicators_healing",
-					label : "Taux de guérison",
-					html_content : `${get_chart_container( "covid-canvas-bottom-2" , 650, 300 ,'95%', '35vh')}`,
-					enabled : true,
-				    visible : true
-				},
-				{ 
-					id: "covid-tab-bottom-03", 
-					name: "indicators_cfr" , 
-					label : "Taux de létalité (CFR)", 
-					html_content : `${get_chart_container( "covid-canvas-bottom-3" , 650, 300 ,'95%', '35vh')}`,
-					enabled : true,
-				    visible : true
-				},
-				{
-					id : "covid-tab-bottom-04",
-					name : "depistage",
-					label : "Dépistages",
-					html_content : `${get_chart_container( "covid-canvas-bottom-4" , 650, 300 ,'95%', '35vh')}`,
-					enabled : true,
-				    visible : true
+				function on_navtabs_load(){
+					// Init data load
+					//var covid_spinner = ui_spinner_create('.covid-chart-spinner')
+					//load_COVID_DATA_IF_NEEDED(covid_spinner)
 				}
-			]
-		},
-		function(info){}, 
+			)
 
-		function on_navtabs_load(){
-			// Init data load
-			var covid_spinner = ui_spinner_create('.covid-chart-spinner')
-			load_COVID_DATA_IF_NEEDED(covid_spinner)
-		}
-	)
+		navtabController_COVID_BOTTOM =  new ui_render_navtabs (
+
+			"#COVID-NAV-TAB-BOTTOM", {
+			
+			          id : "rstuow-2",
+		         default : "covid-tab-bottom-01",
+		    nav_position : "top",
+		    color_theme  : "dark",
+		   spinner_class : "covid-spinner",
+	       	      tabs : [
+					{
+						id : "covid-tab-bottom-01",
+						name : "indicators",
+						label : "Taux d'incidence quotidien",
+						html_content :  `${get_chart_container( "covid-canvas-bottom-1" , 650, 300 ,'95%', '35vh')}`,
+						enabled : true,
+					    visible : true
+					}, 
+					{
+						id : "covid-tab-bottom-02",
+						name : "indicators_healing",
+						label : "Taux de guérison",
+						html_content : `${get_chart_container( "covid-canvas-bottom-2" , 650, 300 ,'95%', '35vh')}`,
+						enabled : true,
+					    visible : true
+					},
+					{ 
+						id: "covid-tab-bottom-03", 
+						name: "indicators_cfr" , 
+						label : "Taux de létalité (CFR)", 
+						html_content : `${get_chart_container( "covid-canvas-bottom-3" , 650, 300 ,'95%', '35vh')}`,
+						enabled : true,
+					    visible : true
+					},
+					{
+						id : "covid-tab-bottom-04",
+						name : "depistage",
+						label : "Dépistages",
+						html_content : `${get_chart_container( "covid-canvas-bottom-4" , 650, 300 ,'95%', '35vh')}`,
+						enabled : true,
+					    visible : true
+					}
+				]
+			},
+			function(info){}, 
+
+			function on_navtabs_load(){
+				// Init data load
+				var covid_spinner = ui_spinner_create('.covid-chart-spinner')
+				load_COVID_DATA_IF_NEEDED(covid_spinner)
+			}
+		)
+}
 
 
+
+
+
+
+function ui_render_spatialLayerSelectList_component( layer_data_arr, _eltID ){
+	var template_theme_selector = `
+			 <div class="input-group-prepend">
+			    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
+			      aria-haspopup="true" aria-expanded="false"> Niveau géographique :</button>
+			    <div class="dropdown-menu">
+				    {{#layer_arr}}
+						<a class="dropdown-item"  data-key="{{name}}" data-label="{{label}}"
+						style="line-height:1.2em; padding: 1px 4px; font-size:0.8rem;" href="#"> {{ label }} </a>
+					{{/layer_arr}}
+			    </div>
+			</div>
+		  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="">
+		 `;
+
+	var data = layer_data_arr ;
+	var componentHtml = Mustache.render( template_theme_selector , { "layer_arr": data});
+	d3.select(`${_eltID}`).html(componentHtml );
+	bind_Selector();
+
+    return {
+    	update_view: function(theme){
+   			var _info = $(`${_eltID}  a[data-key="${theme}"]`)[0].dataset;
+    		$(`${ _eltID} > input.form-control`).val( _info.label );
+    	}
+    }
+
+	function bind_Selector(){
+
+		$( `${ _eltID} .dropdown-item` ).on({
+
+			"click": function(evt){
+				var _elt = $(this),  
+					_data = evt.currentTarget.dataset,
+					_info = { "key": _data.key, "label": _data.label};
+					$(`${ _eltID} > input.form-control`).val(_info.label);
+					after_selectLayer_Changed( _info.key );
+			}
+		})			
+	}
+}
 
 function get_Monography_template_TODO(){ return fake_monography}
 function get_table_container_template_TODO(){ return fake_table }

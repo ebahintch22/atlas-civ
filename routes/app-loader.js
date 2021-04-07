@@ -38,6 +38,11 @@ router.get('/', function(req, res, next) {
 		 	break;
 
 
+		case "/xprience" : 
+		 	res.sendFile( 'test-xp.html', { root: path.join(__dirname, '../starter/xp')}); 
+		 	break;
+
+
 		case "/preloader" : 
 		 	res.sendFile( 'index.html', options); 
 		 	break;
@@ -49,6 +54,8 @@ router.get('/', function(req, res, next) {
 		case "/civ" : 
 		 	res.sendFile( 'index.html', { root: path.join(__dirname, '../public')}); 
 		 	break;
+
+
 
 		default: 
 		 	next();

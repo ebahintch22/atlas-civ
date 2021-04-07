@@ -2752,9 +2752,6 @@ function extract_late_datarow(index=0){
 
 
 
-
-
-
 function get_data(){
 	return (
 	 [{

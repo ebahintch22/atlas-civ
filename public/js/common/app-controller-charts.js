@@ -38,8 +38,10 @@
 						yAxisID : chart.yAxisID,
 						backgroundColor : get_color(chart.backgroundColor, 0.45),
 						borderColor : get_color( chart.borderColor, 0.99),
-						borderWidth : ( chart.type == "bar")? 1 : (chart.borderWidth? chart.borderWidth : 1),
+						borderWidth : ( chart.type == "bar")? 1 : (chart.borderWidth? chart.borderWidth : 2),
 						fill : (chart.type == "line") ? false : true ,
+						pointRadius : (chart.type == "line") ? chart.pointRadius : 1 ,
+
 						data : in_data.map(function (d){ return d[chart.field]}) 
 
 					}

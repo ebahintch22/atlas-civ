@@ -24,6 +24,46 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 	var transform = update_tick_transform (field);
 
 
+	create_Chart_ex( data_struct, "@chart-canvas-rass-test", {
+
+			title :  `${ metadata.label } par ${ metageo.names.value }`,
+			"label_field" : metadata.data_parser.name_field ,
+			"x-axis-style" : "RASS",
+			"y-axis-1" : {
+				display : true,
+				position : "left",
+				labelString : field.YLabelCustom,
+				transform : transform
+
+			},
+
+			"y-axis-2" : {
+				display : false,
+				position : "right",
+				labelString : "Nombre de cas",
+				transform : transform
+			},
+
+			charts : [
+				{      
+					label: field.long_name,
+					type : "bar",
+					field: field.fld_name, 
+					backgroundColor: "DODGERBLUE" ,
+					borderColor: 'DODGERBLUE',
+					yAxisID : 'y-axis-1' 
+			   }
+			],
+			fontColors : CHART_FONT_COLORS["rass"],
+
+			onClick : function(indexes){
+
+				onClickcallBack( data_struct, indexes);
+			} 
+		});
+
+
+
 	var myChart = create_Chart_ex( data_struct, "chart-canvas-rass", {
 
 		title :  `${ metadata.label } par ${ metageo.names.value }`,
@@ -57,12 +97,7 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 		fontColors : CHART_FONT_COLORS["rass"],
 
 		onClick : function(indexes){
-			/*
-			{
-				"@datasetIndex": item._datasetIndex,
-			    "@index": item._index
-			}
-			*/
+
 			onClickcallBack( data_struct, indexes);
 		} 
 	});

@@ -113,6 +113,7 @@ var GEO_CACHE = {}
     GEO_CACHE.geoJsonDataSets={};
 
 
+
 var COVIDATA = null;
 var COVIDATA_STATUS = "UNLOAD";
 var COVID_SPINNER_ARR = [];
@@ -120,9 +121,9 @@ var COVIDATA_ACCESS_MODE = "database"
 
 var dataTableController
 var CONNEXION_MANAGER_ENABLED = false
+var APP_START_UNIT_TEST_MODE = false
 var ZOOM_IS_DISABLE = true
 var rass_active_panel = "tab-b" 
-
 var DATE_FORMATTER = (function(){
 
 	var format_short = new window.Intl.DateTimeFormat( "fr-FR" ,

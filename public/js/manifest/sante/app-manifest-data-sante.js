@@ -1649,4 +1649,4 @@ var sante_datasets =  [
 //tab_1012_motif_service.csv
 Array.prototype.push.apply(metaDataBase.table_details, sante_datasets );
 
-metaDataBase.MODULE_SPECIFIC =  ATLAS_SANTE_SETTINGS
+metaDataBase.MODULE_SPECIFIC =  APP_REGISTRY.modules.module_def["SANTE"]

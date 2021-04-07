@@ -1,0 +1,331 @@
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title> Test chart zoom / pan  </title>
+  		<link href="./vendors/font-awesome/4.7/css/font-awesome.min.css" rel="stylesheet">
+  		<link href="./vendors/bootstrap/4.4.1/css/bootstrap.css" rel="stylesheet">
+        <link href="./vendors/datatable/1.10.18-cdn/datatable.min.css" rel="stylesheet" media="screen" type="text/css">
+        <link href="./vendors/datatable/1.10.18-cdn/dataTables.3.3.2.fixedColumns.min.css" rel="stylesheet" media="screen" type="text/css">
+
+
+	    <link href="./vendors/alertifyjs/1.11.2/css/alertify.css" rel="stylesheet" type="text/css">
+	    <link href="./vendors/alertifyjs/1.11.2/css/themes/default.min.css" rel="stylesheet" type="text/css">
+
+  		<link href="./css/map-style.css" rel="stylesheet">
+  		<link href="./css/main-style.css" rel="stylesheet">
+  		<link href="./css/curtain-spinner.css" rel="stylesheet">
+  		<link href="./css/opera-tabs-style.css" rel="stylesheet">
+  		<link href="./css/opera-tabs-style-dark.css" rel="stylesheet">
+  		<link href="./css/opera-datatable-style.css" rel="stylesheet">
+
+		<link href="./favicon-16x16-eco.png" rel="icon">
+
+	    <style type="text/css">
+
+    	.opera-fullscreen{
+    		display: block;
+    		width:100vw;
+    		height:100vh;
+    	}
+
+
+	    	.badge-green {
+	    		background-color: #daf392 !important;
+	    		color : green !important;
+	    	}
+	    	.badge-orange {
+	    		background-color: #fde5cc !important;
+	    		color : #ef8213 !important;
+	    	}
+	    	.badge-red {
+	    		background-color: #fbdede !important;
+	    		color : #ce1325 !important;
+	    	}
+	    	.badge-yellow {
+	    		background-color: #f7f799 !important;
+	    		color : #bd8f06 !important;
+	    	}
+
+	    	.badge-green-inverted {
+	    		background-color: #5c5c5c !important;
+	    		color : green !important;
+	    	}
+	    	.badge-orange-inverted {
+	    		background-color: #5c5c5c !important;
+	    		color : #ef8213 !important;
+	    	}
+	    	.badge-red-inverted {
+	    		background-color: #5c5c5c !important;
+	    		color : #ce1325 !important;
+	    	}
+	    	.badge-yellow-inverted {
+	    		background-color:  #5c5c5c !important;
+	    		color : #bd8f06 !important;
+	    	}
+
+	    	.no-padding {
+	    		padding-left: 1px !important;
+	    		padding-right: 1px !important;
+	    	}
+			.nav-tabs .nav-item {
+			    margin-bottom: -1px;
+			}
+			.nav-link {
+			    display: block;   padding: 0.2rem 0.5rem;
+			}
+	    </style>
+
+	    <!--script src="./vendors/d3/v3/d3.v3.min.js" charset="utf-8" type="text/javascript"></script-->
+	    <script src="./vendors/d3/v3/electron-d3.js" charset="utf-8" type="text/javascript"></script>
+	        <!--    sm: +576px ; md: +768px  lg: +992px   xl: +1200px  -->
+		<script src="./vendors/jquery/3.3.1/jquery-3.3.1.js" type="text/javascript"></script>
+	    <script src="./vendors/jquery/1.11.2/jquery-1.11.2.min.js" type="text/javascript"></script>
+	    <script src="./vendors/polyfills/array.js" type="text/javascript" ></script>
+	    <script src="./vendors/spinner/js/spinners.min.js" type="text/javascript" ></script>
+	    <script src="./js/app-platform-detect.js"  type="text/javascript" ></script>
+		<script src="./vendors/ua-parser/ua-parser-min.js" type="text/javascript" ></script>
+
+	    <script src="./js/specific/economie/settings.js" charset="utf-8"></script>
+	    <script src="./js/app-admin-tools.js" charset="utf-8"></script>
+
+	</head>
+
+
+	<body>
+	    <div id="id-address-to-mobile-users" class="position-fixed hidden text-center" 
+	         style="left: 5px; right: 5px ; top: 5px; bottom: 5px; 
+	       background-color: #222; opacity: 0.8 ; border: 4px solid orange; z-index: 1500; color: #fff; font-size:3.5vh;">
+	    </div>
+
+
+		<div class="container-fluid"  style="background-color: #ddd ; height: 100%">
+
+
+			<div id="home-view" class="row">
+				<div id="curtain"  class="badge-yellow opera-fullscreen">
+				        <div class="inner-div rideau">    
+				        	<div class="wrapper">
+					            <div class="sig-title" style="font-size: 10vh;" > Atlas Éco <br>
+					            	<sub style="font-size: 5vh; color:#cc3e08; font-weight: 500; "> 
+					            		Côte d'Ivoire 
+					            	</sub> 
+					            </div>
+					            <div id="spinner" class="loader">
+					                <span></span><span></span> <span></span><span></span> <span></span>
+					            </div>
+					            <div id="spinner-message" class="sig-subtitle"> 
+					            	Chargement en cours...
+					        	</div>
+					            <div class="sig-text-h2" style="color:#f9cc19; font-size:3vh;" id="start-up-failure-msgbox" class="sig-subtitle"> </div>
+					        </div>
+				        </div>
+				</div>
+			</div>
+
+
+
+
+
+			<div id="covid-record-manager" class="row position-fixed hidden"
+			 	 style="left: 5px; right: 5px ; top: 5px; bottom: 5px; z-index: 1501;  " >
+				<div class="col-sm-12">
+					
+					<div id="menuView" class="row"></div>			
+					<div id="tableView" class="row"></div>			
+					<div id="editformView" class="row"></div>			
+					<div id="missingrecordView" class="row"></div>			
+
+				</div>
+			</div>
+
+
+
+
+			<div class="row visible-regular">
+
+				<div class="col-lg-4 no-padding"  id="card-0" style="padding:1px;top: 0px;
+				       bottom: 2px; font-family: 'Arial Black'; 
+				       font-size: 2.2em; font-weight: 850; ">
+					<div class="card"  style="position:relative; height:60px; padding:0px; top: 0px; 
+					background-color:#444;">
+					  <div class="card-body text-center" style=" -webkit-text-stroke-width: 0.03em; 
+					        -webkit-text-stroke-color: #ec740d; 
+					        background-image:  #444 /*url('./images/atlas-sante-banner.jpeg')*/; 
+					        color:#fff; padding:0px; top: 0px;" >
+					     Atlas Éco <sub style="font-size: 0.45em; font-weight: 750; "> CÔTE D'IVOIRE</sub> 
+					  </div>
+					</div>					
+				</div>
+
+				<div class="col-lg-3 no-padding" id="card-1"></div>
+				<div class="col-lg-5 no-padding" id="card-2"></div>
+
+			</div>
+
+		
+			<!-- SELECT CONTROLLER FOR THEMATIC DIMENSION AND SPATIAL LEVEL-->
+			<div class="row visible-regular">
+				<div class="col-md-6 no-padding" >
+					<nav class="navbar navbar-light bg-light" style="height: 35px; padding: 2px 8px 2px 8px;">
+						<div id="opera-theme-selector-1" class="input-group input-group-sm mb-3" style="margin: 0px 0px 2px 0px;"></div>
+					</nav>
+				</div>
+
+				<div class="col-md-6 no-padding" >
+					<nav class="navbar navbar-light bg-light" style="height: 35px; padding: 2px 8px 2px 8px;">
+						<div id="opera-spatiallayer-selector-2" class="input-group input-group-sm mb-3" style="margin: 0px 0px 2px 0px;"></div>
+					</nav>
+				</div>
+			</div>
+			<!-- /END OF SELECT CONTROLLER-->
+
+
+
+			<div class="row visible-regular" style= "bottom: 20px;">
+				
+				<div id="RASS-pane" class="col-xl-7 no-padding ">
+					<div class="row" style= "bottom: 20px; padding: 0px 15px;">
+						<div id="RASS-NAV-TAB-CONTAINER" class="col-sm-12 no-padding"></div>		
+					</div>
+				</div>	
+
+				<div id="COVID-pane" class="col-xl-7 no-padding hidden"  >
+				  	<div  class="row" style= "padding: 0px 15px;">
+				  		<div class="col-sm-12 no-padding"  >
+							<div id="COVID-NAV-TAB-UP" class="col-sm-12 no-padding"  ></div>	
+				  		</div>
+				  	</div>
+				  	<div class="row"  style= "padding: 0px 15px;">
+					  	<div  class="col-sm-12 no-padding"  >
+							<div id="COVID-NAV-TAB-BOTTOM" class="col-sm-12 no-padding" ></div>				
+				  		</div>		  		
+				  	</div>
+				</div>
+
+				<div class="col-xl-5 no-padding">
+					<div class="card" style= "position:relative ;height:80vh;">
+					  	<div class="card-header" style="padding: 4px ;">
+							<nav class="navbar navbar-light bg-light" style="height: 35px; padding: 2px 8px 2px 8px;">
+								<div id="opera-variablekey-selector-3"  class="input-group input-group-sm mb-3" style="margin: 0px 0px 2px 0px;"></div>
+							</nav>
+					  	</div>
+
+					  <div class="card-body"  style="overflow: hidden;">
+
+					  		<div  style="position: relative; width: 100% ; height:100%;">
+						  		<div id="map-container"  style="position: relative; width: 100% ; height:100%;" > 
+									<div id="map" style="position: relative; width: 100% ; height:100%;"  >    <!--Map container--> </div>
+					  			</div>	
+								<div id="map-spinner" style="position: absolute; padding-top:40%; top:0px; left:0px ; 
+								     width:100%; height: 100%; background-color: #fff;opacity:0.65;" >
+									<div class="text-center">
+									  <div class="spinner-border" role="status">
+									    <span class="sr-only"> Chargement...</span>
+									  </div>
+									</div>
+								</div>
+					  		</div>
+					  </div>
+
+
+
+
+
+						<div class="card-footer text-muted" style="padding: 1px" >
+						   	<div id="legend" style="font-size: 11px;" > <!--Legend container--> </div>	
+						</div>
+					</div>
+				 </div>
+
+			</div>
+
+
+			<div id="app-footer-banner" class="row fixed-bottom hidden"  style="height: 7vh ; background-color: #444; color:#aaa; font-size: 1.5vh; padding: 0.2vh 3vh;">
+
+			    <div class="col-lg-2" > 
+			    	<div class="d-none d-xl-block"> 
+			    		<center>
+				    		<img src="./images/D3_js_logo_44x40.png" class="mr-3" alt="heroku LOGO"> 
+				    	    <img src="./images/node-express-js-60x40a.png" class="mr-3" alt="Node Express JS LOGO"> 
+				    		<span class="d-none d-lg-inline-block d-xl-none text-center"> Développé avec &nbsp </span>
+				    		<span class="d-none d-xl-inline-block text-center"> Application développée avec &nbsp  </span>
+			    		</center>
+			    	</div>
+			    </div> 
+
+			    <div class="col-lg-8" > 
+			    	<div class="text-center" > 
+			    		<span class="d-lg-inline-block d-xl-none"> 
+			    		  <span style="font-weight:700; font-size: 1.7vh; color: #fff;"> Atlas Eco CI </span>
+			    		  Données statistique : Données fictives | Données spatiales: Natural Earth &nbsp|&nbsp 
+			    	      Nous contacter au : <span class="font-weight-bold" style="color: orange;"> opera4gis@gmail.com</span>
+			    		</span>
+			    		<span class="d-none d-xl-inline-block">
+			    			<span style="font-weight:700; font-size: 1.7vh; color: #fff;"> Atlas Eco CI </span>
+			    		   Source des données statistiques : Données fictives | Sources des données spatiales:  Natural Earth   &nbsp|&nbsp 
+			    	       Nous contacter au : <span class="font-weight-bold" style="color: orange;"> opera4gis@gmail.com | +225 01 01 05 49 54 </span>
+			    	    </span>
+			         </div>
+			    </div> 
+
+			    <div class="col-lg-2" > 
+			    	<div class="d-none d-xl-block"> 
+			    		<center>
+				    		<img src="./images/heroku-gray-round.png" class="mr-3" alt="heroku LOGO"> <br>
+				    		<span class="d-none d-lg-inline-block d-xl-none text-center"> Hébergé par &nbsp </span>
+				    		<span class="d-none d-xl-inline-block text-center"> Application hébergée par &nbsp  </span>
+			    		</center>
+			    	</div>
+			    </div> 
+
+			</div>
+
+	</div>
+
+	<script src="./vendors/director/1.2.6/director.min.js" type="text/javascript"></script>
+	<!--script src="./vendors/d3/v3/d3.v3.min.js" charset="utf-8"></script-->
+	<script src="./vendors/mustache/2.2.1/mustache.min.js" charset="utf-8"></script>
+	<script src="./vendors/object-path/object-path.js" charset="utf-8"></script>
+    <script src="./vendors/datatable/1.10.18-cdn/datatable.min.js" type="text/javascript"></script>
+    <script src="./vendors/datatable/1.10.18-cdn/datatable.scroller.min.js"   type="text/javascript"></script>
+
+    <script src="./vendors/datatable/1.10.18-cdn/dataTables.3.3.2.fixedColumns.min.js"   type="text/javascript"></script>
+
+	<script src="./vendors/bootstrap/4.4.1/js/bootstrap.js" charset="utf-8"></script>
+	<script src="./vendors/alertifyjs/1.11.2/alertify.min.js" type="text/javascript"></script>
+
+	<script src="./vendors/momentJs/moment.js" charset="utf-8"></script>
+	<script src="./vendors/chartjs/js/2.9.3/chart.js" charset="utf-8"></script>
+
+	<!--script src="./deploy/js-app-fusion-es6.js" charset="utf-8"></script-->
+	<script src="./js/app-global-var.js" charset="utf-8"></script>
+
+	<script src="./js/app-ajax.js" charset="utf-8"></script>
+	<script src="./js/utility.js" charset="utf-8"></script>
+
+	<script src="./js/manifest/app-manifest-parser.js" charset="utf-8"></script>
+	<script src="./js/manifest/app-manifest-data.js" charset="utf-8"></script>
+	<script src="./js/manifest/economie/app-manifest-data-eco.js" charset="utf-8"></script>
+
+	<script src="./js/app-templates.js" charset="utf-8"></script>
+	<script src="./js/common/app-data-test.js" charset="utf-8"></script>
+	<script src="./js/specific/economie/slide_setting.js" charset="utf-8"></script>
+
+	<script src="./js/common/app-views-helper.js" charset="utf-8"></script>
+	<script src="./js/common/app-controller-datatable.js" charset="utf-8"></script>
+	<script src="./js/common/app-controller-navtabs.js" charset="utf-8"></script>
+	<script src="./js/common/app-controller-dropdown.js" charset="utf-8"></script>
+	<script src="./js/common/app-controller-legend.js" charset="utf-8"></script>
+	<script src="./js/common/app-controller-charts.js" charset="utf-8"></script>
+	<script src="./js/common/app-controller-carousel.js" charset="utf-8"></script>
+
+
+	<script src="./js/app-views.js" charset="utf-8"></script>
+	<script src="./js/app-chart-covid.js" charset="utf-8"></script>
+	<script src="./js/app-chart-rass.js" charset="utf-8"></script>
+	<script src="./js/app-chart-traffic.js" charset="utf-8"></script>
+	<script src="./js/app-main.js" charset="utf-8"></script>
+	<script src="./js/app.js" charset="utf-8"></script>
+
+</body>
+</html>
