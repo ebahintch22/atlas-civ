@@ -68,6 +68,13 @@
 	list-style:none;
 }
 
+.opera-drawer .drawer ul li label{
+	font-size: 2.0vh ;
+}
+.opera-drawer .drawer ul li i{
+	font-size: 2.5vh ;
+}
+
 .opera-drawer .drawer ul li .xxxx {
 	padding:1.3vh 1.3vh;
 	text-decoration:none;
