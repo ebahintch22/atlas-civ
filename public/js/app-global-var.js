@@ -100,6 +100,7 @@ var formatNumber = d3.format('.2f'); // We prepare a number format which will al
 var legendX = d3.scale.linear();     // For the legend, we prepare a very simple linear scale. 
  // Domain and range will be set later as they depend on the data currently shown.
 
+var drawerMenuController ;
 var keyController ; // Controller de sélection de la variable de base pour la cartographie et le diagrammes
 var keyController_drawer; // Controller
 

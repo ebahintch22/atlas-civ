@@ -20,6 +20,17 @@ function create_drawerMenu_controller(elt_id , options){
   //console.log( componentHtml );
 
 
+  return {
+      toggle_menu: function(){
+        
+        var _state = document.getElementById( `${options.id}` ).checked ;
+        document.getElementById( `${options.id}` ).checked = !_state
+      },
+      refresh_options : function(options) {
+        __refresh_options(options)
+      }
+  }
+
   function render_drawer_menuitems( item_arr){
     return( item_arr.reduce(
         function( accu, menu, idx ){

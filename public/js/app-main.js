@@ -26,7 +26,7 @@ function app_start_up(){
 	load_standard_caroussel("#card-2")
 
 	create_FABMenu_controller( "#fab-menu-container", APP_REGISTRY.modules.ui_FabMenu)
-	create_drawerMenu_controller( "#drawer-menu-container", APP_REGISTRY.modules.ui_drawerMenu)
+	drawerMenuController = create_drawerMenu_controller( "#drawer-menu-container", APP_REGISTRY.modules.ui_drawerMenu)
 
 
 	opera_console.addLog( toJSON(user_agent ) );
@@ -83,6 +83,7 @@ function app_start_up(){
 		Activate_thematic_section( _info.key , false)
 		if ( navtabController_RASS != undefined ){
 			navtabController_RASS.show_tab( "tab-aa");
+			drawerMenuController.toggle_menu();
 		}
 	})
 

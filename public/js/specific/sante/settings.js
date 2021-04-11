@@ -130,7 +130,13 @@ APP_REGISTRY.modules = {
           "is_developpable"	: true,
           "container_ref"	: "opera-spatiallayer-drawer"
         },
-
+        {
+          "fa_icon"    : "fa fa-cogs",
+          "radius"     : "40px",
+          "menu_label" : "Préférences",
+          "is_developpable"	: true,
+          "container_ref"	: "opera-spatiallayer-drawer"
+        },
         {
           "fa_icon"    : "fa-info-circle",
           "radius"     : "40px",

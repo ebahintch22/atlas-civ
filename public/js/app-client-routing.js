@@ -45,9 +45,10 @@ function redirect_to_FABmenu_manager(commandkey){
 				"./html_template/common/about_atlas_civ.html"
 			); break;
 
-		case "show_drawer_panel" :   
+		case "show_drawer_panel" :  
+			//alert("You toggle drawer menu");
+			drawerMenuController.toggle_menu(); 
 			break;
-
 	}
 
 	navigate("home");
