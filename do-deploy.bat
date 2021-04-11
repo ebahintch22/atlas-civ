@@ -6,7 +6,7 @@ cd ..
 git status
 git add .
 git status
-git commit -am "ASCIV September 2020"
+git commit -am "Atlas-CIV 2.0 - April 2021"
 git push heroku master
 cd ./public
 call go-local.bat
