@@ -451,7 +451,7 @@ function load_dataframe(frame_name, callBack,  errCallBack){
     // 1- load from file and 
     // 2- read from memory
     //sysecho("(load_dataframe)newframe", newframe);
-
+   
     get_statsData( newframe.name, newframe.path, function(data) {
     	//sysecho("DATA from get_statsData", data);
     	var meta = newframe;

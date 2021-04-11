@@ -81,7 +81,7 @@
 	background-color:rgba(0, 0, 0, 0.1);
 }
 .opera-drawer .drawer ul li .yyyy:checked + .xxxx {
-	background-color:rgba(10, 205, 10, 0.8);
+	background-color:rgba(57, 15, 115, 0.8);
 }
 .opera-drawer .drawer ul li .yyyy + .xxxx +  .sub-menu-box {
 	animation: xxx-closing 0.8s ease;
@@ -95,6 +95,13 @@
 	animation: xxx-opening 0.8s ease;
 }
 
+
+.opera-drawer .drawer ul li .yyyy + .xxxx   .zzzz {
+	transform : rotate(0deg);
+}
+.opera-drawer .drawer ul li .yyyy:checked + .xxxx  .zzzz {
+	transform : rotate(90deg);
+}
 
 .opera-drawer .drawer ul li .xxxx i {
 	width:50px;

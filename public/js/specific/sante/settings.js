@@ -83,16 +83,16 @@ APP_REGISTRY.modules = {
 				"url_params" : "select_theme"
 			},
 			{
-				"fa_icon"    : "fa-twitter",
+				"fa_icon"    : "fa fa-print",
 				"radius"     : "40px",
-				"menu_label" : "Envoyer sur Twitter..",
-				"url_params" : "send_to_twitter"
+				"menu_label" : "Imprimer..",
+				"url_params" : "print_report"
 			},
 			{
 				"fa_icon"    : "fa-bars",
 				"radius"     : "40px",
 				"menu_label" : "Afficher le panneau latéral..",
-				"url_params" : "send_to_twitter"
+				"url_params" : "show_drawer_panel"
 			}
 		]
 	},
@@ -132,14 +132,9 @@ APP_REGISTRY.modules = {
         },
 
         {
-          "fa_icon"    : "fa-linkedin",
+          "fa_icon"    : "fa-info-circle",
           "radius"     : "40px",
-          "menu_label" : "LinkedIn"
-        },
-        {
-          "fa_icon"    : "fa-pinterest",
-          "radius"     : "40px",
-          "menu_label" : "Pinterest"
+          "menu_label" : "A propos de l'Atlas..."
         }
       ]
     }

@@ -32,7 +32,7 @@ function create_drawerMenu_controller(elt_id , options){
       var html = `
           <li>
               <input class="yyyy" type="checkbox" id="${key}" style="display:none"/>
-              <label class="xxxx" for="${key}"> <i class="fa ${item.fa_icon}"></i> ${item.menu_label} <i class="fa fa-caret-right pull-right"></i></label>
+              <label class="xxxx" for="${key}"> <i class="fa ${item.fa_icon}"></i> ${item.menu_label} <i class="zzzz fa fa-caret-right pull-right" ></i></label>
               ${ submenu_box_insert_if( item)}
                 
           </li> ` ;

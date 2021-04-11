@@ -19,16 +19,34 @@ function set_routes(){
 
 function redirect_to_FABmenu_manager(commandkey){
 	//send_to_twitter |select_theme|edit_data|about_app
+	switch (commandkey) {
 
-	
+		case "edit_data" : 			
+			show_modal_box (  
+				" Gestionnaire de contenu - (fonctionnalités à venir)",
+				"./html_template/common/upcoming_feature_edit.html" 
+			); break;
 
-	 
-	switch(commandkey){
 
-		case "edit_data": 			UTIL.notify({ text : "vous avez lancé la commande " + commandkey }); break;
-		case "send_to_twitter": 	show_modal(); break;
-		case "select_theme": 		show_modal(); break;
-		case "about_app":  			show_modal(); break;
+		case "print_report" : 
+			show_modal_box ( 
+				" Gestionnaire d'impression - (fonctionnalités à venir)",
+				"./html_template/common/upcoming_feature_print.html"
+			); break;
+
+
+		case "select_theme" : 
+			 break;
+
+
+		case "about_app" :  		
+			show_modal_box ( 
+				"A propos de l'Atlas Côte d'Ivoire", 
+				"./html_template/common/about_atlas_civ.html"
+			); break;
+
+		case "show_drawer_panel" :   
+			break;
 
 	}
 
