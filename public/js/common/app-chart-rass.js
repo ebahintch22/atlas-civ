@@ -208,10 +208,10 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 
 			}
 
-			alertify.message(JSON.stringify({
+			/*alertify.message(JSON.stringify({
 				"Scale title" : transform.title,
 				"Field key" : field.long_name
-			}), 0);
+			}), 0);*/
 
 
 			function detect_changes(){

@@ -101,12 +101,20 @@ var legendX = d3.scale.linear();     // For the legend, we prepare a very simple
  // Domain and range will be set later as they depend on the data currently shown.
 
 var keyController ; // Controller de sélection de la variable de base pour la cartographie et le diagrammes
+var keyController_drawer; // Controller
+
 var spatialLayerController ; // Controller pour la sélection du nveau de représentation spatiale (echelle cartographique)
+var spatialLayerController_drawer ; // Controller pour la sélection du nveau de représentation spatiale (echelle cartographique)
+
+var theme_controller;
+var theme_controller_drawer;
+
 var managerController;
 var slideController;
 var chartController_admin;
 var chartController_rass;
 var legendControllervar ;
+var dataTableController;
 
 //Structure de MEMOISATION DES DONNEES
 var GEO_CACHE = {}
@@ -119,7 +127,6 @@ var COVIDATA_STATUS = "UNLOAD";
 var COVID_SPINNER_ARR = [];
 var COVIDATA_ACCESS_MODE = "database"
 
-var dataTableController
 var CONNEXION_MANAGER_ENABLED = false
 var APP_START_UNIT_TEST_MODE = false
 var ZOOM_IS_DISABLE = true

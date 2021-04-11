@@ -233,7 +233,7 @@ function create_Chart_ex( data_struct , elt_id, Cfg, verbose = false ){
             	//var msgtext = `Création d'un nouvel axe  ${axe_id}  pour le chart  ${elementId} `
             	//alertify.message("Création d'un nouvel axe " + axe_id + " pour le chart " + elementId , 0)
             }
-            console.log( "Axe " + elementId + " : " + JSON.stringify(axe) )
+            //console.log( "Axe " + elementId + " : " + JSON.stringify(axe) )
     		var rslt = {
         		id: axe_id,
         		display: axe.display,

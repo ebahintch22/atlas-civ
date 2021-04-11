@@ -1,0 +1,124 @@
+/*app-controller-drawer-menu.css*/
+.opera-drawer   {
+	padding: 0;
+	margin:0;
+
+}
+.opera-drawer .list-group li  {
+	padding: 5 10 5 10;
+
+}
+
+
+
+.opera-drawer header {
+	position:fixed;
+	width:100%;
+	background-color:#06C;
+	z-index:1000;
+}
+
+.opera-drawer .menu-bar {
+	color:#FFF;
+	font-size:26px;
+	cursor:pointer;
+	padding:10px 12px;
+	margin-left:10px;
+	margin-top:5px;
+	margin-bottom:5px;
+}
+
+.opera-drawer .menu-bar:hover {
+	background-color:rgba(0, 0, 0, 0.1);
+	border-radius:50px;
+}
+
+#tag-menu {
+	display:none;
+}
+
+/*
+.menu-item + div.sub-menu-box {
+	display:none;
+	background-color: #aaa;
+}
+*/
+
+#tag-menu:checked ~ div.drawer {
+ animation: slide-in 0.5s ease;
+ animation-fill-mode: forwards;
+}
+
+.opera-drawer .drawer {
+	position:fixed;
+	left:-380px;
+	background-color:#06C;
+	height:100%;
+	z-index:100;
+	width:380px;
+	animation: slide-out 0.5s ease;
+	animation-fill-mode: forwards;
+}
+
+.opera-drawer .drawer ul {
+	padding-left: 0px;
+}
+
+.opera-drawer .drawer ul li {
+	list-style:none;
+}
+
+.opera-drawer .drawer ul li .xxxx {
+	padding:10px 10px;
+	text-decoration:none;
+	display:block;
+	color:#FFF;
+	border-top:1px solid #039;
+	margin-bottom: 0px
+}
+
+.opera-drawer .drawer ul li .xxxx:hover{
+	background-color:rgba(0, 0, 0, 0.1);
+}
+.opera-drawer .drawer ul li .yyyy:checked + .xxxx {
+	background-color:rgba(10, 205, 10, 0.8);
+}
+.opera-drawer .drawer ul li .yyyy + .xxxx +  .sub-menu-box {
+	animation: xxx-closing 0.8s ease;
+	max-height: 0px;
+}
+.opera-drawer .drawer ul li .yyyy:checked + .xxxx + .sub-menu-box {
+	display:block;
+	max-height: 300px;
+	overflow-y: scroll;
+	background-color: #aaa;
+	animation: xxx-opening 0.8s ease;
+}
+
+
+.opera-drawer .drawer ul li .xxxx i {
+	width:50px;
+	height:35px;
+	text-align:center;
+	padding-top:15px;
+	color:#fff;
+}
+
+@keyframes slide-in {
+ from {left: -380px;}
+ to {left: 0;}
+}
+
+@keyframes slide-out {
+	 from {left: 0;}
+	 to {left: -380px;}
+}
+
+@keyframes xxx-opening {
+	 from {max-height:0px;}
+	 to {max-height:300px;}
+}
+@keyframes xxx-closing  {
+	 from {max-height:300px;}
+	 to {max-height:0px;}
+}

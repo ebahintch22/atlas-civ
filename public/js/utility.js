@@ -1,3 +1,5 @@
+
+
 function detect_client(){
 
     var isOpera = (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;// Opera 8.0+
@@ -130,7 +132,15 @@ function detect_client(){
                     }
                 }   
                 return(f_obj)
+            },
+            notify : function notify(obj, delay_time = 5 ){
+                    alertify.message(JSON.stringify(obj), delay_time );
+            },
+            random_string: function(prefix = "") { 
+                const result = Math.random().toString(36).substring(2,7);
+                return (prefix + result)
             }
+
         }
     })()
 

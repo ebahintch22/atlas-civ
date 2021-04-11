@@ -25,8 +25,13 @@ function app_start_up(){
 	create_navTabController_ADMIN();
 	load_standard_caroussel("#card-2")
 
+	create_FABMenu_controller( "#fab-menu-container", APP_REGISTRY.modules.ui_FabMenu)
+	create_drawerMenu_controller( "#drawer-menu-container", APP_REGISTRY.modules.ui_drawerMenu)
+
 
 	opera_console.addLog( toJSON(user_agent ) );
+
+
 
 	var zoom = d3.behavior.zoom().scaleExtent([1, 15])
 				.on('zoom', doZoom);
@@ -65,6 +70,24 @@ function app_start_up(){
 		}
 		
 	})
+
+	theme_controller_drawer = ui_render_drawer_listgroup("#opera-theme-selector-drawer", {
+		      "prompt": "Choisir un thème",
+		    "options" : metaDataBase.table_details.filter(function(d){ return(d.valid)}),
+		        "key" : "name",
+		      "label" : "label",
+		"class_field" : "group",
+	      "transform" : { key: "name", label : "label"	},
+	         "filter" : function(d){return (d.valid)}
+	}, function(_info){
+		Activate_thematic_section( _info.key , false)
+		if ( navtabController_RASS != undefined ){
+			navtabController_RASS.show_tab( "tab-aa");
+		}
+	})
+
+
+
 	//theme_controller = ui_render_ThematicSelectList_Component_ex( metaDataBase.table_details , "#opera-theme-selector-1");
 
 	theme_controller.update_view(initialTable)
@@ -143,9 +166,33 @@ function create_or_update_key_selectList( data ){
 	} else {
 		keyController.refresh_options( data)
 	}
+
+
+
+	if (keyController_drawer == undefined ){
+
+		keyController_drawer  = ui_render_drawer_listgroup("#opera-variablekey-selector-in-drawer", {
+			     "prompt" : "Variable à cartographier",
+		   	    "options" : data,
+			        "key" : "fld_name",
+			      "label" : "long_name",
+		      "transform" : { key: "fld_name", label : "long_name"	},
+		         "filter" : null
+		}, 
+		function after_key_selected(_info){
+			after_selectKey_Changed(_info.key )
+		})
+
+	} else {
+		keyController_drawer.refresh_options( data)
+	}
+
+
+
 }
 
 function create_or_update_spatialLayer_selectList( data ){
+
 	if (spatialLayerController == undefined ){
 
 		spatialLayerController  = ui_render_dropdown_inputgroup( "#opera-spatiallayer-selector-2", {
@@ -163,6 +210,28 @@ function create_or_update_spatialLayer_selectList( data ){
 	} else {
 		spatialLayerController.refresh_options( data)
 	}
+
+
+
+	if (spatialLayerController_drawer == undefined ){
+
+		spatialLayerController_drawer  = ui_render_drawer_listgroup( "#opera-spatiallayer-drawer", {
+			     "prompt" : "Niveau spatial",
+		   	    "options" : data,
+			        "key" : "name",
+			      "label" : "label",
+		      "transform" : { key: "name", label : "label"	},
+		         "filter" : null
+		}, 
+		function after_key_selected(_info){
+			after_selectLayer_Changed( _info.key )
+		})
+
+	} else {
+		spatialLayerController_drawer.refresh_options( data)
+	}
+
+
 }
 
 
@@ -182,7 +251,7 @@ function Activate_thematic_section(frame_name){
 			toogle_layout(metaData)
          
 			layer_arr = extractLayerObjects( metaDataBase.geo_datasets, metaData.layerList, "name");
-			console.log(layer_arr)
+			//console.log(layer_arr)
 			create_or_update_spatialLayer_selectList( layer_arr )
 			//layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" );
 
@@ -206,7 +275,7 @@ function Activate_thematic_section(frame_name){
 			//create_histogram_object();
 			spatialLayerController.update_view( metaData.layerList[0] );
 			after_selectLayer_Changed( metaData.layerList[0] ); 
-			console.log( metaData )
+			//console.log( metaData )
 
 			if ( before_app_initialization ) 	notify_application_readiness()
 
@@ -411,7 +480,7 @@ function load_dataframe(frame_name, callBack,  errCallBack){
     	} else { // Pas de server actif
     		var data = find_statsdata_from_memory(name);
     		//sysecho("DATA #" + name + " from get_statsData", data);
-    			callBack(data);
+    		callBack(data);
     	}
     }
 
@@ -498,6 +567,7 @@ function MAP_zoom_on_feature(feat_code , action_code){
 
 function MAP_overlay_draw( feature_arr ){
 
+	var overlayClass = `selected selected-${currentSelectStyle}`;
 
 	mapFeaturesOverlay.selectAll('path')
 	   .remove();
@@ -508,7 +578,7 @@ function MAP_overlay_draw( feature_arr ){
         	//.attr('class', 'selected-feature-centered')
         	.attr('pointer-events', 'none')
         	.attr('d' , function(d) {return path(d)})
-        	.attr('class' ,  `selected selected-${currentSelectStyle}`)
+        	.attr('class' ,  overlayClass	)
 }
 
 
@@ -609,7 +679,7 @@ function update_dataTableView( metadata , metageo, geoLyrChanged = false ){
 		//Generate IF NOT EXISTS the datatable column definition for the metadata
 		metadata.dt = metadata.dt || {}
 
-		console.log(metageo)
+		//console.log(metageo)
 
 		if (geoLyrChanged) metadata.dt.colArray = generate_colArray(metadata , metageo) //generate new columns when layer changed
 
@@ -630,7 +700,7 @@ function update_dataTableView( metadata , metageo, geoLyrChanged = false ){
 		)
 
 		if (  dataTableController.reloadNeeded(geoLyrChanged)  ){
-			console.log(metadata.dt.colArray)
+			//console.log(metadata.dt.colArray)
 			dataTableController.reloadData( metadata.dt.colArray , mapData )
 		}
 	}
@@ -809,7 +879,7 @@ function showTooltip(f) {
 		</span>`*/
 
 	var tooltips_text = `
-		${ _show_featureSetName ? `<span>${currentMetaGeo.names.value}</span><br>` : ``}
+		${ _show_featureSetName ? `<span> ${currentMetaGeo.names.value}</span><br>` : ``}
 		
 		<span style="font-size:11px; color: #111;">
 			 ${ feat_name} 
@@ -817,7 +887,7 @@ function showTooltip(f) {
 		<span style="font-family: consolas ;font-size:14px; color: red;">
 			 ${feat_data_value} 
 		</span>
-		<span>${ d? currentMetaField.unit : `` } </span>`
+		<span>${ d? currentMetaField.unit : `` } </span> `;
 
 
 
@@ -896,13 +966,13 @@ function generate_statistic_tables_ex(data , parser){
 
 	var tmp_data = d3.nest().key(function(d) { return d[LEVEL]; }).rollup(function(d) { return d; }).map(data);
 
-	console.log(tmp_data)
+	//console.log(tmp_data)
 
 	table_1 = d3.nest().key(function(d) { return d[CODE]; }).rollup(function(d) { return d[0]; }).map( tmp_data[ CLASS_1 ] );
 	table_2 = d3.nest().key(function(d) { return d[CODE]; }).rollup(function(d) { return d[0]; }).map( tmp_data[ CLASS_2 ] );
 
-	console.log(table_1)
-	console.log(table_2)
+	//console.log(table_1)
+	//console.log(table_2)
 
 	var  _RSP = {}
 	     _RSP[ LYR_1 ] = table_1
@@ -941,7 +1011,7 @@ function updateGraphic(){
 					MAP_overlay_draw([f])
 
 					//alert(index)
-					console.log( feat_code )
+					//console.log( feat_code )
 					//console.log(data)
 				},
 				CharDataLimit
@@ -1104,21 +1174,6 @@ function ui_pre_render_format(obj){
  }
 
 
-
-function set_routes(){
-	var routes = {
-		"/action/address-to-mobile/:close" : after_user_accept_UX_degradation,
-		"/action/select-palette/:color_palette" : after_colorPalette_selected,
-		"/action/test-debug/:reload_chart" : histogram_draw,
-		"/action/:start-server" : start_server,
-		"/action/:stop-server"  : start_server,
-		"/action/:connect-client" : start_server,
-		"/action/app-settings": function(){}, 
-		"/home" : function(){}
-	}
-	var router = Router(routes);
-     	router.init();
-}
 
 function start_server(command){
 

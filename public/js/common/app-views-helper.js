@@ -42,8 +42,7 @@ function get_chart_container_augmented( canvas_id, width, height, x_width, x_hei
 
 	var template = 	`
 		<div class="chart-container-wrapper" >
-			<a href="#" class="float"> <i class="fa fa-plus my-float"></i></a>
-
+			
 			<div id="${canvas_id}-ruler" style="position:relative;right:0px; width:'100%'; height:30px; background-color: #aaa;opacity:0.65;"> 
 
 			</div>

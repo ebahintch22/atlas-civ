@@ -32,17 +32,17 @@ function load_standard_caroussel(elt_id){
 	function ATLAS_BADGES( ){
 		return {
 			"badge_01" : _render_cool(`Atlas Santé CI ? ...`),
-			"badge_02" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...les données du RASS passées au moule de la DataViz... </span>`),
-			"badge_03" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...une contribution à la valorisation des statistiques sanitaires...  </span>`),
-			"badge_04" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...un contenu appelé à évoluer regulièrement...</span>`),
-			"badge_05" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> ...vers une version mobile pour une ubiquité d'accès </div>` )	
+			"badge_02" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> les données du RASS passées au moule de la DataViz... </span>`),
+			"badge_03" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> une contribution à la valorisation des statistiques sanitaires...  </span>`),
+			"badge_04" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> un contenu appelé à évoluer regulièrement...</span>`),
+			"badge_05" : _render_cool(`<span> Atlas Santé CI, </span> <br> <span> vers une version mobile pour une ubiquité d'accès </div>` )	
 		 }
 
 		function _render_cool(html){
 		 	var template =  `
 				<div class="card text-center align-middle  badge-white-dark "  style="position:relative; height:60px;">
 				    <div class="card-body"  style="padding: 0.1em;">
-					     <span  style="display: inline-block; position: relative;height:100%;font-weight: 500 ;font-size: 1.2em; 
+					     <span  style="display: inline-block; position: relative;height:100%;font-weight: 500 ;font-size: 0.9em; 
 					     		padding-bottom: 0.3em; line-height: 1;"> 
 					     		${html}
 					     </span>
