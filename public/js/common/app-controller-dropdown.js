@@ -139,7 +139,7 @@ function ui_render_drawer_listgroup( _eltID , Cfg , callBack){
 		 `;
 
 	var sub_template_category = `			    
-		<h6 class="dropdown-header" style="color: #fff; padding: 4px 8px 2px 8px;"> {{header}}  </h6>
+		<h6 class="dropdown-header" style="font-size: 2.2vh; color: blue;background-color: #fff; padding: 4px 8px 2px 8px;"> {{header}}  </h6>
 		{{#option_list}}	       
 			<li class="list-group-item" style="cursor:pointer; font-size: 2.0vh" data-key="{{key}}" data-label="{{label}}"> {{label}}  </li>
 		{{/option_list}}`;
