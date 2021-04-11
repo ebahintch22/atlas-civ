@@ -1,0 +1,131 @@
+/*app-controller-drawer-menu.css*/
+.opera-drawer   {
+	padding: 0;
+	margin:0;
+
+}
+.opera-drawer .list-group li  {
+	padding: 5 10 5 10;
+
+}
+
+
+
+.opera-drawer header {
+	position:fixed;
+	width:100%;
+	background-color:#06C;
+	z-index:1000;
+}
+
+.opera-drawer .menu-bar {
+	color:#FFF;
+	font-size:3.4vh;
+	cursor:pointer;
+	padding:1.3vh 1.6vh;
+	margin-left:1.3vh;
+	margin-top:0.7vh;
+	margin-bottom:0.7vh;
+}
+
+.opera-drawer .menu-bar:hover {
+	background-color:rgba(0, 0, 0, 0.1);
+	border-radius:6.5vh;
+}
+
+#tag-menu {
+	display:none;
+}
+
+/*
+.menu-item + div.sub-menu-box {
+	display:none;
+	background-color: #aaa;
+}
+*/
+
+#tag-menu:checked ~ div.drawer {
+ animation: slide-in 0.5s ease;
+ animation-fill-mode: forwards;
+}
+
+.opera-drawer .drawer {
+	position:fixed;
+	left:-49.5vh;
+	background-color:#06C;
+	height:100%;
+	z-index:100;
+	width:49.5vh;
+	animation: slide-out 0.5s ease;
+	animation-fill-mode: forwards;
+}
+
+.opera-drawer .drawer ul {
+	padding-left: 0vh;
+}
+
+.opera-drawer .drawer ul li {
+	list-style:none;
+}
+
+.opera-drawer .drawer ul li .xxxx {
+	padding:1.3vh 1.3vh;
+	text-decoration:none;
+	display:block;
+	color:#FFF;
+	border-top:1px solid #039;
+	margin-bottom: 0vh
+}
+
+.opera-drawer .drawer ul li .xxxx:hover{
+	background-color:rgba(0, 0, 0, 0.1);
+}
+.opera-drawer .drawer ul li .yyyy:checked + .xxxx {
+	background-color:rgba(57, 15, 115, 0.8);
+}
+.opera-drawer .drawer ul li .yyyy + .xxxx +  .sub-menu-box {
+	animation: xxx-closing 0.8s ease;
+	max-height: 0vh;
+}
+.opera-drawer .drawer ul li .yyyy:checked + .xxxx + .sub-menu-box {
+	display:block;
+	max-height: 39.1vh;
+	overflow-y: scroll;
+	background-color: #aaa;
+	animation: xxx-opening 0.8s ease;
+}
+
+
+.opera-drawer .drawer ul li .yyyy + .xxxx   .zzzz {
+	transform : rotate(0deg);
+}
+.opera-drawer .drawer ul li .yyyy:checked + .xxxx  .zzzz {
+	transform : rotate(90deg);
+}
+
+.opera-drawer .drawer ul li .xxxx i {
+	width:6.5vh;
+	height:4.6vh;
+	text-align:center;
+	padding-top:2.0vh;
+	color:#fff;
+}
+
+@keyframes slide-in {
+ from {left: -49.5vh;}
+ to {left: 0;}
+}
+
+@keyframes slide-out {
+	 from {left: 0;}
+	 to {left: -49.5vh;}
+}
+
+@keyframes xxx-opening {
+	 from {max-height:0vh;}
+	 to {max-height:39.1vh;}
+}
+@keyframes xxx-closing  {
+	 from {max-height:39.1vh;}
+	 to {max-height:0vh;}
+}
