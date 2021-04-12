@@ -80,11 +80,16 @@ function app_start_up(){
 	      "transform" : { key: "name", label : "label"	},
 	         "filter" : function(d){return (d.valid)}
 	}, function(_info){
-		Activate_thematic_section( _info.key , false)
+
 		if ( navtabController_RASS != undefined ){
 			navtabController_RASS.show_tab( "tab-aa");
 			drawerMenuController.toggle_menu();
 		}
+
+		setTimeout( function(){
+			Activate_thematic_section( _info.key , false)
+		} , 400 )
+
 	})
 
 
@@ -166,6 +171,7 @@ function create_or_update_key_selectList( data ){
 
 	} else {
 		keyController.refresh_options( data)
+
 	}
 
 
@@ -181,7 +187,8 @@ function create_or_update_key_selectList( data ){
 		         "filter" : null
 		}, 
 		function after_key_selected(_info){
-			after_selectKey_Changed(_info.key )
+			after_selectKey_Changed(_info.key );
+			drawerMenuController.toggle_menu() ;
 		})
 
 	} else {
@@ -225,7 +232,8 @@ function create_or_update_spatialLayer_selectList( data ){
 		         "filter" : null
 		}, 
 		function after_key_selected(_info){
-			after_selectLayer_Changed( _info.key )
+			after_selectLayer_Changed( _info.key );
+			drawerMenuController.toggle_menu();
 		})
 
 	} else {
@@ -452,7 +460,7 @@ function load_dataframe(frame_name, callBack,  errCallBack){
     // 1- load from file and 
     // 2- read from memory
     //sysecho("(load_dataframe)newframe", newframe);
-   
+
     get_statsData( newframe.name, newframe.path, function(data) {
     	//sysecho("DATA from get_statsData", data);
     	var meta = newframe;

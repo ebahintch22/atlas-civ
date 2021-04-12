@@ -91,7 +91,7 @@
 	background-color:rgba(57, 15, 115, 0.8);
 }
 .opera-drawer .drawer ul li .yyyy + .xxxx +  .sub-menu-box {
-	animation: xxx-closing 0.8s ease;
+	animation: xxx-closing 0.3s ease;
 	max-height: 0vh;
 }
 .opera-drawer .drawer ul li .yyyy:checked + .xxxx + .sub-menu-box {
