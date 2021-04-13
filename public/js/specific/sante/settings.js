@@ -93,13 +93,21 @@ APP_REGISTRY.modules = {
 				"radius"     : "40px",
 				"menu_label" : "Afficher le panneau latéral..",
 				"url_params" : "show_drawer_panel"
+			},
+			{
+				"fa_icon"    : "fa-arrows-alt",
+				"radius"     : "40px",
+				"menu_label" : "Mode plein écran..",
+				"url_params" : "show_full_screen"
 			}
 		]
 	},
 
 	ui_drawerMenu : {
 
-      "id" : "tag-menu",
+             "id" : "tag-menu",		
+       "app_name" : "Atlas Côte d'Ivoire",
+	"module_name" : "Santé",
       "toggler" : {
           "fa_icon"    : "fa-bars",
           "radius"     : "40px",

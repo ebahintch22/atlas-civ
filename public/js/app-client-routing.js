@@ -49,6 +49,11 @@ function redirect_to_FABmenu_manager(commandkey){
 			//alert("You toggle drawer menu");
 			drawerMenuController.toggle_menu(); 
 			break;
+
+		case "show_full_screen" :  
+			//alert("You toggle drawer menu");
+			UTIL.go_fullScreen(); 
+			break;			
 	}
 
 	navigate("home");

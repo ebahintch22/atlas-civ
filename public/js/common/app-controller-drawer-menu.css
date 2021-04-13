@@ -53,6 +53,7 @@
 
 .opera-drawer .drawer {
 	position:fixed;
+	overflow-y: auto;
 	left:-380px;
 	background-color:#06C;
 	height:100%;
