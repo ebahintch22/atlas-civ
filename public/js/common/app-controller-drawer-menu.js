@@ -7,8 +7,8 @@ function create_drawerMenu_controller(elt_id , options){
       <header>
           <input type="checkbox" id="${options.id}"/>
           <label class="fa ${options.toggler.fa_icon} menu-bar" for="${options.id}"></label>
-          <span style="font-size: 5vh;font-weight: 700;color:#fff "> ${options.app_name} </span> 
-                <sub style="font-size: 3.5vh; color:orange; font-weight: 600; ">  ${options.module_name} </sub> 
+          <span style="font-size: 5vmin;font-weight: 700;color:#fff "> ${options.app_name} </span> 
+                <sub style="font-size: 3.5vmin; color:orange; font-weight: 600; ">  ${options.module_name} </sub> 
           <div class="drawer">
             <nav>
               <ul>
