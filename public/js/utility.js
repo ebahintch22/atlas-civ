@@ -139,6 +139,19 @@ function detect_client(){
             random_string: function(prefix = "") { 
                 const result = Math.random().toString(36).substring(2,7);
                 return (prefix + result)
+            },
+            go_fullScreen : function(elt_id = "body"){
+
+                // DOM element which needs to enter fullscreen mode
+                var element = document.querySelector(elt_id);
+                element.requestFullscreen()
+                .then(function() {
+                    // element has entered fullscreen mode successfully
+                })
+                .catch(function(error) {
+                    // element could not enter fullscreen mode
+                });
+
             }
 
         }

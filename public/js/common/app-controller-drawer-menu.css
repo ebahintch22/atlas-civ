@@ -6,8 +6,8 @@
 }
 .opera-drawer .list-group li  {
 	padding: 5 10 5 10;
-
 }
+
 
 
 
@@ -18,14 +18,16 @@
 	z-index:1000;
 }
 
+
+
 .opera-drawer .menu-bar {
 	color:#FFF;
-	font-size:26px;
-	cursor:pointer;
-	padding:10px 12px;
-	margin-left:10px;
-	margin-top:5px;
-	margin-bottom:5px;
+	font-size: 26px;
+	cursor:    pointer;
+	padding:   10px 12px;
+	margin-left: 10px;
+	margin-top:  5px;
+	margin-bottom: 5px;
 }
 
 .opera-drawer .menu-bar:hover {

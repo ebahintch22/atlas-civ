@@ -10,7 +10,7 @@ function get_chart_container( canvas_id, width, height, x_width, x_height, addSp
 					style="position: absolute; padding-top:10%; top:0px; left:0px ; width:100%; height: 100%; background-color: #fff;opacity:0.65;" >
 				<div class="text-center">
 				  <div class="spinner-border" role="status">
-				    <span class="sr-only">Loading...</span>
+				    <span class="sr-only"> Loading... </span>
 				  </div>
 				</div>
 			</div>`;
@@ -27,9 +27,10 @@ function get_chart_container( canvas_id, width, height, x_width, x_height, addSp
 
 function get_chart_container_augmented( canvas_id, width, height, x_width, x_height, addSpinner=false ){
 /*
-	14/08/20 : added spinner curtain template
+	::: 14/08/20 : added spinner curtain template
 */
-	var spinner_subTemplate = `			
+	var spinner_subTemplate = `	
+
 			<div id="${canvas_id}-spinner" class="opera-loading"   
 					style="position: absolute; padding-top:10%; top:0px; left:0px ; 
 					width:100%; height: 100%; background-color: #fff;opacity:0.65;" >
@@ -38,15 +39,20 @@ function get_chart_container_augmented( canvas_id, width, height, x_width, x_hei
 				    <span class="sr-only">Loading...</span>
 				  </div>
 				</div>
-			</div>`;
+			</div>
+		`;
 
 	var template = 	`
+
 		<div class="chart-container-wrapper" >
 			
-			<div id="${canvas_id}-ruler" style="position:relative;right:0px; width:'100%'; height:30px; background-color: #aaa;opacity:0.65;"> 
+ 
 
-			</div>
+			
 			<div class="chart-container" style="position: relative; width: ${x_width} ; height: ${x_height}; top:1px; background-color: #aaa; ">
+				
+				<div class="graph-slider-container" ></div> 
+				<div id="${canvas_id}-ruler" class="graph-slider" ></div>
 				<canvas id="${canvas_id}" width="${width}" height="${height}"> 	</canvas>
 				${ addSpinner ? spinner_subTemplate : ""}
 			</div>

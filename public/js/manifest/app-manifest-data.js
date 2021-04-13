@@ -31,7 +31,7 @@ var metaDataBase = {
 				many: "Régions sanitaires",
 				abbr : "RS."
 			},			
-			label: "Découpage en régions sanitaires (20)",
+			label: "Découpage en régions sanitaires",
 			path : `${PATH_PREFIX}data/geojson/health/civ-region-sante.geojson`,
 			idfield : "code_R",
 			labelField :"Region_S"
@@ -44,7 +44,7 @@ var metaDataBase = {
 				many: "Districts sanitaires",
 				abbr : "DS."
 			},
-			label: "Découpage en districts sanitaires (83)",
+			label: "Découpage en districts sanitaires",
 			path : `${PATH_PREFIX}data/geojson/health/civ-district-sante.geojson`,
 			idfield : "code",
 			labelField :"District_S"

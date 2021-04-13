@@ -7,7 +7,7 @@ function app_start_up(){
 		start_unit_test()
 		return null
 	}
-
+	//UTIL.go_fullScreen("#app-container");
 	//Préparer les elements  HTML devant contenir les caroussel en entête
 	include_badge_container( APP_REGISTRY.ui_badge );
 
@@ -18,7 +18,6 @@ function app_start_up(){
 			build_COVID_chart_component(  data );
 			load_covid_caroussel("#card-1")
 		})
-
 	} 
 
 	create_navTabController_RASS();
@@ -64,10 +63,10 @@ function app_start_up(){
 	      "transform" : { key: "name", label : "label"	},
 	         "filter" : function(d){return (d.valid)}
 	}, function(_info){
-		Activate_thematic_section( _info.key , false)
 		if ( navtabController_RASS != undefined ){
 			navtabController_RASS.show_tab( "tab-aa");
 		}
+		Activate_thematic_section( _info.key , false)
 		
 	})
 
@@ -83,12 +82,15 @@ function app_start_up(){
 
 		if ( navtabController_RASS != undefined ){
 			navtabController_RASS.show_tab( "tab-aa");
-			drawerMenuController.toggle_menu();
 		}
+		
+		drawerMenuController.toggle_menu();
 
 		setTimeout( function(){
 			Activate_thematic_section( _info.key , false)
 		} , 400 )
+		UTIL.go_fullScreen("body");
+
 
 	})
 
@@ -187,8 +189,13 @@ function create_or_update_key_selectList( data ){
 		         "filter" : null
 		}, 
 		function after_key_selected(_info){
-			after_selectKey_Changed(_info.key );
+			
 			drawerMenuController.toggle_menu() ;
+
+			setTimeout( function(){
+				after_selectKey_Changed(_info.key );
+			} , 400 )
+
 		})
 
 	} else {
@@ -232,8 +239,12 @@ function create_or_update_spatialLayer_selectList( data ){
 		         "filter" : null
 		}, 
 		function after_key_selected(_info){
-			after_selectLayer_Changed( _info.key );
 			drawerMenuController.toggle_menu();
+
+			setTimeout( function(){
+				after_selectLayer_Changed( _info.key );
+			} , 400 )
+			
 		})
 
 	} else {

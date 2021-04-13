@@ -1,3 +1,36 @@
+      .graph-slider-container {
+   		position: absolute;
+		width:  300px;
+		height: 30px;
+		top:    5px;
+		right:  5px;
+		font-size:8px;  
+
+   }   .graph-slider {
+   		position: absolute;
+		width:  220px;
+		height: 15px;
+		top:    10px;
+		right:  0px;
+		font-size:8px;  
+
+		background-color:#fff;
+		color:#FFF;
+		border-radius: 8px;
+		text-align:center;
+		box-shadow: 3px 3px 4px #999;
+		z-index:1000;
+		/* animation: bot-to-top 2s ease-out; */
+   }
+
+
+
+.graph-slider-container + div{
+		visibility: hidden;
+}
+.graph-slider-container:hover + div{
+		visibility: visible;
+}		
 
 
 	.label-container{
