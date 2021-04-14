@@ -10,11 +10,13 @@ function create_drawerMenu_controller(elt_id , options){
           <span style="font-size: 5vmin;font-weight: 700;color:#fff "> ${options.app_name} </span> 
                 <sub style="font-size: 3.5vmin; color:orange; font-weight: 600; ">  ${options.module_name} </sub> 
           <div class="drawer">
-            <nav>
-              <ul>
-                 ${ render_drawer_menuitems(options.menu_items) }
-              </ul>
-            </nav>
+            <div class="scroll-xxx" style="position:relative; width=100%; height=600px;overflow-y=auto;">
+                <nav>
+                  <ul>
+                     ${ render_drawer_menuitems(options.menu_items) }
+                  </ul>
+                </nav>
+            </div>
           </div>
       </header>`;
 
