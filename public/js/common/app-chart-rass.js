@@ -301,4 +301,3 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 	}
 }	
 
-
