@@ -14,6 +14,7 @@ function create_drawerMenu_controller(elt_id , options){
                 <nav>
                   <ul>
                      ${ render_drawer_menuitems(options.menu_items) }
+                     <li> <img src="./images/banner-personnel-sante.jpg" alt="Girl in a jacket" width="100%" ></li>
                   </ul>
                 </nav>
             </div>

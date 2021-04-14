@@ -53,6 +53,7 @@ function get_chart_container_augmented( canvas_id, width, height, x_width, x_hei
 				
 				<div class="graph-slider-container" ></div> 
 				<div id="${canvas_id}-ruler" class="graph-slider" ></div>
+				
 				<canvas id="${canvas_id}" width="${width}" height="${height}"> 	</canvas>
 				${ addSpinner ? spinner_subTemplate : ""}
 			</div>
