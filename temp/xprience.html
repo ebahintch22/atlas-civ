@@ -1,0 +1,534 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Chart.js Zoom each scale separately</title>
+
+	<script src="./chart-zoom/moment.min.js"></script>
+	<script src="../public/vendors/d3/v3/d3.v3.min.js" charset="utf-8"></script>
+	<script src="./chart-zoom/chart.js"></script>
+	<script src="./chart-zoom/chartjs-adapter-moment@0.1.2.js"></script>
+
+
+	<script src="./chart-zoom/hammerjs@2.0.8.js"></script>
+	<script src="./chart-zoom/chartjs-plugin-zoom@next.js"></script>
+
+
+
+
+	<script src="../public/js/chart-utility.js"></script>
+
+	<script src="./chart-zoom/chart-data-2.js"></script>
+	<script src="./chart-zoom/chart-data-3.js"></script>
+	<script src="./chart-zoom/app-controller-charts.js"></script>
+
+
+	<style>
+		.chart-container{
+			width : 60%;
+			height : 500px;
+		}
+		canvas {
+			-moz-user-select: none;
+			-webkit-user-select: none;
+			-ms-user-select: none;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="chart-container">  
+		<canvas id="canvas"></canvas>
+	</div>
+
+	<div class="chart-container">  
+		<canvas id="chart-canvas-rass"></canvas>
+	</div>
+
+	<div class="chart-container">  
+		<canvas id="chart-canvas-covid"></canvas>
+	</div>
+
+
+
+
+	<a href="./line-chart.html"> Line-chart </a><br>
+	<a href="./barcharpan-adapted.html"> barCharPan-adapted </a><br>
+	<a href="./chart-zoom.html"> Chart-Zoom </a><br>
+	<a href="./xprience.html"> Xprience page.......... </a><br>
+
+
+	<script>
+
+
+
+		function genData() {
+
+			var analogData = [];
+			var digitalData = [];
+			var angle = 5980;
+			var limit = 35;
+			for (var x = 0; x <= angle; x += 10) {
+				var y = Math.sin(x * Math.PI / 180) * limit;
+				analogData.push({x, y});
+
+				y = x === 0 ? -limit : x === angle ? limit : y;
+				if (y === limit || y === -limit) {
+					digitalData.push({x, y: y === -limit});
+				}
+			}
+
+			return [analogData, digitalData];
+		}
+
+
+
+		function createConfig() {
+			var [analogData, digitalData] = genData();
+			return {
+				data: {
+					datasets: [{
+						yAxisID: 'yA',
+						label: 'Temperature',
+						type: 'line',
+						fill: false,
+						borderColor: 'rgb(54, 162, 235)',
+						data: analogData
+					}, {
+						yAxisID: 'yB',
+						label: 'Heater',
+						type: 'line',
+						fill: false,
+						steppedLine: true,
+						borderColor: 'rgb(255, 99, 132)',
+						data: digitalData
+					}]
+				},
+				options: {
+					responsive: true,
+					title: {
+						display: true,
+						text: 'Chart.js Zoom each scale separately'
+					},
+					scales: {
+						x: {
+							type: 'linear',
+							offset: true,
+							scaleLabel: {
+								display: true,
+								labelString: 'x axis'
+							}
+						},
+						yA: {
+							id: 'A',
+							offset: true,
+							position: 'left',
+							scaleLabel: {
+								display: true,
+								labelString: 'Analog'
+							}
+						},
+						yB: {
+							id: 'B',
+							position: 'right',
+							scaleLabel: {
+								display: true,
+								labelString: 'Digital'
+							},
+							ticks: {
+								max:  2,
+								min: -1,
+								stepSize: 1
+							}
+						}
+					},
+					plugins: {
+						zoom: {
+							pan: {
+								enabled: true,
+								mode: 'xy',
+								overScaleMode: 'y'
+							},
+							zoom: {
+								enabled: true,
+								mode: 'xy',
+								overScaleMode: 'y'
+							}
+						}
+					}
+				}
+			};
+		}
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			var config = createConfig();
+			window.myChart = new window.Chart(ctx, config);
+			chart_factory()
+		};
+
+		function chart_factory(){
+
+				var Cfg = getdata_sample()
+
+				var chartController_rass = Build_Atlas_Chart_Component( 
+				Cfg.metadata , Cfg.metafield, Cfg.mapData, Cfg.metageo, 
+				function( data , indexes){
+					/* format of indexes parameter object is :
+						{
+							"@datasetIndex": item._datasetIndex,
+						    "@index": item._index
+						}
+					*/
+					var index = indexes["@index"];
+					var feat_code = data.raw[index]["CODE"];
+
+					//var f = MAP_find_feature(feat_code)
+					//MAP_overlay_draw([f])
+				},
+				null
+			)
+		}
+
+
+
+
+		function Build_Atlas_Chart_Component(  inMetadata ,inField, inData, inMetageo, onClickcallBack , inLimit= null ){
+
+			/*alert (inMetadata)
+			alert (inField)
+			alert (inData)*/
+
+			var metadata = inMetadata ,
+				field    = inField, 
+				metageo  = inMetageo,
+				tranform = null
+
+
+			var stamps = {
+				table : "empty", 
+			    field : "empty",
+			   geolyr : "empty"
+			}
+
+
+			var covid_xp_data = get_xp_covid_data()
+			var covid_xp_data_mod = covid_xp_data.map( function(d){ 
+
+					d["date_raw"] =  moment(d["ref_date"] ).format('L')
+					return (d)
+			 })
+			console.log(covid_xp_data_mod)
+
+			var xp_chart = create_Chart_covid ( covid_xp_data_mod, "chart-canvas-covid", {
+
+					"title" : "EVOLUTION CHRONOLOGIQUE DES INDICATEURS JOURNALIERS DU COVID-19",
+					"label_field" : "date_raw",
+					"axis" : {
+						"x": {
+							"style": "COVID"
+						},
+
+						"y": {
+							"YA" : {
+								"display" : true,
+								"position" : "left",
+								"labelString" : "Nombre de cas"
+							},
+
+							"YB" : {
+								"display" : false,
+								"position" : "right",
+								"labelString" : "Nombre de cas"
+							}							
+						},
+					},	
+
+					"charts" : [
+						{      
+							"label": 'Nouveaux cas',
+							"type" : "bar",
+							"field": 'new_case' ,
+							"backgroundColor": "ORANGE" ,
+							"borderColor": 'ORANGE' ,
+							"yAxisID" : 'YA' 
+					   },
+						{      
+							"label": 'Nouveaux guéris',
+							"type" : "bar",
+							"field": 'new_healed' ,
+							"backgroundColor": "LIME" ,
+							"borderColor": 'LIME' ,
+							"yAxisID" : 'YA' 
+					   },
+						{      
+							"label": 'Nouveaux décès',
+							"type" : "bar",
+							"field": 'new_deceased' ,
+							"backgroundColor": "RED" ,
+							"borderColor": 'RED' ,
+							"yAxisID" : 'YA' 
+					   }
+					],
+					fontColors : CHART_FONT_COLORS["covid"]
+		});
+
+
+
+
+
+
+
+
+
+			var data_struct =  update_data_structure(inData, inLimit);   
+			var transform_func = update_tick_transform (field);
+
+			var myChart = create_Chart_ex( data_struct, "chart-canvas-rass", {
+
+				       "title" :  `${ metadata.label } par ${ metageo.names.value }`,
+				 "label_field" : metadata.data_parser.name_field ,
+				"x-axis-style" : "RASS",
+				        "axis" : {
+
+								"x":{
+									"style" : "RASS" 
+								},
+
+								"y":{
+
+								   "axis-1" : {
+										  "display" : true,
+										 "position" : "left",
+									  "labelString" : field.YLabelCustom,
+										"transform" : transform_func							
+									},
+									"axis-2": {
+										 "display" : false,
+										"position" : "right",
+									 "labelString" : "Nombre de cas",
+									   "transform" : transform_func
+									}
+								}
+				        	},
+				
+					"charts" : [
+						{      
+							"label": field.long_name,
+							"type" : "bar",
+							"field": field.fld_name, 
+							"backgroundColor": "DODGERBLUE" ,
+							"borderColor": 'DODGERBLUE',
+							"yAxisID" : 'y-axis-1' 
+					   }
+					],
+
+				"fontColors" : CHART_FONT_COLORS["rass"],
+
+				"onClick" : function(indexes){
+
+					onClickcallBack( data_struct, indexes);
+				} 
+			});
+
+
+
+			return {
+				updateChart : function ( ){
+					myChart.update();
+				},
+				explain : function(){
+					return myChart
+				},
+				setParams : function( inMetadata ,inField, newdata, inMetageo, inLimit = null){
+					//1: after Key changed : 
+					//         Update tick function needed : YES (because the field may use transform function) 
+					//         Update key : sort data and labels arrays - 
+					//         reuse raw data ? : YES
+					//         reuse geo data ? : YES
+					//2: after Thematic-table changed : (NB: in this version we change the geodata)
+					//         Update tick function needed : YES (because the field may use transform function) 
+					//		   reuse raw data ? : NO (RAW data is update by définition )
+					//         reuse geo data ? : NO (RAW data is update , but this would be contexte-depndent in future )
+					//         Updata Key : sort data and label arrays
+					//		   
+					//
+					//3: after Level changed : 
+					//         Update tick function needed : YES (because the field may use transform function) 
+					//		   Update RAW Data : Generate 
+					//         Update GEODATA  : 
+					//         Updata Key : Sort data and label arr
+					//		   reuse raw data ? : NO (RAW data is update by définition )
+					//         reuse geo data ? : NO (RAW data is update by definition )
+					//
+					//==============================================
+					
+					metadata = inMetadata ,
+					field    = inField, 
+					metageo  = inMetageo
+					eventname = detect_changes();
+
+					switch (eventname){
+
+						case "key-changed" :
+							//alert(" Case : 1 " + eventname)
+							new_struct = update_data_structure(data_struct.raw, inLimit)
+
+							myChart.data.datasets[0].data = new_struct.data;
+							myChart.data.datasets[0].label = field.long_name;
+							myChart.data.labels = new_struct.labels;
+
+							 
+							transform = update_tick_transform(field)
+							myChart.options.scales.yAxes[0].scaleLabel.labelString = transform.title 
+		        			myChart.options.scales.yAxes[0].ticks.callback =transform.callback
+
+							myChart.options.scales.xAxes[0].ticks.min = new_struct.min;
+							myChart.options.scales.xAxes[0].ticks.max = new_struct.max;
+					
+							myChart.options.title.text =  `${ metadata.label } par ${ metageo.names.value }`
+
+							data_struct = new_struct
+						break;
+
+						case "data-theme-changed" :
+							//alert(" Case : 2 " + eventname)
+
+							new_struct = update_data_structure(newdata, inLimit)	
+
+							transform = update_tick_transform(field)
+							myChart.options.scales.yAxes[0].scaleLabel.labelString = transform.title 
+		        			myChart.options.scales.yAxes[0].ticks.callback = transform.callback
+
+							myChart.data.datasets[0].data = new_struct.data;
+							myChart.data.datasets[0].label = field.long_name;
+							myChart.data.labels = new_struct.labels;
+							myChart.options.scales.xAxes[0].ticks.min = new_struct.min;
+							myChart.options.scales.xAxes[0].ticks.max = new_struct.max;	
+							//myChart.options.scales.yAxes[0].scaleLabel.labelString = field.YLabelCustom || field.short_name
+							myChart.options.title.text =  `${ metadata.label } par ${ metageo.names.value }`
+							data_struct = new_struct;
+						break;
+
+
+						case "layer-changed" :
+							//alert(" Case : 3 " + eventname)
+
+							new_struct = update_data_structure(newdata, inLimit)	
+
+							transform = update_tick_transform(field)
+							myChart.options.scales.yAxes[0].scaleLabel.labelString = transform.title 
+		        			myChart.options.scales.yAxes[0].ticks.callback = transform.callback
+
+							myChart.data.datasets[0].data = new_struct.data;
+							myChart.data.datasets[0].label = field.long_name;
+							myChart.data.labels = new_struct.labels;
+							myChart.options.scales.xAxes[0].ticks.min = new_struct.min;
+							myChart.options.scales.xAxes[0].ticks.max = new_struct.max;	
+							//myChart.options.scales.yAxes[0].scaleLabel.labelString = field.YLabelCustom || field.short_name
+							myChart.options.title.text = `${ metadata.label } par ${ metageo.names.value }`;
+							data_struct = new_struct;
+
+						break;
+
+
+					}
+
+					function detect_changes(){
+						var r = null
+						if ( stamps.geolyr != metageo.name) r= "layer-changed";
+						if ( stamps.table != metadata.name) r= "data-theme-changed";
+						if  (  r==null) r ="key-changed";
+
+						stamps.geolyr = metageo.name
+						stamps.table  = metadata.name
+						stamps.field  = field.name
+
+						return r
+					}
+				},
+				show_spinner : function( isVisible ){
+					var useless = (isVisible) ? 	
+					     $("#chart-canvas-rass-spinner").removeClass("hidden") : 
+					     $("#chart-canvas-rass-spinner").addClass("hidden") ;			
+				}	
+			}
+			    //***********************************************************************
+			function update_data_structure(inData, inLimit = null){
+				var data 
+				var parser = metadata.data_parser, 
+				    a,b,c,d
+
+				data = inData.map(function(d){return (d)})
+
+				//apply data limit if relevant
+				if (inLimit != null) {
+
+					data = data.sort(compare_numbers).slice(0, inLimit)
+
+				}
+
+				if ( stamps.table != metadata.name ){
+					 stamps.table = metadata.name
+
+					// data = inData.map(function(d){return (d)})
+					 data.sort( compare_numbers )
+
+				} else if (stamps.field != field.fld_name){
+					//data = inData
+					stamps.field = field.fld_name
+					 data.sort( compare_numbers )
+				}
+				stamps.geolyr = metageo.name;
+
+				//console.log("----------------------------->field ::" + JSON.stringify(field) + "\n\n\n")
+				a = data.map(function (d){ return d[ parser.name_field ]  });
+				b = data.map(function (d){ return d[  field.fld_name ]    });
+				
+				return ({
+					labels : a,
+					  data : b,
+					   min : b[0],
+					   max : b[b.length-1],
+					   raw : data
+				})
+			}
+
+
+
+
+			    //***********************************************************************
+
+
+				function compare_numbers(a,b){ return(b[field.fld_name] - a[field.fld_name] ) }
+				
+
+				function update_tick_transform(field){
+					/* return a transform function if relevant to 
+					scale ticks value and change scale title */
+					var title 
+					var cbFunc
+
+					if (!field.transform) {
+						title = field.short_name
+						scaleFactor = 1
+					} else {
+						title = field.transform.YLabelCustom
+						scaleFactor = field.transform.scaleFactor
+					}
+
+					cbFunc = function(value, index, values){
+			    				return UTIL.format_number(value/scaleFactor, false)
+			    			}
+
+			        return {
+			        	callback : cbFunc ,
+			        	title : title
+			        }
+				}
+		}	
+
+	</script>
+</body>
+
+</html>

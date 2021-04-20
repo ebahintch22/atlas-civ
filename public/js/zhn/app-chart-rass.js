@@ -5,6 +5,15 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 	// A structure to detect any change on datatable or key in 
 	// order to trigger accordingy updates to inner data 
 	//struct to refresh chart
+	alert("Hehehhe")
+
+
+	console.log( "inMetadata = " + JSON.stringfy(inMetadata));
+	console.log( "inField    = " + JSON.stringfy(inField));
+	console.log( "inData     = " + JSON.stringfy(inData));
+	console.log( "inMetageo  = " + JSON.stringfy(inMetageo));
+	console.log( "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx---------------xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
+
 
 
 	var metadata = inMetadata ,

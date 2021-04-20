@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+<head>
+	<title>Bar Chart Pan</title>
+
+	<script src="./chart-zoom/chart.js"></script>
+	<script src="./chart-zoom/hammerjs@2.0.8.js"></script>
+	<script src="./chart-zoom/chartjs-plugin-zoom@next.js"></script>
+
+
+	<script src="./chart-zoom/chart-data.js" type="text/javascript"></script>
+
+	<style>
+	canvas {
+		user-select: none;
+	}
+	</style>
+</head>
+
+<body>
+	<div id="container" style="width: 75%;">
+		<canvas id="canvas"></canvas>
+	</div>
+
+	<a href="./line-chart.html"> Line-chart </a><br>
+	<a href="./barcharpan-adapted.html"> barCharPan-adapted </a><br>
+	<a href="./chart-zoom.html"> Chart-Zoom </a><br>
+	<a href="./xprience.html"> Xprience page.......... </a><br>
+	
+	<script>
+		var randomScalingFactor = function() {
+			return (Math.random() > 0.5 ? 1.0 : -1.0) * Math.round(Math.random() * 100);
+		};
+
+		var barChartData = {
+			labels: labels,
+			datasets: [{
+				label: 'Dataset 1',
+				backgroundColor: 'rgba(220,220,220,0.5)',
+				data: dataset_01
+			}]
+
+		};
+
+		window.onload = function() {
+			var ctx = document.getElementById('canvas').getContext('2d');
+			window.myBar = new window.Chart(ctx, {
+				type: 'bar',
+				data: barChartData,
+				options: {
+					// Elements options apply to all of the options unless overridden in a dataset
+					// In this case, we are setting the border of each bar to be 2px wide and green
+					elements: {
+						rectangle: {
+							borderWidth: 2,
+							borderColor: 'rgb(0, 255, 0)',
+							borderSkipped: 'bottom'
+						}
+					},
+					responsive: true,
+					legend: {
+						position: 'top',
+					},
+					title: {
+						display: true,
+						text: 'Chart.js Bar Chart'
+					},
+					scales: {
+						x: {
+							min: '01/04/2020',
+							max: '01/02/2021'
+						}
+					},
+					plugins: {
+						zoom: {
+							pan: {
+								enabled: true,
+								mode: 'x',
+								speed: 200,
+								threshold: 2
+							},
+							zoom: {
+								enabled: true,
+								mode: 'x',
+								speed: 0.01,
+								threshold: 0.01,
+								sensitivity: 3
+							}
+						}
+					}
+				}
+			});
+		};
+	</script>
+
+</body>
+
+</html>

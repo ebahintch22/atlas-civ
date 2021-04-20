@@ -4,7 +4,7 @@ function load_covid_caroussel(elt_id){
 
 	var slides = GET_BADGES();
 	//alert("update_covid_badges")
-	console.log(slides)
+	//console.log(slides)
 
 
 

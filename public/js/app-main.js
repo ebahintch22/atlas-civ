@@ -13,9 +13,16 @@ function app_start_up(){
 
 	if (APP_REGISTRY.modules.module_def["COVID"]) {
 
-		EXE_IF_COVID_DATA_LOAD(null, function (data){
+		EXE_IF_COVID_DATA_LOAD(null, function (raw_data){
+			console.log( JSON.stringify(raw_data));
+
+			var data = raw_data.map( function(d){ 
+					d["date_raw"] =  moment(d["ref_date"] ).format('L')
+					return (d)
+			 })
+
 			create_navTabControllers_COVID(data);
-			build_COVID_chart_component(  data );
+			build_COVID_chart_component_3_0(  data );
 			load_covid_caroussel("#card-1")
 		})
 	} 
@@ -1007,18 +1014,24 @@ function generate_statistic_tables_ex(data , parser){
 
 
 function updateGraphic(){
-	var metadata = currentMetaTable
-	var metafield = currentMetaField
-	var metageo = currentMetaGeo
+
+	var metadata  = currentMetaTable ;
+	var metafield = currentMetaField ;
+	var metageo   = currentMetaGeo   ;
 
 	if (metadata.layout !=  "COVID" ) { //RASS Chart Layout contain dynamic charts
-
+		console.log(JSON.stringify({
+			metafield, 
+			metadata, 
+			mapData, 
+			metageo
+		}))
 		if (!chartController_rass){
-			
-			chartController_rass = build_RASS_chart_component( 
+
+			chartController_rass = Build_Atlas_Chart_Component_3_0( 
 				metadata , metafield, mapData, metageo, 
 				function( data , indexes){
-					/*
+					/* format of indexes parameter object is :
 						{
 							"@datasetIndex": item._datasetIndex,
 						    "@index": item._index
@@ -1029,15 +1042,30 @@ function updateGraphic(){
 
 					var f = MAP_find_feature(feat_code)
 					MAP_overlay_draw([f])
-
-					//alert(index)
-					//console.log( feat_code )
-					//console.log(data)
 				},
 				CharDataLimit
 			)
-
 			chartController_rass.show_spinner(false);
+
+			/*
+			chartController_rass = build_RASS_chart_component( 
+				metadata , metafield, mapData, metageo, 
+				function( data , indexes){
+					// format of indexes parameter object is :
+					//	{
+					//		"@datasetIndex": item._datasetIndex,
+					//	    "@index": item._index
+					//	}
+					//
+					var index = indexes["@index"];
+					var feat_code = data.raw[index]["CODE"];
+
+					var f = MAP_find_feature(feat_code)
+					MAP_overlay_draw([f])
+				},
+				CharDataLimit
+			)
+			chartController_rass.show_spinner(false);*/
 		
 		} else  {
 			chartController_rass.show_spinner(false)
@@ -1057,7 +1085,7 @@ function handle_mapMouseover_actions(d){
 
 }
 
-function get_graphic_infos() {
+function get_graphic_infos() { /*DEPRECATED*/
     return {
         x: currentKey,
         y: "ADM_NAME",

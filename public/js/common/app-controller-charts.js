@@ -16,7 +16,7 @@
     }
     
 
-    function create_Chart( in_data , elt_id, Cfg ){
+    function create_Chart( in_data , elt_id, Cfg, saveCfg = false ){
     	Chart.defaults.global.defaultFontColor = "#ddd";
 
 		var dateFormat = d3.time.format("%d-%m-%Y");
@@ -86,9 +86,11 @@
 
 			ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+		if (saveCfg)  { 
+			//console.log( JSON.stringify(chart_configurator))
+		}
 
 		var myChart = new Chart( canvas, chart_configurator)
-		    
 
 		return myChart
 
@@ -105,8 +107,7 @@ function create_Chart_ex( data_struct , elt_id, Cfg, verbose = false ){
 	Cfg.label_max = data_struct.max;
 	Cfg.elementId = elt_id;
 	var CHART_CONFIG = JSON.stringify(Cfg)
-	//console.log("HIGHLEVEL CONFIG ::---------------------------->>> " +CHART_CONFIG)
-	//opera_console.log("HIGHLEVEL CONFIG ::---------------------------->>> " + CHART_CONFIG)
+
 
 	var chart_configurator = {
 
@@ -325,6 +326,7 @@ function create_Chart_ex( data_struct , elt_id, Cfg, verbose = false ){
 	}
 
 	function get_color( named_color , alpha){
+		
 		return color_helper( chartColors[named_color]).alpha(alpha).rgbString()
 	}
 
@@ -630,28 +632,27 @@ function get_zoomOptions(){
 		   // Boolean to enable panning
 		   enabled: true,
 
-		   // Panning directions. Remove the appropriate direction to disable
-		   // Eg. 'y' would only allow panning in the y direction
-		   // A function that is called as the user is panning and returns the
-		   // available directions can also be used:
-		   //   mode: function({ chart }) {
-		   //     return 'xy';
-		   //   },
-		   mode: 'x',
-
-		   // Which of the enabled panning directions should only be available
-		   // when the mouse cursor is over one of scale.
+			   // Panning directions. Remove the appropriate direction to disable
+			   // Eg. 'y' would only allow panning in the y direction
+			   // A function that is called as the user is panning and returns the
+			   // available directions can also be used:
+			   //   mode: function({ chart }) {
+			   //     return 'xy';
+			   //   },
+			   mode: 'x',
+			   // Which of the enabled panning directions should only be available
+			   // when the mouse cursor is over one of scale.
 		   overScaleMode: 'x',
 
 		   rangeMin: {
-		    // Format of min pan range depends on scale type
-		    x: null,
-		    y: null
+			    // Format of min pan range depends on scale type
+			    x: null,
+			    y: null
 		   },
 		   rangeMax: {
-		    // Format of max pan range depends on scale type
-		    x: null,
-		    y: null
+			    // Format of max pan range depends on scale type
+			    x: null,
+			    y: null
 		   },
 
 		   // On category scale, factor of pan velocity
@@ -699,14 +700,14 @@ function get_zoomOptions(){
 		   overScaleMode: 'x',
 
 		   rangeMin: {
-		    // Format of min zoom range depends on scale type
-		    x: null,
-		    y: null
+			    // Format of min zoom range depends on scale type
+			    x: null,
+			    y: null
 		   },
 		   rangeMax: {
-		    // Format of max zoom range depends on scale type
-		    x: null,
-		    y: null
+			    // Format of max zoom range depends on scale type
+			    x: null,
+			    y: null
 		   },
 
 		   // Speed of zoom via mouse wheel
@@ -714,17 +715,17 @@ function get_zoomOptions(){
 		   speed: 0.1,
 
 		   // Minimal zoom distance required before actually applying zoom
-		   threshold: 2,
+		   threshold: 0.2,
 
 		   // On category scale, minimal zoom level before actually applying zoom
 		   sensitivity: 3,
 
-		   // Function called while the user is zooming
-		   onZoom: function({chart}) { console.log(`I'm zooming!!!`); },
-		   // Function called once zooming is completed
-		   onZoomComplete: function({chart}) { console.log(`I was zoomed!!!`); },
-		   // Function called when wheel input occurs without modifier key
-		   onZoomRejected: function({chart, event}) { console.log(`I didn't start zooming!`); }
+			   // Function called while the user is zooming
+			   onZoom: function({chart}) { console.log(`I'm zooming!!!`); },
+			   // Function called once zooming is completed
+			   onZoomComplete: function({chart}) { console.log(`I was zoomed!!!`); },
+			   // Function called when wheel input occurs without modifier key
+			   onZoomRejected: function({chart, event}) { console.log(`I didn't start zooming!`); }
 		  }
 	    }
 	  }

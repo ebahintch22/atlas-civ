@@ -31,7 +31,7 @@ var stats_table_set
 var dataById = d3.map();
 var dataKeyVal ;
 var mapData;
-var CharDataLimit = 10;
+var CharDataLimit = 20;
 
 var DARKROUGE = "#550000" , 
 	VERT = "#63d617", 

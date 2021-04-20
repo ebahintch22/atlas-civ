@@ -193,8 +193,8 @@ function ui_render_drawer_listgroup( _eltID , Cfg , callBack){
 
 		var componentHtml = Mustache.render( template_drop_downn ,  menu_data );
 
-		console.log(componentHtml);
-		console.log(_eltID);
+		//console.log(componentHtml);
+		//console.log(_eltID);
 		d3.select(`${_eltID}`).html(componentHtml );
 		bind_Selector();
 
