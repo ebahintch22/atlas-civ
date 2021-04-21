@@ -6,6 +6,7 @@
 
 	<script src="./chart-zoom/moment.min.js"></script>
 	<script src="../public/vendors/d3/v3/d3.v3.min.js" charset="utf-8"></script>
+
 	<script src="./chart-zoom/chart.js"></script>
 	<script src="./chart-zoom/chartjs-adapter-moment@0.1.2.js"></script>
 
@@ -20,7 +21,7 @@
 
 	<script src="./chart-zoom/chart-data-2.js"></script>
 	<script src="./chart-zoom/chart-data-3.js"></script>
-	<script src="./chart-zoom/app-controller-charts.js"></script>
+	<script src="./chart-zoom/app-controller-charts-3.0.js"></script>
 
 
 	<style>
@@ -218,7 +219,6 @@
 					d["date_raw"] =  moment(d["ref_date"] ).format('L')
 					return (d)
 			 })
-			console.log(covid_xp_data_mod)
 
 			var xp_chart = create_Chart_covid ( covid_xp_data_mod, "chart-canvas-covid", {
 
@@ -271,7 +271,7 @@
 					   }
 					],
 					fontColors : CHART_FONT_COLORS["covid"]
-		});
+		    });
 
 
 
@@ -500,32 +500,32 @@
 			    //***********************************************************************
 
 
-				function compare_numbers(a,b){ return(b[field.fld_name] - a[field.fld_name] ) }
+			function compare_numbers(a,b){ return(b[field.fld_name] - a[field.fld_name] ) }
 				
 
-				function update_tick_transform(field){
-					/* return a transform function if relevant to 
-					scale ticks value and change scale title */
-					var title 
-					var cbFunc
+			function update_tick_transform(field){
+				/* return a transform function if relevant to 
+				scale ticks value and change scale title */
+				var title 
+				var cbFunc
 
-					if (!field.transform) {
-						title = field.short_name
-						scaleFactor = 1
-					} else {
-						title = field.transform.YLabelCustom
-						scaleFactor = field.transform.scaleFactor
-					}
-
-					cbFunc = function(value, index, values){
-			    				return UTIL.format_number(value/scaleFactor, false)
-			    			}
-
-			        return {
-			        	callback : cbFunc ,
-			        	title : title
-			        }
+				if (!field.transform) {
+					title = field.short_name
+					scaleFactor = 1
+				} else {
+					title = field.transform.YLabelCustom
+					scaleFactor = field.transform.scaleFactor
 				}
+
+				cbFunc = function(value, index, values){
+		    				return UTIL.format_number(value/scaleFactor, false)
+		    			}
+
+		        return {
+		        	callback : cbFunc ,
+		        	title : title
+		        }
+			}
 		}	
 
 	</script>

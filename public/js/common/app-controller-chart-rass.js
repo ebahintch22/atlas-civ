@@ -547,11 +547,7 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 			}
 
 
-
-
-			    //***********************************************************************
-
-
+			//***********************************************************************
 			function compare_numbers(a,b){ return(b[field.fld_name] - a[field.fld_name] )}
 				
 

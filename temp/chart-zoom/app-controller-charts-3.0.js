@@ -317,11 +317,22 @@ function create_Chart_ex( data_struct , elt_id, Cfg, verbose = false ){
 				var axe_def = {};
 				var def_callback = function(value, index, values){ return(value)}
 				
-				Object.keys(data).forEach(function(key) {
+				if (Cfg.multicharts == true ) {
+					Object.keys(data).forEach(function(key) {
 
-	  				var axe = data[key];
+		  				var axe = data[key];
+		  				axe_def[key] = set_axe_def(axe)
 
-	  				axe_def[ key ] = {
+					})
+				} else {
+
+					axe_def = set_axe_def(data)
+				}
+
+				return axe_def
+
+				function set_axe_def( axe ){
+					return  {
 		        		id: key,
 		        		offset: axe.offset,
 		        		display: axe.display,
@@ -341,8 +352,7 @@ function create_Chart_ex( data_struct , elt_id, Cfg, verbose = false ){
 		                	  fontColor : Cfg.fontColors.scaleLabel
 		                }
 					}
-				})
-				return axe_def
+				}
 			}
 
 
