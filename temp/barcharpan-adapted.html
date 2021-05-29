@@ -3,12 +3,13 @@
 
 <head>
 	<title>Bar Chart Pan</title>
-
+	<meta charset="utf-8">
 	<script src="./chart-zoom/chart.js"></script>
 	<script src="./chart-zoom/hammerjs@2.0.8.js"></script>
 	<script src="./chart-zoom/chartjs-plugin-zoom@next.js"></script>
 
 
+	<script src="./chart-zoom/chart_config.js" type="text/javascript"></script>
 	<script src="./chart-zoom/chart-data.js" type="text/javascript"></script>
 
 	<style>
@@ -22,6 +23,12 @@
 	<div id="container" style="width: 75%;">
 		<canvas id="canvas"></canvas>
 	</div>
+
+
+	<div id="container-2" style="width: 75%;">
+		<canvas id="canvas-2"></canvas>
+	</div>
+
 
 	<a href="./line-chart.html"> Line-chart </a><br>
 	<a href="./barcharpan-adapted.html"> barCharPan-adapted </a><br>
@@ -44,6 +51,8 @@
 		};
 
 		window.onload = function() {
+			
+
 			var ctx = document.getElementById('canvas').getContext('2d');
 			window.myBar = new window.Chart(ctx, {
 				type: 'bar',
@@ -91,7 +100,18 @@
 					}
 				}
 			});
+
+
+
+
+			var ctx2 = document.getElementById('canvas-2').getContext('2d');
+			window.myBar2 = new window.Chart(ctx2, chart_config );
+
 		};
+
+
+
+
 	</script>
 
 </body>

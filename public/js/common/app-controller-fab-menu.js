@@ -41,33 +41,4 @@ function create_FABMenu_controller(elt_id , options){
 	}
 }
 
-	/*	var options = {
-			"id" : "menu-share"
-			"main_fab" : {
-					"fa_icon"    : "fa-plus",
-					"radius"     : "40px",
-				},
-
-			"menu_items" : [
-				{
-					"fa_icon"    : "fa-info-circle",
-					"radius"     : "40px",
-					"menu_label" : "A propos d'Atlas Côte d'Ivoire.."
-				},
-				{
-					"fa_icon"    : "fa-pencil",
-					"radius"     : "40px",
-					"menu_label" : "Editer les données.."
-				},			
-				{
-					"fa_icon"    : "fa-database",
-					"radius"     : "40px",
-					"menu_label" : "A propos d'Atlas Côte d'Ivoire.."
-				},
-				{
-					"fa_icon"    : "fa-twitter",
-					"radius"     : "40px",
-					"menu_label" : "A propos d'Atlas Côte d'Ivoire.."
-				}
-			]
-		};*/
+	

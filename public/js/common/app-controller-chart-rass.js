@@ -101,7 +101,10 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 
 	return {
 		updateChart : function ( ){
+			//myChart.resetZoom();
 			myChart.update();
+			myChart.resetZoom();
+
 		},
 		explain : function(){
 			return myChart
@@ -432,8 +435,8 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 
 							 
 							transform = update_tick_transform(field)
-							myChart.options.scales.y["Y1"].scaleLabel.labelString = transform.title 
-		        			myChart.options.scales.y["Y1"].ticks.callback = transform.callback
+							myChart.options.scales.y.scaleLabel.labelString = transform.title 
+		        			myChart.options.scales.y.ticks.callback = transform.callback
 
 							myChart.options.scales.x.ticks.min = new_struct.min;
 							myChart.options.scales.x.ticks.max = new_struct.max;
@@ -449,8 +452,8 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 							new_struct = update_data_structure(newdata, inLimit)	
 
 							transform = update_tick_transform(field)
-							myChart.options.scales.y["Y1"].scaleLabel.labelString = transform.title 
-		        			myChart.options.scales.y["Y1"].ticks.callback = transform.callback
+							myChart.options.scales.y.scaleLabel.labelString = transform.title 
+		        			myChart.options.scales.y.ticks.callback = transform.callback
 
 							myChart.data.datasets[0].data = new_struct.data;
 							myChart.data.datasets[0].label = field.long_name;
@@ -469,8 +472,8 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 							new_struct = update_data_structure(newdata, inLimit)	
 
 							transform = update_tick_transform(field)
-							myChart.options.scales.y["Y1"].scaleLabel.labelString = transform.title 
-		        			myChart.options.scales.y["Y1"].ticks.callback = transform.callback
+							myChart.options.scales.y.scaleLabel.labelString = transform.title 
+		        			myChart.options.scales.y.ticks.callback = transform.callback
 
 							myChart.data.datasets[0].data = new_struct.data;
 							myChart.data.datasets[0].label = field.long_name;

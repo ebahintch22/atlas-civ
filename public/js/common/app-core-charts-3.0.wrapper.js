@@ -138,7 +138,7 @@ function create_Chart_for_atlas( data_struct , elt_id, Cfg, verbose = false ){
 
 					label: chart.label,
 					type : chart.type ,
-					yAxisID : chart.yAxisID,
+					//yAxisID : chart.yAxisID,
 					backgroundColor : get_color(chart.backgroundColor, 0.85),
 					borderColor : get_color( chart.borderColor, 0.99),
 					borderWidth : ( chart.type == "bar")? 1 : (chart.borderWidth? chart.borderWidth : 1),
@@ -210,6 +210,10 @@ function create_Chart_for_atlas( data_struct , elt_id, Cfg, verbose = false ){
 	}
 
 	var ctx = document.getElementById(elt_id);
+
+	opera_console.clearlog();
+	opera_console.addLog( JSON.stringify(chart_configurator) , "");
+
 	var myChart = new Chart(ctx, chart_configurator)
 	return myChart
 
@@ -262,13 +266,12 @@ function create_Chart_for_atlas( data_struct , elt_id, Cfg, verbose = false ){
 	                	autoSkipPadding: 0,
 	                	maxRotation: 65,
 	                	minRotation: 60, 
-	                	fontColor: Cfg.fontColors.axis,
-	                	fontSize: 12,
-						fontFamily: "Univers Condensed,arial"
-						/*callback: function(value, index, values){
-							console.log(values)
-							return(truncateString(value, 15))
-						}*/
+
+	                	font : {
+		 					color: Cfg.fontColors.axis,
+		 					size: 9,
+		 					family: "Univers Condensed"
+ 						}
 	                },
 	                offset: true
 	            }
@@ -313,15 +316,24 @@ function create_Chart_for_atlas( data_struct , elt_id, Cfg, verbose = false ){
 
 
 			function generate_yAxes_section( data ){
+				/*
+					la syntaxe de specification des axe des Y est différentes selon
+					qu'on a un ou plusieurs axes c'est la raison d'être des variables
+					axe_def_key
+					si un seul axe alors on renvoie directement sa définition
+					sinon on retourne une map des definition avec les id d'axe comme clés (key)
+				*/
 
 				var axe_def = {};
 				var def_callback = function(value, index, values){ return(value)}
-				
-				Object.keys(data).forEach(function(key) {
+				var axe_count = 0;
+				var axe_def_key = null;
 
+				Object.keys(data).forEach(function(key) {
+					axe_count++;
 	  				var axe = data[key];
 
-	  				axe_def[ key ] = {
+	  				axe_def_key = {
 		        		id: key,
 		        		offset: axe.offset,
 		        		display: axe.display,
@@ -340,9 +352,20 @@ function create_Chart_for_atlas( data_struct , elt_id, Cfg, verbose = false ){
 		                	labelString : axe.transform ? axe.transform.title : axe.labelString ,
 		                	  fontColor : Cfg.fontColors.scaleLabel
 		                }
-					}
-				})
-				return axe_def
+					};
+
+	  				axe_def[ key ] = axe_def_key ;
+				});
+
+				if ( axe_count == 1 ) 
+				{
+					return  axe_def_key
+				}
+				 else 
+				{
+					return axe_def
+				}
+				
 			}
 
 

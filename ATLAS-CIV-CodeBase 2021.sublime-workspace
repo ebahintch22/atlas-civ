@@ -4,6 +4,14 @@
 		"selected_items":
 		[
 			[
+				"axe",
+				"axe_def"
+			],
+			[
+				"covi",
+				"covid_xp_data"
+			],
+			[
 				"command",
 				"commandkey"
 			],
@@ -32,55 +40,10 @@
 	"buffers":
 	[
 		{
-			"file": "public/js/common/app-controller-drawer-menu.css",
+			"file": "temp/xprience.html",
 			"settings":
 			{
-				"buffer_size": 2227,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "starter/sante/index-admin-mode.html",
-			"settings":
-			{
-				"buffer_size": 12272,
-				"encoding": "UTF-8 with BOM",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/html_template/common/upcoming_feature_edit.html",
-			"settings":
-			{
-				"buffer_size": 1980,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/js/specific/sante/settings.js",
-			"settings":
-			{
-				"buffer_size": 3553,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/js/app-client-routing.js",
-			"settings":
-			{
-				"buffer_size": 1649,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/js/common/app-controller-fab-menu-vh.css",
-			"settings":
-			{
-				"buffer_size": 3060,
+				"buffer_size": 13551,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -89,37 +52,17 @@
 			"file": "public/js/app-main.js",
 			"settings":
 			{
-				"buffer_size": 34953,
+				"buffer_size": 35729,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "public/js/common/app-controller-drawer-menu.js",
+			"file": "starter/sante/index-admin-mode.html",
 			"settings":
 			{
-				"buffer_size": 2890,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "public/js/utility.js",
-			"settings":
-			{
-				"buffer_size": 15930,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"contents": "\ninit_helper_functions()\n\nfunction get_chart_container( canvas_id, width, height, x_width, x_height, addSpinner=false ){\n/*\n\t14/08/20 : added spinner curtain template\n*/\n\tvar spinner_subTemplate = `\t\t\t\n\t\t\t<div id=\"${canvas_id}-spinner\" class=\"opera-loading\"   \n\t\t\t\t\tstyle=\"position: absolute; padding-top:10%; top:0px; left:0px ; width:100%; height: 100%; background-color: #fff;opacity:0.65;\" >\n\t\t\t\t<div class=\"text-center\">\n\t\t\t\t  <div class=\"spinner-border\" role=\"status\">\n\t\t\t\t    <span class=\"sr-only\"> Loading... </span>\n\t\t\t\t  </div>\n\t\t\t\t</div>\n\t\t\t</div>`;\n\n\tvar template = \t`\n\n\t\t<div class=\"chart-container\" style=\"position: relative; width: ${x_width} ; height: ${x_height}; \">\n\t\t\t<canvas id=\"${canvas_id}\" width=\"${width}\" height=\"${height}\"> \t</canvas>\n\t\t\t${ addSpinner ? spinner_subTemplate : \"\"}\n\t\t</div>`\n\treturn template ;\n}\n\n\nfunction get_chart_container_augmented( canvas_id, width, height, x_width, x_height, addSpinner=false ){\n/*\n\t::: 14/08/20 : added spinner curtain template\n*/\n\tvar spinner_subTemplate = `\t\n\n\t\t\t<div id=\"${canvas_id}-spinner\" class=\"opera-loading\"   \n\t\t\t\t\tstyle=\"position: absolute; padding-top:10%; top:0px; left:0px ; \n\t\t\t\t\twidth:100%; height: 100%; background-color: #fff;opacity:0.65;\" >\n\t\t\t\t<div class=\"text-center\">\n\t\t\t\t  <div class=\"spinner-border\" role=\"status\">\n\t\t\t\t    <span class=\"sr-only\">Loading...</span>\n\t\t\t\t  </div>\n\t\t\t\t</div>\n\t\t\t</div>\n\t\t`;\n\n\tvar template = \t`\n\n\t\t<div class=\"chart-container-wrapper\" >\n\t\t\t\n \n\n\t\t\t\n\t\t\t<div class=\"chart-container\" style=\"position: relative; width: ${x_width} ; height: ${x_height}; top:1px; background-color: #aaa; \">\n\t\t\t\t\n\t\t\t\t<div class=\"graph-slider-container\" ></div> \n\t\t\t\t<div id=\"${canvas_id}-ruler\" class=\"graph-slider\" ></div>\n\t\t\t\t\n\t\t\t\t<canvas id=\"${canvas_id}\" width=\"${width}\" height=\"${height}\"> \t</canvas>\n\t\t\t\t${ addSpinner ? spinner_subTemplate : \"\"}\n\t\t\t</div>\n\t\t</div>`\n\treturn template ;\n}\n\nfunction include_badge_container(data_arr){\n\t/*Insert additionnal container in the header to hold carousel content. The format is as follow :\n\t\t<div class=\"col-lg-3 no-padding\" id=\"card-1\"></div>\n\t\t<div class=\"col-lg-5 no-padding\" id=\"card-2\"></div>\n\t*/\n\tvar html_code = create_badge_containers(data_arr) ;\n\t$(\"#atlas-app-header-bar\").append( html_code );\n\n\tfunction create_badge_containers( data_arr ){\n\t\treturn (data_arr.reduce(function( accu , data ){\n\t\t\treturn ( accu + ` <div class=\"col-lg-${data.width} no-padding\" id=\"${data.elt_id}\"></div> `)\n\t\t\t\t}, \"\")\n\t\t)\n\t}\n}\n\n\n\n\nfunction init_helper_functions(){\n\n\tinclude_button_input = function(eltID , btnCaption , placeHolder, callBackFuncname){\n\t\treturn(\n\t\t\t`\n\t\t\t<nav class=\"navbar navbar-light bg-light\">\n\t\t\t  <form id=\"${eltID}\" class=\"form-inline\" onSubmit=\"${callBackFuncname}(this , '${eltID}')\">\n\t\t\t    \t<input class=\"form-control mr-sm-2\" type=\"search\" placeholder=\"${placeHolder}\" aria-label=\"Search\">\n\t\t\t    \t<button class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\">${btnCaption}</button>\n\t\t\t  </form>\n\t\t\t</nav>\n\t\t\t`\n\t\t)\n\t};\n\n\tinclude_button = function(eltID , btnCaption, callBackFuncname ){\n\t\treturn(\n\t\t\t`\n\t\t\t<nav class=\"navbar navbar-light bg-light\">\n\t\t\t  <form id=\"${eltID}\" class=\"form-inline\" onSubmit=\"${callBackFuncname}(this , '${eltID}')\">\n\t\t\t    \t<button class=\"btn btn-outline-success my-2 my-sm-0\" type=\"submit\">${btnCaption}</button>\n\t\t\t  </form>\n\t\t\t</nav>\n\t\t\t`\n\t\t)\n\t};\n\n\tinclude_button_group = function( button_arr  ){\n\t\t\n\t\t\tvar TMPLT = `\n\t\t\t\t<div id=\"{{group_id}}\" class=\"btn-toolbar\" role=\"toolbar\" aria-label=\"Toolbar with button groups\"  \n\t\t\t\t    style=\"padding: 5px 20px;\">\n\t\t\t\t \t<div class=\"btn-group btn-group-sm mr-2\" role=\"group\" aria-label=\"First group\">\n\t\t\t\t \t{{#button_list}}\n\t\t\t\t\t    <button  id=\"{{id}}\" type=\"button\" class=\"btn btn-secondary\"  onClick=\"{{callBack}}(this, '{{id}}')\"> {{{caption}}} </button>\n\t\t\t\t\t {{/button_list}}\n\t\t\t\t \t</div>\n\t\t\t\t</div>\n\t\t\t`\n\t\t\t  return ( Mustache.render(TMPLT , button_arr ))\n\t\t\n\t};\n\n\n\n\tupcoming_function = function (dataset){\n\t\tvar html = Mustache.render( \n\t\t\t`<center>\n\t\t       <span style=\"position:relative; top: 150px; font-size: 20px; color:#999\">  \n\t\t          <i class=\"fa {{fa_icon}} fa-5x\"  style= \"color:#ccc\" ></i>\n\t\t          <h3> {{messageTitle}}</h3>\n\t\t          <h4> {{{messageContent}}}</h4>\n\t\t      </span>         \n\t    \t</center> `, \n\t    \tdataset)\n\t\t\n\t    return html\t\n\t };\n\n\t include_supervision_table = function(){\n\n\t \treturn( `\n\t\t\t<div  style=\"padding: 10px 20px 0px 20px; position: relative; height:80vh; width:90%;background-color: #ddd\"> \n\t\t\t\t<!--div style=\"position: absolute; top:0px;height:10vh; width:90%;background-color: #eee;\">\n\t\t\t\t</div-->\n\n\t\t\t\t<div style=\"position:relative; height:35vh; width:90%;margin-top:2vh;overflow:scroll; \">\n\t\t\t\t\t<table class=\"table table-sm\">\n\t\t\t\t\t\t<thead>\n\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t      <th scope=\"col\"> UUID  </th> \n\t\t\t\t\t\t      <th scope=\"col\"> Démarré à </th> \n\t\t\t\t\t\t      <th scope=\"col\"> Dernière notif   </th> \n\t\t\t\t\t\t      <th scope=\"col\"> Requête </th>\n\t\t\t\t\t\t      <th scope=\"col\"> Réponse </th>\n\t\t\t\t\t\t      <th scope=\"col\"> observation </th>\n\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t</thead>\n\t\t\t\t\t\t<tbody>\n\t\t\t\t\t\t\t{{#users}}\n\t\t\t\t\t\t\t    <tr>\n\t\t\t\t\t\t\t      \t<th>  {{uuid}}   </th> \n\t\t\t\t\t\t\t      \t<td>  {{start_at}} </td>  \n\t\t\t\t\t\t\t      \t<td>  {{when}} </td>  \n\t\t\t\t\t\t\t      \t<td>  {{req}} </td>  \n\t\t\t\t\t\t\t      \t<td>  {{res}} </td>\n\t\t\t\t\t\t\t      \t<td>  {{comments}} </td>\n\t\t\t\t\t\t\t    </tr>\n\t\t\t\t\t\t\t{{/users}}   \n\t\t\t\t\t\t  </tbody>\n\t\t\t\t\t</table>\n\t\t\t\t</div>\n\t\t\t</div>`)\n\t }\n\n\n\t // Template to generate the monography //VIEW\n\n     get_table_container  = function(){\n\n      \treturn  `\n      \t<div id=\"table-view-container\" style= \"position: relative; height:80vh;\"> \n            <div id=\"tableview-wrapper\" class=\"enveloppe\">\n                <table class=\"table table-bordered display compact\" id=\"data_table_id\" width=\"100%\" cellspacing=\"0\" \n                        style=\" white-space: nowrap ;background-color: #ccc;color:#444; width:100%;font-size: 8pt; \n                        font-family:Verdana\">\n                    <thead> </thead>\n                    <tfoot> </tfoot>\n                </table>\n                <br>\n            </div>\n\t\t </div>  ` \n    }\n\n    get_color_ramp_html = function( color_arr ){\n    \t\n    \tvar TMPLT =  `\n    \t\t<div  style= \"margin: 20px 0px 0px 40px;position:relative; width:400px; height:300px; overflow-y: scroll;font-size: 10px;\">\n    \t\t\t{{#colors}}\n    \t\t\t\t<div style=\"display: inline-block; position:relative; border: 1px solid #000 ;margin:5px; width:100px; height:40px; background-color:{{value}};\" > {{key}} </div>\n    \t\t\t{{/colors}}\n    \t\t</div> \t`\n\t\t\n\t\treturn ( Mustache.render( TMPLT , color_arr ))\n\n    }\n\n\t fa_icon = function(ico_name){\n\t \treturn ( ` <i class=\"fa fa-${ico_name}\" aria-hidden=\"true\"></i> `)\n\t }\n\t \n\t ui_spinner_create = function ( EltID) {\n\t\t\tvar _spinner = Spinners.create('.covid-chart-spinner', {\n\t\t\t\t  radius: 22,\n\t\t\t\t  dashes: 30,\n\t\t\t\t  width: 2.5,\n\t\t\t\t  height: 10,\n\t\t\t\t  opacity: 1,\n\t\t\t\t  padding: 3,\n\t\t\t\t  rotation: 600,\n\t\t\t\t  color: '#aaaaaa'\n\t\t\t}).play();\n\n\t\t\t_spinner.center();\n\t\t\treturn(_spinner)\n\t}\n\n\n\n\n/*\n\n\t canvas_spinner = function( canvasID ){\n\n\t\tvar canvas = document.getElementById( canvasID ),\n\t\t    dw = canvas.width , dh = canvas.height ,\n\t\t    ctx = canvas.getContext('2d'),  opacity;\n\n\t\tctx.fillRect(0, 0, canvas.width, canvas.height);\n\n\t\tctx.translate(dh/2, dh/2);\n\t\tctx.rotate(Math.PI * 360/360);\n\t\tctx.lineWidth = Math.ceil(dh / 50);\n\t\tctx.lineCap = 'square';\n\n\t\tfor (var i=0; i<=360; i++) {\n\t\t    ctx.save();\n\t\t    \n\t\t    ctx.rotate((Math.PI * i/180));\n\t\t    \n\t\t    ctx.beginPath();\n\t\t    ctx.moveTo(0, 0);\n\t\t    opacity = (360 - (i * 0.95)) / 360;\n\t\t    ctx.strokeStyle = 'rgba(255,255,255,' + opacity.toFixed(2) +')'; \n\t\t    ctx.lineTo(0, dh + 30);\n\t\t    ctx.stroke();\n\t\t    ctx.closePath();\n\t\t    \n\t\t    ctx.restore();\n\t\t}\n\n\t\tctx.globalCompositeOperation ='source-out';\n\t\tctx.beginPath();\n\t\tctx.arc(0, 0, dh/2, 2 * Math.PI, false);\n\t\tctx.fillStyle = 'white';\n\t\tctx.fill();\n\n\t\tctx.globalCompositeOperation ='destination-out';\n\t\tctx.beginPath();\n\t\tctx.arc(0, 0, (dh/2) * .9, 2 * Math.PI, false); \n\t\tctx.fill();\n\t}*/\n}",
-			"file": "public/js/common/app-views-helper.js",
-			"file_size": 8343,
-			"file_write_time": 132627739879941814,
-			"settings":
-			{
-				"buffer_size": 8069,
+				"buffer_size": 13089,
+				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
 		}
@@ -161,46 +104,53 @@
 	"expanded_folders":
 	[
 		"/D/herokuapps/atlas_civ",
-		"/D/herokuapps/atlas_civ/public",
-		"/D/herokuapps/atlas_civ/public/html_template",
-		"/D/herokuapps/atlas_civ/public/html_template/common",
-		"/D/herokuapps/atlas_civ/public/html_template/specific",
-		"/D/herokuapps/atlas_civ/public/html_template/specific/economie",
-		"/D/herokuapps/atlas_civ/public/html_template/specific/sante",
-		"/D/herokuapps/atlas_civ/public/js",
-		"/D/herokuapps/atlas_civ/public/js/common",
-		"/D/herokuapps/atlas_civ/public/js/opera",
-		"/D/herokuapps/atlas_civ/public/js/specific",
-		"/D/herokuapps/atlas_civ/public/js/specific/sante",
-		"/D/herokuapps/atlas_civ/starter",
-		"/D/herokuapps/atlas_civ/starter/sante"
+		"/D/herokuapps/atlas_civ/config",
+		"/D/herokuapps/atlas_civ/config/remote-db-free",
+		"/D/herokuapps/atlas_civ/temp"
 	],
 	"file_history":
 	[
-		"/D/herokuapps/atlas_civ/public/js/common/app-controller-fab-menu-vh.css",
+		"/D/herokuapps/atlas_civ/temp/chart-zoom/app-controller-charts-3.0.js",
+		"/D/herokuapps/atlas_civ/public/js/common/app-controller-chart-rass.js",
+		"/D/herokuapps/atlas_civ/public/js/common/app-core-charts-3.0.wrapper.js",
+		"/D/herokuapps/atlas_civ/public/js/specific/covid/app-chart-covid.js",
+		"/D/herokuapps/atlas_civ/public/js/common/app-controller-charts-3.0.js",
 		"/D/herokuapps/atlas_civ/public/js/common/app-chart-rass.js",
-		"/D/herokuapps/atlas_civ/public/js/common/app-controller-drawer-menu-vh.css",
-		"/D/herokuapps/atlas_civ/public/js/app-client-routing.js",
-		"/D/herokuapps/atlas_civ/starter/sante/index-admin-mode.html",
-		"/D/herokuapps/atlas_civ/public/js/app-main.js",
+		"/D/herokuapps/atlas_civ/temp/chart-zoom/chart-data-3.js",
+		"/D/herokuapps/atlas_civ/public/vendors/chartjs/js/plug-ins/chartjs-adapter-moment@0.1.2.js",
 		"/D/herokuapps/atlas_civ/public/js/app-views.js",
-		"/D/herokuapps/atlas_civ/public/js/common/app-views-helper.js",
-		"/D/herokuapps/atlas_civ/public/js/manifest/app-manifest-data.js",
 		"/D/herokuapps/atlas_civ/public/js/app-global-var.js",
-		"/D/herokuapps/atlas_civ/public/js/common/app-controller-drawer-menu.js",
+		"/D/herokuapps/atlas_civ/public/js/app-main.js",
+		"/D/herokuapps/atlas_civ/public/js/common/app-controller-charts.js",
+		"/D/herokuapps/atlas_civ/temp/zoom.html",
+		"/D/herokuapps/atlas_civ/temp/line-chart.html",
+		"/D/herokuapps/atlas_civ/temp/barcharpan-adapted.html",
 		"/D/herokuapps/atlas_civ/public/js/common/app-controller-dropdown.js",
+		"/D/herokuapps/atlas_civ/public/js/specific/covid/app-caroussel.js",
+		"/D/herokuapps/atlas_civ/public/js/chart-utility.js",
+		"/D/herokuapps/atlas_civ/starter/sante/index-admin-mode.html",
+		"/D/herokuapps/atlas_civ/temp/chart-zoom/chart-data-2.js",
+		"/D/herokuapps/atlas_civ/temp/chart-zoom/app-controller-charts.js",
+		"/D/herokuapps/atlas_civ/public/js/common/app-controller-drawer-menu.js",
+		"/D/herokuapps/atlas_civ/public/js/utility.js",
+		"/D/herokuapps/atlas_civ/public/js/common/app-controller-charts-utility.js",
+		"/D/herokuapps/atlas_civ/public/js/common/app-controller-fab-menu-vh.css",
+		"/D/herokuapps/atlas_civ/public/js/app-client-routing.js",
+		"/D/herokuapps/atlas_civ/public/js/specific/sante/settings.js",
+		"/D/herokuapps/atlas_civ/public/js/zhn/app-chart-rass.js",
+		"/D/herokuapps/atlas_civ/temp/chart-zoom/chart-data.js",
+		"/D/herokuapps/atlas_civ/public/js/common/app-views-helper.js",
+		"/D/herokuapps/atlas_civ/public/js/common/app-controller-drawer-menu.css",
+		"/D/herokuapps/atlas_civ/temp/barcharpan-origin.html",
+		"/D/herokuapps/atlas_civ/public/js/common/app-controller-drawer-menu-vh.css",
+		"/D/herokuapps/atlas_civ/public/js/manifest/app-manifest-data.js",
 		"/D/herokuapps/atlas_civ/public/js/common/app-controller-alertify.js",
 		"/D/herokuapps/atlas_civ/public/html_template/common/upcoming_feature_edit.html",
 		"/D/herokuapps/atlas_civ/public/html_template/common/upcoming_feature_print.html",
-		"/D/herokuapps/atlas_civ/public/js/common/app-controller-drawer-menu.css",
 		"/D/herokuapps/atlas_civ/public/html_template/common/about_atlas_civ.tmplt",
 		"/D/herokuapps/atlas_civ/public/js/common/app-controller-fab-menu.css",
 		"/D/herokuapps/atlas_civ/do-deploy.bat",
-		"/D/herokuapps/atlas_civ/public/js/specific/sante/settings.js",
-		"/D/herokuapps/atlas_civ/public/js/zhn/app-chart-rass.js",
 		"/D/herokuapps/atlas_civ/public/js/common/app-controller-fab-menu.js",
-		"/D/herokuapps/atlas_civ/public/js/common/app-controller-charts.js",
-		"/D/herokuapps/atlas_civ/public/js/utility.js",
 		"/D/herokuapps/atlas_civ/public/js/app-chart-rass.js",
 		"/D/herokuapps/atlas_civ/public/js/app-controller-drawer-menu.css",
 		"/D/herokuapps/atlas_civ/public/deploy/js-app-fusion-es6.js",
@@ -283,7 +233,7 @@
 	],
 	"find":
 	{
-		"height": 23.0
+		"height": 22.0
 	},
 	"find_in_files":
 	{
@@ -297,6 +247,15 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"time_pattern",
+			"dateFormat",
+			"graphi",
+			"alert",
+			"\n\t\t",
+			"update_tick_transform",
+			"compare_numbers",
+			"--",
+			"!--",
 			"font",
 			"px",
 			"300px",
@@ -338,6 +297,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			" ",
+			"",
 			"39.1vh",
 			"49.5vh",
 			"4.6vh",
@@ -372,82 +333,24 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "public/js/common/app-controller-drawer-menu.css",
+					"file": "temp/xprience.html",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 2227,
+						"buffer_size": 13551,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								637,
-								637
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 462.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "starter/sante/index-admin-mode.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12272,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								6272,
-								6272
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1138.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "public/html_template/common/upcoming_feature_edit.html",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 1980,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1121,
-								1153
+								98,
+								98
 							]
 						],
 						"settings":
@@ -459,93 +362,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "public/js/specific/sante/settings.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3553,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2031,
-								2031
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Simple JSX/JSX.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1260.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "public/js/app-client-routing.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1649,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1375,
-								1375
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 252.0,
-						"zoom_level": 1.0
-					},
 					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "public/js/common/app-controller-fab-menu-vh.css",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3060,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								451,
-								451
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/CSS/CSS.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1715.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -555,109 +372,20 @@
 			"sheets":
 			[
 				{
-					"buffer": 6,
+					"buffer": 1,
 					"file": "public/js/app-main.js",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 34953,
+						"buffer_size": 35729,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2815,
-								2815
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Simple JSX/JSX.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 924.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "public/js/common/app-controller-drawer-menu.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2890,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								581,
-								581
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 294.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "public/js/utility.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 15930,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5494,
-								5494
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1775.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "public/js/common/app-views-helper.js",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 8069,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1723,
-								1723
+								28602,
+								28602
 							]
 						],
 						"settings":
@@ -666,10 +394,39 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 348.0,
+						"translation.y": 13070.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "starter/sante/index-admin-mode.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13089,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1428,
+								1428
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 281.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
 					"type": "text"
 				}
 			]
@@ -677,7 +434,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 22.0
 	},
 	"input":
 	{
@@ -703,7 +460,7 @@
 		"cols":
 		[
 			0.0,
-			0.837522119851,
+			0.462532281361,
 			1.0
 		],
 		"rows":
@@ -721,7 +478,7 @@
 	"project": "ATLAS-CIV-CodeBase 2021.sublime-project",
 	"replace":
 	{
-		"height": 42.0
+		"height": 40.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -751,7 +508,7 @@
 		],
 		"width": 0.0
 	},
-	"selected_group": 0,
+	"selected_group": 1,
 	"settings":
 	{
 	},
@@ -759,7 +516,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 251.0,
+	"side_bar_width": 375.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

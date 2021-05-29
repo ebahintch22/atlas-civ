@@ -34,14 +34,14 @@ function detect_client(){
     }
 
     // "./data/covid-data.json"
-    var opera_console = (opera_console) || (function(){
+    var ___opera_console = (opera_console) || (function(){
         var _Number = new Intl.NumberFormat();
         var _date = new _create_dateFormatter()
 
         return {
-           _log : function(message){},
+           _log : function( message){},
 
-            addLog : function(message , result= "" ){},
+            addLog : function( message , result= "" ){},
             updateStats : function(){},
             clearlog : function(){},
             explain : function(){

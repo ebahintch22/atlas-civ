@@ -27,6 +27,7 @@ function app_start_up(){
 		})
 	} 
 
+	//Création des elements d'interface
 	create_navTabController_RASS();
 	create_navTabController_ADMIN();
 	load_standard_caroussel("#card-2")

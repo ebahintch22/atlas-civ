@@ -2,7 +2,7 @@
 
 var metaDataBase = {
 
-	data_base_name : "Atlas Thématique - Côte d'Ivoire  - RASS 2017 version 1.0.5",
+	data_base_name : "Atlas Santé - Côte d'Ivoire  - RASS 2017 version 1.0.5",
 	version : "2.0",
 	date : "03/01/2021",
 	default_theme : "covid-19-june16",
@@ -131,6 +131,7 @@ var metaDataBase = {
 		"incidence_coqueluche",
 		"deces_notifie_et_causes"
 	],
+	
 	tables_promoted : [
 		"covid-19-june16",
 		"geographic_accessibility",

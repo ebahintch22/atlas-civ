@@ -64,39 +64,3 @@ function create_drawerMenu_controller(elt_id , options){
     }
   }
 }
-
-/*  var options = {
-    "id" : "tag-menu"
-    "toggler" : {
-        "fa_icon"    : "fa-bars",
-        "radius"     : "40px",
-      },
-
-    "menu_items" : [
-      {
-        "fa_icon"    : "fa-facebook",
-        "radius"     : "40px",
-        "menu_label" : "Facebook"
-      },
-      {
-        "fa_icon"    : "fa-google-plus",
-        "radius"     : "40px",
-        "menu_label" : "Google plus"
-      },      
-      {
-        "fa_icon"    : "fa-twitter",
-        "radius"     : "40px",
-        "menu_label" : "Twitter"
-      },
-      {
-        "fa_icon"    : "fa-linkedin",
-        "radius"     : "40px",
-        "menu_label" : "LinkedIn"
-      },
-      {
-        "fa_icon"    : "fa-pinterest",
-        "radius"     : "40px",
-        "menu_label" : "Pinterest"
-      }
-    ]
-  };*/

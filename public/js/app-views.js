@@ -1,9 +1,6 @@
 var include_button_input , upcoming_function // helper function variables
 
 
-
-
-
 var fake_table = `<div id="opera-rass-table" style= "position: relative; height:80vh;"> 
   	 ${ upcoming_function({
   	 	  fa_icon :        "fa-table",
@@ -41,7 +38,7 @@ var opera_console_tmpl = `
 			]
 		  })
 		}
-  		 <div id="opera-sys-message" style= "padding: 10px; margin : 0px 20px ;position: relative; height:50vh; background-color:#151414;color:#ddd; font-size:0.8em; overflow: scroll;">  
+  		 <div id="opera-sys-message" style= "padding: 10px; margin : 0px 20px ;position: relative; height:70vh; background-color:#151414;color:#ddd; font-size:0.8em; overflow: scroll;">  
   		  	<p> Informations systèmes: </p> 
   		</div>
 
@@ -171,6 +168,14 @@ function create_navTabController_RASS(){
 					visible : false
 				},
 				{ 
+					id: "tab-g", 
+					name: "sys_audit" , 
+					label : "Audit", 
+					html_content : get_opera_console_template_TODO() ,
+					enabled : true,
+					visible : IS_ADMIN_SESSION
+				},
+				{ 
 					id: "tab-c", 
 					name: "monography" , 
 					label : "Monographies", 
@@ -184,7 +189,7 @@ function create_navTabController_RASS(){
 					label : "Qui-sommes nous?", 
 					html_content :  `<div id="caroussel_container"  style="position:relative; height:300px; margin:10px; padding: 10px;">  </div> `, //   get_ourReferences_template_TODO() ,
 					enabled : true,
-					visible : IS_ADMIN_SESSION
+					visible : false
 				},
 				{ 
 					id: "tab-e", 
@@ -193,7 +198,7 @@ function create_navTabController_RASS(){
 					html_content : ` <div id="ADMIN-TAB-WRAPPER" style="background-color: #fff; 
 					                  position:relative; height: 70vh;"> </div>`,
 					enabled : true,
-					visible : IS_ADMIN_SESSION
+					visible : true
 				},
 				{ 
 					id: "tab-f", 
@@ -234,7 +239,9 @@ function create_navTabController_RASS(){
 
 
 function create_navTabController_ADMIN(){
+
 	navAdminController = new ui_render_navtabs(
+
 	"#ADMIN-TAB-WRAPPER", {
 	id : "admin-tabs",
 	default : "admin-tab-02",
@@ -258,14 +265,7 @@ function create_navTabController_ADMIN(){
 				enabled : true,
 				visible : IS_ADMIN_SESSION
 			},
-			{ 
-				id: "admin-tab-03", 
-				name: "sys_audit" , 
-				label : "Audit", 
-				html_content : get_opera_console_template_TODO() ,
-				enabled : true,
-				visible : IS_ADMIN_SESSION
-			},
+
 			{ 
 				id: "admin-tab-04", 
 				name: "sys_config" , 
@@ -277,33 +277,33 @@ function create_navTabController_ADMIN(){
 		]
 	},
 
-	function(info){	
+		function(info){	
 
-		/* ACTION TO TRIGGER WHEN TABS CHANGED*/
-		switch (info.tabname) {
-			case "connected_users" :
+			/* ACTION TO TRIGGER WHEN TABS CHANGED*/
+			switch (info.tabname) {
+				case "connected_users" :
 
-				Ajaxian.post( "./visitors/connected", 
-				    {
-				    	key: "ABSCFDBYHDGGEGGG8587-855455-SGWX"
-				    },
-					function(data){
-						opera_console.connectedUsers.openList(data);
-					},
-					function(xhr, ajaxOptions, thrownError){
-						opera_console.addLog(`Erreur lors du chargement de la table`, "fail");
-					}
-				)
-				 
-			case "sys_config":
-				opera_console.addLog("COLOR OBJECT " + toJSON(color_data));
-			break;
+					Ajaxian.post( "./visitors/connected", 
+					    {
+					    	key: "ABSCFDBYHDGGEGGG8587-855455-SGWX"
+					    },
+						function(data){
+							opera_console.connectedUsers.openList(data);
+						},
+						function(xhr, ajaxOptions, thrownError){
+							opera_console.addLog(`Erreur lors du chargement de la table`, "fail");
+						}
+					)
+					 
+				case "sys_config":
+					//opera_console.addLog("COLOR OBJECT " + toJSON(color_data));
+				break;
+			}
+		},
+
+		function on_navtabs_load(){
+			// Init data load
 		}
-	},
-
-	function on_navtabs_load(){
-		// Init data load
-	}
     )
 }
 
