@@ -3,8 +3,11 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 
 	var template_drop_downn = `
 			 <div class="input-group-prepend">
-			    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown"
-			      aria-haspopup="true" aria-expanded="false" > ${Cfg.prompt} :</button>
+			    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" 
+			     data-tool="tooltips" data-placement="top"
+			      aria-haspopup="true" aria-expanded="false" title="${Cfg.tooltipText}" >
+			      <i class="${Cfg.fa_icon}" aria-hidden="true"></i>
+			       ${Cfg.prompt} </button>
 			    <div class="dropdown-menu" style=" max-height: 300px; overflow-y: auto;" >
 				    {{#option_list}}
 				    	{{{section}}}
@@ -74,6 +77,7 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 		var componentHtml = Mustache.render( template_drop_downn ,  menu_data );
 
 		d3.select(`${_eltID}`).html(componentHtml );
+		$('[data-tool="tooltips"]').tooltip();
 		bind_Selector();
 
 	}

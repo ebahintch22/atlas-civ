@@ -1,17 +1,17 @@
 
     var CHART_FONT_COLORS = {
     	"covid" : {
-    		legend : "#ddd",
-    		  axis : "#ddd",
-    		 title : "#ddd",
-    	scaleLabel : "#ddd"
+    		legend : "#555",
+    		  axis : "#555",
+    		 title : "#555",
+    	scaleLabel : "#555"
 
     	},
       	"rass" : {
-    		legend : "#222",
-    		  axis : "#222",
-    		 title : "#222",
-        scaleLabel : "#222"
+    		legend : "#822",
+    		  axis : "#822",
+    		 title : "#822",
+        scaleLabel : "#822"
     	}	
     }
     
@@ -23,7 +23,7 @@
     	 saveCfg = false 
     	 ){
     	//Chart.defaults.global.defaultFontColor = "#ddd";
-    	Chart.defaults.color = "#ddd";
+    	Chart.defaults.color = "#555";
 
 		var dateFormat = d3.time.format("%d-%m-%Y");
 		var time_pattern = "DD/MM/YYYY";

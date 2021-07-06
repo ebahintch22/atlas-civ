@@ -82,7 +82,9 @@ function app_start_up(){
 
 	metaDataBase.orderby_num("index");
 	theme_controller = ui_render_dropdown_inputgroup("#opera-theme-selector-1", {
-		      "prompt": "Choisir un thème",
+		      "prompt": "",
+		 "tooltipText": "Choisir un thème",
+		      "fa_icon" : "fa fa-database ",
 		    "options" : metaDataBase.table_details.filter(function(d){ return(d.valid)}),
 		        "key" : "name",
 		      "label" : "label",
@@ -116,7 +118,7 @@ function app_start_up(){
 		setTimeout( function(){
 			Activate_thematic_section( _info.key , false)
 		} , 400 )
-		UTIL.go_fullScreen("body");
+		//UTIL.go_fullScreen("body");
 
 
 	})
@@ -187,12 +189,14 @@ function create_or_update_key_selectList( data ){
 	if (keyController == undefined ){
 
 		keyController  = ui_render_dropdown_inputgroup("#opera-variablekey-selector-3", {
-			     "prompt" : "Variable à cartographier",
-		   	    "options" : data,
+			     "prompt" : "",
+			 "tooltipText": "Variable à cartographier",
+		       "fa_icon" : "fa fa-superscript",
+		   	 "options" : data,
 			        "key" : "fld_name",
 			      "label" : "long_name",
-		      "transform" : { key: "fld_name", label : "long_name"	},
-		         "filter" : null
+		     "transform" : { key: "fld_name", label : "long_name"	},
+		        "filter" : null
 		}, 
 		function after_key_selected(_info){
 			after_selectKey_Changed(_info.key )
@@ -238,12 +242,14 @@ function create_or_update_spatialLayer_selectList( data ){
 	if (spatialLayerController == undefined ){
 
 		spatialLayerController  = ui_render_dropdown_inputgroup( "#opera-spatiallayer-selector-2", {
-			     "prompt" : "Niveau spatial",
-		   	    "options" : data,
+			     "prompt" : "",
+		   "tooltipText" : "Niveau spatial",
+		       "fa_icon" : "fa fa-globe",			     
+		       "options" :  data,
 			        "key" : "name",
 			      "label" : "label",
-		      "transform" : { key: "name", label : "label"	},
-		         "filter" : null
+		     "transform" : { key: "name", label : "label"	},
+		        "filter" : null
 		}, 
 		function after_key_selected(_info){
 			after_selectLayer_Changed( _info.key )

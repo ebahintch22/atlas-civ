@@ -182,8 +182,8 @@ function create_navTabController_RASS(){
 					name: "dev_testing" , 
 					label : "Developpement", 
 					html_content : get_chart_container_augmented( "@chart-canvas-rass-test" , 600, 250 ,'96%', '35vh'),
-					enabled : true,
-					visible : true
+					enabled : false,
+					visible : false
 				}
 			]
 	    },

@@ -56,7 +56,7 @@ function redirect_to_FABmenu_manager(commandkey){
 			break;		
 
 		case "load_config_panel" :
-			//
+			//Chargement de la fenêtre d'administration
 			  var access_code = prompt("Veuillez entrer votre code d'accès", "*******");
 			  if ( access_code != null) {
 

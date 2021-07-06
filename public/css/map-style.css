@@ -173,7 +173,7 @@ g.features path:hover {
  	opacity: 0.6; fill:rgb(255,45,45); 
 }
 
-.tooltip {
+.tooltip_ {
 	font-weight: bold;
 	padding: 0.5rem;
 	border: 1px solid silver;
@@ -185,7 +185,7 @@ g.features path:hover {
 .hidden {
 	display: none;
 }
-.tooltip {
+.tooltip_ {
 	 font-weight: bold;
 	 padding: 0.5rem;
 	 border: 1px solid silver;
