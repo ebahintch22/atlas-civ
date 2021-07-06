@@ -93,7 +93,7 @@ var centered
 var projection = d3.geo.mercator().scale(1);
 var zoom 
 
-var tooltip = d3.select("#map").append("div").attr("class", "tooltip hidden");
+var tooltip = d3.select("#map").append("div").attr("class", "maptooltip hidden");
 
 var quantize = d3.scale.quantize().range(d3.range(9).map(function(i) { return 'q' + i + '-9'; }));			
 var path = d3.geo.path().projection(projection);
