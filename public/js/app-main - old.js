@@ -7,47 +7,26 @@ function app_start_up(){
 		start_unit_test()
 		return null
 	}
-	//UTIL.go_fullScreen("#app-container");
+
 	//Préparer les elements  HTML devant contenir les caroussel en entête
 	include_badge_container( APP_REGISTRY.ui_badge );
 
 	if (APP_REGISTRY.modules.module_def["COVID"]) {
 
-		EXE_IF_COVID_DATA_LOAD(null, function (raw_data){
-			console.log( JSON.stringify(raw_data));
-
-			var data = raw_data.map( function(d){ 
-					d["date_raw"] =  moment(d["ref_date"] ).format('L')
-					return (d)
-			 })
-
+		EXE_IF_COVID_DATA_LOAD(null, function (data){
 			create_navTabControllers_COVID(data);
-			build_COVID_chart_component_3_0(  data , true);
+			build_COVID_chart_component(  data );
 			load_covid_caroussel("#card-1")
 		})
+
 	} 
 
-	//Création des elements d'interface
 	create_navTabController_RASS();
 	create_navTabController_ADMIN();
 	load_standard_caroussel("#card-2")
 
-	create_FABMenu_controller( "#fab-menu-container", APP_REGISTRY.modules.ui_FabMenu)
-	drawerMenuController = create_drawerMenu_controller( "#drawer-menu-container", APP_REGISTRY.modules.ui_drawerMenu)
 
-		PUB_SUB.publish("opera.logs", 
-			[
-				{ 
-					message : toJSON( user_agent ),  
-					type : "info",
-					group: "legend"
-				}
-			]
-		)
-
-
-
-
+	opera_console.addLog( toJSON(user_agent ) );
 
 	var zoom = d3.behavior.zoom().scaleExtent([1, 15])
 				.on('zoom', doZoom);
@@ -56,17 +35,7 @@ function app_start_up(){
 
 	mapBackground.on("click", function(){ MAP_overlay_draw([]) })
 
-
-		PUB_SUB.publish("opera.logs", 
-			[
-				{ 
-					message : "Démarrage d'Atlas Santé Côte d'Ivoire.." ,  
-					type : "info", 
-					group: "default"
-				}
-			]
-		)
-
+	opera_console.addLog("Démarrage d'Atlas Santé Côte d'Ivoire.." , "success")
 
 	legendController = new generate_legend( "#legend", {
 			"title"  : "Legend Controller....",
@@ -90,39 +59,12 @@ function app_start_up(){
 	      "transform" : { key: "name", label : "label"	},
 	         "filter" : function(d){return (d.valid)}
 	}, function(_info){
-		if ( navtabController_RASS != undefined ){
-			navtabController_RASS.show_tab( "tab-aa");
-		}
 		Activate_thematic_section( _info.key , false)
-		
-	})
-
-	theme_controller_drawer = ui_render_drawer_listgroup("#opera-theme-selector-drawer", {
-		      "prompt": "Choisir un thème",
-		    "options" : metaDataBase.table_details.filter(function(d){ return(d.valid)}),
-		        "key" : "name",
-		      "label" : "label",
-		"class_field" : "group",
-	      "transform" : { key: "name", label : "label"	},
-	         "filter" : function(d){return (d.valid)}
-	}, function(_info){
-
 		if ( navtabController_RASS != undefined ){
 			navtabController_RASS.show_tab( "tab-aa");
 		}
 		
-		drawerMenuController.toggle_menu();
-
-		setTimeout( function(){
-			Activate_thematic_section( _info.key , false)
-		} , 400 )
-		UTIL.go_fullScreen("body");
-
-
 	})
-
-
-
 	//theme_controller = ui_render_ThematicSelectList_Component_ex( metaDataBase.table_details , "#opera-theme-selector-1");
 
 	theme_controller.update_view(initialTable)
@@ -200,41 +142,10 @@ function create_or_update_key_selectList( data ){
 
 	} else {
 		keyController.refresh_options( data)
-
 	}
-
-
-
-	if (keyController_drawer == undefined ){
-
-		keyController_drawer  = ui_render_drawer_listgroup("#opera-variablekey-selector-in-drawer", {
-			     "prompt" : "Variable à cartographier",
-		   	    "options" : data,
-			        "key" : "fld_name",
-			      "label" : "long_name",
-		      "transform" : { key: "fld_name", label : "long_name"	},
-		         "filter" : null
-		}, 
-		function after_key_selected(_info){
-			
-			drawerMenuController.toggle_menu() ;
-
-			setTimeout( function(){
-				after_selectKey_Changed(_info.key );
-			} , 400 )
-
-		})
-
-	} else {
-		keyController_drawer.refresh_options( data)
-	}
-
-
-
 }
 
 function create_or_update_spatialLayer_selectList( data ){
-
 	if (spatialLayerController == undefined ){
 
 		spatialLayerController  = ui_render_dropdown_inputgroup( "#opera-spatiallayer-selector-2", {
@@ -252,33 +163,6 @@ function create_or_update_spatialLayer_selectList( data ){
 	} else {
 		spatialLayerController.refresh_options( data)
 	}
-
-
-
-	if (spatialLayerController_drawer == undefined ){
-
-		spatialLayerController_drawer  = ui_render_drawer_listgroup( "#opera-spatiallayer-drawer", {
-			     "prompt" : "Niveau spatial",
-		   	    "options" : data,
-			        "key" : "name",
-			      "label" : "label",
-		      "transform" : { key: "name", label : "label"	},
-		         "filter" : null
-		}, 
-		function after_key_selected(_info){
-			drawerMenuController.toggle_menu();
-
-			setTimeout( function(){
-				after_selectLayer_Changed( _info.key );
-			} , 400 )
-			
-		})
-
-	} else {
-		spatialLayerController_drawer.refresh_options( data)
-	}
-
-
 }
 
 
@@ -298,7 +182,7 @@ function Activate_thematic_section(frame_name){
 			toogle_layout(metaData)
          
 			layer_arr = extractLayerObjects( metaDataBase.geo_datasets, metaData.layerList, "name");
-			//console.log(layer_arr)
+			console.log(layer_arr)
 			create_or_update_spatialLayer_selectList( layer_arr )
 			//layer_controller = ui_render_spatialLayerSelectList_component( layer_arr , "#opera-spatiallayer-selector-2" );
 
@@ -322,7 +206,7 @@ function Activate_thematic_section(frame_name){
 			//create_histogram_object();
 			spatialLayerController.update_view( metaData.layerList[0] );
 			after_selectLayer_Changed( metaData.layerList[0] ); 
-			//console.log( metaData )
+			console.log( metaData )
 
 			if ( before_app_initialization ) 	notify_application_readiness()
 
@@ -363,7 +247,7 @@ function toogle_layout(metadata){
 
 function after_selectLayer_Changed( inLayerKeY ){
 	
-	var geo_dataset = get_spatialLayer(inLayerKeY);
+	var geo_dataset = get_spatialLayer(inLayerKeY)
 
 	show_map_spinner(true);
 	//Check if geodataset is available in the GeoCAche
@@ -383,7 +267,7 @@ function after_selectLayer_Changed( inLayerKeY ){
 
 		geo_dataset_is_load = true;
 
-		currentKey = currentKey ? currentKey : "FLD1"
+		currentKey = currentKey? currentKey : "FLD1"
 		
 		
 		update_dataTableView(currentMetaTable , currentMetaGeo, true);
@@ -527,7 +411,7 @@ function load_dataframe(frame_name, callBack,  errCallBack){
     	} else { // Pas de server actif
     		var data = find_statsdata_from_memory(name);
     		//sysecho("DATA #" + name + " from get_statsData", data);
-    		callBack(data);
+    			callBack(data);
     	}
     }
 
@@ -614,7 +498,6 @@ function MAP_zoom_on_feature(feat_code , action_code){
 
 function MAP_overlay_draw( feature_arr ){
 
-	var overlayClass = `selected selected-${currentSelectStyle}`;
 
 	mapFeaturesOverlay.selectAll('path')
 	   .remove();
@@ -625,7 +508,7 @@ function MAP_overlay_draw( feature_arr ){
         	//.attr('class', 'selected-feature-centered')
         	.attr('pointer-events', 'none')
         	.attr('d' , function(d) {return path(d)})
-        	.attr('class' ,  overlayClass	)
+        	.attr('class' ,  `selected selected-${currentSelectStyle}`)
 }
 
 
@@ -726,7 +609,7 @@ function update_dataTableView( metadata , metageo, geoLyrChanged = false ){
 		//Generate IF NOT EXISTS the datatable column definition for the metadata
 		metadata.dt = metadata.dt || {}
 
-		//console.log(metageo)
+		console.log(metageo)
 
 		if (geoLyrChanged) metadata.dt.colArray = generate_colArray(metadata , metageo) //generate new columns when layer changed
 
@@ -747,7 +630,7 @@ function update_dataTableView( metadata , metageo, geoLyrChanged = false ){
 		)
 
 		if (  dataTableController.reloadNeeded(geoLyrChanged)  ){
-			//console.log(metadata.dt.colArray)
+			console.log(metadata.dt.colArray)
 			dataTableController.reloadData( metadata.dt.colArray , mapData )
 		}
 	}
@@ -767,16 +650,7 @@ function update_dataTableView( metadata , metageo, geoLyrChanged = false ){
 
 function clicked(d) {
 
-		PUB_SUB.publish("opera.logs", 
-			[
-				{
-					message : "Objet paramètre d'exécution de la function dans clicked : " + JSON.stringify(d) ,  
-					type : "info", 
-					group: "graphics"
-				}
-			]
-		)
-
+	  opera_console.addLog( " Objet paramètre d'exécution de la function dans clicked : " + JSON.stringify(d))
 	  var x, y, k;
 	  var g = mapFeatures;
 	  var g0 = mapFeaturesOverlay;
@@ -818,17 +692,11 @@ function clicked(d) {
  				   _renderer : 
  				   currentMetaTable.renderer_interpolated
 
-		PUB_SUB.publish("opera.logs", 
-			[
-				{ message : "_renderer is equal to" + JSON.stringify(renderer),  type : "info", group: "legend" },
-				{ message : "currentMetaTable.renderer is " + JSON.stringify(currentMetaTable.renderer),  type : "info" , group: "legend" },
-				{ message : "render for legend update is " + JSON.stringify(renderer) , type:  "info", group: "legend" }
-			]
-		)
+ 	opera_console.addLog("_renderer is equal to" + JSON.stringify(renderer))
+ 	opera_console.addLog("currentMetaTable.renderer is " + JSON.stringify(currentMetaTable.renderer))
+ 	opera_console.addLog("render for legend update is " + JSON.stringify(renderer))
 
-
-
-    var field = currentMetaField ;
+    var field = currentMetaField
  	//Exit if initialization is on course
  	if (before_app_initialization && !forceUpdate)  return;
 
@@ -840,6 +708,7 @@ function clicked(d) {
 	var legendWidth = d3.select('#map').node().getBoundingClientRect().width - 30;
 	var title = renderer.legendtitle ? renderer.legendtitle : field.short_name
 
+	//opera_console.log("Legend Width : " + legendWidth )
 	legendController.set_prop(        "title" ,  title );
 	legendController.set_prop(        "width" ,  legendWidth );
 	legendController.set_prop(       "domain" ,  renderer.threshold );
@@ -891,7 +760,7 @@ function doZoom() {
 		// Keep the stroke width proportional. The initial stroke width
 		// (0.5) must match the one set in the CSS.
 	.style("stroke-width", 0.5 / d3.event.scale + "px");
-
+	//opera_console.addLog(  "ZOOM PARAMS : translate(" + d3.event.translate + ") scale(" + d3.event.scale + ")"  )
 }
 
 function getIdOfFeature(f) {
@@ -906,33 +775,42 @@ function getNameOfFeature(f) {
 	return f.properties[namefield];
 }
 
-/****************************************************
- * Show a tooltip with the name of the feature.    */
-
-// * @param {object} f - A GeoJSON Feature object.
- /***************************************************/
-
+/**
+ * Show a tooltip with the name of the feature.
+ *
+ * @param {object} f - A GeoJSON Feature object.
+ */
 function showTooltip(f) {
-	var _show_featureSetName = metaDataBase.MODULE_SPECIFIC ? 
-	    metaDataBase.MODULE_SPECIFIC.tooltips.show_featureset_name : 
-	    true;
+	var _show_featureSetName = metaDataBase.MODULE_SPECIFIC ? metaDataBase.MODULE_SPECIFIC.tooltips.show_featureset_name : true;
 
 	var id = getIdOfFeature(f);// Get the ID of the feature.
 	var name = getNameOfFeature(f);// Get the Label/name of the feature.
 
 	var d = dataById[id];// Use the ID to get the data entry.
 	
-	var feat_data_value = d ? 
+	var feat_data_value = d? 
 				UTIL.format_number(d[currentKey], false) : 
 				"Pas de données";
 				
 	var feat_name = d? d.ADM_NAME : getNameOfFeature(f);
 
+	//delay_console(d);
 
-
+	/*var tooltips_text = `
+		${ _show_featureSetName ? `<span>${currentMetaGeo.names.value}</span><br>` : ``}
+		
+		<span style="font-size:11px; color: #111;">
+			 ${d.ADM_NAME} 
+		</span><hr style="height: 1px; margin: 1px">
+		<span style="font-size:14px; color: red;">
+			 ${ UTIL.format_number(value)} 
+		</span>
+		<span>${currentMetaField.unit}
+		</span>`*/
 
 	var tooltips_text = `
-		${ _show_featureSetName ? `<span>${currentMetaGeo.names.value}</span><br>` : `` }
+		${ _show_featureSetName ? `<span>${currentMetaGeo.names.value}</span><br>` : ``}
+		
 		<span style="font-size:11px; color: #111;">
 			 ${ feat_name} 
 		</span><hr style="height: 1px; margin: 1px">
@@ -979,20 +857,7 @@ function showTooltip(f) {
  function capture_random(n,m){
  	if (test_capture_serie.length > 500) return
  	test_capture_serie.push({ alive: n, iddle: Math.round(0.05*m)})
- 	if (test_capture_serie.length == 500){
-
-
-			PUB_SUB.publish("opera.logs", 
-				[
-					{ 
-						message : "SERIE PSEUDO ALEATOIRE => " + JSON.stringify(test_capture_serie) ,  
-							type : "info",
-						  group : "unit-test"
-					}
-				]
-			)
- 	}
-
+ 	if (test_capture_serie.length == 500) opera_console.addLog( "SERIE PSEUDO ALEATOIRE =>> " + JSON.stringify(test_capture_serie))
  }
  
 function hideTooltip() {
@@ -1017,60 +882,53 @@ function generate_statistic_tables_ex(data , parser){
 	// as expected with Atlas REEA.
 
 
-		var LEVEL   = parser.class_field, 
-		    CODE    = parser.id_field,
+	var LEVEL   = parser.class_field, 
+	    CODE    = parser.id_field,
 
-		    CLASS_1 = parser.classes[0].value,
-		    CLASS_2 = parser.classes[1].value,
+	    CLASS_1 = parser.classes[0].value,
+	    CLASS_2 = parser.classes[1].value,
 
-		    LYR_1   = parser.classes[0].layer,
-		    LYR_2   = parser.classes[1].layer
+	    LYR_1   = parser.classes[0].layer,
+	    LYR_2   = parser.classes[1].layer
 
-		//console.log("-----------------------------> parser")
-		//console.log(parser)
+	//console.log("-----------------------------> parser")
+	//console.log(parser)
 
-		var tmp_data = d3.nest().key(function(d) { return d[LEVEL]; }).rollup(function(d) { return d; }).map(data);
+	var tmp_data = d3.nest().key(function(d) { return d[LEVEL]; }).rollup(function(d) { return d; }).map(data);
 
-		//console.log(tmp_data)
+	console.log(tmp_data)
 
-		table_1 = d3.nest().key(function(d) { return d[CODE]; }).rollup(function(d) { return d[0]; }).map( tmp_data[ CLASS_1 ] );
-		table_2 = d3.nest().key(function(d) { return d[CODE]; }).rollup(function(d) { return d[0]; }).map( tmp_data[ CLASS_2 ] );
+	table_1 = d3.nest().key(function(d) { return d[CODE]; }).rollup(function(d) { return d[0]; }).map( tmp_data[ CLASS_1 ] );
+	table_2 = d3.nest().key(function(d) { return d[CODE]; }).rollup(function(d) { return d[0]; }).map( tmp_data[ CLASS_2 ] );
 
-		//console.log(table_1)
-		//console.log(table_2)
+	console.log(table_1)
+	console.log(table_2)
 
-		var  _RSP = {}
-		     _RSP[ LYR_1 ] = table_1
-		     _RSP[ LYR_1 + "_raw" ] = tmp_data[CLASS_1]
+	var  _RSP = {}
+	     _RSP[ LYR_1 ] = table_1
+	     _RSP[ LYR_1 + "_raw" ] = tmp_data[CLASS_1]
 
-		     _RSP[ LYR_2 ] = table_2
-		     _RSP[ LYR_2 + "_raw"] = tmp_data[CLASS_2]
+	     _RSP[ LYR_2 ] = table_2
+	     _RSP[ LYR_2 + "_raw"] = tmp_data[CLASS_2]
 
-		return _RSP 
+	return _RSP 
 }  	
 
 
 
 function updateGraphic(){
-
-	var metadata  = currentMetaTable ;
-	var metafield = currentMetaField ;
-	var metageo   = currentMetaGeo   ;
+	var metadata = currentMetaTable
+	var metafield = currentMetaField
+	var metageo = currentMetaGeo
 
 	if (metadata.layout !=  "COVID" ) { //RASS Chart Layout contain dynamic charts
-		console.log(JSON.stringify({
-			metafield, 
-			metadata, 
-			mapData, 
-			metageo
-		}))
-		if (!chartController_rass){
-			var enableZoom = false
 
-			chartController_rass = Build_Atlas_Chart_Component_3_0( 
+		if (!chartController_rass){
+			
+			chartController_rass = build_RASS_chart_component( 
 				metadata , metafield, mapData, metageo, 
 				function( data , indexes){
-					/* format of indexes parameter object is :
+					/*
 						{
 							"@datasetIndex": item._datasetIndex,
 						    "@index": item._index
@@ -1081,12 +939,15 @@ function updateGraphic(){
 
 					var f = MAP_find_feature(feat_code)
 					MAP_overlay_draw([f])
-				},
-				CharDataLimit,
-				enableZoom
-			)
-			chartController_rass.show_spinner(false);
 
+					//alert(index)
+					console.log( feat_code )
+					//console.log(data)
+				},
+				CharDataLimit
+			)
+
+			chartController_rass.show_spinner(false);
 		
 		} else  {
 			chartController_rass.show_spinner(false)
@@ -1106,7 +967,7 @@ function handle_mapMouseover_actions(d){
 
 }
 
-function get_graphic_infos() { /*DEPRECATED*/
+function get_graphic_infos() {
     return {
         x: currentKey,
         y: "ADM_NAME",
@@ -1243,6 +1104,21 @@ function ui_pre_render_format(obj){
  }
 
 
+
+function set_routes(){
+	var routes = {
+		"/action/address-to-mobile/:close" : after_user_accept_UX_degradation,
+		"/action/select-palette/:color_palette" : after_colorPalette_selected,
+		"/action/test-debug/:reload_chart" : histogram_draw,
+		"/action/:start-server" : start_server,
+		"/action/:stop-server"  : start_server,
+		"/action/:connect-client" : start_server,
+		"/action/app-settings": function(){}, 
+		"/home" : function(){}
+	}
+	var router = Router(routes);
+     	router.init();
+}
 
 function start_server(command){
 

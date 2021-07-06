@@ -93,7 +93,6 @@
 
 
 	    <script src="./js/specific/sante/settings.js" charset="utf-8"></script>
-	    <script src="./js/app-admin-tools.js" charset="utf-8"></script>
 
 	</head>
 
@@ -148,7 +147,6 @@
 
 
 			<div id="atlas-app-header-bar" class="row visible-regular hidden">
-
 				<div class="col-lg-4 no-padding"  id="card-0"  style="padding:1px;top: 0px;
 				       bottom: 2px; font-family: 'Arial Black'; 
 				       font-size: 2.2em; font-weight: 850; ">
@@ -162,12 +160,11 @@
 					  </div>
 					</div>					
 				</div>
-
 			</div>
 
 		
 			<!-- SELECT CONTROLLER FOR THEMATIC DIMENSION AND SPATIAL LEVEL  d-none d-xl-inline-block-->
-			<div class="row visible-regular">
+			<div id="atlas-app-selector-bar" class="row visible-regular">
 				<div class="col-md-4 no-padding d-none d-xl-inline-block" >
 					<nav class="navbar navbar-light bg-light" style="height: 35px; padding: 2px 8px 2px 8px;">
 						<div id="opera-theme-selector-1" class="input-group input-group-sm mb-3" style="margin: 0px 0px 2px 0px;"></div>
@@ -185,14 +182,11 @@
 						<div id="opera-variablekey-selector-3" class="input-group input-group-sm mb-3" style="margin: 0px 0px 2px 0px;"></div>
 					</nav>
 				</div>
-
 			</div>
 
 
 
 			<!-- /END OF SELECT CONTROLLER-->
-
-
 
 			<div class="row visible-regular" style= "bottom: 0px;">
 				
@@ -253,9 +247,6 @@
 	<div id="fab-menu-container"    class="opera-fab"></div>
 
 
-	
-
-
 	<script src="./vendors/director/1.2.6/director.min.js" type="text/javascript"></script>
 	<script src="./vendors/d3/v3/d3.v3.min.js" charset="utf-8"></script>
 	<script src="./vendors/mustache/2.2.1/mustache.min.js" charset="utf-8"></script>
@@ -271,25 +262,10 @@
 
 
 
-
-
-
-	<!--script src="./chart-zoom/chart.js"></script>
-	<script src="./chart-zoom/chartjs-adapter-moment@0.1.2.js"></script>
-	<script src="./chart-zoom/hammerjs@2.0.8.js"></script>
-	<script src="./chart-zoom/chartjs-plugin-zoom@next.js"></script-->
-
-
-
-
 	<script src="./vendors/chartjs/js/3.2.0/chart.min.js" charset="utf-8"></script>
 	<script src="./vendors/chartjs/js/plug-ins/chartjs-adapter-moment@0.1.2.js" charset="utf-8"></script>
 	<script src="./vendors/chartjs/js/plug-ins/hammerjs@2.0.8.js" charset="utf-8"></script>
 	<script src="./vendors/chartjs/js/plug-ins/chartjs-plugin-zoom@next.js" charset="utf-8"></script>
-
-
-
-
 
 
 
@@ -303,6 +279,8 @@
 
 	<script src="./js/app-ajax.js" charset="utf-8"></script>
 	<script src="./js/utility.js"  charset="utf-8"></script>
+	<script src="./js/common/app-controller-pub-sub.js"  charset="utf-8"></script>
+
 
 	<script src="./js/manifest/app-manifest-parser.js" charset="utf-8"></script>
 	<script src="./js/manifest/app-manifest-data.js" charset="utf-8"></script>
@@ -328,7 +306,10 @@
 	<script src="./js/app-views.js" charset="utf-8"></script>
 	<script src="./js/app-chart-traffic.js" charset="utf-8"></script>
 	<script src="./js/app-main.js" charset="utf-8"></script>
-	<script src="./js/app.js" charset="utf-8"></script>
+	<!--script src="./js/app.js" charset="utf-8"></script-->
+	<script src="./js/app-admin-tools.js" charset="utf-8"></script>
+
+	<script src="./js/admin/session-manager.js" charset="utf-8"></script>
 
 </body>
 </html>

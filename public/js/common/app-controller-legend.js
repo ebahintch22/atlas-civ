@@ -24,6 +24,7 @@ function generate_legend( dom_elt, Cfg ){
 
 
     return {
+
     	set_prop : function( prop_name , value ){
     		show_config("BEFORE:")
     		Cfg[ prop_name ] = value;
@@ -39,14 +40,24 @@ function generate_legend( dom_elt, Cfg ){
     }
 
     function build_legend_elements(){
+
     	var color_list
 	    Cfg.count  = Cfg.domain.length 
 	    Cfg.cell.width = Math.round( Cfg.width/(Cfg.count + 1) );
 		
-		opera_console.addLog(  "LegendController width : " + Cfg.width + ", with " + Cfg.count + " legend classes :: " + JSON.stringify(Cfg.domain))
+		var log_data =  "LegendController width : " + Cfg.width + ", with " + Cfg.count + " legend classes :: " + JSON.stringify(Cfg.domain);
+		PUB_SUB.publish( "opera.logs", 
+			[
+				{ 
+					message : log_data ,  
+					type : "info" , 
+					group: "legend" }
+			]
+		);
+
 		cell_pos_scale
 			.domain( Cfg.domain )
-			.range(d3.range(0 , Cfg.width +5, Cfg.cell.width))	
+			.range(d3.range(0 , Cfg.width + 5 , Cfg.cell.width))	
 
 		ldg_Axis 
 			 .scale( cell_pos_scale )           

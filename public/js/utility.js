@@ -142,6 +142,8 @@ function detect_client(){
             },
             go_fullScreen : function(elt_id = "body"){
 
+                if (elt_id == false) return;
+
                 // DOM element which needs to enter fullscreen mode
                 var element = document.querySelector(elt_id);
                 element.requestFullscreen()

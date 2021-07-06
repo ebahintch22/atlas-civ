@@ -1,9 +1,9 @@
     
 
-    var opera_console = (function(){
+        opera_console = (function(){
         var _Number = new Intl.NumberFormat();
         var _date = new _create_dateFormatter();
-
+        var _logToken ;
         var _dataTableController, _userscolArray;
 
         return {
@@ -11,21 +11,7 @@
                 $("#opera-sys-message").html(message);
             },
 
-            addLog : function(message , result= "" ){
- 
-                var style = (result == "success")?
-                            `style = "margin-top: 15px; font-weight: bold; color: '#0ce00c';"`:
-                            (result == "fail")?
-                            `style = "margin-top: 15px; font-weight: bold; color: red;"`:
-                            (result == "warning")?
-                            `style = "margin-top: 15px; font-weight: bold; color: orange;"`:
-                            (result == "request")?
-                            `style = "margin-top: 15px; font-weight: regular; color: cyan;"` :
-                            `style = "margin-top: 15px; font-weight: regular; color: white;"`;
-
-                var tmpl = `<div ${style}><span> ${ _date.date(Date.now())}  : </span><span> ${message}</span> </div>`
-                $("#opera-sys-message").append(tmpl);
-            },
+            addLog : _addLog,
 
             updateStats : function(){
             },
@@ -36,6 +22,29 @@
 
             explain : function(){
                 return 'I am a simple on line console for development mode'
+            },
+
+            startLogging : function (){
+                _logToken = PUB_SUB.subscribe( "opera.logs" , 
+                    function(mssgArray){
+
+                        mssgArray.forEach( function(data, index){
+                            _addLog( "@pub-sub- " + data.message , data.type)
+                        })
+                    }
+                )
+
+                _connUserToken = PUB_SUB.subscribe( "opera.users.connected" , 
+                    function(data){
+                        __dtable_loadData(data);
+                    }
+                )
+            },
+            stopLogging : function (){
+
+                _logToken.unsubscribe();
+                _connUserToken.unsubscribe();
+
             },
             
             connectedUsers : {
@@ -48,6 +57,22 @@
             date_format : _date
         }
 
+
+        function _addLog (message , result = "" ){
+ 
+            var style = (result == "success")?
+                `style = "margin-top: 15px; font-weight: bold; color: '#0ce00c';"`:
+                (result == "fail")?
+                `style = "margin-top: 15px; font-weight: bold; color: red;"`:
+                (result == "warning")?
+                `style = "margin-top: 15px; font-weight: bold; color: orange;"`:
+                (result == "request")?
+                `style = "margin-top: 15px; font-weight: regular; color: cyan;"` :
+                `style = "margin-top: 15px; font-weight: regular; color: white;"`;
+
+            var tmpl = `<div ${style}><span> ${ _date.date(Date.now())}  : </span><span> ${message}</span> </div>`
+            $("#opera-sys-message").append(tmpl);
+        }
 
         function _create_dateFormatter() {
             //Used for date display
@@ -173,6 +198,7 @@
                 return(col_arr)
 
                 function set_as_date( data, type, row ){
+
                     opera_console.addLog(data, "warning")
 
                     return ( _date.date_str(data))
@@ -181,7 +207,9 @@
             }
         }
 
-    })()
+    })();
+
+opera_console.startLogging();
 
 /*
 IS_ADMIN_SESSION = IS_ADMIN_SESSION || false;

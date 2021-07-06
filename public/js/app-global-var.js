@@ -1,5 +1,8 @@
 //globals var déclaration
 //const http_server_exe_mode = false;
+var PUB_SUB ;
+var opera_console;
+
 var color_helper = Chart.helpers.color
 var navigate = function (path) {
 	  	var current = window.location.href;
@@ -131,7 +134,7 @@ var COVIDATA_ACCESS_MODE = "database"
 var CONNEXION_MANAGER_ENABLED = false
 var APP_START_UNIT_TEST_MODE = false
 var ZOOM_IS_DISABLE = true
-var rass_active_panel = "tab-b" 
+var rass_active_panel = "tab-a" 
 var IS_ADMIN_SESSION = true;
 var DATE_FORMATTER = (function(){
 

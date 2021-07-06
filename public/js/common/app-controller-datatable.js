@@ -129,34 +129,6 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
         	return( Mustache.render( TMPLT, { field_list : colArray }) )
         }
 
-    /*
-        function get_i18n_params___(){
-        	return ({
-	            "decimal":        ",",
-	            "emptyTable":     "Pas de données disponible dans le tableau",
-	            "info":           "Page _START_ à _END_ sur _TOTAL_ ligne(s)",
-	            "infoEmpty":      "Aucune ligne à afficher",
-	            "infoFiltered":   "(filtrage actif: _TOTAL_ ligne(s) trouvée(s) sur _MAX_ )",
-	            "infoPostFix":    "",
-	            "thousands":      " ",
-	            "lengthMenu":     "Afficher _MENU_ lignes",
-	            "loadingRecords": "Chargement des données en cours...",
-	            "processing":     "Traitement en cours...",
-	            "search":         "Rechercher :",
-	            "zeroRecords":    "Aucune ligne trouvée",
-	            "paginate": {
-	                "first":      "Début",
-	                "last":       "Fin",
-	                "next":       "Suivant",
-	                "previous":   "Précédent"
-	            },
-	            "aria": {
-	                "sortAscending":  ": activer le tri ascendant",
-	                "sortDescending": ": activer le tri descendant"
-	            }
-        	})
-        }
-    */
 
 	    function get_i18n_params(){
 

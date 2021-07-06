@@ -52,16 +52,27 @@
 			"file": "public/js/app-main.js",
 			"settings":
 			{
-				"buffer_size": 35729,
+				"buffer_size": 35420,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
 		},
 		{
+			"file": "public/go-remote.bat",
+			"settings":
+			{
+				"buffer_size": 99,
+				"line_ending": "Windows"
+			},
+			"undo_stack":
+			[
+			]
+		},
+		{
 			"file": "starter/sante/index-admin-mode.html",
 			"settings":
 			{
-				"buffer_size": 13089,
+				"buffer_size": 13243,
 				"encoding": "UTF-8 with BOM",
 				"line_ending": "Windows"
 			}
@@ -106,7 +117,7 @@
 		"/D/herokuapps/atlas_civ",
 		"/D/herokuapps/atlas_civ/config",
 		"/D/herokuapps/atlas_civ/config/remote-db-free",
-		"/D/herokuapps/atlas_civ/temp"
+		"/D/herokuapps/atlas_civ/public"
 	],
 	"file_history":
 	[
@@ -325,20 +336,22 @@
 			"float-main"
 		],
 		"reverse": false,
+		"scrollbar_highlights": true,
 		"show_context": true,
 		"use_buffer2": true,
+		"use_gitignore": true,
 		"whole_word": false,
 		"wrap": true
 	},
 	"groups":
 	[
 		{
-			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
 					"file": "temp/xprience.html",
+					"selected": true,
 					"semi_transient": false,
 					"settings":
 					{
@@ -356,19 +369,20 @@
 						"settings":
 						{
 							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 0,
+					"stack_multiselect": false,
 					"type": "text"
 				}
 			]
 		},
 		{
-			"selected": 1,
 			"sheets":
 			[
 				{
@@ -377,56 +391,90 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 35729,
+						"buffer_size": 35420,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								28602,
-								28602
+								0,
+								0
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.sublime-syntax",
+							"tab_size": 3,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 13070.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 1,
+					"stack_multiselect": false,
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "starter/sante/index-admin-mode.html",
-					"semi_transient": false,
+					"file": "public/go-remote.bat",
+					"selected": true,
+					"semi_transient": true,
 					"settings":
 					{
-						"buffer_size": 13089,
+						"buffer_size": 99,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1428,
-								1428
+								99,
+								99
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Batch File/Batch File.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"stack_multiselect": false,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "starter/sante/index-admin-mode.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13243,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/HTML/HTML.sublime-syntax",
+							"tab_size": 4,
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 281.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
+					"stack_multiselect": false,
 					"type": "text"
 				}
 			]

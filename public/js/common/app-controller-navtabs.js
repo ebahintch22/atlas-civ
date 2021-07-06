@@ -56,9 +56,8 @@ function ui_render_navtabs ( _eltID , Cfg , callBack ,  callBack_onLoad , delay 
     return {
     	api_func : function(theme){},
     	show_tab : function(tab_id){
-    		//opera_console.addLog("Acticating tab num " + tab_index + `: ID => #${Cfg.id} a:eq(${tab_index})`, "request")
-    		$(`#${tab_id}-tab`).tab('show');
 
+    		$(`#${tab_id}-tab`).tab('show');
     	}
     }
 
@@ -75,6 +74,6 @@ function ui_render_navtabs ( _eltID , Cfg , callBack ,  callBack_onLoad , delay 
 		})			
 	}
 	function is_function(f){
-	    return (Object.prototype.toString.call(f) == '[object Function]') 
+	    return ( Object.prototype.toString.call(f) == '[object Function]') 
 	} 
 }

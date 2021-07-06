@@ -16,7 +16,12 @@
     }
     
 
-    function create_Chart_for_covid( in_data , elt_id, Cfg, saveCfg = false ){
+    function create_Chart_for_covid( 
+    	 in_data , 
+    	 elt_id, 
+    	 Cfg, 
+    	 saveCfg = false 
+    	 ){
     	//Chart.defaults.global.defaultFontColor = "#ddd";
     	Chart.defaults.color = "#ddd";
 
@@ -81,7 +86,7 @@
 			               text: Cfg.title, 
 			          fontColor: Cfg.fontColors.title
 			        },
-					zoom: {
+					zoom: ( !Cfg.zoomEnabled )? undefined : {
 						pan: {
 							enabled: true,
 							mode: 'x',
@@ -193,7 +198,7 @@ function create_Chart_for_atlas( data_struct , elt_id, Cfg, verbose = false ){
 		          fontColor: Cfg.fontColors.title
 		        },
 
-				zoom: {
+				zoom: ( !Cfg.zoomEnabled )? undefined : {
 					pan: {
 						enabled: true,
 						mode: 'x',
@@ -212,7 +217,13 @@ function create_Chart_for_atlas( data_struct , elt_id, Cfg, verbose = false ){
 	var ctx = document.getElementById(elt_id);
 
 	opera_console.clearlog();
-	opera_console.addLog( JSON.stringify(chart_configurator) , "");
+
+   PUB_SUB.publish("opera.logs", 
+      [
+			 { message : JSON.stringify(chart_configurator) ,  type : "info" , group: "chart.wrapper" }
+      ]
+   )
+
 
 	var myChart = new Chart(ctx, chart_configurator)
 	return myChart
@@ -224,8 +235,10 @@ function create_Chart_for_atlas( data_struct , elt_id, Cfg, verbose = false ){
 		
 		var item = items[0];
 		Cfg.onClick({
+
 			"@datasetIndex": item._datasetIndex,
 		    "@index": item._index
+
 		})
 	}
 }

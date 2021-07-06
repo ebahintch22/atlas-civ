@@ -307,27 +307,14 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	function Build_Atlas_Chart_Component_3_0(  inMetadata ,inField, inData, inMetageo, onClickcallBack , inLimit= null ){
+	function Build_Atlas_Chart_Component_3_0(  
+		inMetadata ,
+		inField, 
+		inData, 
+		inMetageo, 
+		onClickcallBack , 
+		inLimit= null,
+		includeZoomPlugin = false ){
 
 
 			var metadata = inMetadata ,
@@ -379,6 +366,7 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 					],
 
 				"fontColors" : CHART_FONT_COLORS["rass"],
+				"zoomEnabled" : includeZoomPlugin,
 
 				"onClick" : function(indexes){
 
@@ -443,7 +431,8 @@ function build_RASS_chart_component(  inMetadata ,inField, inData, inMetageo, on
 					
 							myChart.options.plugins.title.text =  `${ metadata.label } par ${ metageo.names.value }`
 
-							data_struct = new_struct
+							data_struct = new_struct ;
+							
 						break;
 
 						case "data-theme-changed" :

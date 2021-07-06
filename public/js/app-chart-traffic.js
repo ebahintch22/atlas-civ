@@ -100,7 +100,16 @@ function build_traffic_chart_component(  inData ){
 
 				case "new-data" :
 					new_struct = Cfg.data_format_function(params.data)	
-					opera_console.addLog(" DATA FOR CHART_UPDATE : => " + JSON.stringify(new_struct), "warning")
+			
+					PUB_SUB.publish("opera.logs", 
+						[
+							{
+								message : " DATA FOR CHART_UPDATE : => " + JSON.stringify(new_struct) ,  
+								type : "warning" ,
+								group: "chart-traffic"
+							}
+						]
+					)
 
 					myChart.data.labels = new_struct.labels;
 
@@ -132,7 +141,16 @@ function create_Chart_v2(  elt_id, inData , Cfg ){
 
 
 	var data_struct =  Cfg.data_format_function(inData)
-	opera_console.addLog(" DATA FOR CHART_CREATE : => " + JSON.stringify(data_struct), "warning")
+
+	PUB_SUB.publish("opera.logs", 
+		[
+			{  
+				message : " DATA FOR CHART_CREATE : => " + JSON.stringify(data_struct) ,  
+				type : "warning",
+				group: "chart-traffic"
+			}
+		]
+	)	
 
 	Cfg.label_min = data_struct.min;
 	Cfg.label_max = data_struct.max;

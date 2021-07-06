@@ -52,8 +52,20 @@ function redirect_to_FABmenu_manager(commandkey){
 
 		case "show_full_screen" :  
 			//alert("You toggle drawer menu");
-			UTIL.go_fullScreen(); 
-			break;			
+			UTIL.go_fullScreen(false); 
+			break;		
+
+		case "load_config_panel" :
+			//
+			show_modal_box ( 
+				"Panneau d'administration", 
+				null,
+				`<div id="ADMIN-TAB-WRAPPER2" style="width='100%'"> Veuillez patienter... </div>`,
+				function after_show(){
+					create_navTabController_ADMIN();
+				}
+			);
+			break;	
 	}
 
 	navigate("home");

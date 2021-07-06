@@ -63,23 +63,41 @@ var submit_function = function( that, eltID ){
 
 	var input_elt = `#${eltID} input`
 
-	opera_console.addLog(`Vous avez cliqué sur le bouton: ${eltID} et envoyer le message ${ $(input_elt).val()}`)
+	PUB_SUB.publish("opera.logs", 
+		[
+			{message : `Vous avez cliqué sur le bouton: ${eltID} et envoyer le message ${ $(input_elt).val()}` , type: "info" }
+		]
+	)
 
 	Ajaxian.read( "./buyers", 
 		function(data){
-			opera_console.addLog(`Suppression <b> ${JSON.stringify(data)} </b>`, "success" )
+				PUB_SUB.publish("opera.logs", 
+					[
+						{message : `Suppression <b> ${JSON.stringify(data)} </b>` , type: "success" }
+					]
+				)
 		},
 
 		function(xhr, ajaxOptions, thrownError){
-			opera_console.addLog(`Erreur lors du chargement de la table`, "fail");
+				PUB_SUB.publish("opera.logs", 
+					[
+						{message : `Erreur lors du chargement de la table` , type: "fail" }
+					]
+				)
 		}
 	)
 }
 var func_reset_console = function(){
-	 opera_console.clearlog()
+	 opera_console.clearlog()				
+	 PUB_SUB.publish("opera.logs", 
+			[
+				{message : `xxxxx` , type: "iiiii" }
+			]
+		)
+
 }
 var func_reset_local_storage = function( that, eltID ){
-	user_session_manager.reset_token();
+		user_session_manager.reset_token();
 }
 
 var func_start_supervision = function(that, eltID){
@@ -132,9 +150,9 @@ function create_navTabController_RASS(){
 			color_theme  : "light",
 			tabs : [
 				{ 
-					id: "tab-aa", 
+					id: "tab-a", 
 					name: "table-graphics" , 
-					label : "Tableau/Graphique", 
+					label : "Vue graphique", 
 					html_content : `
 						<div id="wrapper-pane" class="col-sm-12 no-padding" style= "height:75vh; overflow-y: scroll;" >
 						  	<div  id="RASS-ROW-TOP" class="row" style= "padding: 0px 15px;">
@@ -144,7 +162,7 @@ function create_navTabController_RASS(){
 						  	</div>
 						  	<div  id="RASS-ROW-BOTTOM" class="row"  style= "padding: 0px 15px;">
 							  	<div  class="col-sm-12 no-padding"  >
-									 <div id="dttable_container"  style="margin:10px; padding: 10px;">  </div>		
+									 <div id="@dttable_container"  style="margin:10px; padding: 10px;">  </div>		
 						  		</div>		  		
 						  	</div>
 						</div>` ,
@@ -152,51 +170,10 @@ function create_navTabController_RASS(){
 					visible : true
 				},
 				{ 
-					id: "tab-a", 
-					name: "graphics" , 
-					label : "Graphiques", 
-					html_content : get_chart_container( "@chart-canvas-rass" , 600, 250 ,'96%', '35vh') ,
-					enabled : true,
-					visible : false
-				},
-				{ 
 					id: "tab-b", 
 					name: "table" ,    
 					label : "Vue tabulaire" , 
-					html_content : ` <div id="@dttable_container"  style="margin:10px; padding: 10px;">  </div>`,
-					enabled : true,
-					visible : false
-				},
-				{ 
-					id: "tab-g", 
-					name: "sys_audit" , 
-					label : "Audit", 
-					html_content : get_opera_console_template_TODO() ,
-					enabled : true,
-					visible : IS_ADMIN_SESSION
-				},
-				{ 
-					id: "tab-c", 
-					name: "monography" , 
-					label : "Monographies", 
-					html_content : get_Monography_template_TODO()  ,
-					enabled : true,
-					visible : false
-				},
-				{ 
-					id: "tab-d", 
-					name: "about_us" , 
-					label : "Qui-sommes nous?", 
-					html_content :  `<div id="caroussel_container"  style="position:relative; height:300px; margin:10px; padding: 10px;">  </div> `, //   get_ourReferences_template_TODO() ,
-					enabled : true,
-					visible : false
-				},
-				{ 
-					id: "tab-e", 
-					name: "sys_console" , 
-					label : "Administration", 
-					html_content : ` <div id="ADMIN-TAB-WRAPPER" style="background-color: #fff; 
-					                  position:relative; height: 70vh;"> </div>`,
+					html_content : `<div id="dttable_container"  style="height: 70vh; margin:10px; padding: 10px;">  </div>`,
 					enabled : true,
 					visible : true
 				},
@@ -216,15 +193,15 @@ function create_navTabController_RASS(){
 	    	switch(info.tabname){
 
 	    		case "table-graphics" : 
-	    			// Align datatable columns ::
-	    			 setTimeout( function(){ dataTableController.adjustColumns() }, 500 )
+	    			rass_active_panel = "tab-a" ;
 
 	    		case "graphics" :
-	    			rass_active_panel = "tab-a" ;
 	    			break;
 
 	    		case "table" :
 	    			rass_active_panel = "tab-b" ;
+	    			// Align datatable columns ::
+	    			setTimeout( function(){ dataTableController.adjustColumns() }, 500 )
 	    			break;
 
 	    		default: 
@@ -242,9 +219,9 @@ function create_navTabController_ADMIN(){
 
 	navAdminController = new ui_render_navtabs(
 
-	"#ADMIN-TAB-WRAPPER", {
+	"#ADMIN-TAB-WRAPPER2", {
 	id : "admin-tabs",
-	default : "admin-tab-02",
+	default : "admin-tab-01",
 	nav_position : "top" ,  
 	color_theme  : "light",
 		tabs : [
@@ -288,15 +265,22 @@ function create_navTabController_ADMIN(){
 					    	key: "ABSCFDBYHDGGEGGG8587-855455-SGWX"
 					    },
 						function(data){
-							opera_console.connectedUsers.openList(data);
+
+								//opera_console.connectedUsers.openList(data);
+								PUB_SUB.publish( "opera.users.connected" , data	)							
 						},
 						function(xhr, ajaxOptions, thrownError){
-							opera_console.addLog(`Erreur lors du chargement de la table`, "fail");
+							PUB_SUB.publish("opera.logs", 
+								[
+										{  message : `Erreur lors du chargement de la table` , type: "fail" }
+								]
+							)
 						}
 					)
 					 
 				case "sys_config":
-					//opera_console.addLog("COLOR OBJECT " + toJSON(color_data));
+					
+
 				break;
 			}
 		},
@@ -450,6 +434,7 @@ function ui_render_spatialLayerSelectList_component( layer_data_arr, _eltID ){
 					_data = evt.currentTarget.dataset,
 					_info = { "key": _data.key, "label": _data.label};
 					$(`${ _eltID} > input.form-control`).val(_info.label);
+
 					after_selectLayer_Changed( _info.key );
 			}
 		})			

@@ -1,0 +1,883 @@
+"new_cases": 46 ;
+"sample_num": 2759 ;
+"incidence_rate": 1.7 ;
+"new_healed":68 ;
+"new_deceased": 0 ;
+"sum_case": 47435 ;
+"sum_healed": 46915 ;
+"sum_deceased": 306 ;
+"sum_active": 214 ;
+"total_samples": 657347 ;
+"date": "03/06/2021";
+"vaccin_num":  12227 ;
+"vaccin_total": 579715 ;
+ 
+
+"new_cases":  33 ;
+"sample_num": 1810 ;
+"incidence_rate": 1.8 ;
+"new_healed":  43 ;
+"new_deceased": 0 ;
+"sum_case": 47389 ;
+"sum_healed": 46847 ;
+"sum_deceased": 306 ;
+"sum_active": 236 ;
+"total_samples": 654588 ;
+"date": "02/06/2021";
+"vaccin_num":  12016 ;
+"vaccin_total": 567488 ;
+ 
+
+"new_cases":  37 ;
+"sample_num": 2362 ;
+"incidence_rate": 1.6 ;
+"new_healed":  46 ;
+"new_deceased": 0 ;
+"sum_case": 47356 ;
+"sum_healed": 46804 ;
+"sum_deceased": 306 ;
+"sum_active": 246 ;
+"total_samples": 652778 ;
+"date": "01/06/2021";
+"vaccin_num":  11809 ;
+"vaccin_total": 555472 ;
+  
+
+"new_cases":  27 ;
+"sample_num": 1779 ;
+"incidence_rate": 1.5 ;
+"new_healed":  56 ;
+"new_deceased": 1 ;
+"sum_case": 47319 ;
+"sum_healed": 46758 ;
+"sum_deceased": 306 ;
+"sum_active": 255 ;
+"total_samples": 650416 ;
+"date": "31/05/2021";
+"vaccin_num":  2214 ;
+"vaccin_total": 543663 ;
+ 
+
+"new_cases":  10 ;
+"sample_num": 918 ;
+"incidence_rate": 1.1 ;
+"new_healed":  26 ;
+"new_deceased": 2 ;
+"sum_case": 47292 ;
+"sum_healed": 46702 ;
+"sum_deceased": 305 ;
+"sum_active": 285 ;
+"total_samples": 648637 ;
+"date": "30/05/2021";
+"vaccin_num":  393 ;
+"vaccin_total": 541449 ;
+ 
+
+"new_cases":  38 ;
+"sample_num": 2109 ;
+"incidence_rate": 1.8 ;
+"new_healed":  51 ;
+"new_deceased": 2 ;
+"sum_case": 47233 ;
+"sum_healed": 46642 ;
+"sum_deceased": 303 ;
+"sum_active": 288 ;
+"total_samples": 645222 ;
+"date": "28/05/2021";
+"vaccin_num":  4497 ;
+"vaccin_total": 540245 ;
+ 
+
+"new_cases":  49 ;
+"sample_num": 2064 ;
+"incidence_rate": 2.4 ;
+"new_healed":  47 ;
+"new_deceased": 0 ;
+"sum_case": 47195 ;
+"sum_healed": 46591 ;
+"sum_deceased": 301 ;
+"sum_active": 303 ;
+"total_samples": 643113 ;
+"date": "27/05/2021";
+"vaccin_num":  7664 ;
+"vaccin_total": 535748 ;
+ 
+
+"new_cases":  61 ;
+"sample_num": 2217 ;
+"incidence_rate": 2.8 ;
+"new_healed":  40 ;
+"new_deceased": 0 ;
+"sum_case": 47146 ;
+"sum_healed": 46544 ;
+"sum_deceased": 301 ;
+"sum_active": 301 ;
+"total_samples": 641049 ;
+"date": "26/05/2021";
+"vaccin_num":  10885 ;
+"vaccin_total": 528084 ;
+ 
+
+"new_cases":  3 ;
+"sample_num": 1312 ;
+"incidence_rate": 0.2 ;
+"new_healed":  34 ;
+"new_deceased": 0 ;
+"sum_case": 47036 ;
+"sum_healed": 46476 ;
+"sum_deceased": 298 ;
+"sum_active": 262 ;
+"total_samples": 636980 ;
+"date": "24/05/2021";
+"vaccin_num":  5173 ;
+"vaccin_total": 496319 ;
+ 
+
+"new_cases":  27 ;
+"sample_num": 622 ;
+"incidence_rate": 4.3 ;
+"new_healed":  78 ;
+"new_deceased": 0 ;
+"sum_case": 47033 ;
+"sum_healed": 46442 ;
+"sum_deceased": 298 ;
+"sum_active": 293 ;
+"total_samples": 635668 ;
+"date": "23/05/2021";
+"vaccin_num":  4997 ;
+"vaccin_total": 491146 ;
+ 
+
+"new_cases":   64 ;
+"sample_num": 2856 ;
+"incidence_rate": 2.2 ;
+"new_healed":  18 ;
+"new_deceased": 0 ;
+"sum_case": 47007 ;
+"sum_healed": 46364 ;
+"sum_deceased": 298 ;
+"sum_active": 344 ;
+"total_samples": 635046 ;
+"date": "22/05/2021";
+"vaccin_num":  13133 ;
+"vaccin_total": 486231 ;
+ 
+
+"new_cases":  68 ;
+"sample_num": 1739 ;
+"incidence_rate": 3.9 ;
+"new_healed":  64 ;
+"new_deceased": 0 ;
+"sum_case": 46942 ;
+"sum_healed": 46346 ;
+"sum_deceased": 298 ;
+"sum_active": 298 ;
+"total_samples": 632190 ;
+"date": "21/05/2021";
+"vaccin_num":  25649 ;
+"vaccin_total": 473098 ;
+  
+
+"new_cases": 40 ;
+"sample_num": 2670 ;
+"incidence_rate": 1.5 ;
+"new_healed":  39 ;
+"new_deceased": 0 ;
+"sum_case": 46874 ;
+"sum_healed": 46282 ;
+"sum_deceased": 298 ;
+"sum_active": 294 ;
+"total_samples": 630451 ;
+"date": "20/05/2021";
+"vaccin_num":  28994 ;
+"vaccin_total": 447449 ;
+  
+
+"new_cases":  57 ;
+"sample_num": 2158 ;
+"incidence_rate": 2.6 ;
+"new_healed":  26 ;
+"new_deceased": 0 ;
+"sum_case": 46834 ;
+"sum_healed": 46243 ;
+"sum_deceased": 298 ;
+"sum_active": 293 ;
+"total_samples": 627781 ;
+"date": "19/05/2021";
+"vaccin_num":  27370 ;
+"vaccin_total": 418455 ;
+  
+
+"new_cases":  69 ;
+"sample_num": 2240 ;
+"incidence_rate": 3.1 ;
+"new_healed":  41 ;
+"new_deceased": 0 ;
+"sum_case": 46777 ;
+"sum_healed": 46217 ;
+"sum_deceased": 298 ;
+"sum_active": 262 ;
+"total_samples": 625623 ;
+"date": "18/05/2021";
+"vaccin_num":  24800 ;
+"vaccin_total": 391085 ;
+ 
+
+"new_cases":  47 ;
+"sample_num": 1801 ;
+"incidence_rate": 2.6 ;
+"new_healed":  61 ;
+"new_deceased": 0 ;
+"sum_case": 46708 ;
+"sum_healed": 46176 ;
+"sum_deceased": 298 ;
+"sum_active": 234 ;
+"total_samples": 623383 ;
+"date": "17/05/2021";
+"vaccin_num":  26611 ;
+"vaccin_total": 366285 ;
+  
+
+"new_cases":  5 ;
+"sample_num": 171 ;
+"incidence_rate": 2.9 ;
+"new_healed":  36 ;
+"new_deceased": 0 ;
+"sum_case": 46661 ;
+"sum_healed": 46115 ;
+"sum_deceased": 298 ;
+"sum_active": 248 ;
+"total_samples": 621582 ;
+"date": "16/05/2021";
+"vaccin_num":  7127 ;
+"vaccin_total": 340049 ;
+ 
+
+"new_cases":  37 ;
+"sample_num": 1670 ;
+"incidence_rate": 2.2 ;
+"new_healed":  48 ;
+"new_deceased": 1 ;
+"sum_case": 46656 ;
+"sum_healed": 46079 ;
+"sum_deceased": 298 ;
+"sum_active": 279 ;
+"total_samples": 621411 ;
+"date": "15/05/2021";
+"vaccin_num":  12773 ;
+"vaccin_total": 333793;
+  
+
+"new_cases":  84 ;
+"sample_num": 2537 ;
+"incidence_rate": 3.3 ;
+"new_healed":  25 ;
+"new_deceased": 2 ;
+"sum_case": 46619 ;
+"sum_healed": 46031 ;
+"sum_deceased": 297 ;
+"sum_active": 291 ;
+"total_samples": 619741 ;
+"date": "14/05/2021";
+"vaccin_num":  19523 ;
+"vaccin_total": 321020;
+  
+
+"new_cases":  15 ;
+"sample_num": 1126 ;
+"incidence_rate": 1.3 ;
+"new_healed":  29 ;
+"new_deceased": 1 ;
+"sum_case": 46535 ;
+"sum_healed": 46006 ;
+"sum_deceased": 295 ;
+"sum_active": 234 ;
+"total_samples": 617204 ;
+"date": "13/05/2021";
+"vaccin_num":  6188 ;
+"vaccin_total": 301497;
+  
+
+"new_cases":  4 ;
+"sample_num": 1119 ;
+"incidence_rate": 0.3 ;
+"new_healed":  35 ;
+"new_deceased": 2 ;
+"sum_case": 46520 ;
+"sum_healed": 45977 ;
+"sum_deceased": 294 ;
+"sum_active": 249 ;
+"total_samples": 616078 ;
+"date": "12/05/2021";
+"vaccin_num":  2772 ;
+"vaccin_total": 295309;
+  
+
+"new_cases":  32 ;
+"sample_num": 1805 ;
+"incidence_rate": 1.8 ;
+"new_healed":  32 ;
+"new_deceased": 0 ;
+"sum_case": 46516 ;
+"sum_healed": 45942 ;
+"sum_deceased": 292 ;
+"sum_active": 282 ;
+"total_samples": 614959 ;
+"date": "11/05/2021";
+"vaccin_num":  11738 ;
+"vaccin_total": 292537;
+  
+
+"new_cases":  41 ;
+"sample_num": 1884 ;
+"incidence_rate": 2.2 ;
+"new_healed":  36 ;
+"new_deceased": 1 ;
+"sum_case": 46484 ;
+"sum_healed": 45910 ;
+"sum_deceased": 292 ;
+"sum_active": 282 ;
+"total_samples": 613154 ;
+"date": "10/05/2021";
+"vaccin_num":  13767 ;
+"vaccin_total": 280799;
+ 
+
+"new_cases":  01 ;
+"sample_num": 151 ;
+"incidence_rate": 0.7 ;
+"new_healed":  27 ;
+"new_deceased": 0 ;
+"sum_case": 46443 ;
+"sum_healed": 45874 ;
+"sum_deceased": 291 ;
+"sum_active": 278 ;
+"total_samples": 611270 ;
+"date":"09/05/2021";
+"vaccin_num":  4393 ;
+"vaccin_total": 267032;
+ 
+
+"new_cases":  57 ;
+"sample_num": 2159 ;
+"incidence_rate": 2.6 ;
+"new_healed":  36 ;
+"new_deceased": 0 ;
+"sum_case": 46442 ;
+"sum_healed": 45847 ;
+"sum_deceased": 291 ;
+"sum_active": 304 ;
+"total_samples": 611119 ;
+"date":"08/05/2021";
+"vaccin_num":  10322 ;
+"vaccin_total": 262639;
+  
+
+"new_cases":  41 ;
+"sample_num": 1980 ;
+"incidence_rate": 2.1 ;
+"new_healed":  21 ;
+"new_deceased": 0 ;
+"sum_case": 46385 ;
+"sum_healed": 45811 ;
+"sum_deceased": 291 ;
+"sum_active": 283 ;
+"total_samples": 608960 ;
+"date":"07/05/2021";
+"vaccin_num":  16570 ;
+"vaccin_total": 252317;
+  
+
+"new_cases":  29 ;
+"sample_num": 1732 ;
+"incidence_rate": 1.7 ;
+"new_healed":  26 ;
+"new_deceased": 0 ;
+"sum_case": 46344 ;
+"sum_healed": 45790 ;
+"sum_deceased": 291 ;
+"sum_active": 263 ;
+"total_samples": 606980 ;
+"date":"06/05/2021";
+"vaccin_num":  20737 ;
+"vaccin_total": 235747;
+ 
+
+"new_cases":  84 ;
+"sample_num": 2227 ;
+"incidence_rate": 3.8 ;
+"new_healed":  31 ;
+"new_deceased": 0 ;
+"sum_case": 46315 ;
+"sum_healed": 45764 ;
+"sum_deceased": 291 ;
+"sum_active": 260 ;
+"total_samples": 605248 ;
+"date":"05/05/2021";
+"vaccin_num":  17518 ;
+"vaccin_total": 215010;
+  
+
+"new_cases":  58 ;
+"sample_num": 2360 ;
+"incidence_rate": 2.5 ;
+"new_healed":  39 ;
+"new_deceased": 0 ;
+"sum_case": 46231 ;
+"sum_healed": 45733 ;
+"sum_deceased": 291 ;
+"sum_active": 207 ;
+"total_samples": 603021 ;
+"date":"04/05/2021";
+"vaccin_num":  14191 ;
+"vaccin_total": 197492;
+  
+
+"new_cases":  19 ;
+"sample_num": 1668 ;
+"incidence_rate": 1.1 ;
+"new_healed":  32 ;
+"new_deceased": 4 ;
+"sum_case": 46173 ;
+"sum_healed": 45694 ;
+"sum_deceased": 291 ;
+"sum_active": 188 ;
+"total_samples": 600661 ;
+"date":"03/05/2021";
+"vaccin_num":  14882 ;
+"vaccin_total": 183301;
+  
+
+"new_cases":  4 ;
+"sample_num": 287 ;
+"incidence_rate": 1.4 ;
+"new_healed":  18 ;
+"new_deceased": 0 ;
+"sum_case": 46154 ;
+"sum_healed": 45662 ;
+"sum_deceased": 287 ;
+"sum_active": 205 ;
+"total_samples": 598993 ;
+"date":"02/05/2021";
+"vaccin_num":  5310 ;
+"vaccin_total": 168419;
+ 
+
+"new_cases":  36 ;
+"sample_num": 1852 ;
+"incidence_rate": 1.9 ;
+"new_healed":  62 ;
+"new_deceased": 1 ;
+"sum_case": 46150 ;
+"sum_healed": 45644 ;
+"sum_deceased": 287 ;
+"sum_active": 219 ;
+"total_samples": 598706 ;
+"date":"01/05/2021";
+"vaccin_num":  4128 ;
+"vaccin_total": 163176;
+  
+
+"new_cases":  78 ;
+"sample_num": 2566 ;
+"incidence_rate": 3 ;
+"new_healed":  56 ;
+"new_deceased": 0 ;
+"sum_case": 46114 ;
+"sum_healed": 45582 ;
+"sum_deceased": 286 ;
+"sum_active": 246 ;
+"total_samples": 598854 ;
+"date": "30/04/2021";
+"vaccin_num":  9944 ;
+"vaccin_total": 158981;
+  
+
+"new_cases":  38 ;
+"sample_num": 1904 ;
+"incidence_rate": 2 ;
+"new_healed":  28 ;
+"new_deceased": 0 ;
+"sum_case": 46036 ;
+"sum_healed": 45526 ;
+"sum_deceased": 286 ;
+"sum_active": 224 ;
+"total_samples": 594288 ;
+"date": "29/04/2021";
+"vaccin_num":  8767 ;
+"vaccin_total": 149037;
+  
+
+"new_cases":  55 ;
+"sample_num": 2177 ;
+"incidence_rate": 2.5 ;
+"new_healed":  29 ;
+"new_deceased": 0 ;
+"sum_case": 45998 ;
+"sum_healed": 45498 ;
+"sum_deceased": 286 ;
+"sum_active": 214 ;
+"total_samples": 592384 ;
+"date": "28/04/2021";
+"vaccin_num":  7836 ;
+"vaccin_total": 140270;
+  
+
+"new_cases":  58 ;
+"sample_num": 1653 ;
+"incidence_rate": 3.5 ;
+"new_healed":  18 ;
+"new_deceased": 1 ;
+"sum_case": 45943 ;
+"sum_healed": 45469 ;
+"sum_deceased": 286 ;
+"sum_active": 188 ;
+"total_samples": 590207 ;
+"date": "27/04/2021";
+"vaccin_num":  6483 ;
+"vaccin_total": 132434;
+ 
+
+"new_cases":  22 ;
+"sample_num": 2099 ;
+"incidence_rate": 1.1 ;
+"new_healed":  38 ;
+"new_deceased": 2 ;
+"sum_case": 45885 ;
+"sum_healed": 45451 ;
+"sum_deceased": 285 ;
+"sum_active": 149 ;
+"total_samples": 588554 ;
+"date": "26/04/2021";
+"vaccin_num":  6295 ;
+"vaccin_total": 125958;
+ 
+
+"new_cases":  11 ;
+"sample_num": 632 ;
+"incidence_rate": 1.7 ;
+"new_healed":  39 ;
+"new_deceased": 1 ;
+"sum_case": 45863 ;
+"sum_healed": 45413 ;
+"sum_deceased": 283 ;
+"sum_active": 167 ;
+"total_samples": 586455 ;
+"date": "25/04/2021";
+"vaccin_num":  788 ;
+"vaccin_total": 119663;
+  
+
+"new_cases":  32 ;
+"sample_num": 2196 ;
+"incidence_rate": 1.5 ;
+"new_healed":  31 ;
+"new_deceased": 1 ;
+"sum_case": 45852 ;
+"sum_healed": 45374 ;
+"sum_deceased": 282 ;
+"sum_active": 196 ;
+"total_samples": 585823 ;
+"date": "24/04/2021";
+"vaccin_num":  1648 ;
+"vaccin_total": 118875;
+ 
+
+"new_cases":  55 ;
+"sample_num": 1807 ;
+"incidence_rate": 3 ;
+"new_healed":  32 ;
+"new_deceased": 2 ;
+"sum_case": 45820 ;
+"sum_healed": 45343 ;
+"sum_deceased": 281 ;
+"sum_active": 196 ;
+"total_samples": 583627 ;
+"date": "23/04/2021";
+"vaccin_num":  4003 ;
+"vaccin_total": 117227;
+  
+
+"new_cases":  50 ;
+"sample_num": 2072 ;
+"incidence_rate": 2.4 ;
+"new_healed":  28 ;
+"new_deceased": 2 ;
+"sum_case": 45765 ;
+"sum_healed": 45311 ;
+"sum_deceased": 279 ;
+"sum_active": 175 ;
+"total_samples": 581820 ;
+"date": "22/04/2021";
+"vaccin_num":  4147 ;
+"vaccin_total": 113224;
+ 
+
+"new_cases":  18 ;
+"sample_num": 1950 ;
+"incidence_rate": 0.9 ;
+"new_healed":  56 ;
+"new_deceased": 0 ;
+"sum_case": 45715 ;
+"sum_healed": 45283 ;
+"sum_deceased": 277 ;
+"sum_active": 155 ;
+"total_samples": 579748 ;
+"date": "21/04/2021";
+"vaccin_num":  3967 ;
+"vaccin_total": 109077;
+ 
+
+"new_cases":  83 ;
+"sample_num": 2849 ;
+"incidence_rate": 2.9 ;
+"new_healed":  28 ;
+"new_deceased": 2 ;
+"sum_case": 45697 ;
+"sum_healed": 45227 ;
+"sum_deceased": 277 ;
+"sum_active": 193 ;
+"total_samples": 577798 ;
+"date": "20/04/2021";
+"vaccin_num":  4794 ;
+"vaccin_total": 105110;
+  
+
+"new_cases":  10 ;
+"sample_num": 451 ;
+"incidence_rate": 2.2 ;
+"new_healed":  32 ;
+"new_deceased": 0 ;
+"sum_case": 45570 ;
+"sum_healed": 45161 ;
+"sum_deceased": 274 ;
+"sum_active": 135 ;
+"total_samples": 573182 ;
+"date": "18/04/2021";
+"vaccin_num":  0 ;
+"vaccin_total": 94818;
+ 
+
+"new_cases":  41 ;
+"sample_num": 2532 ;
+"incidence_rate": 1.6 ;
+"new_healed":  65 ;
+"new_deceased": 0 ;
+"sum_case": 45560 ;
+"sum_healed": 45129 ;
+"sum_deceased": 274 ;
+"sum_active": 157 ;
+"total_samples": 572731 ;
+"date": "17/04/2021";
+"vaccin_num":  1278 ;
+"vaccin_total": 94818;
+  
+
+"new_cases":  45 ;
+"sample_num": 2485 ;
+"incidence_rate": 1.8 ;
+"new_healed":  71 ;
+"new_deceased": 0 ;
+"sum_case": 45519 ;
+"sum_healed": 45064 ;
+"sum_deceased": 274 ;
+"sum_active": 181 ;
+"total_samples": 570199 ;
+"date": "16/04/2021";
+"vaccin_num":  1639 ;
+"vaccin_total": 93540;
+  
+
+"new_cases":  30 ;
+"sample_num": 2497 ;
+"incidence_rate": 1.2 ;
+"new_healed":  68 ;
+"new_deceased": 1 ;
+"sum_case": 45474 ;
+"sum_healed": 44993 ;
+"sum_deceased": 274 ;
+"sum_active": 207 ;
+"total_samples": 567714 ;
+"date": "15/04/2021";
+"vaccin_num":  4634 ;
+"vaccin_total": 91901;
+ 
+
+"new_cases":  56 ;
+"sample_num": 2942 ;
+"incidence_rate": 1.9 ;
+"new_healed":  92 ;
+"new_deceased": 2 ;
+"sum_case": 45444 ;
+"sum_healed": 44925 ;
+"sum_deceased": 273 ;
+"sum_active": 246 ;
+"total_samples": 565217 ;
+"date": "14/04/2021";
+"vaccin_num":  3842 ;
+"vaccin_total": 87267;
+  
+
+"new_cases":  123 ;
+"sample_num": 2945 ;
+"incidence_rate": 4.2 ;
+"new_healed":  62 ;
+"new_deceased": 2 ;
+"sum_case": 45388 ;
+"sum_healed": 44833 ;
+"sum_deceased": 271 ;
+"sum_active": 284 ;
+"total_samples": 562275 ;
+"date": "13/04/2021";
+"vaccin_num":  6715 ;
+"vaccin_total": 83425;
+ 
+
+"new_cases":  38 ;
+"sample_num": 2036 ;
+"incidence_rate": 1.9 ;
+"new_healed":  88 ;
+"new_deceased": 1 ;
+"sum_case": 45265 ;
+"sum_healed": 44771 ;
+"sum_deceased": 269 ;
+"sum_active": 225 ;
+"total_samples": 559330 ;
+"date": "12/04/2021";
+"vaccin_num":  7867 ;
+"vaccin_total": 76710;
+ 
+
+"new_cases":  21 ;
+"sample_num": 1142 ;
+"incidence_rate": 1.8 ;
+"new_healed":  54 ;
+"new_deceased": 5 ;
+"sum_case": 45227 ;
+"sum_healed": 44683 ;
+"sum_deceased": 268 ;
+"sum_active": 276 ;
+"total_samples": 557294 ;
+"date": "11/04/2021";
+"vaccin_num":  0 ;
+"vaccin_total": 68843;
+  
+
+"new_cases":  61 ;
+"sample_num": 4252 ;
+"incidence_rate": 1.4 ;
+"new_healed":  156 ;
+"new_deceased": 2 ;
+"sum_case": 45206 ;
+"sum_healed": 44629 ;
+"sum_deceased": 263 ;
+"sum_active": 314 ;
+"total_samples": 556152 ;
+"date": "10/04/2021";
+"vaccin_num":  2347 ;
+"vaccin_total": 68843;
+  
+
+"new_cases":  56 ;
+"sample_num": 2902 ;
+"incidence_rate": 1.9 ;
+"new_healed":  276 ;
+"new_deceased": 1 ;
+"sum_case": 45145 ;
+"sum_healed": 44473 ;
+"sum_deceased": 261 ;
+"sum_active": 411 ;
+"total_samples": 551900 ;
+"date":"09/04/2021";
+"vaccin_num":  5673 ;
+"vaccin_total": 66496;
+  
+
+"new_cases":  114 ;
+"sample_num": 4155 ;
+"incidence_rate": 2.7 ;
+"new_healed":  439 ;
+"new_deceased": 2 ;
+"sum_case": 45089 ;
+"sum_healed": 44197 ;
+"sum_deceased": 260 ;
+"sum_active": 632 ;
+"total_samples": 548998 ;
+"date":"07/04/2021";
+"vaccin_num":  4872 ;
+"vaccin_total": 60823;
+  
+
+"new_cases":  95 ;
+"sample_num": 3429 ;
+"incidence_rate": 2.8 ;
+"new_healed":  312 ;
+"new_deceased": 1 ;
+"sum_case": 44975 ;
+"sum_healed": 43758 ;
+"sum_deceased": 258 ;
+"sum_active": 959 ;
+"total_samples": 544843 ;
+"date":"07/04/2021";
+"vaccin_num":  3128 ;
+"vaccin_total": 56082;
+  
+
+"new_cases":  26 ;
+"sample_num": 1907 ;
+"incidence_rate": 1.3 ;
+"new_healed":  316 ;
+"new_deceased": 1 ;
+"sum_case": 44880 ;
+"sum_healed": 43446 ;
+"sum_deceased": 257 ;
+"sum_active": 1177 ;
+"total_samples": 541414 ;
+"date":"06/04/2021";
+"vaccin_num":  3573 ;
+"vaccin_total": 53071;
+ 
+
+"new_cases":  13 ;
+"sample_num": 1096 ;
+"incidence_rate": 1.2 ;
+"new_healed":  692 ;
+"new_deceased": 0 ;
+"sum_case": 44854 ;
+"sum_healed": 43130 ;
+"sum_deceased": 256 ;
+"sum_active": 1468 ;
+"total_samples": 539507 ;
+"date":"03/04/2021";
+"vaccin_num":  1749 ;
+"vaccin_total": 49498;
+  
+
+"new_cases":  92 ;
+"sample_num": 2302;
+"incidence_rate": 4;
+"new_healed":  367;
+"new_deceased": 1;
+"sum_case": 44841;
+"sum_healed": 42438;
+"sum_deceased": 256;
+"sum_active": 2147 ;
+"total_samples": 538411;
+"date":"02/04/2021";
+"vaccin_num": 0 ;
+"vaccin_total": 49642;
+  
+
+"new_cases": 131;
+"sample_num": 2984;
+"incidence_rate": 4.4;
+"new_healed": 384;
+"new_deceased": 3;
+"sum_case": 44749;
+"sum_healed": 42071 ;
+"sum_deceased": 255 ;
+"sum_active": 2423 ;
+"total_samples": 536109;
+"date":"01/04/2021";
+"vaccin_num":  0;
+"vaccin_total": 49498;

@@ -99,6 +99,12 @@ APP_REGISTRY.modules = {
 				"radius"     : "40px",
 				"menu_label" : "Mode plein écran..",
 				"url_params" : "show_full_screen"
+			},
+			{
+				"fa_icon"    : "fa-cog",
+				"radius"     : "40px",
+				"menu_label" : "Panneau d'administration",
+				"url_params" : "load_config_panel"
 			}
 		]
 	},
@@ -130,7 +136,6 @@ APP_REGISTRY.modules = {
           "container_ref"	: "opera-variablekey-selector-in-drawer"
 
         },
-
         {
           "fa_icon"    : "fa fa-globe",
           "radius"     : "40px",
