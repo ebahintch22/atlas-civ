@@ -57,14 +57,17 @@ function redirect_to_FABmenu_manager(commandkey){
 
 		case "load_config_panel" :
 			//
-			show_modal_box ( 
-				"Panneau d'administration", 
-				null,
-				`<div id="ADMIN-TAB-WRAPPER2" style="width='100%'"> Veuillez patienter... </div>`,
-				function after_show(){
-					create_navTabController_ADMIN();
-				}
-			);
+			  var access_code = prompt("Veuillez entrer votre code d'accès", "*******");
+			  if ( access_code != null) {
+
+		            PUB_SUB.publish("opera.admin.access", 
+		                [
+		                    {message : access_code ,  type : "admin"}
+		                ]
+		            )
+			  } else {
+			  	 alertify.message("Opération abandonnée")
+			  }
 			break;	
 	}
 

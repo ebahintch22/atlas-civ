@@ -447,7 +447,7 @@ function remove_start_up_curtain(){
 
 function show_address_to_mobile_users(){
 	var mssg = `
-	   <p class="align-middle text-center" > Nous avons détecté que vous utilisez un terminal mobile.<br>
+	    <p class="align-middle text-center" > Nous avons détecté que vous utilisez un terminal mobile.<br>
     		<span style="font-weight:800; color: orange;">Atlas Santé</span> est conçu à la base pour des terminaux à large écran (Desktop/Laptop) exclusivement.
     	    <br> Cependant, vu le nombre élevé de requêtes de connexion les concernant, l'accès depuis les terminaux mobiles a été ouvert, et ce, malgré une expérience utilisateur sensiblement dégradée.
     	    En attendant la disponibilité d'une véritable version mobile, nous nous excusons auprès des utilisateurs "mobiles".

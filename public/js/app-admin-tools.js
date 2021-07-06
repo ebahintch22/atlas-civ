@@ -33,12 +33,22 @@
                         })
                     }
                 )
-
                 _connUserToken = PUB_SUB.subscribe( "opera.users.connected" , 
                     function(data){
                         __dtable_loadData(data);
                     }
                 )
+            },
+            control_access : function(){
+                    _accessToken = PUB_SUB.subscribe( "opera.admin.access" , 
+                    function(mssgArray){
+
+                        var data = mssgArray[0]
+                        if (data.message == "Awa@88") {
+                            xxx_yyy_zzz()
+                        }
+                    }
+                )               
             },
             stopLogging : function (){
 
@@ -200,20 +210,30 @@
                 function set_as_date( data, type, row ){
 
                     opera_console.addLog(data, "warning")
-
                     return ( _date.date_str(data))
 
                 }
             }
         }
-
     })();
 
 opera_console.startLogging();
+opera_console.control_access();
 
+function xxx_yyy_zzz(){
+    show_modal_box ( 
+        "Panneau d'administration", 
+        null,
+        `<div id="ADMIN-TAB-WRAPPER2" style="width='100%'"> <br> Veuillez patienter... </div>`,
+        function after_show(){
+            create_navTabController_ADMIN();
+        }
+    );   
+}
 /*
 IS_ADMIN_SESSION = IS_ADMIN_SESSION || false;
 var before_app_initialization = true;   
     user_agent = new UAParser().getResult();
     user_agent.device_type = isMobileDevice() ? "mobile" : "desktop"
 */
+
