@@ -3,8 +3,9 @@
         opera_console = (function(){
         var _Number = new Intl.NumberFormat();
         var _date = new _create_dateFormatter();
-        var _logToken ;
+        var _logToken , _logRenderToken, _connUserToken
         var _dataTableController, _userscolArray;
+        var _LOG_CACHE_ARRAY = []
 
         return {
            _log : function(message){
@@ -23,21 +24,27 @@
             explain : function(){
                 return 'I am a simple on line console for development mode'
             },
+            renderLogs : function(node_id){
+                _render_logs( _LOG_CACHE_ARRAY , node_id )
 
+            },
             startLogging : function (){
                 _logToken = PUB_SUB.subscribe( "opera.logs" , 
                     function(mssgArray){
-
-                        mssgArray.forEach( function(data, index){
-                            _addLog( "@pub-sub- " + data.message , data.type)
-                        })
+                        _LOG_CACHE_ARRAY.push(mssgArray);
                     }
-                )
+                );
                 _connUserToken = PUB_SUB.subscribe( "opera.users.connected" , 
                     function(data){
                         __dtable_loadData(data);
                     }
-                )
+                );
+
+                _logRenderToken = PUB_SUB.subscribe( "opera.debug.load" , 
+                    function(node_id){
+                         _render_logs(_LOG_CACHE_ARRAY , node_id);
+                    }
+                );
             },
             control_access : function(){
                     _accessToken = PUB_SUB.subscribe( "opera.admin.access" , 
@@ -50,7 +57,7 @@
 
                 _logToken.unsubscribe();
                 _connUserToken.unsubscribe();
-
+                _logRenderToken.unsubscribe();
             },
             
             connectedUsers : {
@@ -198,7 +205,6 @@
                     {"data": "last_conn_started_at" , "title": "Dernière visite (début)", "render" : set_as_date },
                     {"data": "created_on" , "title": "Créé le" , "render" : set_as_date },
                     {"data": "boot_exit_why" , "title": "Fin (raison)"  }
-
                 ]
 
                 return(col_arr)
@@ -216,6 +222,7 @@
 opera_console.startLogging();
 opera_console.control_access();
 
+
 function xxx_yyy_zzz(){
     show_modal_box ( 
         "Panneau d'administration", 
@@ -232,4 +239,33 @@ var before_app_initialization = true;
     user_agent = new UAParser().getResult();
     user_agent.device_type = isMobileDevice() ? "mobile" : "desktop"
 */
+
+function _render_logs(DATA_LOGS_ARR , node_id){
+
+    var HTML_code = DATA_LOGS_ARR.reduce( render_paragraph, "")
+    $(node_id).html(HTML_code)
+
+
+    /********************************************************/
+    function render_paragraph (accu, log_arr, index){
+
+        const new_paraph = log_arr.reduce( render_line , "");
+        return ( accu + `
+            <div class="list-group">
+              <li href="#" class="list-group-item">
+                <h5 class="list-group-item-heading"> Message # ${index}</h5>
+                ${ new_paraph }
+              </li>
+            </div>`
+         );
+
+        function render_line( accu, mssg ){
+            return ( accu + `
+            <p class="list-group-item-text"> 
+                <span style="font-size: 12px;'"> <b> ${ mssg.type } :</b></span>
+                <span style="font-size: 10px;'" >  ${ mssg.message } </span>  
+            </p>`);
+        }
+    }
+}
 

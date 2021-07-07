@@ -193,7 +193,7 @@ function create_navTabController_RASS(){
 	    	switch(info.tabname){
 
 	    		case "table-graphics" : 
-	    			rass_active_panel = "tab-a" ;
+	    			rass_active_panel = "tab-a" ; break;
 
 	    		case "graphics" :
 	    			break;
@@ -221,10 +221,18 @@ function create_navTabController_ADMIN(){
 
 	"#ADMIN-TAB-WRAPPER2", {
 	id : "admin-tabs",
-	default : "admin-tab-01",
+	default : "admin-tab-00",
 	nav_position : "top" ,  
 	color_theme  : "light",
 		tabs : [
+			{
+				id : "admin-tab-00",
+				name : "welcome_pane",
+				label : "Accueil",
+				html_content : ` <div id="welcome_pane"  style="margin:10px; padding: 10px;"> Bienvenue à l'outil de gestion du contenu de l'Atlas Santé </div>` ,
+				enabled : true,
+				visible : true
+			}, 
 			{
 				id : "admin-tab-01",
 				name : "connected_users",
@@ -245,9 +253,9 @@ function create_navTabController_ADMIN(){
 
 			{ 
 				id: "admin-tab-04", 
-				name: "sys_config" , 
-				label : "Configuration", 
-				html_content : get_color_ramp_html( color_data ) ,
+				name: "debugger" , 
+				label : "Debug tracing", 
+				html_content : `<div id="debugger"  style="margin:10px; padding: 10px;"> Chargement du traceur de commande... </div>` ,
 				enabled : true,
 				visible : IS_ADMIN_SESSION
 			}
@@ -276,10 +284,12 @@ function create_navTabController_ADMIN(){
 								]
 							)
 						}
-					)
+					);
+					break;
 					 
-				case "sys_config":
-					
+				case "debugger":
+						
+						PUB_SUB.publish( "opera.debug.load" , "#debugger"	)
 
 				break;
 			}
@@ -288,7 +298,7 @@ function create_navTabController_ADMIN(){
 		function on_navtabs_load(){
 			// Init data load
 		}
-    )
+  )
 }
 
 

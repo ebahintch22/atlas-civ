@@ -51,7 +51,8 @@ function user_connexion_manager_constructor(){
     		 stop_session : _stop_session,
     	 get_online_users : _get_online_users,
     	      reset_token : _reset_storage,
-    	       supervisor : _supervisor
+    	       supervisor : _supervisor,
+    	    start_logging : start_session_notifier
     }
 
     function _boot_app(){
@@ -88,16 +89,12 @@ function user_connexion_manager_constructor(){
 
 		} else {
 
-
-
 			PUB_SUB.publish("opera.logs", 
 				[
 					{message : "Visiteur Inconnu :" ,  type : "fail"},
 					{message : "Demande d'une nouvelle clé par le client :" , type: "request" }
 				]
 			)
-
-
 			exec_infinite_safe(function(){
 				Ajaxian.post( `./visitors/new_visitor`, tempUserBadge, createUserBadge, unexpected_Error_handler)
 				loop_counter++;
@@ -202,7 +199,6 @@ function user_connexion_manager_constructor(){
 			]
 		)	
 
-
 		storeAgent.setItem("opera.kassaprekoh.2020", data.uuid);
 		userBadge = data ;
 		userBadge.new_visitor = true;
@@ -212,8 +208,6 @@ function user_connexion_manager_constructor(){
 			Ajaxian.post( `./visitors/boot_success`, userBadge, APP_START_NOW, unexpected_Error_handler)
 			loop_counter++;
 		})
-		
-		
 	}
 
 
@@ -412,7 +406,7 @@ function user_connexion_manager_constructor(){
 		//$("#tab-e").html( Mustache.render( opera_table_template , { users: data} ))
 	}
 }
-
+/* END OF user_connexion_manager_constructor */
 
 function force_mobile(){
 	return ( behave_as_mobile_device_on_start_up == true )
@@ -469,7 +463,7 @@ function APP_START_NOW( data ){
 	//démarrer l'application avec gestion des connexions
 	else if ( data.appIsReady) {
 		app_start_up();
-		start_session_notifier(data);				
+		user_session_manager.start_logging(data);				
 	}
 	else {
 		app_start_aborted();

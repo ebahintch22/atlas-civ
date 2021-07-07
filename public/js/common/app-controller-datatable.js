@@ -75,7 +75,6 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
 			);
 		}
 
-
         function update_Options(Config){
         	return {
 	            data: [],
@@ -97,6 +96,7 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
 	            }
 	        }
         }
+
         function get_html_struct( id , inColArray, useColArray = true ){
 
         	var  colArray = useColArray? inColArray :  [] ;

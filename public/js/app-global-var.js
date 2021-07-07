@@ -131,13 +131,12 @@ var COVIDATA_STATUS = "UNLOAD";
 var COVID_SPINNER_ARR = [];
 var COVIDATA_ACCESS_MODE = "database"
 
-var CONNEXION_MANAGER_ENABLED = false
+var CONNEXION_MANAGER_ENABLED = true
 var APP_START_UNIT_TEST_MODE = false
 var ZOOM_IS_DISABLE = true
 var rass_active_panel = "tab-a" 
 var IS_ADMIN_SESSION = true;
 var DATE_FORMATTER = (function(){
-
 	var format_short = new window.Intl.DateTimeFormat( "fr-FR" ,
 		{
 			 year : "numeric",
