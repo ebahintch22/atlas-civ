@@ -57,7 +57,8 @@ function redirect_to_FABmenu_manager(commandkey){
 
 		case "load_config_panel" :
 			//Chargement de la fenêtre d'administration
-			  var access_code = prompt("Veuillez entrer votre code d'accès", "*******");
+			  //var access_code = prompt("Veuillez entrer votre code d'accès", "*******");
+			  show_password_box()
 			  if ( access_code != null) {
 
 		            PUB_SUB.publish("opera.admin.access", 

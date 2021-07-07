@@ -32,3 +32,47 @@ function show_modal_box ( title , path , htmlCode, callBack){
 	}
  }
 
+function show_password_box(){
+
+	var form_elt = $(`<form id="loginForm">
+		    <fieldset>
+		        <label> Username </label>
+		        <input type="text" value="Mohammad"/> 
+
+		        <label> Password </label>
+		        <input type="password" value="password"/> 
+
+		        <input type="submit" value="Login"/>
+		    </fieldset>
+		</form>`)[0];
+
+	alertify.genericDialog || alertify.dialog('genericDialog', function(){
+    return {
+	        main: function(content){
+	            this.setContent(content);
+	        },
+	        setup:function(){
+	            return {
+	                focus:{
+	                    element:function(){
+	                        return this.elements.body.querySelector(this.get('selector'));
+	                    },
+	                    select:true
+	                },
+	                options:{
+	                    basic:true,
+	                    maximizable:false,
+	                    resizable:false,
+	                    padding:false
+	                }
+	            };
+	        },
+	        settings:{
+	            selector:undefined
+	        }
+	    };
+	});
+	//force focusing password box
+	//alertify.genericDialog ($('#loginForm')[0]).set('selector', 'input[type="password"]');
+	alertify.genericDialog ( form_elt ).set('selector', 'input[type="password"]');
+}
