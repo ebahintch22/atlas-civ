@@ -57,19 +57,21 @@ function redirect_to_FABmenu_manager(commandkey){
 
 		case "load_config_panel" :
 			//Chargement de la fenêtre d'administration
-			  //var access_code = prompt("Veuillez entrer votre code d'accès", "*******");
-			  show_password_box()
-			  if ( access_code != null) {
+		    show_password_box( "./auth/atlas-admin", 
+			  	function(data){
+			  		if (data.success){
+			  			alertify.message( "Athentification réussie !")
+			            PUB_SUB.publish("opera.admin.access", null
 
-		            PUB_SUB.publish("opera.admin.access", 
-		                [
-		                    {message : access_code ,  type : "admin"}
-		                ]
-		            )
-			  } else {
-			  	 alertify.message("Opération abandonnée")
-			  }
-			break;	
+			            )
+			  		} else {
+			  			alertify.message( "Echec de d'authentification. Opération abandonnée !")
+			  		}
+			    }, 
+			   function(xhr){
+			  	 	alertify.message( JSON.stringify(xhr));
+			   }
+			); break;	
 	}
 
 	navigate("home");

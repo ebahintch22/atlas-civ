@@ -42,11 +42,7 @@
             control_access : function(){
                     _accessToken = PUB_SUB.subscribe( "opera.admin.access" , 
                     function(mssgArray){
-
-                        var data = mssgArray[0]
-                        if (data.message == "Awa@88") {
-                            xxx_yyy_zzz()
-                        }
+                        xxx_yyy_zzz()
                     }
                 )               
             },

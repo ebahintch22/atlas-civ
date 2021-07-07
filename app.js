@@ -16,7 +16,7 @@ var covidRouter = require('./routes/covid');
 
 //Payroll Models
 var employeeRouter = require('./routes/employees');
-
+var authRouter = require('./routes/authentication');
 
 
 
@@ -51,7 +51,7 @@ app.use('/civ/visitors', visitorRouter);//socketRouter
 app.use('/guest-gtx/visitors', visitorRouter);//socketRouter
 
 app.use('/covid', covidRouter);//socketRouter
-app.use('/buyers'  , buyerRouter);
+app.use('/auth', authRouter);
 
 app.use('/payroll/employees'  , employeeRouter );
 

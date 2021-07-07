@@ -64,12 +64,7 @@ APP_REGISTRY.modules = {
 			},
 
 		"menu_items" : [
-			{
-				"fa_icon"    : "fa-info-circle",
-				"radius"     : "40px",
-				"menu_label" : "A propos d'Atlas Côte d'Ivoire..",
-				"url_params" : "about_app"
-			},
+
 			{
 				"fa_icon"    : "fa-pencil",
 				"radius"     : "40px",
@@ -99,6 +94,12 @@ APP_REGISTRY.modules = {
 				"radius"     : "40px",
 				"menu_label" : "Mode plein écran..",
 				"url_params" : "show_full_screen"
+			},			
+			{
+				"fa_icon"    : "fa-info-circle",
+				"radius"     : "40px",
+				"menu_label" : "A propos d'Atlas Côte d'Ivoire..",
+				"url_params" : "about_app"
 			},
 			{
 				"fa_icon"    : "fa-cog",

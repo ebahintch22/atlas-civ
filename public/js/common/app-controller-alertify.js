@@ -32,22 +32,30 @@ function show_modal_box ( title , path , htmlCode, callBack){
 	}
  }
 
-function show_password_box(){
+
+
+
+
+
+// Gestionnaire d'Authentification 
+function show_password_box( Url, callBackSuccess, callBackFailure){
 
 	var form_elt = $(`<form id="loginForm">
 		    <fieldset>
 		        <label> Username </label>
-		        <input type="text" value="Mohammad"/> 
+		        <input type="text" name="username" value="atlas-admin"/> 
 
 		        <label> Password </label>
-		        <input type="password" value="password"/> 
+		        <input type="password" name="password" value="*****"/> 
 
-		        <input type="submit" value="Login"/>
+		        <input type="submit" name="submit" value="Login"/>
 		    </fieldset>
 		</form>`)[0];
 
+
 	alertify.genericDialog || alertify.dialog('genericDialog', function(){
-    return {
+		const that = this
+	    return {
 	        main: function(content){
 	            this.setContent(content);
 	        },
@@ -63,16 +71,34 @@ function show_password_box(){
 	                    basic:true,
 	                    maximizable:false,
 	                    resizable:false,
-	                    padding:false
+	                    padding:false,
+	                    onshow : function(){
+		                    let form  = document.getElementById('loginForm');
+		                    let submitElt = form.elements['submit'] ;
+							form.addEventListener('submit', (event) => {
+							
+							    event.preventDefault();
+
+							    const info = form.elements['password'].value;
+							    
+							    submitElt.value = "Vérification en cours....";
+							    Ajaxian.post( 
+							    	Url, 
+							    	{info}, 
+							    	function(data){ submitElt.value = "Connecté" ; alertify.genericDialog().close(); callBackSuccess(data)} , 
+							    	function(xhr) { submitElt.value = "Demande rejetée" ; alertify.genericDialog().close(); callBackFailure(xhr) }  
+							    );
+							    
+							});
+	                    }
 	                }
 	            };
 	        },
 	        settings:{
 	            selector:undefined
 	        }
-	    };
+		};
 	});
 	//force focusing password box
-	//alertify.genericDialog ($('#loginForm')[0]).set('selector', 'input[type="password"]');
 	alertify.genericDialog ( form_elt ).set('selector', 'input[type="password"]');
 }
