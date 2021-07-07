@@ -58,9 +58,9 @@ function redirect_to_FABmenu_manager(commandkey){
 		case "load_config_panel" :
 			//Chargement de la fenêtre d'administration
 		    show_password_box( "./auth/atlas-admin", 
-			  	function(data){
+			  	function SUCCESS(data){
 			  		if (data.success){
-			  			alertify.message( "Athentification réussie !")
+			  			//alertify.message( "Athentification réussie !")
 			            PUB_SUB.publish("opera.admin.access", null
 
 			            )
@@ -68,7 +68,7 @@ function redirect_to_FABmenu_manager(commandkey){
 			  			alertify.message( "Echec de d'authentification. Opération abandonnée !")
 			  		}
 			    }, 
-			   function(xhr){
+			   function FAIL(xhr){
 			  	 	alertify.message( JSON.stringify(xhr));
 			   }
 			); break;	
