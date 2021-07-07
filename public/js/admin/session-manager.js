@@ -58,6 +58,8 @@ function user_connexion_manager_constructor(){
     function _boot_app(){
     	
 		exec_infinite_safe( function(){
+			PUB_SUB.publish("opera.logs", [ {message : `Boot de l'application :` ,  type : "info"}]
+			)			
 			Ajaxian.post( './visitors/boot_app', user_agent, _start_session, unexpected_Error_handler)
 			loop_counter++;
 		})
@@ -70,32 +72,22 @@ function user_connexion_manager_constructor(){
 
 		if (storeAgent.existItem("opera.kassaprekoh.2020" , byPassKey)){
 
-			user_key = storeAgent.getItem()
+			user_key = storeAgent.getItem();
 
+			PUB_SUB.publish("opera.logs", [ {message : `Utilisateur ${user_key}  identifié par le Browser :` ,  type : "Local sorage restore"}] );
+			exec_infinite_safe( function(){	
 
-			PUB_SUB.publish("opera.logs", 
-				[
-					{message : `Utilisateur ${user_key}  identifié par le Browser :` ,  type : ""},
-					{message : "Demande de vérification :" + user_key , type: "request" }
-				]
-			)
-
-
-			exec_infinite_safe(function(){	
-				Ajaxian.read( `./visitors/read_visitor/${user_key}`, UserBadge_restore_Or_recreate, unexpected_Error_handler)
-				loop_counter++;
-
-			})
+				PUB_SUB.publish("opera.logs", [ {message : "Demande de vérification :" + user_key + " vers le serveur" , type: "request" } ]);
+					Ajaxian.read( `./visitors/read_visitor/${user_key}`, UserBadge_restore_Or_recreate, unexpected_Error_handler)
+					loop_counter++;
+				}
+			);
 
 		} else {
 
-			PUB_SUB.publish("opera.logs", 
-				[
-					{message : "Visiteur Inconnu :" ,  type : "fail"},
-					{message : "Demande d'une nouvelle clé par le client :" , type: "request" }
-				]
-			)
+			PUB_SUB.publish("opera.logs", [	{message : "Visiteur Inconnu :" ,  type : "fail"}])
 			exec_infinite_safe(function(){
+		   		PUB_SUB.publish("opera.logs", [{message : "Demande d'une nouvelle clé par le client :" , type: "request" }])
 				Ajaxian.post( `./visitors/new_visitor`, tempUserBadge, createUserBadge, unexpected_Error_handler)
 				loop_counter++;
 			})
@@ -141,13 +133,11 @@ function user_connexion_manager_constructor(){
 
     				start_supervision_notifier()
     				supervisor_active = true;
-    				
 
     			} else {
     				stop_supervision_notifier()
     				supervisor_active = false;
     			}
-
     		break;
 
     		case "traffic" :
@@ -167,6 +157,7 @@ function user_connexion_manager_constructor(){
 
     
     function _get_online_users(){
+ 		PUB_SUB.publish("opera.logs", [	{message : "Demande de la liste des utilisateurs" ,  type : "Request"}])
     	Ajaxian.read(  `./visitors/admin`, manage_admin_infos, unexpected_Error_handler)
     }
 
@@ -175,9 +166,7 @@ function user_connexion_manager_constructor(){
     function _reset_storage(){ 
 
 		PUB_SUB.publish("opera.logs", 
-			[
-				{message : "Token removed from Local storage" + user_key , type: "success" }
-			]
+			[ {message : "Token removed from Local storage" + user_key , type: "success" }]
 		)
 
     	storeAgent.removeItem("opera.kassaprekoh.2020") 
@@ -216,19 +205,20 @@ function user_connexion_manager_constructor(){
 
 		 if ( data.appIsReady ){
 			//If all is OK then we start the application
-			PUB_SUB.publish("opera.logs", 
-				[
-					{
-						message : "Réponse du serveur après la vérification du visiteur, : restauration du badge usager => " + JSON.stringify(data) , 
-						type: "success" 
-					}
-				]
-			)	
+			PUB_SUB.publish("opera.logs", [	
+				{ message : "Réponse du serveur après la vérification du visiteur", type: "Vérification de badge réussie" },
+				{ message : "Badge usager => " + JSON.stringify(data) ,             type: "Restauration du badge " }
+			]);
+
 			userBadge = data;
 			userBadge.new_visitor = false
 			userBadge._uuid = tempUserBadge._uuid
 
 			exec_infinite_safe(function(){
+				PUB_SUB.publish("opera.logs", [	
+					{ message : "Demande de lancement de l'Atlas APP_START_NOW()"     , type : "Request to client" },
+					{ message : "Badge de connexion  => " + JSON.stringify(userBadge) , type : "Request to client"}
+				]);				
 				Ajaxian.post( `./visitors/boot_success`, userBadge, APP_START_NOW, unexpected_Error_handler)
 				loop_counter++;
 			})		
@@ -259,10 +249,8 @@ function user_connexion_manager_constructor(){
 
 		PUB_SUB.publish("opera.logs", 
 			[
-				{
-					message : "HTTP//ERROR 500 :" + xhr.responseText  , 
-					   type : "fail" 
-				}
+				{	message : "Erreur imprévue"  ,   type : "fail" },
+				{	message : "HTTP//ERROR 500 :" + xhr.responseText  ,   type : "fail" }
 			]
 		)
 	}	

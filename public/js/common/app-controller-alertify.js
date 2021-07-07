@@ -46,7 +46,7 @@ function show_password_box( Url, callBackSuccess, callBackFailure){
 		        <input type="text" name="username" value="atlas-admin"/> 
 
 		        <label> Password </label>
-		        <input type="password" name="password" value="*****"/> 
+		        <input type="password" name="password" value="Awa@88"/> 
 
 		        <input type="submit" name="submit" value="Login"/>
 		    </fieldset>
