@@ -24,4 +24,15 @@ router.post('/atlas-admin', function(req, res, next) {
 });
 
 
+router.post('/getenv', function(req, res, next) {
+
+      res.send({
+        PORT : process.env.PORT,
+        USER : process.env.USER,
+        PGDATABASE : process.env.PGDATABASE,
+        USE_SSL : process.env.USE_SSL
+    }) 
+
+});
+
 module.exports = router;

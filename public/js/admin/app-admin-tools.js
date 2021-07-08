@@ -3,7 +3,7 @@
         opera_console = (function(){
         var _Number = new Intl.NumberFormat();
         var _date = new _create_dateFormatter();
-        var _logToken , _logRenderToken, _connUserToken
+        var _logToken , _logRenderToken, _connUserToken, _getEnvToken ;
         var _dataTableController, _userscolArray;
         var _LOG_CACHE_ARRAY = []
 
@@ -45,6 +45,13 @@
                          _render_logs(_LOG_CACHE_ARRAY , node_id);
                     }
                 );
+
+                _getEnvToken = PUB_SUB.subscribe( "opera.debug.getenv" , 
+                    function(data){
+                         _render_environment_var( data );
+                    }
+                );
+
             },
             control_access : function(){
                     _accessToken = PUB_SUB.subscribe( "opera.admin.access" , 
@@ -269,3 +276,7 @@ function _render_logs(DATA_LOGS_ARR , node_id){
     }
 }
 
+
+function _render_environment_var(data){
+    $(data.node_id).html( JSON.stringify(data.data) )
+}

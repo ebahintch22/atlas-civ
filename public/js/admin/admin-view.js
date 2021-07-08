@@ -15,7 +15,10 @@ function create_navTabController_ADMIN(){
 				id : "admin-tab-00",
 				name : "welcome_pane",
 				label : "Accueil",
-				html_content : ` <div id="welcome_pane"  style="margin:10px; padding: 10px;"> Bienvenue à l'outil de gestion du contenu de l'Atlas Santé </div>` ,
+				html_content : ` 
+				     <div id="welcome_pane"  style="margin:10px; padding: 10px;"> Bienvenue à l'outil de gestion du contenu de l'Atlas Santé <br>
+				             <div id="environment-var-box"></div>
+				     </div>` ,
 				enabled : true,
 				visible : true
 			}, 
@@ -74,10 +77,34 @@ function create_navTabController_ADMIN(){
 					break;
 					 
 				case "debugger":
-						
-						PUB_SUB.publish( "opera.debug.load" , "#debugger"	)
+					PUB_SUB.publish( "opera.debug.load" , "#debugger"	); break;
 
-				break;
+
+
+				case "welcome_pane":
+					
+					Ajaxian.post( "./auth/getenv", 
+					    {
+					    	key: "ABSCFDBYHDGGEGGG8587-855455-SGWX"
+					    },
+						function(data){
+							PUB_SUB.publish( "opera.debug.getenv" , 
+								{ 
+									"node_id" : "#environment-var-box",
+									   "data" : data
+								}	
+							);						
+						},
+
+						function(xhr, ajaxOptions, thrownError){
+							PUB_SUB.publish( "opera.debug.getenv" , 
+								{ 
+									"node_id" : "#environment-var-box",
+									   "data" : xhr
+								}	
+							);	
+						}
+					);	break;				
 			}
 		},
 
