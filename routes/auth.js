@@ -32,7 +32,8 @@ router.post('/getenv', function(req, res, next) {
         PORT : process.env.PORT,
         USER : process.env.USER,
         PGDATABASE : process.env.PGDATABASE,
-        USE_SSL : process.env.USE_SSL
+        USE_SSL : process.env.USE_SSL,
+        CONFIG : process.env.CONFIG_PSEUDO
     }) 
 
 });
