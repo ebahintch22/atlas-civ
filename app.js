@@ -16,7 +16,7 @@ var covidRouter = require('./routes/covid');
 
 //Payroll Models
 var employeeRouter = require('./routes/employees');
-var authRouter = require('./routes/authentication');
+var authRouter = require('./routes/auth');
 
 
 

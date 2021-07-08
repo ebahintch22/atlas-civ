@@ -55,7 +55,7 @@ function show_password_box( Url, callBackSuccess, callBackFailure){
 							});
 
 							function AFTER_SUCCESS_func(data){
-								submitElt.value = "Connecté" ; 
+								submitElt.value = data.success ? "Connecté" : "Demandée rejetée"; 
 								setTimeout( function(){
 									alertify.genericDialog().close(); 
 									callBackSuccess(data)
@@ -63,7 +63,7 @@ function show_password_box( Url, callBackSuccess, callBackFailure){
 							}
 
 							function AFTER_FAILURE_func(xhr){
-								submitElt.value = "Demandé rejetée" ; 
+								submitElt.value = "Demande rejetée" ; 
 								setTimeout( function(){
 									alertify.genericDialog().close(); 
 									callBackFailure(data)

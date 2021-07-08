@@ -16,9 +16,11 @@ router.post('/atlas-admin', function(req, res, next) {
 
   console.log( "Checking password value = " + data.info )
 
-  if (data.info == "Awa@88"){
+  if (data.info == process.env.ADMIN_CODE){
+     // console.log( "Success : " + data.info + " == " + process.env.ADMIN_CODE )
   		res.send({ success: true }) 
   } else {
+     // console.log( "Fail : " + data.info + " <> " + process.env.ADMIN_CODE )
   		res.send({ success: false })  	
   }
 });
