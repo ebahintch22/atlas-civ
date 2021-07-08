@@ -21,7 +21,8 @@ function show_modal_box ( title , path , htmlCode, callBack){
 	 	.setting({
 	 		'startMaximized':false, 
 	 		'modal': true,
-	 		'resizable' : true,
+	 		'resizable' : true, 
+	 		'maximizable' : true,
 	 		'padding': false,
 	 		'transition': 'zoom',
 	 		'onshow' : function(){ setTimeout( callBack , 2000)}

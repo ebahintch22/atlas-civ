@@ -33,10 +33,10 @@ function show_password_box( Url, callBackSuccess, callBackFailure){
 	                    select:true
 	                },
 	                options:{
-	                    basic:true,
-	                    maximizable:false,
-	                    resizable:false,
-	                    padding:false,
+	                    basic: true,
+	                    maximizable: false,
+	                    resizable: false,
+	                    padding: false,
 	                    onshow : function(){
 		                    let form  = document.getElementById('loginForm');
 		                    let submitElt = form.elements['submit'] ;
