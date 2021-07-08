@@ -1,6 +1,5 @@
 	
 
-
 	function build_COVID_chart_component_3_0(  data, includeZoomPlugin = false ){
 
 		var mvData = data.map(function(d){return d}) 

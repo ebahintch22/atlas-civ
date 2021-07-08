@@ -393,6 +393,7 @@ function after_selectLayer_Changed( inLayerKeY ){
 		
 		
 		update_dataTableView(currentMetaTable , currentMetaGeo, true);
+		
 		preload_geoDataSet(features);
 
 		after_selectKey_Changed(currentKey , currentMetaGeo );

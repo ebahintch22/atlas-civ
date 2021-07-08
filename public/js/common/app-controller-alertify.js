@@ -116,5 +116,7 @@ function show_password_box( Url, callBackSuccess, callBackFailure){
 		};
 	});
 	//force focusing password box
-	alertify.genericDialog ( form_elt ).set('selector', 'input[type="password"]');
+	alertify.genericDialog ( form_elt )
+		.set('selector', 'input[type="password"]')
+		.set("maximizable" , true);
 }

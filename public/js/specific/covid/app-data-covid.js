@@ -64,40 +64,7 @@ function EXE_IF_COVID_DATA_LOAD( the_spinner , exe_func_def ){
 		);			
 	}		
 }
-/*
-function load_COVID_DATA_IF_NEEDED( the_spinner){
-	
-	var load_function_abstraction = ( COVIDATA_ACCESS_MODE == "file")? fileLoad_JSON : fileLoad_PGSQL
-	var COVID_PATH_Or_URL = ( COVIDATA_ACCESS_MODE == "file")? PATH_PREFIX + "data/covid-data.json" : "covid/get_records"
 
-
-	COVID_SPINNER_ARR.push( the_spinner )
-
-	if ( COVIDATA_STATUS != "UNLOAD") return (COVIDATA_STATUS)
-	if ( COVIDATA == null) {
-		COVIDATA_STATUS = "LOADING"
-		load_function_abstraction( 
-			"Données épidémiologique sur le COVID-19", 
-			COVID_PATH_Or_URL , 
-			function( data) {
-
-				COVIDATA = data;
-				update_covid_badges();
-				display_atlas_infos_slide();
-				build_COVID_chart_component(  data );
-				COVIDATA_STATUS = "LOAD-ENDED";
-
-				COVID_SPINNER_ARR.forEach( function (spin){
-					spin.remove()
-				}) ;
-				Spinners.removeDetached();
-		    }, 
-		    function(error){
-				alert("erreur " + error)
-			}
-		);			
-	}		
-}*/
 function extract_late_datarow(index=0){
 	var n = COVIDATA.length
 	return COVIDATA[n-1-index];

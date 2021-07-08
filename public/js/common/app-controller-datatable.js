@@ -80,7 +80,7 @@ function ui_render_dataTable( containerID,  Cfg , data = [] , callBack, callBack
 	            data: [],
 	            "select": true,
 	            "deferRender": true,
-	            "scrollY":  Config.Height_in?  Config.Height_in : '25vh',
+	            "scrollY":  Config.Height_in?  Config.Height_in : '45vh',
 	            "scrollX": true,
 	            "scrollCollapse": true,
 	            "scroller" : false,

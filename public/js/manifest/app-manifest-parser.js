@@ -40,6 +40,7 @@ function get_renderer ( count, value_range, color_range, labelmap = []){
 
 function generate_colArray( metadata , metageo){
    //Build the for the current stats table the definition column to provide to dataTable
+   //console.log("generate_colArray Of app-manifest-parser")
    var data_fields = metadata.data_fields;
    var object_name = metadata.object_name
    var  column_arr  = [
