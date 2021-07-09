@@ -44,7 +44,7 @@ function create_navTabController_ADMIN(){
 				id: "admin-tab-04", 
 				name: "debugger" , 
 				label : "Debug tracing", 
-				html_content : `<div id="debugger"  style="margin:10px; padding: 10px;"> Chargement du traceur de commande... </div>` ,
+				html_content : add_scrolling_wrapper( `<div id="debugger"  style="margin:10px; padding: 10px;"> Chargement du traceur de commande... </div>`) ,
 				enabled : true,
 				visible : IS_ADMIN_SESSION
 			}

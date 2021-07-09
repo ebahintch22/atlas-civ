@@ -24,7 +24,8 @@ router.get('/', function(req, res, next) {
 
 	switch(ACCESS_URL.base){
 
-		case "/sante" : 
+		case "/sante" :
+		case "" : 
 		 	res.sendFile( 'index-admin-mode.html', {
 				root: path.join(__dirname, '../starter/sante')
 			}); 

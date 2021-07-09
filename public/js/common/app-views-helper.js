@@ -77,7 +77,9 @@ function include_badge_container(data_arr){
 	}
 }
 
-
+function add_scrolling_wrapper( inner_html ){
+	return (` <div style="position:relative ; width:100%; height: calc(100vh - 200px); overflow-y: auto ; margin: 4px;"> ${ inner_html } <div> `	)
+}
 
 
 function init_helper_functions(){

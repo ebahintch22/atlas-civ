@@ -22,13 +22,14 @@
             },
 
             explain : function(){
-                return 'I am a simple on line console for development mode'
+                return 'I am a simple on line console for development mode';
             },
             renderLogs : function(node_id){
                 _render_logs( _LOG_CACHE_ARRAY , node_id )
 
             },
             startLogging : function (){
+
                 _logToken = PUB_SUB.subscribe( "opera.logs" , 
                     function(mssgArray){
                         _LOG_CACHE_ARRAY.push(mssgArray);
@@ -54,12 +55,14 @@
 
             },
             control_access : function(){
+
                     _accessToken = PUB_SUB.subscribe( "opera.admin.access" , 
                     function(mssgArray){
                         xxx_yyy_zzz()
                     }
                 )               
             },
+
             stopLogging : function (){
 
                 _logToken.unsubscribe();
@@ -94,6 +97,7 @@
             $("#opera-sys-message").append(tmpl);
         }
 
+
         function _create_dateFormatter() {
             //Used for date display
             var opts = {};
@@ -119,6 +123,7 @@
                 return (function(n){return n});   
             }
         }
+
 
         function dateFormat(n) {
             //Used for date display
@@ -234,7 +239,7 @@ function xxx_yyy_zzz(){
     show_modal_box ( 
         "Panneau d'administration", 
         null,
-        `<div id="ADMIN-TAB-WRAPPER2" style="width='100%'"> <br> Veuillez patienter... </div>`,
+        `<div id="ADMIN-TAB-WRAPPER2" style = "" style="width='100%'"> <br> Veuillez patienter... </div>`,
         function after_show(){
             create_navTabController_ADMIN();
         }
@@ -252,31 +257,31 @@ function _render_logs(DATA_LOGS_ARR , node_id){
     var HTML_code = DATA_LOGS_ARR.reduce( render_paragraph, "")
     $(node_id).html(HTML_code)
 
-
     /********************************************************/
     function render_paragraph (accu, log_arr, index){
 
         const new_paraph = log_arr.reduce( render_line , "");
         return ( accu + `
             <div class="list-group">
-              <li href="#" class="list-group-item">
-                <h5 class="list-group-item-heading"> Message # ${index}</h5>
-                ${ new_paraph }
-              </li>
+                <li href="#" class="list-group-item">
+                    <h5 class="list-group-item-heading"> Message # ${ index } </h5>
+                    ${ new_paraph }
+                </li>
             </div>`
          );
 
         function render_line( accu, mssg ){
             return ( accu + `
-            <p class="list-group-item-text"> 
-                <span style="font-size: 12px;'"> <b> ${ mssg.type } :</b></span>
-                <span style="font-size: 10px;'" >  ${ mssg.message } </span>  
-            </p>`);
+                <p class="list-group-item-text"> 
+                    <span style="font-size: 12px;'"> <b> ${ mssg.type } : </b> </span>
+                    <span style="font-size: 10px;'"> ${mssg.message} </span>  
+                </p>`
+            );
         }
     }
 }
 
 
 function _render_environment_var(data){
-    $(data.node_id).html( JSON.stringify(data.data) )
+    $(data.node_id).html( JSON.stringify(data.data) );
 }
