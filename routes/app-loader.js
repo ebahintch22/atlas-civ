@@ -65,17 +65,6 @@ router.get('/', function(req, res, next) {
 
 
 
-/*
-
-router.get('/unit-test', function(req, res, next) {
-
-  var options = {
-  	root: path.join(__dirname, '../starter/test')
-  }
-  res.sendFile( 'index.html', options);
-
-});*/
-
 
 router.get('/get_env', function(req, res, next) {
   	res.send( get_env_params() );
