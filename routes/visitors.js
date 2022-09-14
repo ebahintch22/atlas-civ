@@ -23,6 +23,30 @@ router.use( function(req, res, next) {
 
 	next()
 })
+/*select version test database access*/
+
+router.get('/app-infos',  function(req, res, next) {
+	//Confirm that local storage is implemented but no key found 
+	// So we confirm the temp key produce during boot request
+	//var usrBadge = req.body;
+
+	db.query( ` 
+		SELECT 
+		    id, 
+		    app_version , 
+		    app_name, 
+		    app_author, 
+		    app_year 
+		FROM atlas_sys_infos `, 
+	    [ ], 
+	
+		function(err, dbResult){
+			if (err) { 
+				return next(err)
+			}
+	    res.send( dbResult.rows[0] )  	
+	})
+})
 
 
 /* Get existing visitor  */

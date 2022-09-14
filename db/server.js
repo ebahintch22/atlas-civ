@@ -18,7 +18,7 @@ module.exports = {
     },
     get_uuid : function( callBack){
 
-	  db.query("SELECT uuid_generate_v1() as uuid_key" , [], function(err, dbResult){
+	  db.query( "SELECT uuid_generate_v1() as uuid_key" , [], function(err, dbResult){
 	  	if (err) { 
 	  		callBack(err, null)
 	  	} 
