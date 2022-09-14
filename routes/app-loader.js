@@ -5,14 +5,13 @@ var ACCESS_URL = {};
 //var UI_THEME = require('@rjsf/material-ui')
 
 router.use( function(req, res, next) {
-	console.log( "Base URL is " + req.baseUrl)
-	console.log( "Original URL is " + req.originalUrl)
+	console.log( "Base URL => " + req.baseUrl)
+	console.log(` Original URL =>  ${req.originalUrl} | DatabaseURL => ${ process.env.DATABASE_URL } `)
 
 	ACCESS_URL.base = req.baseUrl;
 	ACCESS_URL.original = req.originalUrl;
 	next();
 })
-
 
 
 

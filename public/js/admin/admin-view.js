@@ -26,7 +26,17 @@ function create_navTabController_ADMIN(){
 				id : "admin-tab-01",
 				name : "connected_users",
 				label : "Utilisateurs connectés",
-				html_content : ` <div id="dttable_usertable_container"  style="margin:10px; padding: 10px;">  </div>` ,
+				html_content : ` <div id="dttable_usertable_container"  style="margin:10px; padding: 10px;">  </div>
+					${include_button_group({
+						group_id : "console_button",
+						button_list : [
+							{ id: "cmd_delete_user", caption : "Déconnecter utilisateur"  ,  callBack : "func_reset_console" },
+							{ id: "cmd_delete_user", caption : "Supprimer utilisateur"    , callBack : "func_reset_local_storage" },
+							{ id: "cmd_stop_logs"  , caption : `${fa_icon("play")} Démarrer superviseur`  , callBack : "func_start_supervision"  , caption_alt: `${fa_icon("stop")} Arrêter Superviseur` }
+						]
+					})}
+				                    
+				` ,
 				enabled : true,
 				visible : true
 			}, 

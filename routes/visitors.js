@@ -4,8 +4,10 @@ var Watchdog = require('../server/watchdog');
 var router = express.Router();
 const db = require('../db');
 const KEY_SERVER = require('../db/server');
-const table_name = "atlas_visitors";
+const table_name = "wncb_visitors";
 var ACCESS_URL = {};
+
+
 const query_string = `
 	select
 		_index,
@@ -329,6 +331,7 @@ router.post('/boot_success',  function(req, res, next) {
 	 				usrBadge.uuid
 	 			],
 		 		 function( err, dbResult ){
+
 		 			console.log("BOOT-END : REQUALIFICATION OF TEMP BADGE IN PERMANENT !!!")	
 		 			usrBadge.appIsReady = true;
 					usrBadge.timers = OPERA.Delays	
@@ -374,16 +377,30 @@ router.post('/boot_success',  function(req, res, next) {
 			    ],
 
 	 		 function( err,dbResult ){
-	 		 	KEY_SERVER.delete_temp_badge ( 
-	 		 		usrBadge._uuid, 
-					function(err, dbRes){
-
-						console.log("BOOT-END : SUCCESSFUL DELETE OF TEMP BADGE # " + usrBadge._uuid)	
-						usrBadge.appIsReady = true;
-						usrBadge.timers = OPERA.Delays	
-					    res.send( usrBadge ) ;						
-				    }
-			    );
+	 		 	if (!err){
+	 		 		console.log("BOOT-END 1 : BADGE UPDATE FOR AN OLD USER# " + usrBadge._uuid)	
+		 		 	KEY_SERVER.delete_temp_badge ( 
+		 		 		usrBadge._uuid, 
+						function(err, dbRes){
+							if (!err){
+								console.log("BOOT-END 2 : SUCCESSFUL DELETION OF THE TEMP BADGE # " + usrBadge._uuid)	
+								usrBadge.appIsReady = true;
+								usrBadge.timers = OPERA.Delays	
+							    res.send( usrBadge ) ;	
+							} else {
+								console.log("BOOT-END 3 : FAIL TO DELETE TEMP BADGE # " + usrBadge._uuid)	
+								usrBadge.appIsReady = true;
+								usrBadge.timers = OPERA.Delays	
+							    res.send( usrBadge ) ;									
+							}
+					    }
+				    );
+		 		} else {
+		 			console.log("BOOT-END 4 : FAIL TO UPDATE BADGE OF A USER PREVIOULY CONNECTED# " + usrBadge._uuid)	
+					usrBadge.appIsReady = false;
+					usrBadge.timers = OPERA.Delays	
+				   res.send( usrBadge ) ;			 			
+		 		}	
 	 		})
 
 	 	}

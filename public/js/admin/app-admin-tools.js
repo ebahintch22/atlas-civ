@@ -37,7 +37,7 @@
                 );
                 _connUserToken = PUB_SUB.subscribe( "opera.users.connected" , 
                     function(data){
-                        __dtable_loadData(data);
+                        _dtable_loadUSERList(data);
                     }
                 );
 
@@ -58,7 +58,7 @@
 
                     _accessToken = PUB_SUB.subscribe( "opera.admin.access" , 
                     function(mssgArray){
-                        xxx_yyy_zzz()
+                        adminConsole_OpenView()
                     }
                 )               
             },
@@ -73,7 +73,7 @@
             connectedUsers : {
                 openList : function(data){
                     //connectedUsers.openList
-                    __dtable_loadData(data);
+                    _dtable_loadUSERList(data);
                 }
             },
 
@@ -154,8 +154,12 @@
                  .replace(/\..+/, '') )
         }
 
+        function renderUserLoggingPage(){
 
-        function __dtable_loadData( data ){
+            
+        }
+
+        function _dtable_loadUSERList( data ){
 
     
             _userscolArray = _userscolArray || generate_colArray()  
@@ -168,8 +172,8 @@
                     height : "50vh"
                 }, 
                 data,
-                function(){ /*After ROW*/},
-                function(){ /*After ROW UNSELECT*/},
+                after_row_selected,
+                after_row_unselected,
                 true
             )
 
@@ -181,8 +185,10 @@
            //--------------------------------------------------------------
             function after_row_selected(row){
                 //var feature_code = row["CODE"];
-                //MAP_zoom_on_feature(  feature_code, 0  )
+                //MAP_zoom_on_feature( feature_code, 0  )
+                _button_setActive( "#user-audit-delete-line" )
             };
+
 
             function after_row_unselected(row){
                 //var feature_code = row["CODE"];
@@ -235,7 +241,7 @@ opera_console.startLogging();
 opera_console.control_access();
 
 
-function xxx_yyy_zzz(){
+function adminConsole_OpenView(){
     show_modal_box ( 
         "Panneau d'administration", 
         null,

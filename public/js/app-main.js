@@ -96,7 +96,6 @@ function app_start_up(){
 			navtabController_RASS.show_tab( "tab-aa");
 		}
 		Activate_thematic_section( _info.key , false)
-		
 	})
 
 	theme_controller_drawer = ui_render_drawer_listgroup("#opera-theme-selector-drawer", {

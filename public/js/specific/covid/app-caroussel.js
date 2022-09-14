@@ -7,22 +7,21 @@ function load_covid_caroussel(elt_id){
 	//console.log(slides)
 
 
-
 	var covid_slideController = new ui_render_caroussel( elt_id , 
-			{
-				id : "slide-covid-figures",
-				default : "slide-0",
-				addCursor : true,
-				addLink : false,
-		   		slides : [
-		   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
-		   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
-		   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
-		   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"},
-		   			{ id: "slide-3", name: "Prélèvements" ,  label : "Comentaire"    ,  Html_content : slides.badge_05  , visible: true , color: "white"}
-		   		]			   
-			},
-			function(){}
+		{
+			id : "slide-covid-figures",
+			default : "slide-0",
+			addCursor : true,
+			addLink : false,
+	   		slides : [
+	   			{ id: "slide-0", name: "Cas confirmés" , label : "Graphiques"    ,  Html_content : slides.badge_01  , visible: true , color: "blue"},
+	   			{ id: "slide-1", name: "Cas actifs"    , label : "Vue tabulaire" ,  Html_content : slides.badge_02  , visible: true , color: "orange"},
+	   			{ id: "slide-2", name: "Décès" , 		 label : "Comentaire"    ,  Html_content : slides.badge_03  , visible: true , color: "yellow"},
+	   			{ id: "slide-3", name: "Guéris" , 		 label : "Comentaire"    ,  Html_content : slides.badge_04  , visible: true , color: "green"},
+	   			{ id: "slide-3", name: "Prélèvements" ,  label : "Comentaire"    ,  Html_content : slides.badge_05  , visible: true , color: "white"}
+	   		]			   
+		},
+		function(){}
 	);
 
 	$('#slide-covid-figures').carousel({

@@ -5,16 +5,17 @@ function ui_render_dropdown_inputgroup( _eltID , Cfg , callBack ){
 			 <div class="input-group-prepend">
 			    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" 
 			     data-tool="tooltips" data-placement="top"
-			      aria-haspopup="true" aria-expanded="false" title="${Cfg.tooltipText}" >
-			      <i class="${Cfg.fa_icon}" aria-hidden="true"></i>
-			       ${Cfg.prompt} </button>
+			     aria-haspopup="true" aria-expanded="false" title="${Cfg.tooltipText}" >
+
+			      	<i class="${Cfg.fa_icon}" aria-hidden="true"></i>
+			        ${Cfg.prompt} </button>
 			    <div class="dropdown-menu" style=" max-height: 300px; overflow-y: auto;" >
 				    {{#option_list}}
 				    	{{{section}}}
 					{{/option_list}}
 			    </div>
 			</div>
-		  <input type="text" class="form-control" aria-label="Text input with dropdown button" value="">
+		    <input type="text" class="form-control" aria-label="Text input with dropdown button" value="">
 		 `;
 
 	var sub_template_category = `			    

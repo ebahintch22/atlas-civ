@@ -111,18 +111,17 @@ function init_helper_functions(){
 
 	include_button_group = function( button_arr  ){
 		
-			var TMPLT = `
-				<div id="{{group_id}}" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups"  
-				    style="padding: 5px 20px;">
-				 	<div class="btn-group btn-group-sm mr-2" role="group" aria-label="First group">
-				 	{{#button_list}}
-					    <button  id="{{id}}" type="button" class="btn btn-secondary"  onClick="{{callBack}}(this, '{{id}}')"> {{{caption}}} </button>
-					 {{/button_list}}
-				 	</div>
-				</div>
-			`
-			  return ( Mustache.render(TMPLT , button_arr ))
-		
+		var TMPLT = `
+			<div id="{{group_id}}" class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups"  
+			    style="padding: 5px 20px;">
+			 	<div class="btn-group btn-group-sm mr-2" role="group" aria-label="First group">
+			 	{{#button_list}}
+				    <button  id="{{id}}" type="button" class="btn btn-secondary"  onClick="{{callBack}}(this, '{{id}}')"> {{{caption}}} </button>
+				 {{/button_list}}
+			 	</div>
+			</div>
+		`;
+		return ( Mustache.render(TMPLT , button_arr ) );
 	};
 
 

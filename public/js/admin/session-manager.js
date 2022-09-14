@@ -2,9 +2,7 @@
 var winResizeTimerID = 0;
 var ACCEPT_MOBILE = false;
 var behave_as_mobile_device_on_start_up = false;
-
 var before_app_initialization = true;
-
 var user_session_manager ;
 
 

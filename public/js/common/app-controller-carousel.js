@@ -15,6 +15,7 @@ function ui_render_caroussel ( _eltID , Cfg , callBack , delay = 1){
 	*/
 
 	var transition = (Cfg.transition == "fade")? "carousel-fade" : "";
+    
     var template_carousel = `
 		<div id="${Cfg.id}" class="carousel slide ${transition}" data-ride="carousel" >
 
@@ -27,7 +28,6 @@ function ui_render_caroussel ( _eltID , Cfg , callBack , delay = 1){
 					{{/slides_arr}}
 				</ol>` 
 			}
-
 
 			<div class="carousel-inner">
 				{{#slides_arr}}
@@ -70,15 +70,11 @@ function ui_render_caroussel ( _eltID , Cfg , callBack , delay = 1){
 	    }, 
 		delay
 	)
-
-
     return {
-
+    	componentHtml : componentHtml,
     	api_func : function(theme){},
     	show_slide : function(tab_id){
-    		
     		$(`#${tab_id}-tab`).tab('show');
     	}
     }
-
 }
