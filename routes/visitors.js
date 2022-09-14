@@ -37,7 +37,7 @@ router.get('/app-infos',  function(req, res, next) {
 		    app_name, 
 		    app_author, 
 		    app_year 
-		FROM atlas_sys_infos `, 
+		FROM public.atlas_sys_infos `, 
 	    [ ], 
 	
 		function(err, dbResult){
