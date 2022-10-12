@@ -1,0 +1,38 @@
+Table significative :
+
+    my_visitors
+    covid_records
+    
+Legacy Atlas database
+host : ec2-44-206-183-247.compute-1.amazonaws.com
+port: 5432
+database: d7il3tjrobcimc
+username: dzgquppnwobosq
+
+New Atlas Database :
+
+Host : ec2-54-228-125-183.eu-west-1.compute.amazonaws.com
+Database : d87kvtji5e7m2r
+User : vhscgsdlvpqnqo
+Port : 5432
+Password : 258163c89e73ef0b55d868184d2e9c41cf1a21bca79c9fe2b2e1240795b99da4
+
+
+URI : postgres://vhscgsdlvpqnqo:258163c89e73ef0b55d868184d2e9c41cf1a21bca79c9fe2b2e1240795b99da4@ec2-54-228-125-183.eu-west-1.compute.amazonaws.com:5432/d87kvtji5e7m2r
+
+
+PORT=5432
+DB_PASS=258163c89e73ef0b55d868184d2e9c41cf1a21bca79c9fe2b2e1240795b99da4
+USER=vhscgsdlvpqnqo
+PGHOST='ec2-54-228-125-183.eu-west-1.compute.amazonaws.com'
+PGPASSWORD=258163c89e73ef0b55d868184d2e9c41cf1a21bca79c9fe2b2e1240795b99da4
+PGPORT=5432
+PGUSER=vhscgsdlvpqnqo
+PGDATABASE=d87kvtji5e7m2r
+USE_SSL=1
+ADMIN_CODE=Awa@88
+CONFIG_PSEUDO=remote-db-free
+
+
+
+

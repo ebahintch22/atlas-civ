@@ -1,11 +1,11 @@
 --
--- vhscgsdlvpqnqoQL database dump
+-- PostgreSQL database dump
 --
 
 -- Dumped from database version 13.2
 -- Dumped by pg_dump version 13.2
 
--- Started on 2022-09-14 18:23:48
+-- Started on 2022-09-14 18:54:21
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -24,7 +24,7 @@ SET default_table_access_method = heap;
 
 --
 -- TOC entry 210 (class 1259 OID 20409)
--- Name: covid_records; Type: TABLE; Schema: public; Owner: vhscgsdlvpqnqo
+-- Name: covid_records; Type: TABLE; Schema: public; Owner: postgres
 --
 
 CREATE TABLE public.covid_records (
@@ -47,12 +47,12 @@ CREATE TABLE public.covid_records (
 );
 
 
-ALTER TABLE public.covid_records OWNER TO vhscgsdlvpqnqo;
+ALTER TABLE public.covid_records OWNER TO postgres;
 
 --
 -- TOC entry 3891 (class 0 OID 20409)
 -- Dependencies: 210
--- Data for Name: covid_records; Type: TABLE DATA; Schema: public; Owner: vhscgsdlvpqnqo
+-- Data for Name: covid_records; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY public.covid_records (id, ref_date, new_case, new_healed, new_deceased, nb_sample, sum_case, sum_healed, sum_deceased, sum_sample, active_case, incidence_rate, remission_rate, letality_rate, created_at, updated_at) FROM stdin;
@@ -453,16 +453,16 @@ COPY public.covid_records (id, ref_date, new_case, new_healed, new_deceased, nb_
 
 --
 -- TOC entry 3755 (class 2606 OID 20469)
--- Name: covid_records covid_record_pkey; Type: CONSTRAINT; Schema: public; Owner: vhscgsdlvpqnqo
+-- Name: covid_records covid_record_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.covid_records
     ADD CONSTRAINT covid_record_pkey PRIMARY KEY (id);
 
 
--- Completed on 2022-09-14 18:23:49
+-- Completed on 2022-09-14 18:54:21
 
 --
--- vhscgsdlvpqnqoQL database dump complete
+-- PostgreSQL database dump complete
 --
 
