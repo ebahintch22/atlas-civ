@@ -20,7 +20,9 @@ function create_FABMenu_controller(elt_id , options){
 	function render_fab_menuitems( item_arr){
 		return( item_arr.reduce(
 			function( accu, menu ){
-				accu = accu + render_item(menu);
+				if ( menu.visible ){
+					accu = accu + render_item(menu);
+				} 
 				return (accu)
 			}, "")
 		)

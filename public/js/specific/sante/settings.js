@@ -69,43 +69,50 @@ APP_REGISTRY.modules = {
 				"fa_icon"    : "fa-pencil",
 				"radius"     : "40px",
 				"menu_label" : "Editer les données..",
-				"url_params" : "edit_data"
+				"url_params" : "edit_data",
+				"visible"		 : true
 			},			
 			{
 				"fa_icon"    : "fa-database",
 				"radius"     : "40px",
 				"menu_label" : "Sélectionner un thème..",
-				"url_params" : "select_theme"
+				"url_params" : "select_theme",
+				"visible"		 : false
 			},
 			{
 				"fa_icon"    : "fa fa-print",
 				"radius"     : "40px",
 				"menu_label" : "Imprimer..",
-				"url_params" : "print_report"
+				"url_params" : "print_report",
+				"visible"		 : false
 			},
 			{
 				"fa_icon"    : "fa-bars",
 				"radius"     : "40px",
 				"menu_label" : "Afficher le panneau latéral..",
-				"url_params" : "show_drawer_panel"
+				"url_params" : "show_drawer_panel",
+				"visible"		 : true
 			},
 			{
 				"fa_icon"    : "fa-arrows-alt",
 				"radius"     : "40px",
 				"menu_label" : "Mode plein écran..",
-				"url_params" : "show_full_screen"
+				"url_params" : "show_full_screen",
+				"visible"		 : false
 			},			
 			{
 				"fa_icon"    : "fa-info-circle",
 				"radius"     : "40px",
 				"menu_label" : "A propos d'Atlas Côte d'Ivoire..",
-				"url_params" : "about_app"
+				"url_params" : "about_app",
+				"visible"		 : true
 			},
 			{
 				"fa_icon"    : "fa-cog",
 				"radius"     : "40px",
 				"menu_label" : "Panneau d'administration",
-				"url_params" : "load_config_panel"
+				"url_params" : "load_config_panel",
+				"visible"		 : true
 			}
 		]
 	},

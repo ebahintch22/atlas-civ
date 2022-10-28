@@ -4,7 +4,7 @@ var sante_datasets =  [
 			index : 1,
 			name : "covid-19-june16", 
 			group: "SPECIAL",
-			valid: true,
+			valid: false,
 			table_num : "Tableau-98",			
 			layerList : [  "district_sante", "region_sante" ],
 			label: "01- Incidence nationale de la COVID-19 (Carto actualisée au 16/06/2020)",

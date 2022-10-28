@@ -32,7 +32,8 @@ function app_start_up(){
 	create_navTabController_ADMIN();
 	load_standard_caroussel("#card-2")
 
-	create_FABMenu_controller( "#fab-menu-container", APP_REGISTRY.modules.ui_FabMenu)
+	create_FABMenu_controller( "#fab-menu-container", APP_REGISTRY.modules.ui_FabMenu);
+	
 	drawerMenuController = create_drawerMenu_controller( "#drawer-menu-container", APP_REGISTRY.modules.ui_drawerMenu)
 
 		PUB_SUB.publish("opera.logs", 
